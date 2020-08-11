@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Notifications\SignupActivate;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Mail\SignupActivate;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -19,27 +21,44 @@ class AuthController extends Controller
         $user->active = true;
         $user->activation_token = '';
         $user->save();
-        return $user;
+        return response()->json(['message' => 'Activación correcta.']);
     }
 
     public function signup(Request $request)
     {
+        $credentials = request(['email', 'password']);
+
+        if (Auth::attempt($credentials)) {
+            return response()->json(['message' => "Ya existe un usuario con el correo: {$request->email}."], 401);
+        }
+
         $request->validate([
             'name'     => 'required|string',
             'email'    => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
         ]);
+
+        $activation_token   = Str::random(80);;
         $user = new User([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => bcrypt($request->password),
+            'name'              => $request->name,
+            'email'             => $request->email,
+            'type_id'           => 1,
+            'activation_token'  => $activation_token,
+            'password'          => bcrypt($request->password),
         ]);
+
+        $message    = [
+            'name'                  => $request->name,
+            'url'                   => url('/api/v1/auth/signup/activate/'.$activation_token)
+        ];
+        Mail::to($request->email)->queue(new SignupActivate($message));
+
         $user->save();
-        
-        $user->notify(new SignupActivate($user));
+
         return response()->json([
-            'message' => 'Successfully created user!'], 201);
+            'message' => 'Usuario creado con exito!. Debe ingresar a su correo y confirmar la cuenta.'], 201);
     }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -52,19 +71,23 @@ class AuthController extends Controller
         $credentials['deleted_at'] = null;
 
         if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'No Autorizado'], 401);
+            return response()->json(['message' => 'No puede acceder al sistema, verifique que su cuenta esté activa.'], 401);
         }
         $user           = $request->user();
-        $tokenResult    = $user->createToken('Token Acceso Personal');
+        $tokenResult    = $user->createToken($user->email);
         $token          = $tokenResult->token;
         if ($request->remember_me) {
             $token->expires_at = Carbon::now()->addWeeks(1);
         }
         $token->save();
         return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type'   => 'Bearer',
-            'expires_at'   => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
+            'message'       => 'Hola Bienvenid@...',
+            'success'       => true,
+            'mail'          => $user->email,
+            'user'          => $user->name,
+            'access_token'  => $tokenResult->accessToken,
+            'token_type'    => 'Bearer',
+            'expires_at'    => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
         ]);
     }
 
