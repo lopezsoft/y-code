@@ -43,7 +43,7 @@ class SignupActivate extends Notification
         $url = url('/api/auth/signup/activate/'.$notifiable->activation_token);
         return (new MailMessage)
                 ->subject('Confirma tu cuenta')
-                ->line('Gracias por suscribirte! Antes de continuar, debes configurar tu cuenta.')
+                ->line('Gracias por suscribirte! Antes de continuar, debes confirmar tu cuenta.')
                 ->action('Confirmar tu cuenta', url($url))
                 ->line('Muchas gracias por utilizar nuestra aplicación!');
     }

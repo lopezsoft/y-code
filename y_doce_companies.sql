@@ -13,6 +13,7 @@
 
 
 -- Volcando estructura de base de datos para y_doce_companies
+DROP DATABASE IF EXISTS `y_doce_companies`;
 CREATE DATABASE IF NOT EXISTS `y_doce_companies` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `y_doce_companies`;
 
@@ -26,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `business_users` (
   KEY `company_id` (`company_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `FK_aux_users_companies_companies` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `FK_aux_users_companies_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `FK_aux_users_companies_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla auxiliar para relacionar usuarios con empresas';
 
 -- Volcando datos para la tabla y_doce_companies.business_users: ~0 rows (aproximadamente)
@@ -77,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `abbreviation_A2` (`abbreviation_A2`) USING BTREE,
   UNIQUE KEY `phone_code` (`phone_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=1255 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Volcando datos para la tabla y_doce_companies.countries: ~250 rows (aproximadamente)
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
@@ -433,10 +434,12 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `oauth_clients_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla y_doce_companies.oauth_clients: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla y_doce_companies.oauth_clients: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
+INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
+	(1, NULL, 'Y-code', 'ZZOszTR3TZuew1qpF4ouDy16F9bB3NhC0dEJzhz9', NULL, 'http://localhost', 1, 0, 0, '2020-08-11 18:27:32', '2020-08-11 18:27:32');
 /*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
 
 -- Volcando estructura para tabla y_doce_companies.oauth_personal_access_clients
@@ -446,10 +449,12 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla y_doce_companies.oauth_personal_access_clients: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla y_doce_companies.oauth_personal_access_clients: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
+INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
+	(1, 1, '2020-08-11 18:27:32', '2020-08-11 18:27:32');
 /*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
 
 -- Volcando estructura para tabla y_doce_companies.oauth_refresh_tokens
@@ -479,7 +484,7 @@ CREATE TABLE IF NOT EXISTS `tb_audit` (
   KEY `ip` (`ip`) USING BTREE,
   KEY `user_id` (`user_id`) USING BTREE,
   CONSTRAINT `FK_tb_audit_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- Volcando datos para la tabla y_doce_companies.tb_audit: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_audit` DISABLE KEYS */;
@@ -494,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
-  `activation_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `activation_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -516,7 +521,7 @@ CREATE TABLE IF NOT EXISTS `user_types` (
   `is_administrator` tinyint(1) NOT NULL DEFAULT 0,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Tipos de usuarios del sistema';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Tipos de usuarios del sistema';
 
 -- Volcando datos para la tabla y_doce_companies.user_types: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `user_types` DISABLE KEYS */;
