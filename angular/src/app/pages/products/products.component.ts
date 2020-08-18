@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-miscellaneous',
+  selector: 'app-products',
   template: `
     <router-outlet></router-outlet>
   `,
 })
-export class MiscellaneousComponent {
+export class ProductsComponent {
+
 }
