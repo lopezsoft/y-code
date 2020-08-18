@@ -21,16 +21,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'layout-outline',
     children: [
       {
-        title: 'Productos',
-        link: '/pages/layout/stepper',
-      },
-      {
-        title: 'Marcas',
-        link: '/pages/layout/list',
+        title: 'Items',
+        link: '/pages/products/items',
       },
       {
         title: 'Categorias',
-        link: '/pages/layout/list',
+        link: '/pages/products/categories',
+      },
+      {
+        title: 'Marcas',
+        link: '/pages/products/brands',
+      },
+      {
+        title: 'Atributos',
+        link: '/pages/products/attributes',
       },
     ],
   },

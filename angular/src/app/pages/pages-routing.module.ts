@@ -10,17 +10,17 @@ const routes: Routes = [{
   children: [
     // {
     //   path: 'dashboard',
-    //   component: ECommerceComponent,
+    //   // component: ECommerceComponent,
     // },
     // {
     //   path: 'iot-dashboard',
-    //   component: '',
+    //   // component: '',
     // },
-    // {
-    //   path: 'forms',
-    //   loadChildren: () => import('./forms/forms.module')
-    //     .then(m => m.FormsModule),
-    // },
+    {
+      path: 'products',
+      loadChildren: () => import('./products/products.module')
+        .then(m => m.ProductsModule),
+    },
     {
       path      : '',
       redirectTo: 'dashboard',

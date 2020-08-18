@@ -38,7 +38,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
