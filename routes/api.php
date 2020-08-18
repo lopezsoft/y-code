@@ -29,4 +29,15 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('user', 'AuthController@user');
         });
     });
+
+    Route::group(['middleware' => 'auth:api'], function() {
+        // Company
+        Route::group(['prefix' => 'company'], function () {
+            Route::post('create',           'CompanyController@createCompany');
+            Route::get('read',              'CompanyController@getCompany');
+            Route::put('update/{id}',       'CompanyController@updateCompany');
+            Route::delete('delete/{id}',    'CompanyController@deleteCompany');
+        });
+    });
+
 });

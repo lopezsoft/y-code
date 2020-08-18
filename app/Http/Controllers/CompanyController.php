@@ -3,58 +3,79 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\core\MasterModel;
 use DB;
 use Exception;
-use App\company;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
-    public function insertCustomer(Request $request)
+    public function createCompany(Request $request)
     {
         DB::beginTransaction();
         try {
-            $records    = json_decode($request->input('records'));
+            $records    = $request;
             $NotAssig   = "Sin asignar";
-            $customer   = DB::table('companies')->where('dni',$records->dni)->first();
-            $dv         = $this->digitVerificacion($records->dni);
-
+            
+            $user       = auth()->user();
+            $ip         = $request->ip();
             $model      = new MasterModel();
             $company    = $model->getCompany();
-            if($records->dni != $company->dni){
-                $user       = auth()->user();
-                $ip     = $request->ip();
+            if(!$company){
+                //TODO: Esta linea se habilitrá en producción. $database_name  = 'ycode_'.Str::random(5).'_'.$records->country_id ?? 113; 
 
-                if(!$customer){
-                    $data       = [
-                        'country_id'            => $records->country_id ?? 45,
-                        'city_id'               => $records->city_id    ?? 836,
-                        'identity_document_id'  => $records->identity_document_id ?? 3,
-                        'type_organization_id'  => $records->type_organization_id ?? 1,
-                        'tax_regime_id'         => $records->tax_regime_id ?? 1,
-                        'tax_level_id'          => $records->tax_level_id ?? 1,
-                        'company_name'          => $records->company_name ?? $NotAssig,
-                        'dni'                   => $records->dni,
-                        'dv'                    => $dv,
-                        'address'               => $records->address ?? $NotAssig,
-                        'location'              => $records->location ?? $NotAssig,
-                        'postal_code'           => $records->postal_code ?? '',
-                        'mobile'                => $records->mobile ?? '',
-                        'phone'                 => $records->phone  ?? '',
-                        'email'                 => $records->email,
-                        'web'                   => $records->web ?? 'https://../'
-                    ];
-                    $customer   = Company::create($data);
-                    $customer->save();
-                    $model->audit($user->id,$ip,'companies','INSERT',$data);
-                };
+                $database_name  = 'y_code'; 
 
-                DB::insert('insert ignore into auxiliary_companies (customer_id, company_id) values (?, ?)', [$customer->id, $company->id]);
-                $data   = [$customer->id, $company->id];
-                $model->audit($user->id,$ip,'auxiliary_companies','INSERT',$data);
+                $data       = [
+                    'country_id'            => $records->country_id ?? 113,
+                    'database_name'         => $database_name,
+                    'folder_name'           => '',
+                    'dni'                   => $records->dni ?? null,
+                    'company_name'          => $records->company_name ?? $NotAssig
+                ];
+
+                $company_id = DB::table('companies')->insertGetId($data);
+
+                DB::insert('insert into business_users (user_id, company_id) values (?, ?)', [$user->id, $company_id]);
+                $data   = [$user->id, $company_id];
+                $model->audit($user->id,$ip,'business_users','INSERT',$data);
+
+                $data       = [
+                    'country_id'            => $records->country_id ?? 113,
+                    'currency_id'           => $records->currency_id    ?? 1,
+                    'identity_document_id'  => $records->identity_document_id ?? 3,
+                    'type_organization_id'  => $records->type_organization_id ?? 1,
+                    'company_name'          => $records->company_name ?? $NotAssig,
+                    'dni'                   => $records->dni,
+                    'dv'                    => $records->dv ?? 0,
+                    'address'               => $records->address ?? $NotAssig,
+                    'location'              => $records->location ?? $NotAssig,
+                    'postal_code'           => $records->postal_code ?? '',
+                    'mobile'                => $records->mobile ?? '',
+                    'phone'                 => $records->phone  ?? '',
+                    'email'                 => $records->email ?? '',
+                    'web'                   => $records->web ?? ''
+                ];
+
+                $company    = $model->getCompany();
+                $table      = $company->database_name.".company";
+
+                DB::table($table)->insertGetId($data);
+                $model->audit($user->id, $ip, $table , 'UPDATE', $data);
+
+                $data       = [
+                    'folder_name'           => $company->id
+                ];
+
+                DB::table('companies')->where('id', $company->id)->update($data);
+
+                $model->audit($user->id, $ip, 'companies', 'UPDATE', $data);
+
+                Storage::disk('company')->makeDirectory($company->id);
             }
             DB::commit();
-            return $model->getReponseJson('Cliente creado con exito');
+            return $model->getReponseMessage('Empresa creado con exito');
         } catch (Exception $e) {
             DB::rollBack();
 
@@ -66,108 +87,19 @@ class CompanyController extends Controller
         }
     }
 
-    public function getCustomers(Request $request)
-    {
-        $start  = $request->input('start');
-        $limit  = $request->input('limit');
-        $query  = $request->input('query');
-
-        $model  = new MasterModel();
-        $company_id = $model->getCompanyId();
-        $userType   = $model->getUserType();
-        if($company_id > 0){
-            $querySelect    = "SELECT a.*, b.company_id, b.active FROM companies a
-                        LEFT JOIN auxiliary_companies AS b ON b.customer_id = a.id ";
-
-            $queryCount = "SELECT COUNT(a.id) AS total FROM companies a
-                        LEFT JOIN auxiliary_companies AS b ON b.customer_id = a.id ";
-            $where      = '';
-            if($userType <> 1){
-                $where      = " b.customer_id = a.id AND b.company_id = ".$company_id;
-            }else{
-                $where      = "a.id != ".$company_id;
-            }
-
-            $limit      = isset($limit) ? $limit : 30;
-            $searchFields   = array(
-                'a.company_name',
-                'a.dni',
-                'a.city_id'
-            );
-            echo $model->sqlQuery($querySelect, $queryCount, $searchFields, $query, $start, $limit, $where);
-        }else{
-            echo $model->getErrorResponse('Error en el servidor.');
-        }
-    }
-
-    public function updateCustomer($id, Request $request)
-    {
-        $user       = auth()->user();
-        $table      = 'companies';
-        $records    = json_decode($request->input('records'));
-        $ip         = $request->ip();
-        $model      = new MasterModel();
-        $company_id = $id;
-        if(isset($records->dataimg)){
-            //get the base-64 from data
-            $base64_str = substr($records->dataimg, strpos($records->dataimg, ",") + 1);
-
-            if(strlen($base64_str) > 0){
-                //decode base64 string
-                $image      = base64_decode($base64_str);
-                $imgname    = $records->imgname;
-                $path       = $_SERVER['DOCUMENT_ROOT']."/storage/companies/{$company_id}/logo/";
-                if(!is_dir($path)){
-                    mkdir($path, 0777, true);
-                }
-                $pathimg    = $path.$imgname;
-
-                $result     = json_decode($model->uploadFileData($image, $pathimg));
-                if($result->success){
-                    $pathimg            = "storage/companies/{$company_id}/logo/".$imgname;
-                    $records->image     = $pathimg;
-                    $result = $model->updateData($records,$table, $ip);
-                }else{
-                    $result = $model->getErrorResponse('Error al guardar la imagen.');
-                }
-            }else{
-                $result = $model->updateData($records,$table, $ip);
-            }
-        }else{
-            $result =   $model->updateData($records,$table, $ip);
-        }
-        echo $result;
-    }
-
-    public function deleteCustomer($id, Request $request)
-    {
-        $table      = 'auxiliary_companies';
-        $records    = json_decode($request->input('records'));
-        $ip         = $request->ip();
-        $model      = new MasterModel();
-        $company    = $model->getCompany();
-        $customerId = DB::table('auxiliary_companies')->where(['customer_id' => $id, 'company_id' => $company->id])->first();
-        $records->id= $customerId->id;
-        echo $model->deleteData($records,$table, $ip);
-    }
-    // END companies instructions
-
-
-
+ 
     public function getCompany(Request $request)
     {
-        $start  = $request->input('start');
-        $limit  = $request->input('limit');
         $model  = new MasterModel();
-        $company_id = $model->getCompanyId();
-        if($company_id > 0){
-            $whereSend  = array(
-                'id'    => $company_id
-            );
-            $limit  = isset($limit) ? $limit : 0;
-            echo $model->getTable('companies','', $start, $limit, $whereSend);
+        $company= $model->getCompany();
+        $start  = $request->start;
+        $limit  = $request->limit;
+        if($company){
+            $table      = $company->database_name.'.company';
+            $limit  = isset($limit) ? $limit : 1;
+            return $model->getTable($table,'', $start, $limit);
         }else{
-            echo $model->getErrorResponse('Error en el servidor.');
+            return $model->getErrorResponse('Error en el servidor.');
         }
     }
 
@@ -208,5 +140,17 @@ class CompanyController extends Controller
             $result =   $model->updateData($records,$table, $ip);
         }
         echo $result;
+    }
+
+    public function deleteCompany($id, Request $request)
+    {
+        $table      = 'business_users';
+        $records    = json_decode($request->input('records'));
+        $ip         = $request->ip();
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $customerId = DB::table('business_users')->where(['customer_id' => $id, 'company_id' => $company->id])->first();
+        $records->id= $customerId->id;
+        echo $model->deleteData($records,$table, $ip);
     }
 }

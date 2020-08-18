@@ -39,7 +39,7 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed',
         ]);
 
-        $activation_token   = Str::random(80);;
+        $activation_token       = Str::random(80);
         $user = new User([
             'name'              => $request->name,
             'email'             => $request->email,
