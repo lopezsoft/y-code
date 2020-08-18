@@ -12,14 +12,6 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class MasterModel
 {
-
-     /**
-     * PPP.
-     * Código asignado por la DIAN al PT de tres (3) dígitos.
-     * @var string
-     */
-    public $ppp = '000';
-
     /**
      * Re
      */
@@ -51,13 +43,16 @@ class MasterModel
     public function getCompany()
     {
         try {
-
             $user   = auth()->user();
             $buser  = DB::table('business_users')->where('user_id', $user->id)->first();
-            $company= Company::where('id', $buser->company_id)->first();
+            if($buser){
+                $company    = Company::where('id', $buser->company_id)->first();
+            }else{
+                $company    = null;
+            }
             return $company;
         } catch (\Throwable $th) {
-            return $this->getErrorResponse();
+            return null;
         }
     }
     /**
@@ -84,8 +79,6 @@ class MasterModel
         ];
         DB::table('tb_audit')->insert($audit);
     }
-
-
 
     public function getUsers($query = null, $start = 0, $limit = 0, $type = 3, $fields = null, $user)
     {
@@ -128,9 +121,9 @@ class MasterModel
                 $select = User::where('id', $sign, $user)
                             ->limit(1)->get();
             }
-            $result = $this->json_response($select, $select->count());
+            $result = $this->getReponseJson($select, $select->count());
         } catch (\Throwable $th) {
-            $result = $this->json_response_succes_error('Error en la consulta');
+            $result = $this->getErrorResponse('Error en la consulta');
             throw $th;
         }
         return $result;
@@ -183,7 +176,7 @@ class MasterModel
                 ->get()
                 ->where($this->primaryKey, $id);
 
-            return $this->json_response($data, 1);
+            return $this->getReponseJson($data, 1);
         }
     }
 
@@ -228,10 +221,10 @@ class MasterModel
                 $this->audit($user_id,$ip,$tb,'DELETE',$delete);
 
                 DB::commit();
-                $result = $this->json_response_succes($result);
+                $result = $this->getResponseSucces($result);
             } catch (\Throwable $th) {
                 DB::rollback();
-                $result = $this->json_response_succes_error('Error al tratar de eliminar el registro');
+                $result = $this->getErrorResponse('Error al tratar de eliminar el registro');
                 throw $th;
             }
             return  $result;
@@ -273,10 +266,10 @@ class MasterModel
                     ->get()
                     ->where($this->primaryKey, $result);
 
-                $result =  $this->json_response($data, $result);
+                $result =  $this->getReponseJson($data, $result);
             } catch (Exception $e) {
                 DB::rollback();
-                $result = $this->json_response_succes_error('Error en la base de datos: '. $e->getMessage());
+                $result = $this->getErrorResponse('Error en la base de datos: '. $e->getMessage());
             }
 
             return  $result;
@@ -341,10 +334,10 @@ class MasterModel
                     $this->audit($user_id,$ip,$tb,'UPDATE',$data);
                 }
                 DB::commit();
-                $result = $this->json_response_succes($result);
+                $result = $this->getResponseSucces($result);
             } catch (\Throwable $th) {
                 DB::rollback();
-                $result = $this->json_response_succes_error('Error en la base de datos');
+                $result = $this->getErrorResponse('Error en la base de datos');
                 throw $th;
             }
             return  $result;
@@ -372,16 +365,16 @@ class MasterModel
             if(strlen($queryField) > 0){
                 $total  = DB::select($sqlStatementCount.$w.$queryField." LIKE ? ", ["%".$query."%"]);
                 $table  = DB::select($sqlStatement.$w.$queryField." LIKE ? LIMIT ?, ?", ["%".$query."%", $start, $limit]);
-                $result = $this->json_response($table, $total[0]->total);
+                $result = $this->getReponseJson($table, $total[0]->total);
             }else {
                 $table      = null;
-                $result = $this->json_response($table, 0);
+                $result = $this->getReponseJson($table, 0);
             }
         }else {
             $w      = (strlen($where) > 0) ? " WHERE ".$where : "" ;
             $total  = DB::select($sqlStatementCount.$w);
             $table  = DB::select($sqlStatement.$w." LIMIT ?, ?", [$start, $limit]);
-            $result = $this->json_response($table, $total[0]->total);
+            $result = $this->getReponseJson($table, $total[0]->total);
         }
         return $result;
     }
@@ -446,7 +439,7 @@ class MasterModel
                 $total  = $total->count();
                 $table  = $table->get();
             }
-            return $this->json_response($table, $total);
+            return $this->getReponseJson($table, $total);
         } catch (Exception $e) {
             return $this->getErrorResponse($e->getMessage());
         }
@@ -455,29 +448,12 @@ class MasterModel
     /**
      * Retorna la respuesta Json de la API
      */
-    public function json_response($lis = array(), $total = 0)
-    {
-        return json_encode(array(
-            'success' => true,
-            'records' => $lis,
-            'total' => $total,
-        ));
-    }
-
-    /**
-     * Retorna la respuesta Json de la API
-     */
-    public function json_response_succes($lis = null)
+    public function getResponseSucces($lis = null)
     {
         return json_encode(array(
             'success' => true,
             'data' => $lis,
         ));
-    }
-
-    public function json_response_succes_error($lis = '')
-    {
-        return $this->getErrorResponse($lis);
     }
 
     public function getErrorResponse($msg  = '')
@@ -488,7 +464,20 @@ class MasterModel
         ],500);
     }
 
-    public function getReponseJson($msg = ''){
+
+    /**
+     * Retorna la respuesta Json de la API
+     */
+
+    public function getReponseJson($lis = array(), $total = 0){
+        return response()->json([
+            'success' => true,
+            'records' => $lis,
+            'total' => $total,
+        ]);
+    }
+
+    public function getReponseMessage($msg = ''){
         return response()->json([
             'message'   => $msg,
             'success'   => true
