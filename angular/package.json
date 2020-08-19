@@ -33,6 +33,7 @@
     "font-awesome": "^4.7.0",
     "ionicons": "^5.1.2",
     "jquery": "^3.5.1",
+    "ng2-smart-table": "^1.6.0",
     "ngx-toastr": "^13.0.0",
     "roboto-fontface": "^0.10.0",
     "rxjs": "~6.6.2",

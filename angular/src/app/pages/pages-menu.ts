@@ -43,16 +43,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'layout-outline',
     children: [
       {
-        title: 'Productos',
-        link: '/pages/layout/stepper',
+        title: 'Clases de cuenta',
+        link: '/pages/accounting/class',
       },
       {
-        title: 'Marcas',
-        link: '/pages/layout/list',
+        title: 'Grupos contables',
+        link: '/pages/accounting/groups',
       },
       {
-        title: 'Categorias',
-        link: '/pages/layout/list',
+        title: 'Tipos de cuenta',
+        link: '/pages/accounting/types',
+      },
+      {
+        title: 'Catalogo de cuentas',
+        link: '/pages/accounting/accounts',
       },
     ],
   },
