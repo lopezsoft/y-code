@@ -22,6 +22,11 @@ const routes: Routes = [{
         .then(m => m.ProductsModule),
     },
     {
+      path: 'accounting',
+      loadChildren: () => import('./accounting/accounting.module')
+        .then(m => m.AccountingModule),
+    },
+    {
       path      : '',
       redirectTo: 'dashboard',
       pathMatch : 'full',
