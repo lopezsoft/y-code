@@ -11,21 +11,21 @@ import { ApiServerService, MessagesService } from 'src/app/utils';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-accounting-groups',
-  templateUrl: './accounting-groups.component.html',
-  styleUrls: ['./accounting-groups.component.scss']
+  selector: 'app-class-of-accounting',
+  templateUrl: './class-of-accounting.component.html',
+  styleUrls: ['./class-of-accounting.component.scss']
 })
-export class AccountingGroupsComponent extends CustomGridComponent implements OnInit {
+export class ClassOfAccountingComponent extends CustomGridComponent implements OnInit {
 
   constructor(public msg: MessagesService, public api: ApiServerService, public router: Router) {
     super(msg, api, router);
   }
 
   ngOnInit(): void {
-    this.defaultPageSize  = 15;
-    this.queryUrl         = '/accounting/accountinggroups/read';
+    this.defaultPageSize  = 10;
+    this.queryUrl         = '/accounting/clasofaccounts/read';
     this.gridColumns  =  [{
-      id: 'accounting_group_name', name: 'Nombre', field: 'accounting_group_name', sortable: true, type: FieldType.string,
+      id: 'name', name: 'Nombre', field: 'name', sortable: true, type: FieldType.string,
     },
     {
       id: 'number', name: 'Número', field: 'number', sortable: true, type: FieldType.number, maxWidth: 120

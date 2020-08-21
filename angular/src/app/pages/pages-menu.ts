@@ -50,10 +50,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Grupos contables',
         link: '/pages/accounting/groups',
       },
-      {
-        title: 'Tipos de cuenta',
-        link: '/pages/accounting/types',
-      },
+      // {
+      //   title: 'Tipos de cuenta',
+      //   link: '/pages/accounting/types',
+      // },
       {
         title: 'Catalogo de cuentas',
         link: '/pages/accounting/accounts',

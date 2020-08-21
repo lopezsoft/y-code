@@ -27,7 +27,7 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
   userPictureOnly: boolean;
   user: AccessToken;
 
-  currentTheme = 'dark';
+  currentTheme = 'default';
 
   userMenu = [];
 
@@ -85,14 +85,14 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        customClass : {
-          title : 'title-center-black',
-        },
+        // customClass : {
+        //   title : 'title-center-black',
+        // },
         confirmButtonText: lang.instant('buttons.yes'),
         cancelButtonText: lang.instant('buttons.not')
       }).then((result) => {
         if (result.value) {
-          ts.api.get('/auth/logout')
+          ts.api.get('/auth/logout', {})
           .subscribe((resp: JsonResponse) => {
             localStorage.removeItem(ts.api.getApiJwt());
             window.location.reload();

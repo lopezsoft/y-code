@@ -30,6 +30,7 @@ import {
 import {
   OneColumnLayoutComponent,
 } from './layouts';
+import { DEFAULT_THEME } from './styles/theme.default';
 import { DARK_THEME } from './styles/theme.dark';
 
 const NB_MODULES = [
@@ -71,9 +72,9 @@ export class ThemeModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'dark',
+            name: 'default',
           },
-          [ DARK_THEME],
+          [DEFAULT_THEME, DARK_THEME],
         ).providers,
       ],
     };

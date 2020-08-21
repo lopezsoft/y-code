@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { ThemeModule } from './@theme/theme.module';
 import { AppRoutingModule } from './app-routing.module';
 import {
@@ -22,6 +23,8 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { AngularSlickgridModule } from 'angular-slickgrid';
+
 import { LoginComponent } from './Auth/login/login.component';
 import { RegisterComponent } from './Auth/register/register.component';
 import { AppComponent } from './app.component';
@@ -53,6 +56,15 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+    AngularSlickgridModule.forRoot({
+      // add any Global Grid Options/Config you might want
+      // to avoid passing the same options over and over in each grids of your App
+      enableAutoResize: true,
+      autoResize: {
+        // containerId: 'demo-container',
+        sidePadding: 10
+      }
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
