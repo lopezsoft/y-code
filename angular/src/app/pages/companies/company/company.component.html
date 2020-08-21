@@ -1,0 +1,153 @@
+<nb-card>
+  <nb-card-header>
+    {{'Información de empresa' | uppercase}}
+  </nb-card-header>
+
+  <nb-card-body>
+    <form >
+      <div class="row">
+        <div class="col-md-4">
+          <select class="form-control" formControlName="currency_id">
+            <option value="4">Seleccione</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <select class="form-control" formControlName="country_id">
+            <option value="45">Seleccione</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <select class="form-control" formControlName="identity_document_id">
+            <option value="1">Seleccione</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <select class="form-control" formControlName="type_organization_id">
+            <option value="1">Seleccione</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholdercompany_name"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="company_name">
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderdni"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="dni"
+          >
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderdv"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="dv"
+          >
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderaddress"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="address"
+          >
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderlocation"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="location"
+          >
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderpostal_code"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="postal_code"
+          >
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholdermobile"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="mobile"
+          >
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderphone"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="phone"
+          >
+        </div>
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderemail"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="email"
+          >
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <input
+            type="text"
+            nbinput=""
+            [placeholder]="placeholderweb"
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            formControlName="web"
+          >
+        </div>
+        <div class="col-md-4" style="text-align: center;">
+          <img src="../../../../assets/image.jpg" alt="" style="width: 80px; border-radius: 8px;" style="display: none;">
+        </div>
+      </div>
+      <br>
+      <button
+        nbbutton=""
+        matripple=""
+        class="mat-ripple appearance-filled size-medium status-success shape-rectangle ng-star-inserted nb-transition"
+        aria-disabled="false"
+        tabindex="0"
+        *ngIf="!loading"
+        [disabled]="loading"
+        (click) ="onSave()"
+      >
+        {{ placeholderSave }}
+      </button>
+    </form>
+  </nb-card-body>
+</nb-card>

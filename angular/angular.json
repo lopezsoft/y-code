@@ -153,6 +153,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "y-code"
+    }
+  },
+  "defaultProject": "y-code",
+  "cli": {
+    "analytics": "90d99ff1-3070-42c0-8aef-261588648adb"
+  }
 }
