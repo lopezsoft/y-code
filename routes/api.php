@@ -39,6 +39,12 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::put('update/{id}',       'Accounting\ClassOfAccountsController@update');
                 Route::delete('delete/{id}',    'Accounting\ClassOfAccountsController@delete');
             });
+            Route::group(['prefix' => 'accountinggroups'], function () {
+                Route::post('create',           'Accounting\AccountingGroupsController@create');
+                Route::get('read',              'Accounting\AccountingGroupsController@select');
+                Route::put('update/{id}',       'Accounting\AccountingGroupsController@update');
+                Route::delete('delete/{id}',    'Accounting\AccountingGroupsController@delete');
+            });
         });
 
         // Company

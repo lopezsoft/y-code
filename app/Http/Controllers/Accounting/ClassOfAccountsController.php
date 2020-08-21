@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ClassOfAccountsController extends Controller
 {
-    public function createCompany(Request $request)
+    public function create(Request $request)
     {
         DB::beginTransaction();
         try {
@@ -105,7 +105,7 @@ class ClassOfAccountsController extends Controller
         }
     }
 
-    public function updateCompany($id, Request $request)
+    public function update($id, Request $request)
     {
         $user       = auth()->user();
         $table      = 'companies';
@@ -144,7 +144,7 @@ class ClassOfAccountsController extends Controller
         echo $result;
     }
 
-    public function deleteCompany($id, Request $request)
+    public function delete($id, Request $request)
     {
         $table      = 'business_users';
         $records    = json_decode($request->input('records'));
