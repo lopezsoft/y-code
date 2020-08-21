@@ -31,9 +31,9 @@ export class ApiServerService {
     return me.http.post(`${ me.url }${ query }`, params, { headers : me.getHeaders()});
   }
 
-  get(query: string, token: boolean = false){
+  get(query: string, exParams: any){
     const me = this;
-    return me.http.get(`${me.url}${ query }`, { headers : me.getHeaders() });
+    return me.http.get(`${me.url}${ query }`, { headers : me.getHeaders(), params: exParams });
   }
 
   getUrl(): string{

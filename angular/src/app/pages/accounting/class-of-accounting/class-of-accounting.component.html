@@ -1,9 +1,12 @@
 <nb-card>
-  <nb-card-header>
-    Smart Table
-  </nb-card-header>
-
+  <nb-card-header>Clase de cuentas</nb-card-header>
   <nb-card-body>
-
+    <angular-slickgrid gridId="gridclassofaccounting" (onAngularGridCreated)="angularGridReady($event)"
+      (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
+      (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)"
+      (sgOnValidationError)="onCellValidationError($event.detail.eventData, $event.detail.args)"
+      [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
+      [dataset]="dataset"  gridWidth="100%">
+    </angular-slickgrid>
   </nb-card-body>
 </nb-card>

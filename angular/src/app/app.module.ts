@@ -56,7 +56,15 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
-    AngularSlickgridModule.forRoot(),
+    AngularSlickgridModule.forRoot({
+      // add any Global Grid Options/Config you might want
+      // to avoid passing the same options over and over in each grids of your App
+      enableAutoResize: true,
+      autoResize: {
+        // containerId: 'demo-container',
+        sidePadding: 10
+      }
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

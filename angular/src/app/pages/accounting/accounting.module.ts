@@ -3,6 +3,7 @@ import { NbButtonModule, NbCardModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { AccountsRoutingModule } from './accounting-routing.module';
+import { AngularSlickgridModule } from 'angular-slickgrid';
 import {
   AccountsComponent,
   AccountingGroupsComponent,
@@ -16,6 +17,7 @@ import { AccountingComponent } from './accounting.component';
     NbCardModule,
     NbButtonModule,
     AccountsRoutingModule,
+    AngularSlickgridModule,
   ],
   declarations: [
     AccountingComponent,

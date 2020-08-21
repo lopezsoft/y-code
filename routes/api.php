@@ -31,6 +31,16 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['middleware' => 'auth:api'], function() {
+        // Accounting
+        Route::group(['prefix' => 'accounting'], function () {
+            Route::group(['prefix' => 'clasofaccounts'], function () {
+                Route::post('create',           'Accounting\ClassOfAccountsController@create');
+                Route::get('read',              'Accounting\ClassOfAccountsController@select');
+                Route::put('update/{id}',       'Accounting\ClassOfAccountsController@update');
+                Route::delete('delete/{id}',    'Accounting\ClassOfAccountsController@delete');
+            });
+        });
+
         // Company
         Route::group(['prefix' => 'company'], function () {
             Route::post('create',           'CompanyController@createCompany');
@@ -40,6 +50,6 @@ Route::group(['prefix' => 'v1'], function () {
         });
     });
 
-    
+
 
 });
