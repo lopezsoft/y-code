@@ -66,23 +66,23 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title :   'Datos de la empresa',
-        icon: 'home-outline',
+        link: '/pages/companies/company',
       },
       {
         title :   'Suscursales',
-        icon: 'home-outline',
+        link: '/pages/companies/branch-office',
       },
       {
         title :   'Departamentos',
-        icon: 'home-outline',
+        link: '/pages/companies/departaments',
       },
       {
         title :   'Bodegas',
-        icon: 'home-outline',
+        link: '/pages/companies/wineries',
       },
       {
         title :   'Tipos de empresa',
-        icon: 'home-outline',
+        link: '/pages/companies/companie-type',
       },
     ]
   },
