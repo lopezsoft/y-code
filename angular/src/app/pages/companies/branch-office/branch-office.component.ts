@@ -1,62 +1,104 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomGridComponent } from 'src/app/core/data/custom-grid/custom-grid.component';
+import { MessagesService, ApiServerService } from 'src/app/utils';
+import { Router } from '@angular/router';
+import { FieldType } from 'angular-slickgrid';
 
 @Component({
   selector: 'app-branch-office',
   templateUrl: './branch-office.component.html',
   styleUrls: ['./branch-office.component.scss']
 })
-export class BranchOfficeComponent implements OnInit{
-  settings = {
-    add: {
-      addButtonContent:    '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent:   '<i class="nb-edit"></i>',
-      saveButtonContent:   '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-      },
-      firstName: {
-        title: 'First Name',
-        type: 'string',
-      },
-      lastName: {
-        title: 'Last Name',
-        type: 'string',
-      },
-      username: {
-        title: 'Username',
-        type: 'string',
-      },
-      email: {
-        title: 'E-mail',
-        type: 'string',
-      },
-      age: {
-        title: 'Age',
-        type: 'number',
-      },
-    },
-  };
+export class BranchOfficeComponent extends CustomGridComponent implements OnInit{
 
-  // source: LocalDataSource = new LocalDataSource();
-
-  // constructor(private service: SmartTableData) {
-  //   const data = this.service.getData();
-  //   this.source.load([]);
-  // }
-
-  ngOnInit():void{
-
+  constructor(public msg: MessagesService, public api: ApiServerService, public router: Router) {
+    super(msg, api, router);
   }
+
+  ngOnInit(): void {
+    this.defaultPageSize  = 15;
+    this.queryUrl         = '/companies/branchoffice/read';
+    this.gridColumns  =  [
+      {
+        id: 'country_id',
+        name: 'Pais',
+        field: 'country_id',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'city_id',
+        name: 'Ciudad',
+        field: 'city_id',
+        sortable: true,
+        type: FieldType.string,
+      },
+      {
+        id: 'currency_id',
+        name: 'Moneda',
+        field: 'currency_id',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'postal_code',
+        name: 'Código postal',
+        field: 'postal_code',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'branch_name',
+        name: 'Sucursal',
+        field: 'branch_name',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'address',
+        name: 'Dirección',
+        field: 'address',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'location',
+        name: 'Ubicación',
+        field: 'location',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'email',
+        name: 'Email',
+        field: 'email',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'mobile',
+        name: 'Télefono',
+        field: 'mobile',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'phone',
+        name: 'Celular',
+        field: 'phone',
+        sortable: true,
+        type: FieldType.number,
+      },
+      {
+        id: 'web',
+        name: 'Sitio web',
+        field: 'web',
+        sortable: true,
+        type: FieldType.number,
+      },
+
+    ];
+    this.prepareGrid();
+  }
+
 }

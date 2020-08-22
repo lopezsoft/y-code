@@ -47,7 +47,23 @@ Route::group(['prefix' => 'v1'], function () {
             });
         });
 
-        // Company
+
+        Route::group(['prefix' => 'companies'], function () {
+            Route::group(['prefix' => 'branchoffice'], function () {
+                Route::post('create',           'Companies\BranchOfficeController@createCompany');
+                Route::get('read',              'Companies\BranchOfficeController@select');
+                Route::put('update/{id}',       'Companies\BranchOfficeController@updateCompany');
+                Route::delete('delete/{id}',    'Companies\BranchOfficeController@deleteCompany');
+            });
+
+            Route::group(['prefix' => 'departaments'], function () {
+                Route::post('create',           'Companies\DepartamentsController@createCompany');
+                Route::get('read',              'Companies\DepartamentsController@select');
+                Route::put('update/{id}',       'Companies\DepartamentsController@updateCompany');
+                Route::delete('delete/{id}',    'Companies\DepartamentsController@deleteCompany');
+            });
+        });
+
         Route::group(['prefix' => 'company'], function () {
             Route::post('create',           'CompanyController@createCompany');
             Route::get('read',              'CompanyController@getCompany');
