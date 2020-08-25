@@ -6,6 +6,7 @@ import { CompaniesRoutingModule } from './companies-routing.module';
 import { BranchOfficeComponent, CompanyComponent, CompanieTypeComponent, DepartamentsComponent, WineriesComponent} from './index';
 import { CompaniesComponent } from './companies.component';
 import { AngularSlickgridModule } from 'angular-slickgrid';
+import { EditBranchOfficeComponent } from './branch-office/edit-branch-office/edit-branch-office.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { AngularSlickgridModule } from 'angular-slickgrid';
     CompanieTypeComponent,
     DepartamentsComponent,
     WineriesComponent,
-    CompanyComponent
+    CompanyComponent,
+    EditBranchOfficeComponent
   ],
 })
 export class CompaniesModule { }

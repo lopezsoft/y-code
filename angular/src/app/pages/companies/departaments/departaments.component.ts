@@ -19,9 +19,9 @@ export class DepartamentsComponent extends CustomGridComponent implements OnInit
       this.queryUrl         = '/companies/departaments/read';
       this.gridColumns  =  [
         {
-          id: 'branch_office_id',
+          id: 'branch_name',
           name: 'Sucursal',
-          field: 'branch_office_id',
+          field: 'branch_name',
           sortable: true,
           type: FieldType.number,
         },

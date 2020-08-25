@@ -2,6 +2,7 @@
   <nb-card-header>
     {{ 'Sucursales' | uppercase }}
   </nb-card-header>
+  <!-- aqui el html del datatable -->
   <nb-card-body>
     <angular-slickgrid gridId="gridaccountinggroups" (onAngularGridCreated)="angularGridReady($event)"
       (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"

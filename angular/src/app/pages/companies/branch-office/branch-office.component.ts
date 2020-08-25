@@ -20,23 +20,23 @@ export class BranchOfficeComponent extends CustomGridComponent implements OnInit
     this.queryUrl         = '/companies/branchoffice/read';
     this.gridColumns  =  [
       {
-        id: 'country_id',
+        id: 'country_name',
         name: 'Pais',
-        field: 'country_id',
+        field: 'country_name',
         sortable: true,
         type: FieldType.number,
       },
       {
-        id: 'city_id',
+        id: 'name_city',
         name: 'Ciudad',
-        field: 'city_id',
+        field: 'name_city',
         sortable: true,
         type: FieldType.string,
       },
       {
-        id: 'currency_id',
+        id: 'CurrencyISO',
         name: 'Moneda',
-        field: 'currency_id',
+        field: 'CurrencyISO',
         sortable: true,
         type: FieldType.number,
       },
