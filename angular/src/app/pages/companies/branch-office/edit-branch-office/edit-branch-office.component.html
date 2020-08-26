@@ -1,0 +1,141 @@
+<nb-card>
+  <nb-card-header>
+    {{ 'sucursal' | uppercase}}
+  </nb-card-header>
+  <nb-card-body>
+    <form action="">
+      <div class="row">
+        <div class="col-md-3">
+          <label>#</label>
+          <input
+            type="text"
+            readonly
+            value="{{id}}"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition">
+        </div>
+        <div class="col-md-3">
+          <label>Pais</label>
+          <select class="size-medium status-basic shape-rectangle nb-transition form-control">
+            <option value="">Seleccione</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label>Ciudad</label>
+          <select class="size-medium status-basic shape-rectangle nb-transition form-control">
+            <option value="">Seleccione</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label>Moneda</label>
+          <select class="size-medium status-basic shape-rectangle nb-transition form-control">
+            <option value="">Seleccione</option>
+          </select>
+        </div>
+      </div>
+      <br><br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Sucursal</label>
+          <input
+            type="text"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="branch office name "
+          >
+        </div>
+        <div class="col-md-4">
+          <label>Código postal</label>
+          <input
+            type="text"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="postal code"
+          >
+        </div>
+        <div class="col-md-4">
+          <label>Dirección</label>
+          <input
+            type="text"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="address"
+          >
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Ubicación</label>
+          <input
+            type="text"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="location"
+          >
+        </div>
+        <div class="col-md-4">
+          <label>Email</label>
+          <input
+            type="email"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="email"
+          >
+        </div>
+        <div class="col-md-4">
+          <label>Télefono</label>
+          <input
+            type="text"
+            maxlength="12"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="mobile"
+          >
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Celular</label>
+          <input
+            type="text"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="phone"
+          >
+        </div>
+        <div class="col-md-4">
+          <label>Web</label>
+          <input
+            type="text"
+            nbinput=""
+            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+            placeholder="web"
+          >
+        </div>
+
+        <div class="col-md-4">
+          <label>Estado</label>
+          <select class="size-medium status-basic shape-rectangle nb-transition form-control">
+            <option value="">Seleccione</option>
+          </select>
+        </div>
+      </div>
+      <br>
+
+      <button
+        nbbutton=""
+        matripple=""
+        class="mat-ripple appearance-filled size-medium status-info shape-rectangle ng-star-inserted nb-transition"
+        aria-disabled="false"
+        tabindex="0"
+      > Actualizar
+      </button>
+
+
+    </form>
+  </nb-card-body>
+</nb-card>

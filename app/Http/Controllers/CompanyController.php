@@ -17,15 +17,15 @@ class CompanyController extends Controller
         try {
             $records    = $request;
             $NotAssig   = "Sin asignar";
-            
+
             $user       = auth()->user();
             $ip         = $request->ip();
             $model      = new MasterModel();
             $company    = $model->getCompany();
             if(!$company){
-                //TODO: Esta linea se habilitrá en producción. $database_name  = 'ycode_'.Str::random(5).'_'.$records->country_id ?? 113; 
+                //TODO: Esta linea se habilitrá en producción. $database_name  = 'ycode_'.Str::random(5).'_'.$records->country_id ?? 113;
 
-                $database_name  = 'y_code'; 
+                $database_name  = 'y_code';
 
                 $data       = [
                     'country_id'            => $records->country_id ?? 113,
@@ -43,7 +43,7 @@ class CompanyController extends Controller
 
                 $data       = [
                     'country_id'            => $records->country_id ?? 113,
-                    'currency_id'           => $records->currency_id    ?? 1,
+                    'currency_id'           => $records->currency_id    ?? 4,
                     'identity_document_id'  => $records->identity_document_id ?? 3,
                     'type_organization_id'  => $records->type_organization_id ?? 1,
                     'company_name'          => $records->company_name ?? $NotAssig,
@@ -87,7 +87,7 @@ class CompanyController extends Controller
         }
     }
 
- 
+
     public function getCompany(Request $request)
     {
         $model  = new MasterModel();

@@ -205,7 +205,9 @@ export class CustomGridComponent extends BaseComponent {
 
   onCellClickDelete(e: Event, args: OnEventArgs): void {
     console.log(args);
+
     this.alertWarning = `Deleting: ${args.dataContext.title}`;
+
   }
 
   // Web API call
@@ -283,13 +285,16 @@ export class CustomGridComponent extends BaseComponent {
   onCellChanged(e, args): void {
     this.updatedObject = args.item;
   }
-
+// este es el generico para construir los datatables
   onCellClicked(e, args): void {
     const metadata = this.angularGrid.gridService.getColumnFromEventArguments(args);
     console.log(metadata);
 
     if (metadata.columnDef.id === 'edit') {
-      this.alertWarning = `open a modal window to edit: ${metadata.dataContext.title}`;
+      // this.alertWarning = `open a modal window to edit: ${metadata.dataContext.title}`;
+      console.log( metadata.columnDef)
+
+      this.router.navigate(['/pages/companies/branch-office/edit/' + metadata.dataContext.id]);
 
       // highlight the row, to customize the color, you can change the SASS variable $row-highlight-background-color
       this.angularGrid.gridService.highlightRow(args.row, 1500);
@@ -297,7 +302,9 @@ export class CustomGridComponent extends BaseComponent {
       // you could also select the row, when using "enableCellNavigation: true", it automatically selects the row
       // this.angularGrid.gridService.setSelectedRow(args.row);
     } else if (metadata.columnDef.id === 'delete') {
-      if (confirm('Are you sure?')) {
+      if (confirm('¿Desea eliminar el registro?')) {
+        console.log(`Delete ${metadata.dataContext.id}`)
+        // this.api.post(`/companies/branchoffice/deleteBranchOffice/${metadata.columnDef.id}`,metadata.columnDef.id );
         // this.angularGrid.gridService.deleteDataGridItemById(metadata.dataContext.id);
       }
     }

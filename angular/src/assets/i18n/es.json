@@ -75,10 +75,26 @@
     "acept"   : "Aceptar"
   },
   "general" : {
+    "pleaseWait"  : "Espere por favor",
+    "error"       : "Error",
     "pleaseWait"          : "Espere por favor",
     "savedSuccessfully"   : "Guardado exitosamente",
     "successfullyCreated" : "Creado exitosamente",
     "error"               : "Error",
-    "loading"             : "Cargando"
+    "loading"             : "Cargando",
+    "loading"     : "Cargando",
+    "save"        : "Guardar"
+  },
+  "companies": {
+    "company_name": "Nombre de la empresa",
+    "dni"         : "Digite DNI",
+    "dv"          : "Digite DV",
+    "address"     : "Digite dirección",
+    "location"    : "Digite ubicación",
+    "postal_code" : "Digite código postal",
+    "mobile"      : "Digite número de celular",
+    "phone"       : "Digite número de télefono",
+    "email"       : "Digite correo electronico",
+    "web"         : "Digite sitio web"
   }
 }

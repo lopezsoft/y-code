@@ -5,9 +5,11 @@
 // const
 //     APPURL      = 'https://y-code.lopezsoft.net.co';
 const
-  APIURL      = 'http://y-code/api/v1';
+  APIURL      = 'http://localhost/y-code/public/api/v1';
 const
-  APPURL      = 'http://y-code';
+  APPURL      = 'http://localhost/y-code/public/';
+
+
 const
   APITOKEN    = '';
 const
