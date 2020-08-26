@@ -36,10 +36,10 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
               private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService,
               public api: ApiServerService,
-              private translate: TranslateService,
+              public translate: TranslateService,
               public msg: MessagesService,
               public router: Router) {
-    super(api, router);
+    super(api, router, translate);
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Accounting;
+namespace App\Http\Controllers\products;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
-class AccountingGroupsController extends Controller
+class ItemsController extends Controller
 {
     public function create(Request $request)
     {
@@ -99,12 +99,17 @@ class AccountingGroupsController extends Controller
             $table  = $company->database_name.'.';
             $limit  = isset($limit) ? $limit : 20;
             $start  = isset($start) ? $start : 0;
-            $sqlStatement       = "SELECT a.*, b.name AS classofaccount FROM {$table}accounting_groups a
-                        LEFT JOIN {$table}class_of_accounts AS b ON a.class_account_id = b.id";
-            $sqlStatementCount  = "SELECT COUNT(a.id) AS total FROM {$table}accounting_groups a
-                        LEFT JOIN {$table}class_of_accounts AS b ON a.class_account_id = b.id";
-            $searchFields   = ['b.name', 'a.accounting_group_name', 'a.number'];
-            return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields, $query, $start, $limit);
+            $sqlStatement       = "SELECT a.*, b.product_class_name, c.rate_value AS tax_sales,
+                d.rate_value AS tax_bill FROM {$table}products a
+                LEFT JOIN {$table}product_class AS b ON a.class_id = b.id
+                LEFT JOIN {$table}tax_rates AS c ON a.tax_sales_id = c.id
+                LEFT JOIN {$table}tax_rates AS d ON a.tax_bill_id = d.id ";
+            $sqlStatementCount  = "SELECT COUNT(a.id) AS total  FROM {$table}products a
+                LEFT JOIN {$table}product_class AS b ON a.class_id = b.id
+                LEFT JOIN {$table}tax_rates AS c ON a.tax_sales_id = c.id
+                LEFT JOIN {$table}tax_rates AS d ON a.tax_bill_id = d.id ";
+            $searchFields   = ['a.product_name','b.product_class_name','a.internal_code', 'a.product_description'];
+            return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields, $query, $start, $limit,'', 'b.product_class_name, a.product_name');
         }else{
             return $model->getErrorResponse('Error en el servidor.');
         }

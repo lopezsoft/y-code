@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { NbMenuModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-// import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
+
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
@@ -9,9 +11,11 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 
 @NgModule({
   imports: [
+    jqxGridModule,
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
+    NbEvaIconsModule,
     MiscellaneousModule,
   ],
   declarations: [

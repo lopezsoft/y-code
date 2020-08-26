@@ -9,11 +9,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ThemeModule } from './@theme/theme.module';
 import { AppRoutingModule } from './app-routing.module';
+import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -22,6 +23,11 @@ import {
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
+  NbButtonModule,
+  NbCardModule,
+  NbInputModule,
+  NbFormFieldModule,
+  NbIconModule
 } from '@nebular/theme';
 import { AngularSlickgridModule } from 'angular-slickgrid';
 
@@ -49,6 +55,12 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    NbCardModule,
+    NbButtonModule,
+    NbInputModule,
+    NbIconModule,
+    NbFormFieldModule,
+    jqxGridModule,
     ToastrModule.forRoot(),
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
@@ -79,6 +91,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
     }),
     ThemeModule.forRoot(),
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
     FormBuilder,
     {
