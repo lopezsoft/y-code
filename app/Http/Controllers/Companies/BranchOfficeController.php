@@ -56,11 +56,11 @@ class BranchOfficeController extends Controller
                 LEFT JOIN {$table}currency_sys c ON a.currency_id = c.id
                 LEFT JOIN {$table}cities d ON a.city_id = d.id
                 LEFT JOIN {$table}currency e ON c.currency_id = e.id
-                AND a.id= {$id}";
+                WHERE a.id= {$id} ";
             $sqlStatementCount =
                 "SELECT count(a.id) as total FROM {$table}branch_offices a
                 LEFT JOIN {$table}countries as b ON a.country_id = b.id
-                AND a.id= {$id}";
+                WHERE a.id= {$id}";
 
             $searchFields = [''];
             return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields ,$query, $start, $limit);

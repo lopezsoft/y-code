@@ -51,7 +51,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'companies'], function () {
             Route::group(['prefix' => 'branchoffice'], function () {
                 Route::post('create',           'Companies\BranchOfficeController@createCompany');
-                Route::get('read/{id}',              'Companies\BranchOfficeController@selectUnique');
+                Route::get('read/{id}',         'Companies\BranchOfficeController@selectUnique');
                 Route::get('read',              'Companies\BranchOfficeController@select');
                 Route::put('update/{id}',       'Companies\BranchOfficeController@updateCompany');
                 Route::delete('delete/{id}',    'Companies\BranchOfficeController@deleteBranchOffice');
