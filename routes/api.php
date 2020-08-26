@@ -48,7 +48,15 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
 
-        Route::group(['prefix' => 'companies'], function () {
+        Route::group(['prefix' => 'companies'], function ()
+        {
+            Route::group(['prefix' => 'company'], function () {
+                Route::post('create',           'Companies\CompanyController@createCompany');
+                Route::get('read',              'Companies\CompanyController@select');
+                Route::put('update/{id}',       'Companies\CompanyController@updateCompany');
+                Route::delete('delete/{id}',    'Companies\CompanyController@deleteCompany');
+            });
+
             Route::group(['prefix' => 'branchoffice'], function () {
                 Route::post('create',           'Companies\BranchOfficeController@createCompany');
                 Route::get('read/{id}',         'Companies\BranchOfficeController@selectUnique');
@@ -63,13 +71,30 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::put('update/{id}',       'Companies\DepartamentsController@updateCompany');
                 Route::delete('delete/{id}',    'Companies\DepartamentsController@deleteCompany');
             });
+
+            Route::group(['prefix' => 'wineries'], function () {
+                Route::post('create',           'Companies\WineriesController@createCompany');
+                Route::get('read',              'Companies\WineriesController@select');
+                Route::put('update/{id}',       'Companies\WineriesController@updateCompany');
+                Route::delete('delete/{id}',    'Companies\WineriesController@deleteCompany');
+            });
+
+
+            Route::group(['prefix' => 'companyType'], function () {
+                Route::post('create',           'Companies\CompanyTypeController@createCompany');
+                Route::get('read',              'Companies\CompanyTypeController@select');
+                Route::put('update/{id}',       'Companies\CompanyTypeController@updateCompany');
+                Route::delete('delete/{id}',    'Companies\CompanyTypeController@deleteCompany');
+            });
+
+
         });
 
         Route::group(['prefix' => 'company'], function () {
-            Route::post('create',           'CompanyController@createCompany');
-            Route::get('read',              'CompanyController@getCompany');
-            Route::put('update/{id}',       'CompanyController@updateCompany');
-            Route::delete('delete/{id}',    'CompanyController@deleteCompany');
+            Route::post('create',           'Companies\CompanyController@createCompany');
+            Route::get('read',              'Companies\CompanyController@select');
+            Route::put('update/{id}',       'Companies\CompanyController@updateCompany');
+            Route::delete('delete/{id}',    'Companies\CompanyController@deleteCompany');
         });
     });
 

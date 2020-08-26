@@ -17,12 +17,12 @@ export class WineriesComponent extends CustomGridComponent implements OnInit{
 
   ngOnInit(): void {
     this.defaultPageSize  = 15;
-    this.queryUrl         = '/accounting/accountinggroups/read';
+    this.queryUrl         = '/companies/wineries/read';
     this.gridColumns  =  [
       {
-        id: 'department_id',
+        id: 'department_name',
         name: 'Departamento',
-        field: 'department_id',
+        field: 'department_name',
         sortable: true,
         type: FieldType.number,
       },

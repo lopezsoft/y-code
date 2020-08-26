@@ -16,7 +16,7 @@ export class CompanieTypeComponent extends CustomGridComponent implements OnInit
 
   ngOnInit(): void {
     this.defaultPageSize  = 15;
-    this.queryUrl         = '/accounting/accountinggroups/read';
+    this.queryUrl         = '/companies/companyType/read';
     this.gridColumns  =  [
       {
         id: 'code',

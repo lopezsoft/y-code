@@ -70,19 +70,4 @@ class BranchOfficeController extends Controller
         }
     }
 
-
-    public function deleteBranchOffice($id, Request $request)
-    {
-        $table      = 'branch_offices';
-        $records    = json_decode($request->input('records'));
-        $ip         = $request->ip();
-        $model      = new MasterModel();
-        $company    = $model->getCompany();
-        $customerId = DB::table('branch_offices')->where(['id' => $id, 'company_id'])->first();
-        $records->id= $customerId->id;
-        echo $model->deleteData($records,$table, $ip);
-    }
-
-
-
 }
