@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ApiServerService } from './../../utils/api-server.service';
-import { map } from 'rxjs/operators';
 
 import { JsonResponse, ErrorResponse } from './../../interfaces/index';
 
@@ -11,14 +10,10 @@ export class ClassOfAccountingService {
 
   constructor(private Api: ApiServerService) { }
 
+   // tslint:disable-next-line: typedef
    getData(params: any){
     const me	= this;
 
-    // me.Api.get('/accounting/clasofaccounts/read').subscribe((resp: JsonResponse) => {
-    //   console.log(resp.records);
-    // }, (err: ErrorResponse) => {
-    //   console.log(err.error);
-    // });
     return me.Api.get('/accounting/clasofaccounts/read', params);
   }
 }

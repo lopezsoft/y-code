@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
 import { ApiServerService, MessagesService } from 'src/app/utils/index';
@@ -22,8 +22,13 @@ export class LoginComponent extends FormComponent implements OnInit {
   classes = 'example-items-rows';
 
   loginForm: FormGroup;
-  constructor(public fb: FormBuilder, public api: ApiServerService, public msg: MessagesService, public router: Router, private translate: TranslateService) {
-    super(fb, msg, api, router);
+  constructor(public fb: FormBuilder,
+              public api: ApiServerService,
+              public msg: MessagesService,
+              public router: Router,
+              public translate: TranslateService,
+              public aRouter: ActivatedRoute) {
+    super(fb, msg, api, router, translate, aRouter);
     this.loginForm = this.fb.group({
       password    : ['', [Validators.required, Validators.minLength(5)]],
       email       : ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],

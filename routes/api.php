@@ -31,8 +31,38 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['middleware' => 'auth:api'], function() {
+
+
+        // Products
+        Route::group(['prefix' => 'products'], function () {
+            Route::group(['prefix' => 'items'], function () {
+                Route::post('create',           'Products\ItemsController@create');
+                Route::get('read',              'Products\ItemsController@select');
+                Route::put('update/{id}',       'Products\ItemsController@update');
+                Route::delete('delete/{id}',    'Products\ItemsController@delete');
+            });
+            Route::group(['prefix' => 'clasofaccounts'], function () {
+                Route::post('create',           'Accounting\ClassOfAccountsController@create');
+                Route::get('read',              'Accounting\ClassOfAccountsController@select');
+                Route::put('update/{id}',       'Accounting\ClassOfAccountsController@update');
+                Route::delete('delete/{id}',    'Accounting\ClassOfAccountsController@delete');
+            });
+            Route::group(['prefix' => 'accountinggroups'], function () {
+                Route::post('create',           'Accounting\AccountingGroupsController@create');
+                Route::get('read',              'Accounting\AccountingGroupsController@select');
+                Route::put('update/{id}',       'Accounting\AccountingGroupsController@update');
+                Route::delete('delete/{id}',    'Accounting\AccountingGroupsController@delete');
+            });
+        });
+
         // Accounting
         Route::group(['prefix' => 'accounting'], function () {
+            Route::group(['prefix' => 'accounts'], function () {
+                Route::post('create',           'Accounting\AccountsController@create');
+                Route::get('read',              'Accounting\AccountsController@select');
+                Route::put('update/{id}',       'Accounting\AccountsController@update');
+                Route::delete('delete/{id}',    'Accounting\AccountsController@delete');
+            });
             Route::group(['prefix' => 'clasofaccounts'], function () {
                 Route::post('create',           'Accounting\ClassOfAccountsController@create');
                 Route::get('read',              'Accounting\ClassOfAccountsController@select');

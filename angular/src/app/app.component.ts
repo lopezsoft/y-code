@@ -5,6 +5,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NbIconLibraries } from '@nebular/theme';
 
 //Services
 import { TranslateService } from '@ngx-translate/core';
@@ -16,8 +17,15 @@ import { ApiServerService } from './utils/api-server.service';
 })
 export class AppComponent implements OnInit {
   public activeLang = 'es';
-  constructor(private api: ApiServerService, private router: Router, private translate: TranslateService) {
+  constructor(private api: ApiServerService, private router: Router, private translate: TranslateService, private iconsLibrary: NbIconLibraries) {
     this.translate.setDefaultLang(this.activeLang);
+    this.iconsLibrary.registerFontPack('fa', { packClass: 'fa', iconClassPrefix: 'fa' });
+    this.iconsLibrary.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });
+    this.iconsLibrary.registerFontPack('fas', { packClass: 'fas', iconClassPrefix: 'fa' });
+    this.iconsLibrary.registerFontPack('fab', { packClass: 'fab', iconClassPrefix: 'fa' });
+    this.iconsLibrary.setDefaultPack('fas');
+    this.iconsLibrary.registerFontPack('font-awesome', { iconClassPrefix: 'fa' });
+    this.iconsLibrary.setDefaultPack('font-awesome'); // <---- set as default
   }
 
   ngOnInit(): void {

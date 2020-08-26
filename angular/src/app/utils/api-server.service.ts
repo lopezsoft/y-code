@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {APIURL, APPURL, APIJWT} from '../utils/utils';
 import { AccessToken } from './../interfaces/access-token.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,22 @@ export class ApiServerService {
     return  headers;
   }
 
-  post(query: string, params: any, token: boolean = false){
+  delete(query: string, params: any = {}) {
     const me = this;
-    return me.http.post(`${ me.url }${ query }`, params, { headers : me.getHeaders()});
+    return me.http.delete(`${ me.url }${ query }`, { headers : me.getHeaders(), params });
   }
 
-  get(query: string, exParams: any){
+  post(query: string, body: any, token: boolean = false) {
+    const me = this;
+    return me.http.post(`${ me.url }${ query }`, body, { headers : me.getHeaders()});
+  }
+
+  put(query: string, body: any, token: boolean = false) {
+    const me = this;
+    return me.http.put(`${ me.url }${ query }`, body, { headers : me.getHeaders()});
+  }
+
+  get(query: string, exParams: any = {}) {
     const me = this;
     return me.http.get(`${me.url}${ query }`, { headers : me.getHeaders(), params: exParams });
   }

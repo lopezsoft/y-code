@@ -81,6 +81,7 @@ export class CustomGridComponent extends BaseComponent {
   duplicateTitleHeaderCount = 1;
   metrics: Metrics;
   defaultPageSize = 20;
+  treeDataOptions: any;
 
   odataQuery      = '';
   processing      = true;
@@ -92,6 +93,7 @@ export class CustomGridComponent extends BaseComponent {
     super(api, router);
     this.graphqlService = new GraphqlService();
     this.gridOdataService = new GridOdataService();
+    this.treeDataOptions  = undefined;
   }
 
   angularGridReady(angularGrid: AngularGridInstance): void {
@@ -188,6 +190,9 @@ export class CustomGridComponent extends BaseComponent {
       }
       // i18n: this.translate
     };
+    if (this.treeDataOptions){
+      this.gridOptions.treeDataOptions = this.treeDataOptions;
+    }
 
   }
 

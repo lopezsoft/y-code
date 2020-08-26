@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
 import { MessagesService, ApiServerService } from 'src/app/utils/index';
@@ -20,8 +20,13 @@ import { JsonResponse, ErrorResponse } from './../../interfaces/index';
 export class RegisterComponent extends FormComponent implements OnInit {
 
   registerForm: FormGroup;
-  constructor(public fb: FormBuilder, public api: ApiServerService, public msg: MessagesService, public router: Router, private translate: TranslateService ) {
-    super(fb, msg, api, router);
+  constructor(public fb: FormBuilder,
+              public api: ApiServerService,
+              public msg: MessagesService,
+              public router: Router,
+              public translate: TranslateService,
+              public aRouter: ActivatedRoute) {
+    super(fb, msg, api, router, translate, aRouter);
     this.registerForm = this.fb.group({
       name                  : ['', [Validators.required, Validators.minLength(12)]],
       password              : ['', [Validators.required, Validators.minLength(5)]],

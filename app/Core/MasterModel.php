@@ -349,8 +349,11 @@ class MasterModel
      *
     */
 
-    public function sqlQuery(string $sqlStatement, string $sqlStatementCount, array $searchFields , $query = '', $start = 0, $limit = 30, $where = '')
+    public function sqlQuery(string $sqlStatement, string $sqlStatementCount, array $searchFields , $query = '', $start = 0, $limit = 30, $where = '', $order = '')
     {
+        if(strlen($order) > 0){
+            $order  = ' ORDER BY '.$order;
+        }
         if (strlen($query) > 0) {
             $queryField = '';
             $w      = (strlen($where) > 0) ? " WHERE ".$where." AND " : " WHERE " ;
@@ -364,7 +367,7 @@ class MasterModel
 
             if(strlen($queryField) > 0){
                 $total  = DB::select($sqlStatementCount.$w.$queryField." LIKE ? ", ["%".$query."%"]);
-                $table  = DB::select($sqlStatement.$w.$queryField." LIKE ? LIMIT ?, ?", ["%".$query."%", $start, $limit]);
+                $table  = DB::select($sqlStatement.$w.$queryField." LIKE ? ".$order." LIMIT ?, ?", ["%".$query."%", $start, $limit]);
                 $result = $this->getReponseJson($table, $total[0]->total);
             }else {
                 $table      = null;
@@ -373,7 +376,7 @@ class MasterModel
         }else {
             $w      = (strlen($where) > 0) ? " WHERE ".$where : "" ;
             $total  = DB::select($sqlStatementCount.$w);
-            $table  = DB::select($sqlStatement.$w." LIMIT ?, ?", [$start, $limit]);
+            $table  = DB::select($sqlStatement.$w.$order." LIMIT ?, ?", [$start, $limit]);
             $result = $this->getReponseJson($table, $total[0]->total);
         }
         return $result;
@@ -472,7 +475,7 @@ class MasterModel
     public function getReponseJson($lis = array(), $total = 0){
         return response()->json([
             'success' => true,
-            'records' => $lis,
+            'records' => isset($lis) ? $lis : [],
             'total' => $total,
         ]);
     }

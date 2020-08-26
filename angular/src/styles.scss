@@ -16,6 +16,7 @@ $row-mouse-hover-color: #3483d8;
 // @import '../node_modules/angular-slickgrid/styles/sass/slickgrid-theme-material.scss';
 // @import '../node_modules/angular-slickgrid/styles/sass/slickgrid-theme-salesforce.scss';
 
+
 body {
   margin: 0;
   overflow: hidden;
@@ -73,10 +74,168 @@ body {
     }
   }
 
+}
 
+.fas-fa-ok-thumbs {
+  color:orangered;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f164';
+    font-size: 22px !important;
+    color:green;
+  }
+}
+
+
+.fas-fa-ok {
+  color:green;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f00c';
+    font-size: 22px !important;
+    color:green;
+  }
+}
+
+
+.fas-fa-warning {
+  color:orangered;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f06a';
+    font-size: 22px !important;
+    color:orangered;
+  }
+}
+
+
+.fas-fa-error {
+  color:red;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f188';
+    font-size: 22px !important;
+    color:red;
+  }
+}
+
+
+.fas-fa-pdf {
+  color:red;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f1c1';
+    font-size: 22px !important;
+    color:red;
+  }
+}
+
+.fas-fa-xls {
+  color:green;
+  &:before {
+    font-size: 22px !important;
+    color:green;
+  }
+}
+
+.fas-fa-code {
+  color:orangered;
+  &:before {
+    font-size: 22px !important;
+    color:orangered;
+  }
 }
 
 
 
+.fas-fa-print {
+  color:blueviolet;
+  &:before {
+    font-size: 22px !important;
+    color:blueviolet;
+  }
+}
 
 
+.fas-fa-mail {
+  color:blueviolet;
+  &:before {
+    font-family: FontAwesome;
+    content: '\f658';
+    font-size: 22px !important;
+    color:blueviolet;
+  }
+}
+
+.fas-fa-edit {
+  color:green;
+  font-size: 22px !important;
+  padding: 6px;
+}
+
+.fas-fa-delete {
+  color:red;
+  font-size: 22px !important;
+  padding: 6px;
+}
+
+.fa-cursor {
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.menuExport {
+  padding: 6px;
+  // background-color: rgba(192, 192, 192, 0.192);
+  height: 48px;
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.radius-button {
+  border-radius: 25px !important;
+}
+
+.space-right  {
+  margin-right: 10px
+}
+
+.fas-fa-22 {
+  &:before {
+    font-family: FontAwesome;
+    font-size: 22px !important;
+  }
+}
+
+.fas-fa-red {
+  color: red;
+}
+
+.clearColor {
+  background-color: transparent !important;
+  border: 0px !important;
+}
+
+.myMenu {
+  width: 44px !important;
+  margin-left: auto !important;
+}
+
+
+.flex {
+  display: flex;
+  padding: 4px;
+}
+
+.float-right {
+  margin-left: auto;
+}
+
+.padding-top-bottom {
+  padding-top : 4px;
+  padding-bottom : 4px;
+}
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
