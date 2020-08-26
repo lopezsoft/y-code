@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from "rxjs/operators"
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiServerService, MessagesService } from 'src/app/utils';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { JsonResponse } from 'src/app/interfaces';
+
 
 @Component({
   selector: 'app-edit-branch-office',
@@ -14,6 +14,7 @@ export class EditBranchOfficeComponent implements OnInit {
   fields: object;
   query: string;
   id: number;
+  public data: any;
   constructor(private route: ActivatedRoute,public msg: MessagesService, public api: ApiServerService, public router: Router) {
     this.fields = {};
   }
@@ -24,7 +25,7 @@ export class EditBranchOfficeComponent implements OnInit {
     this.query = `/companies/branchoffice/read/${this.id}`;
 
     let r = this.api.get(this.query, null)
-    r.subscribe( res => { console.log(res) } )
+    r.subscribe( (resp: JsonResponse) => { this.data = resp.records; console.log(this.data)} )
   }
 
 
