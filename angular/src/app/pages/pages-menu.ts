@@ -18,36 +18,42 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Productos',
-    icon: 'layout-outline',
+    icon: { icon: 'product-hunt', pack: 'fab' },
     children: [
       {
         title: 'Items',
+        icon: { icon: 'product-hunt', pack: 'fab' },
         link: '/pages/products/items',
       },
       {
         title: 'Categorias',
+        icon: { icon: 'product-hunt', pack: 'fab' },
         link: '/pages/products/categories',
       },
       {
         title: 'Marcas',
+        icon: { icon: 'product-hunt', pack: 'fab' },
         link: '/pages/products/brands',
       },
       {
         title: 'Atributos',
+        icon: { icon: 'list-alt', pack: 'fas' },
         link: '/pages/products/attributes',
       },
     ],
   },
   {
     title: 'Cuentas contables',
-    icon: 'layout-outline',
+    icon: { icon: 'calculator', pack: 'fas' },
     children: [
       {
         title: 'Clases de cuenta',
+        icon: { icon: 'calculator', pack: 'fas' },
         link: '/pages/accounting/class',
       },
       {
         title: 'Grupos contables',
+        icon: { icon: 'calculator', pack: 'fas' },
         link: '/pages/accounting/groups',
       },
       // {
@@ -56,6 +62,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       // },
       {
         title: 'Catalogo de cuentas',
+        icon: { icon: 'calculator', pack: 'fas' },
         link: '/pages/accounting/accounts',
       },
     ],

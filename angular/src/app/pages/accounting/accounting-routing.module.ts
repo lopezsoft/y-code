@@ -4,7 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountingComponent } from './accounting.component';
 import { AccountsComponent,
   AccountingGroupsComponent,
-  ClassOfAccountingComponent } from './index';
+  ClassOfAccountingComponent,
+  ClassOfAccountingFormComponent,
+} from './index';
 
 const routes: Routes = [{
   path      : '',
@@ -13,6 +15,14 @@ const routes: Routes = [{
     {
       path: 'class',
       component: ClassOfAccountingComponent,
+    },
+    {
+      path: 'class/create',
+      component: ClassOfAccountingFormComponent,
+    },
+    {
+      path: 'class/edit/:id',
+      component: ClassOfAccountingFormComponent,
     },
     {
       path: 'groups',
