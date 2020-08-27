@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  APIURL    : 'https://y-code/api/v1',
+  APPURL    : 'https://y-code',
+  APIJWT    : 'y-code-jwt'
 };
 
 /*
