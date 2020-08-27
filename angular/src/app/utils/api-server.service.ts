@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {APIURL, APPURL, APIJWT} from '../utils/utils';
 import { AccessToken } from './../interfaces/access-token.interface';
-import { Observable } from 'rxjs';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +12,9 @@ export class ApiServerService {
   private appUrl: string;
   private apiJwt: string;
   constructor(private http: HttpClient) {
-    this.url    = APIURL;
-    this.appUrl = APPURL;
-    this.apiJwt = APIJWT;
+    this.url    = environment.APIURL;
+    this.appUrl = environment.APPURL;
+    this.apiJwt = environment.APIJWT;
   }
 
   private getHeaders(): HttpHeaders{
