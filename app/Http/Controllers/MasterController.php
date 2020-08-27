@@ -9,72 +9,83 @@ class MasterController extends Controller
 {
     public function geMeansPayment(){
         $model      = new MasterModel();
-        echo $model->getTable('means_payment', '', 0, 100);
+        return $model->getTable('means_payment', '', 0, 100);
     }
 
     public function getPaymentMethods(){
         $model      = new MasterModel();
-        echo $model->getTable('payment_methods', '', 0, 10);
+        return $model->getTable('payment_methods', '', 0, 10);
     }
 
     public function getReferencePrice(){
         $model      = new MasterModel();
-        echo $model->getTable('reference_price', '', 0, 10);
+        return $model->getTable('reference_price', '', 0, 10);
     }
 
     public function getTypeItemIdentifications(){
         $model      = new MasterModel();
-        echo $model->getTable('type_item_identifications', '', 0, 10);
+        return $model->getTable('type_item_identifications', '', 0, 10);
     }
 
     public function getQuantityUnits(){
         $model      = new MasterModel();
-        echo $model->getTable('quantity_units', '', 0, 1100);
+        return $model->getTable('quantity_units', '', 0, 1100);
     }
 
     public function getTaxRegime(){
         $model      = new MasterModel();
-        echo $model->getTable('tax_regime', '', 0, 20);
+        return $model->getTable('tax_regime', '', 0, 20);
     }
 
     public function getTaxLevel(){
         $model      = new MasterModel();
-        echo $model->getTable('tax_level', '', 0, 20);
+        return $model->getTable('tax_level', '', 0, 20);
     }
 
     public function getTypeOrganization(){
         $model      = new MasterModel();
-        echo $model->getTable('type_organization', '', 0, 20);
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.type_organization';
+        return $model->getTable($table, '', 0, 20);
+    }
+
+    public function getCountries(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.countries';
+        return $model->getTable($table, '', 0, 300, ['active' => 1], ['country_name' => 'asc']);
     }
 
     public function getTaxes(){
         $model      = new MasterModel();
-        echo $model->getTable('taxes', '', 0, 20);
+        return $model->getTable('taxes', '', 0, 20);
     }
 
     public function getIdentityDocuments(){
         $model      = new MasterModel();
-        echo $model->getTable('identity_documents', '', 0, 20);
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.identity_documents';
+        return $model->getTable($table, '', 0, 20);
     }
 
     public function getOperationType(){
         $model      = new MasterModel();
-        echo $model->getTable('operation_types', '', 0, 20);
+        return $model->getTable('operation_types', '', 0, 20);
     }
 
     public function getDocumentType(){
         $model      = new MasterModel();
-        echo $model->getTable('accounting_documents', '', 0, 10);
+        return $model->getTable('accounting_documents', '', 0, 10);
     }
 
     public function getDestinationEnvironme(){
         $model      = new MasterModel();
-        echo $model->getTable('destination_environme', '', 0, 2);
+        return $model->getTable('destination_environme', '', 0, 2);
     }
 
     public function getDepartments(){
         $model      = new MasterModel();
-        echo $model->getTable('departments', '', 0, 45);
+        return $model->getTable('departments', '', 0, 45);
     }
 
     public function getCurrency(){
@@ -82,7 +93,19 @@ class MasterController extends Controller
             'active'    => 1
         ];
         $model      = new MasterModel();
-        echo $model->getTable('currency', '', 0, 30, $where);
+        return $model->getTable('currency', '', 0, 30, $where);
+    }
+
+    public function getCurrencySys(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.';
+
+        $sqlSelect  = "SELECT a.*, CONCAT(TRIM(b.CurrencyISO),' ',TRIM(b.CurrencyName)) AS currency_name
+                            FROM {$table}currency_sys AS a
+                            LEFT JOIN {$table}currency AS b ON a.currency_id = b.id";
+        $sqlCount   = "SELECT COUNT(id) as total FROM {$table}currency_sys";
+        return $model->sqlQuery($sqlSelect, $sqlCount, [], '', 0, 10);
     }
 
     public function getCities(){
@@ -92,7 +115,7 @@ class MasterController extends Controller
         ORDER BY name_city";
         $sqlCount   = "SELECT COUNT(id) as total FROM cities";
         $model        = new MasterModel();
-        echo $model->sqlQuery($sqlSelect, $sqlCount, [], '', 0, 1200);
+        return $model->sqlQuery($sqlSelect, $sqlCount, [], '', 0, 1200);
     }
 
     public function getUsers(Request $request)
@@ -104,7 +127,7 @@ class MasterController extends Controller
         $fields = $request->input('fields');
         $user   = $request->input('user');
         $model    = new MasterModel();
-        echo $model->getUsers($query, $start, $limit, $type, $fields, $user);
+        return $model->getUsers($query, $start, $limit, $type, $fields, $user);
     }
 
 
@@ -132,7 +155,7 @@ class MasterController extends Controller
         }
         $limit  = isset($limit) ? $limit : 30;
         $model    = new MasterModel();
-        echo $model->getTable($table, $query, $start, $limit, $whereSend, $orderSend);
+        return $model->getTable($table, $query, $start, $limit, $whereSend, $orderSend);
     }
 
     public function updateData($id, Request $request)
@@ -141,7 +164,7 @@ class MasterController extends Controller
         $records    = json_decode($request->input('records'));
         $ip         = $request->ip();
         $model        = new MasterModel();
-        echo $model->updateData($records,$table, $ip);
+        return $model->updateData($records,$table, $ip);
     }
 
     public function insertData(Request $request)
@@ -151,7 +174,7 @@ class MasterController extends Controller
         $records    = json_decode($request->input('records'));
         $model        = new MasterModel();
         $file       = $request->file('image');
-        echo $model->insertData($records,$table, $ip);
+        return $model->insertData($records,$table, $ip);
     }
 
     public function deleteData(Request $request)
@@ -160,6 +183,6 @@ class MasterController extends Controller
         $records    = json_decode($request->input('records'));
         $ip         = $request->ip();
         $model        = new MasterModel();
-        echo $model->deleteData($records,$table, $ip);
+        return $model->deleteData($records,$table, $ip);
     }
 }

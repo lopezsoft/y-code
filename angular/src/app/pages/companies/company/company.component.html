@@ -1,150 +1,158 @@
 <nb-card>
   <nb-card-header>
-    {{'Información de empresa' | uppercase}}
+    {{ title | uppercase}}
   </nb-card-header>
-
   <nb-card-body>
-    <form >
+    <form [formGroup]="customForm">
       <div class="row">
-        <div class="col-md-4">
-          <select class="form-control" formControlName="currency_id">
-            <option value="4">Seleccione</option>
-          </select>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.company_name' | translate}}</label>
+            <input class="form-control" #companyName type="text" [placeholder]="placeholderCompanyName" nbInput fullWidth
+                formControlName="company_name"
+                [class.status-danger]="invalidCompanyName"
+                [class.is-invalid]="invalidCompanyName"
+                required autofocus=""
+                name = "company_name"
+                [(ngModel)] = "model.company_name"
+              >
+          </div>
         </div>
-        <div class="col-md-4">
-          <select class="form-control" formControlName="country_id">
-            <option value="45">Seleccione</option>
-          </select>
-        </div>
-
-        <div class="col-md-4">
-          <select class="form-control" formControlName="identity_document_id">
-            <option value="1">Seleccione</option>
-          </select>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.type_organization' | translate}}</label>
+            <select class="form-control" fullWidth formControlName="type_organization_id" required name="type_organization_id"
+                [class.is-invalid]="invalidOrganization"
+                [disabled]="typeOrg.length === 0"
+                [(ngModel)] = "model.type_organization_id"
+              >
+              <option *ngFor="let typeOrg of typeOrg"
+                [value]="typeOrg.id">{{ typeOrg.description }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="col-md-4">
-          <select class="form-control" formControlName="type_organization_id">
-            <option value="1">Seleccione</option>
-          </select>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.identity_document' | translate}}</label>
+            <select class="form-control" fullWidth formControlName="identity_document_id"
+                required [class.is-invalid]="invalidIdentity" name = "identity_document_id"
+                [class.status-danger]="invalidIdentity" [(ngModel)] = "model.identity_document_id"
+              >
+              <option *ngFor="let docs of identityDocs" [value]="docs.id">
+                {{ docs.document_name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.dni' | translate}}</label>
+            <input type="text" [placeholder]="placeholderDni" name = "dni" nbInput fullWidth formControlName="dni" [(ngModel)] = "model.dni">
+          </div>
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholdercompany_name"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="company_name">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.currency' | translate}}</label>
+            <select class="form-control" fullWidth formControlName="currency_id" name="currency_id"
+                required [class.is-invalid]="invalidCurrency" [(ngModel)] = "model.currency_id"
+                [class.status-danger]="invalidCurrency" [disabled] = "currency.length === 0"
+              >
+              <option *ngFor="let curre of currency" [value]="curre.id">
+                {{ curre.currency_name }}
+              </option>
+            </select>
+          </div>
         </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderdni"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="dni"
-          >
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderdv"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="dv"
-          >
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.country' | translate}}</label>
+            <select class="form-control" fullWidth formControlName="country_id"
+              required [class.is-invalid]="invalidCountry" name = "country_id"
+              [class.status-danger]="invalidCountry" [(ngModel)] = "model.country_id" [disabled]="countries.length === 0">
+              <option *ngFor="let country of countries" [value]="country.id">
+                {{ country.country_name }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderaddress"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="address"
-          >
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.address' | translate}}</label>
+            <input type="text" [placeholder]="placeholderAddress" nbInput fullWidth formControlName="address" [(ngModel)] = "model.address">
+          </div>
         </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderlocation"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="location"
-          >
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderpostal_code"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="postal_code"
-          >
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.location' | translate}}</label>
+            <input type="text" [placeholder]="placeholderLocation" nbInput fullWidth formControlName="location" [(ngModel)] = "model.location">
+          </div>
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholdermobile"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="mobile"
-          >
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.postal_code' | translate}}</label>
+            <input type="text" [placeholder]="placeholderPostalCode" nbInput fullWidth formControlName="postal_code" [(ngModel)] = "model.postal_code">
+          </div>
         </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderphone"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="phone"
-          >
-        </div>
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderemail"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="email"
-          >
+        <div class="col-md-6">
+          <label>{{'companies.mobile' | translate}}</label>
+          <input type="text" [placeholder]="placeholderMobile" nbInput fullWidth formControlName="mobile" [(ngModel)] = "model.mobile">
         </div>
       </div>
-      <br>
       <div class="row">
-        <div class="col-md-4">
-          <input
-            type="text"
-            nbinput=""
-            [placeholder]="placeholderweb"
-            class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-            formControlName="web"
-          >
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.phone' | translate}}</label>
+            <input type="text" [placeholder]="placeholderPhone" nbInput fullWidth formControlName="phone" [(ngModel)] = "model.phone">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.email' | translate}}</label>
+            <input type="text" [placeholder]="placeholderEmail" nbInput fullWidth formControlName="email" [(ngModel)] = "model.email">
+          </div>
         </div>
       </div>
-      <br>
-      <button
-        nbbutton=""
-        matripple=""
-        class="mat-ripple appearance-filled size-medium status-success shape-rectangle ng-star-inserted nb-transition"
-        aria-disabled="false"
-        tabindex="0"
-        *ngIf="!loading"
-        [disabled]="loading"
-        (click) ="onSave()"
-      >
-        {{ placeholderSave }}
-      </button>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.web' | translate}}</label>
+            <input type="text" [placeholder]="placeholderWeb" nbInput fullWidth formControlName="web" [(ngModel)] = "model.web">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'companies.number_employees' | translate}}</label>
+            <input type="number" min="0" [placeholder]="placeholderWeb" nbInput fullWidth
+              formControlName="number_employees" [(ngModel)] = "model.number_employees">
+          </div>
+        </div>
+      </div>
     </form>
   </nb-card-body>
+  <nb-card-footer>
+    <div class="row flex">
+      <div class="space-right float-right">
+        <button (click)="cancel()" nbSuffix nbButton status="danger" class="radius-button" [disabled]="loading">
+          <i class="fas fa-undo fas-fa-22 space-right"></i>
+          <strong>{{ 'buttons.cancel' | translate }} </strong>
+        </button>
+      </div>
+      <div class="padding-top-bottom">
+        <button nbSuffix nbButton (click)="saveAndClose()" status="primary" class="radius-button" [disabled]="loading">
+          <i [ngClass]="{'fa-save':!saveAClose, 'fa-spinner fa-spin':saveAClose }"
+            class="fas-fa-22 space-right fas"></i>
+          {{'buttons.saveAndClose' | translate }}
+        </button>
+      </div>
+    </div>
+  </nb-card-footer>
 </nb-card>

@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-md-12">
     <nb-card class="inline-form-card">
-      <nb-card-header>{{title}}</nb-card-header>
+      <nb-card-header>{{ title | uppercase}}</nb-card-header>
       <nb-card-body>
         <form  [formGroup]="customForm">
           <div class ="row">
             <div class="col-12 col-sm-12 col-md-6">
               <div class="form-group">
-                <input type="text" #name nbInput fullWidth placeholder="Nombre de la clase *" name="name" [(ngModel)]="model.name"
+                <input type="text" #focusElement nbInput fullWidth placeholder="Nombre de la clase *" name="name" [(ngModel)]="model.name"
                   formControlName="name"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required="" autofocus>
               </div>
             </div>

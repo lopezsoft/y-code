@@ -69,27 +69,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Empresa',
-    icon: 'home-outline',
+    icon: { icon: 'building', pack: 'fas' },
     children: [
       {
         title :   'Datos de la empresa',
+        icon: { icon: 'building', pack: 'fas' },
         link: '/pages/companies/company',
       },
       {
         title :   'Suscursales',
+        icon: { icon: 'building', pack: 'fas' },
         link: '/pages/companies/branch-office',
       },
       {
         title :   'Departamentos',
+        icon: { icon: 'building', pack: 'fas' },
         link: '/pages/companies/departaments',
       },
       {
         title :   'Bodegas',
+        icon: { icon: 'building', pack: 'fas' },
         link: '/pages/companies/wineries',
       },
       {
         title :   'Tipos de empresa',
-        link: '/pages/companies/companie-type',
+        icon: { icon: 'building', pack: 'fas' },
+        link: '/pages/companies/companytype',
       },
     ]
   },

@@ -1,104 +1,90 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomGridComponent } from 'src/app/core/data/custom-grid/custom-grid.component';
-import { MessagesService, ApiServerService } from 'src/app/utils';
-import { Router } from '@angular/router';
-import { FieldType } from 'angular-slickgrid';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
+import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
+import { JqxCustomGridComponent } from '../../../core/data/custom-grid/jqx-custom-grid.component';
+
+// Services
+import { ApiServerService, MessagesService } from '../../../utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-branch-office',
-  templateUrl: './branch-office.component.html',
-  styleUrls: ['./branch-office.component.scss']
+  templateUrl: './../../global/global-grid.component.html',
 })
-export class BranchOfficeComponent extends CustomGridComponent implements OnInit{
+export class BranchOfficeComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit {
 
-  constructor(public msg: MessagesService, public api: ApiServerService, public router: Router) {
-    super(msg, api, router);
+  @ViewChild('customGrid', { static: false }) customGrid: jqxGridComponent;
+  @ViewChild('searchField') searchField: ElementRef;
+
+  title = 'Sucursales';
+
+  constructor(public msg: MessagesService,
+              public api: ApiServerService,
+              public router: Router,
+              public translate: TranslateService,
+              public aRouter: ActivatedRoute
+  ) {
+    super(msg, api, router, translate, aRouter);
   }
 
-  ngOnInit(): void {
-    this.defaultPageSize  = 15;
-    this.queryUrl         = '/companies/branchoffice/read';
-    this.gridColumns  =  [
-      {
-        id: 'country_name',
-        name: 'Pais',
-        field: 'country_name',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'name_city',
-        name: 'Ciudad',
-        field: 'name_city',
-        sortable: true,
-        type: FieldType.string,
-      },
-      {
-        id: 'CurrencyISO',
-        name: 'Moneda',
-        field: 'CurrencyISO',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'postal_code',
-        name: 'Código postal',
-        field: 'postal_code',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'branch_name',
-        name: 'Sucursal',
-        field: 'branch_name',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'address',
-        name: 'Dirección',
-        field: 'address',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'location',
-        name: 'Ubicación',
-        field: 'location',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'email',
-        name: 'Email',
-        field: 'email',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'mobile',
-        name: 'Télefono',
-        field: 'mobile',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'phone',
-        name: 'Celular',
-        field: 'phone',
-        sortable: true,
-        type: FieldType.number,
-      },
-      {
-        id: 'web',
-        name: 'Sitio web',
-        field: 'web',
-        sortable: true,
-        type: FieldType.number,
-      },
 
+  ngOnInit(): void {
+    this.changeLanguage(this.activeLang);
+  }
+
+  ngAfterViewInit(): void {
+    const ts = this;
+    ts.crudApi = {
+      create: '/companies/branchoffice/create',
+      read: '/companies/branchoffice/read',
+      update: '/companies/branchoffice/update/',
+      delete: '/companies/branchoffice/delete/'
+    };
+    ts.showActions = true;
+    ts.showRowNumber = true;
+    ts.pagesize = 10;
+
+    ts.datafields = [
+      { name: 'id', type: 'number' },
+      { name: 'currency_id', type: 'number' },
+      { name: 'country_id', type: 'number' },
+      { name: 'postal_code', type: 'string' },
+      { name: 'branch_name', type: 'string' },
+      { name: 'address', type: 'string' },
+      { name: 'currencyname', type: 'string' },
+      { name: 'country_name', type: 'string' },
+      { name: 'location', type: 'string' },
+      { name: 'email', type: 'string' },
+      { name: 'mobile', type: 'string' },
+      { name: 'phone', type: 'string' },
+      { name: 'web', type: 'string' },
+      { name: 'is_point_of_sale', type: 'bool' },
+      { name: 'state', type: 'number' },
     ];
+
+    ts.sourceColumns =
+      [
+        { text: 'Nombre de la sucursal', align: 'center', datafield: 'branch_name' },
+        { text: 'Moneda', align: 'center', datafield: 'currencyname' },
+        { text: 'Pais', align: 'center', datafield: 'country_name' },
+        { text: 'Dirección', align: 'center', datafield: 'address' },
+        { text: 'Es Punto de venta?', align: 'center', datafield: 'is_point_of_sale', columntype: 'checkbox', threestatecheckbox: true, width: 110 }
+      ];
+
     this.prepareGrid();
+  }
+
+  createData(): void {
+    const ts = this;
+    const lang = this.translate;
+    super.createData();
+    ts.goRoute('pages/companies/branchoffice/create');
+  }
+
+  editData(data: any): void {
+    super.editData(data);
+    this.goRoute(`pages/companies/branchoffice/edit/${data.id}`);
   }
 
 }

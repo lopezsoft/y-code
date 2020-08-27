@@ -237,5 +237,14 @@ body {
   padding-bottom : 4px;
 }
 
+.full-screen {
+  width: 50%;
+  height: 50%;
+  z-index: 10000;
+  background-color: rgba(0, 255, 255, 0.151);
+  position: fixed;
+  margin: auto;
+}
+
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
