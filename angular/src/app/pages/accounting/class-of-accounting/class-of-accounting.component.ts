@@ -1,8 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
-import Swal from 'sweetalert2';
-
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
 import { JqxCustomGridComponent } from 'src/app/core/data/custom-grid/jqx-custom-grid.component';
 

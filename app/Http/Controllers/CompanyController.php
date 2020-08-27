@@ -17,15 +17,15 @@ class CompanyController extends Controller
         try {
             $records    = $request;
             $NotAssig   = "Sin asignar";
-            
+
             $user       = auth()->user();
             $ip         = $request->ip();
             $model      = new MasterModel();
             $company    = $model->getCompany();
             if(!$company){
-                //TODO: Esta linea se habilitrá en producción. $database_name  = 'ycode_'.Str::random(5).'_'.$records->country_id ?? 113; 
+                //TODO: Esta linea se habilitrá en producción. $database_name  = 'ycode_'.Str::random(5).'_'.$records->country_id ?? 113;
 
-                $database_name  = 'y_code'; 
+                $database_name  = 'y_code';
 
                 $data       = [
                     'country_id'            => $records->country_id ?? 113,
@@ -43,7 +43,7 @@ class CompanyController extends Controller
 
                 $data       = [
                     'country_id'            => $records->country_id ?? 113,
-                    'currency_id'           => $records->currency_id    ?? 1,
+                    'currency_id'           => $records->currency_id    ?? 4,
                     'identity_document_id'  => $records->identity_document_id ?? 3,
                     'type_organization_id'  => $records->type_organization_id ?? 1,
                     'company_name'          => $records->company_name ?? $NotAssig,
@@ -87,7 +87,7 @@ class CompanyController extends Controller
         }
     }
 
- 
+
     public function getCompany(Request $request)
     {
         $model  = new MasterModel();
@@ -105,41 +105,41 @@ class CompanyController extends Controller
 
     public function updateCompany($id, Request $request)
     {
-        $user       = auth()->user();
-        $table      = 'companies';
         $records    = json_decode($request->input('records'));
         $ip         = $request->ip();
         $model      = new MasterModel();
-        $company_id = $model->getCompanyId();
-        if(isset($records->dataimg)){
-            //get the base-64 from data
-            $base64_str = substr($records->dataimg, strpos($records->dataimg, ",") + 1);
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.company';
+        $records->id    = $id;
+        // if(isset($records->dataimg)){
+        //     //get the base-64 from data
+        //     $base64_str = substr($records->dataimg, strpos($records->dataimg, ",") + 1);
 
-            if(strlen($base64_str)  > 0){
-                //decode base64 string
-                $image      = base64_decode($base64_str);
-                $imgname    = $records->imgname;
-                $path       =  $_SERVER['DOCUMENT_ROOT']."/storage/companies/{$company_id}/logo/";
-                if(!is_dir($path)){
-                    mkdir($path, 0777, true);
-                }
-                $pathimg    = $path.$imgname;
+        //     if(strlen($base64_str)  > 0){
+        //         //decode base64 string
+        //         $image      = base64_decode($base64_str);
+        //         $imgname    = $records->imgname;
+        //         $path       =  $_SERVER['DOCUMENT_ROOT']."/storage/companies/{$company_id}/logo/";
+        //         if(!is_dir($path)){
+        //             mkdir($path, 0777, true);
+        //         }
+        //         $pathimg    = $path.$imgname;
 
-                $result     = json_decode($model->uploadFileData($image, $pathimg));
-                if($result->success){
-                    $pathimg            = "storage/companies/{$company_id}/logo/".$imgname;
-                    $records->image     = $pathimg;
-                    $result = $model->updateData($records,$table, $ip);
-                }else{
-                    $result = $model->getErrorResponse('Error al guardar la imagen.');
-                }
-            }else{
-                $result = $model->updateData($records,$table, $ip);
-            }
-        }else{
+        //         $result     = json_decode($model->uploadFileData($image, $pathimg));
+        //         if($result->success){
+        //             $pathimg            = "storage/companies/{$company_id}/logo/".$imgname;
+        //             $records->image     = $pathimg;
+        //             $result = $model->updateData($records,$table, $ip);
+        //         }else{
+        //             $result = $model->getErrorResponse('Error al guardar la imagen.');
+        //         }
+        //     }else{
+        //         $result = $model->updateData($records,$table, $ip);
+        //     }
+        // }else{
             $result =   $model->updateData($records,$table, $ip);
-        }
-        echo $result;
+        // }
+        return $result;
     }
 
     public function deleteCompany($id, Request $request)

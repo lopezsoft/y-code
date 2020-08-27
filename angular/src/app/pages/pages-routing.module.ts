@@ -27,6 +27,11 @@ const routes: Routes = [{
         .then(m => m.AccountingModule),
     },
     {
+      path: 'companies',
+      loadChildren: () => import('./companies/companies.module')
+        .then(m => m.CompaniesModule),
+    },
+    {
       path      : '',
       redirectTo: 'dashboard',
       pathMatch : 'full',

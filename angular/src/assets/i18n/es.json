@@ -75,10 +75,27 @@
     "acept"   : "Aceptar"
   },
   "general" : {
+    "error"               : "Error",
     "pleaseWait"          : "Espere por favor",
     "savedSuccessfully"   : "Guardado exitosamente",
     "successfullyCreated" : "Creado exitosamente",
-    "error"               : "Error",
     "loading"             : "Cargando"
+  },
+  "companies": {
+    "company_name"      : "Nombre de la compañia *",
+    "type_organization" : "Tipo de organización *",
+    "identity_document" : "Identificación tributaria *",
+    "number_employees"  : "Número de empleados",
+    "currency"          : "Moneda *",
+    "country"           : "País *",
+    "dni"               : "Número de identificación tributaria",
+    "dv"                : "Digite DV",
+    "address"           : "Dirección principal",
+    "location"          : "Dirección",
+    "postal_code"       : "Código postal",
+    "mobile"            : "Número de celular",
+    "phone"             : "Número de télefono fijo",
+    "email"             : "Correo electronico",
+    "web"               : "Dirección de sitio web"
   }
 }

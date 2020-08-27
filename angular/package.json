@@ -27,7 +27,6 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@sweetalert2/ngx-sweetalert2": "^8.1.1",
     "@swimlane/ngx-charts": "^14.0.0",
-    "angular-slickgrid": "^2.20.2",
     "angular2-chartjs": "0.5.1",
     "bootstrap": "^4.5.2",
     "chart.js": "2.9.3",
