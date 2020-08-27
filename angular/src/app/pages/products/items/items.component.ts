@@ -1,8 +1,7 @@
-import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ElementRef, OnInit } from '@angular/core';
 
 
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
-import { jqxMenuComponent } from 'jqwidgets-ng/jqxmenu';
 
 import { JqxCustomGridComponent } from 'src/app/core/data/custom-grid/jqx-custom-grid.component';
 
@@ -15,13 +14,12 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-items',
   templateUrl: './../../global/global-grid.component.html',
 })
-export class ItemsComponent extends JqxCustomGridComponent implements AfterViewInit {
+export class ItemsComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit {
 
   @ViewChild('customGrid', {static: false}) customGrid: jqxGridComponent;
   @ViewChild('searchField') searchField: ElementRef;
-  @ViewChild('myMenu', { static: false }) myMenu: jqxMenuComponent;
 
-  title = 'Productos/Servicios';
+  title = 'Productos o Servicios';
 
   constructor(public msg: MessagesService,
               public api: ApiServerService,
@@ -29,6 +27,10 @@ export class ItemsComponent extends JqxCustomGridComponent implements AfterViewI
               public translate: TranslateService,
               public aRouter: ActivatedRoute) {
     super(msg, api, router, translate, aRouter);
+  }
+
+  ngOnInit(): void {
+    this.changeLanguage(this.activeLang);
   }
 
   ngAfterViewInit(): void {
@@ -88,6 +90,6 @@ export class ItemsComponent extends JqxCustomGridComponent implements AfterViewI
     ];
 
     this.prepareGrid();
-    this.prepareMenu();
   }
+
 }

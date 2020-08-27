@@ -17,7 +17,7 @@ class CompanyController extends Controller
         $query  = $request->input('query');
         if($company){
             $table  = $company->database_name.'.';
-            $limit  = isset($limit) ? $limit : 20;
+            $limit  = isset($limit) ? $limit : 1;
             $start  = isset($start) ? $start : 0;
             $sqlStatement =
                 "SELECT a.*, b.country_name, d.description, CONCAT(e.CurrencyISO, ' ', e.CurrencyName) AS CurrencyISO

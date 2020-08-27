@@ -17,7 +17,7 @@ import {  ClassOfAccounting } from 'src/app/models/accounting-model';
   styleUrls: ['./../../shared/form-layouts.component.scss']
 })
 export class ClassOfAccountingFormComponent extends FormComponent implements OnInit, AfterViewInit {
-  @ViewChild('name') name: ElementRef;
+  @ViewChild('focusElement') focusElement: ElementRef;
   model: ClassOfAccounting;
 
   constructor(public fb: FormBuilder,
@@ -44,26 +44,17 @@ export class ClassOfAccountingFormComponent extends FormComponent implements OnI
   }
 
   ngOnInit(): void {
+    super.ngOnInit();
     const ts    = this;
     ts.title  = 'Crear/Editar clase de cuenta';
-    ts.uid    = ts.aRouter.snapshot.paramMap.get('id');
-
     ts.model  = {
       id: 0,
       name: '',
       number: 0
     };
-
-    if (ts.uid){
-      ts.loadData(ts.uid);
-    }
-
+    ts.PutURL   = '/accounting/clasofaccounts/update/';
+    ts.PostURL  = '/accounting/clasofaccounts/create';
   }
-
-  ngAfterViewInit(): void {
-    this.name.nativeElement.focus();
-  }
-
 
   loadData(id: any = 0): void {
     const ts    = this;
@@ -76,64 +67,6 @@ export class ClassOfAccountingFormComponent extends FormComponent implements OnI
       }, (err: ErrorResponse) => {
         ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
       });
-  }
-
-
-  saveAndClose(): void {
-    super.saveAndClose();
-    this.toClose  = true;
-    this.saveData();
-  }
-
-  saveAndCreate(): void {
-    super.saveAndCreate();
-    this.toClose  = false;
-    this.saveData();
-  }
-
-  saveData(): void {
-    const ts    = this;
-    const frm   = ts.customForm;
-    const lang  = ts.translate;
-    if (!frm.invalid) {
-      if(ts.editing){
-
-        const data  = {
-          records : JSON.stringify(frm.value)
-        };
-
-        ts.api.put(`/accounting/clasofaccounts/update/${ts.uid}`, data)
-          .subscribe((resp: JsonResponse) => {
-            ts.msg.toastMessage(lang.instant('general.savedSuccessfully'), resp.message, 0);
-            ts.editing  = false;
-            if (ts.toClose){
-              ts.close();
-            }else{
-              ts.onResetForm(frm);
-              ts.name.nativeElement.focus();
-            }
-            ts.disabledLoading();
-          }, (err: ErrorResponse) => {
-            ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-            ts.disabledLoading();
-          });
-        }else{
-          ts.api.post('/accounting/clasofaccounts/create', frm.value)
-            .subscribe((resp: JsonResponse) => {
-              ts.msg.toastMessage(lang.instant('general.successfullyCreated'), resp.message, 0);
-              if (ts.toClose){
-                ts.close();
-              }else{
-                ts.onResetForm(frm);
-                ts.name.nativeElement.focus();
-              }
-              ts.disabledLoading();
-            }, (err: ErrorResponse) => {
-              ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-              ts.disabledLoading();
-            });
-      }
-    }
   }
 
 }
