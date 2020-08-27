@@ -7,14 +7,6 @@
 // };
 /* You can add global styles to this file, and also import other style files */
 
-/* for example, let's change the mouse hover color */
-$cell-odd-background-color: lightyellow;
-$row-mouse-hover-color: #3483d8;
-
-/* make sure to add the @import the SlickGrid Bootstrap Theme AFTER the variables changes */
-@import '../node_modules/angular-slickgrid/styles/sass/slickgrid-theme-bootstrap.scss';
-// @import '../node_modules/angular-slickgrid/styles/sass/slickgrid-theme-material.scss';
-// @import '../node_modules/angular-slickgrid/styles/sass/slickgrid-theme-salesforce.scss';
 
 
 body {
