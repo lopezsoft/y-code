@@ -45,7 +45,9 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
 
   // tslint:disable-next-line: contextual-lifecycle
   ngAfterViewInit(): void {
-    this.focusElement.nativeElement.focus();
+    if (this.focusElement){
+      this.focusElement.nativeElement.focus();
+    }
   }
 
 

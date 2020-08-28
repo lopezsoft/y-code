@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  APIURL    : 'https://y-code/api/v1',
-  APPURL    : 'https://y-code',
+  APIURL    : 'http://y-code/api/v1',
+  APPURL    : 'http://y-code',
   APIJWT    : 'y-code-jwt'
 };
 
