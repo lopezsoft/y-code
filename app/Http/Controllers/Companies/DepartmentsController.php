@@ -5,7 +5,7 @@ namespace App\Http\Controllers\companies;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\core\MasterModel;
+use App\Core\MasterModel;
 use DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;

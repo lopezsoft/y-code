@@ -4,8 +4,8 @@
         <h1 class="text-break text-center" style="font-size: 24px;"><strong>{{ 'login.headerForm' | translate }}</strong><br></h1>
         <div class="illustration"><i class="fa fa-key"></i></div>
         <div class="form-group">
-          <input class="form-control" type="email" name="email" [placeholder]="placeholderEmail" required=""
-          inputmode="email" formControlName="email" [class.is-invalid]="invalidEmail" autofocus>
+          <input #focusElement class="form-control" type="email" name="email" [placeholder]="placeholderEmail" required=""
+          inputmode="email" formControlName="email" [class.is-invalid]="invalidEmail" autofocus >
         </div>
         <div class="form-group">
           <input class="form-control" type="password" name="password" [placeholder]="placeholderPassw"

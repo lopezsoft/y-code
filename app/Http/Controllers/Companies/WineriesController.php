@@ -5,7 +5,7 @@ namespace App\Http\Controllers\companies;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\core\MasterModel;
+use App\Core\MasterModel;
 use DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;
@@ -63,7 +63,7 @@ class WineriesController extends Controller
             }
             $sqlStatement =
                 "SELECT a.*, b.department_name
-                FROM {$table}warehouse a 
+                FROM {$table}warehouse a
                 LEFT JOIN {$table}company_departments b ON a.department_id = b.id ";
             $sqlStatementCount =
                 "SELECT count(a.id) as total FROM {$table}warehouse a

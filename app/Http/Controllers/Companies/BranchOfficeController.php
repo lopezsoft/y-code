@@ -5,7 +5,7 @@ namespace App\Http\Controllers\companies;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\core\MasterModel;
+use App\Core\MasterModel;
 use DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;
@@ -70,7 +70,7 @@ class BranchOfficeController extends Controller
                 $where  = "a.id={$uid}";
             }
             $sqlStatement =
-                "SELECT a.*, b.country_name, CONCAT(e.CurrencyISO, ' ', e.CurrencyName) AS currencyname 
+                "SELECT a.*, b.country_name, CONCAT(e.CurrencyISO, ' ', e.CurrencyName) AS currencyname
                 FROM {$table}branch_offices a
                 LEFT JOIN {$table}countries b ON a.country_id = b.id
                 LEFT JOIN {$table}currency_sys c ON a.currency_id = c.id
