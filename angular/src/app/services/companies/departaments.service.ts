@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { JsonResponse } from 'src/app/interfaces';
+
+
 import { ApiServerService } from '../../utils/api-server.service';
+import { Departments } from './../../models/companies-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartamentsService {
 
-  constructor(private Api: ApiServerService) { }
+  data: Departments[] = [];
+  constructor(
+    private api: ApiServerService
+  ){}
 
-  getData(params: any){
-    const me	= this;
-
-    // me.Api.get('/accounting/clasofaccounts/read').subscribe((resp: JsonResponse) => {
-    //   console.log(resp.records);
-    // }, (err: ErrorResponse) => {
-    //   console.log(err.error);
-    // });
-    return me.Api.get('/companies/departaments/read', params);
+  getData(): Observable<Departments[]> {
+    const ts  = this;
+    return ts.api.get('/companies/departments/read')
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
   }
 }

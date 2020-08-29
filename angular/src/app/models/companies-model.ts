@@ -27,3 +27,33 @@ export interface TypeOrganization {
   code: number;
   description: string;
 }
+
+export interface wineries
+{
+  id: number;
+  branch_id: number;
+  winery_name: string;
+  state: number;
+}
+export interface Departments{
+  id: number;
+  branch_office_id: number;
+  department_name: string;
+  state: number;
+}
+
+export interface BranchOffice{
+  id: number;
+  city_id:number;
+  currency_id:number;
+  country_id:number;
+  branch_name:string;
+  postal_code:string;
+  address:string;
+  location:string;
+  email:string;
+  mobile:string;
+  phone:string;
+  web:string;
+  state:number;
+}

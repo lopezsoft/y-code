@@ -34,6 +34,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('currency', 'MasterController@getCurrency');
         Route::get('currencysys', 'MasterController@getCurrencySys');
         Route::get('countries', 'MasterController@getCountries');
+        Route::get('cities', 'MasterController@getCities');
         Route::get('destenvironme', 'MasterController@getDestinationEnvironme');
         Route::get('documenttype', 'MasterController@getDocumentType');
         Route::get('operationtype', 'MasterController@getOperationType');
@@ -110,17 +111,17 @@ Route::group(['prefix' => 'v1'], function () {
             });
 
             Route::group(['prefix' => 'departments'], function () {
-                Route::post('create',           'Companies\DepartmentsController@createCompany');
+                Route::post('create',           'Companies\DepartmentsController@create');
                 Route::get('read',              'Companies\DepartmentsController@select');
-                Route::put('update/{id}',       'Companies\DepartmentsController@updateCompany');
-                Route::delete('delete/{id}',    'Companies\DepartmentsController@deleteCompany');
+                Route::put('update/{id}',       'Companies\DepartmentsController@update');
+                Route::delete('delete/{id}',    'Companies\DepartmentsController@delete');
             });
 
             Route::group(['prefix' => 'wineries'], function () {
-                Route::post('create',           'Companies\WineriesController@createCompany');
+                Route::post('create',           'Companies\WineriesController@create');
                 Route::get('read',              'Companies\WineriesController@select');
-                Route::put('update/{id}',       'Companies\WineriesController@updateCompany');
-                Route::delete('delete/{id}',    'Companies\WineriesController@deleteCompany');
+                Route::put('update/{id}',       'Companies\WineriesController@update');
+                Route::delete('delete/{id}',    'Companies\WineriesController@delete');
             });
 
             Route::group(['prefix' => 'companytype'], function () {

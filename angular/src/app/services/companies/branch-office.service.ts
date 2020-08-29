@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
-import { ApiServerService } from '../../utils/api-server.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { JsonResponse } from 'src/app/interfaces';
 
+
+import { ApiServerService } from '../../utils/api-server.service';
+import { BranchOffice } from './../../models/companies-model';
 @Injectable({
   providedIn: 'root'
 })
 export class BranchOfficeService {
 
-  constructor(private Api: ApiServerService) { }
+  data: BranchOffice[] = [];
+  constructor(
+    private api: ApiServerService
+  ){}
 
-  getData(params: any){
-    const me	= this;
-
-    // me.Api.get('/accounting/clasofaccounts/read').subscribe((resp: JsonResponse) => {
-    //   console.log(resp.records);
-    // }, (err: ErrorResponse) => {
-    //   console.log(err.error);
-    // });
-    return me.Api.get('/companies/branchoffice/read', params);
+  getData(): Observable<BranchOffice[]> {
+    const ts  = this;
+    return ts.api.get('/companies/branchoffice/read')
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
   }
-
-}
-
-export interface BranchOffice{
 
 }

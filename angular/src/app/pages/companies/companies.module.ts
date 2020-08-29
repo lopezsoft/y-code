@@ -26,6 +26,8 @@ import { BranchOfficeComponent,
 import { CompaniesComponent } from './companies.component';
 import { EditBranchOfficeComponent } from './branch-office/edit-branch-office/edit-branch-office.component';
 import { CompanyTypeFormComponent } from './company-type/company-type-form.component';
+import { EditWineriesComponent } from './wineries/edit-wineries/edit-wineries.component';
+import { EditDepartmensComponent } from './departments/edit-departmens/edit-departmens.component';
 
 @NgModule({
   imports: [
@@ -67,7 +69,9 @@ import { CompanyTypeFormComponent } from './company-type/company-type-form.compo
     WineriesComponent,
     CompanyComponent,
     EditBranchOfficeComponent,
-    CompanyTypeFormComponent
+    CompanyTypeFormComponent,
+    EditWineriesComponent,
+    EditDepartmensComponent
   ],
 })
 export class CompaniesModule { }

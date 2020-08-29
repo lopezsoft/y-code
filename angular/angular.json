@@ -38,14 +38,16 @@
               "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
               "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.dark.css",
               "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.bootstrap.css",
-              "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.light.css"
+              "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.light.css",
+              "node_modules/select2/dist/css/select2.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/jquery-ui-dist/jquery-ui.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
               "node_modules/ionicons/dist/ionicons.js",
-              "node_modules/chart.js/dist/Chart.min.js"
+              "node_modules/chart.js/dist/Chart.min.js",
+              "node_modules/select2/dist/js/select2.min.js"
             ]
           },
           "configurations": {

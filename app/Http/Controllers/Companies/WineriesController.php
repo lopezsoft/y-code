@@ -62,12 +62,12 @@ class WineriesController extends Controller
                 $where  = "a.id={$uid}";
             }
             $sqlStatement =
-                "SELECT a.*, b.department_name
-                FROM {$table}warehouse a 
-                LEFT JOIN {$table}company_departments b ON a.department_id = b.id ";
+                "SELECT a.*, b.branch_name
+                FROM {$table}warehouse a
+                LEFT JOIN {$table}branch_offices b ON a.branch_id = b.id ";
             $sqlStatementCount =
                 "SELECT count(a.id) as total FROM {$table}warehouse a
-                LEFT JOIN {$table}company_departments b ON a.department_id = b.id";
+                LEFT JOIN {$table}branch_offices b ON a.branch_id = b.id";
 
             $searchFields = ['a.winery_name'];
             return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields ,$query, $start, $limit, $where);
