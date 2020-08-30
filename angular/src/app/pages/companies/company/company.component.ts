@@ -93,7 +93,7 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
     const ts    = this;
     const frm   = ts.customForm;
     const lang  = ts.translate;
-    this.tor.getData().subscribe((resp) => {
+    this.tor.getData({}).subscribe((resp) => {
       this.typeOrg  = resp;
     });
 
@@ -108,17 +108,6 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
     await ts.curr.getData().subscribe((resp) => {
       ts.currency  = resp;
     });
-
-    await ts.api.get(`/company/read`).
-      subscribe((resp: any) => {
-        if (resp.records.length > 0) {
-          ts.model    = resp.records[0];
-          ts.editing  = true;
-          ts.uid      = ts.model.id;
-        }
-      }, (err: ErrorResponse) => {
-        ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-      });
   }
 
 

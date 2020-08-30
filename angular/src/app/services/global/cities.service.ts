@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiServerService } from '../../utils/api-server.service';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { JsonResponse } from 'src/app/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -5617,19 +5619,21 @@ export class CitiesService {
 			"city_code": "47980",
 			"name_city": "Zona Bananera (Magdalena)"
 		}
-	];
-  constructor(private ApiURL:ApiServerService) { }
+  ];
 
-  getData(){
-    return this.data;
+
+  dataCities: Cities[] = [];
+  constructor(
+    private api: ApiServerService
+  ) { }
+
+  getData(): Observable<Cities[]> {
+    const ts = this;
+    return ts.api.get('/cities')
+      .pipe(map((resp: JsonResponse) => {
+        return resp.records;
+      }));
   }
-  // getData(){
-  //   let me	= this;
-  //   return me.ApiURL.get('cities').
-  //   pipe(
-  //     map( resp => (resp['records']))
-  //   );
-  // }
 }
 
 

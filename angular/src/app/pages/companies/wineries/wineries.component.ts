@@ -47,9 +47,10 @@ export class WineriesComponent extends JqxCustomGridComponent implements OnInit,
 
     ts.datafields = [
       { name: 'id', type: 'number' },
-      { name: 'department_id', type: 'number' },
+      { name: 'branch_id', type: 'number' },
+      { name: 'branch_name', type: 'string' },
       { name: 'winery_name', type: 'string' },
-      { name: 'department_name', type: 'string' },
+      { name: 'Sucursal', type: 'string' },
       { name: 'date_time', type: 'date' },
       { name: 'state', type: 'number' },
     ];
@@ -57,7 +58,7 @@ export class WineriesComponent extends JqxCustomGridComponent implements OnInit,
     ts.sourceColumns =
       [
         { text: 'Nombre de la bodega', align: 'center', datafield: 'winery_name' },
-        { text: 'Departamento', align: 'center', datafield: 'department_name' },
+        { text: 'Sucursal', align: 'center', datafield: 'branch_name' },
       ];
 
     this.prepareGrid();

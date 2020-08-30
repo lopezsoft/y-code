@@ -22,6 +22,7 @@ class CompanyTypeController extends Controller
             $company    = $model->getCompany();
             if($company){
                 $data       = [
+                    'code'      => '3',
                     'description'      => $request->description,
                 ];
                 $table      = $company->database_name.".type_organization";
