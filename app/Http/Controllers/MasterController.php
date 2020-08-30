@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\core\MasterModel;
+use App\Core\MasterModel;
 
 class MasterController extends Controller
 {

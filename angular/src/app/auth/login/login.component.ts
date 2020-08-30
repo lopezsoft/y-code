@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,6 +12,7 @@ import { FormComponent } from 'src/app/core/components/forms/form.component';
 
 // Interfaces
 import { JsonResponse, ErrorResponse } from './../../interfaces/index';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ import { JsonResponse, ErrorResponse } from './../../interfaces/index';
 export class LoginComponent extends FormComponent implements OnInit {
   @HostBinding('class')
   classes = 'example-items-rows';
+  @ViewChild('focusElement') focusElement: ElementRef;
 
   loginForm: FormGroup;
   constructor(public fb: FormBuilder,
@@ -77,7 +79,7 @@ export class LoginComponent extends FormComponent implements OnInit {
           ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
           setTimeout(() => {
             window.location.reload();
-          }, 5000);
+          }, 2000);
           ts.onValidateForm(me);
         });
     }

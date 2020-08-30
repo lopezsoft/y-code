@@ -1,7 +1,18 @@
 {
+  "export": {
+    "excel" : " - Exportar a Excel",
+    "csv"   : " - Exportar a CSV",
+    "pdf"   : " - Exportar a PDF",
+    "xml"   : " - Exportar a XML",
+    "html"  : " - Exportar a HTML",
+    "json"  : " - Exportar a JSON",
+    "tsv"   : " - Exportar a TSV",
+    "print" : " - Imprimir"
+  },
   "placeholder" : {
     "password"        : "Contraseña",
     "confirmPassword" : "Confirmar contraseña",
+    "search"          : "Búsqueda...",
     "email"           : "Correo electrónico"
   },
   "login" : {
@@ -38,11 +49,13 @@
   },
   "titleMessages"    : {
     "emptyFields"     : "Campos en blanco",
+    "delete"          : "Eliminar registro",
     "logout"          : "Cerrar sesión"
   },
   "bodyMessages"    : {
     "emptyFields"   : "Por favor llene los campos del formulario.",
-    "logout"        : "¿Desea cerrar la sesión?"
+    "logout"        : "¿Desea cerrar la sesión?",
+    "delete"        : "¿Seguro que desea eliminar el registro?"
   },
   "menu" : {
     "user"      : {
@@ -54,11 +67,35 @@
     "yes"     : "Si",
     "not"     : "No",
     "cancel"  : "Cancelar",
+    "save"    : "Guardar",
+    "new"     : "Nuevo",
+    "import"  : "Importar",
+    "saveAndClose"  : "Guardar y cerrar",
+    "saveAndCreate" : "Guardar y crear nuevo",
     "acept"   : "Aceptar"
   },
   "general" : {
-    "pleaseWait"  : "Espere por favor",
-    "error"       : "Error",
-    "loading"     : "Cargando"
+    "error"               : "Error",
+    "pleaseWait"          : "Espere por favor",
+    "savedSuccessfully"   : "Guardado exitosamente",
+    "successfullyCreated" : "Creado exitosamente",
+    "loading"             : "Cargando"
+  },
+  "companies": {
+    "company_name"      : "Nombre de la compañia *",
+    "type_organization" : "Tipo de organización *",
+    "identity_document" : "Identificación tributaria *",
+    "number_employees"  : "Número de empleados",
+    "currency"          : "Moneda *",
+    "country"           : "País *",
+    "dni"               : "Número de identificación tributaria",
+    "dv"                : "Digite DV",
+    "address"           : "Dirección principal",
+    "location"          : "Dirección",
+    "postal_code"       : "Código postal",
+    "mobile"            : "Número de celular",
+    "phone"             : "Número de télefono fijo",
+    "email"             : "Correo electronico",
+    "web"               : "Dirección de sitio web"
   }
 }
