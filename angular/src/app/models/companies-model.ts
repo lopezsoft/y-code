@@ -55,5 +55,6 @@ export interface BranchOffice{
   mobile:string;
   phone:string;
   web:string;
+  is_point_of_sale: number,
   state:number;
 }

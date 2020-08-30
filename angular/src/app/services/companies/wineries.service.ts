@@ -17,9 +17,9 @@ export class WineriesService {
     private api: ApiServerService
   ){}
 
-  getData(): Observable<wineries[]> {
+  getData(params: any): Observable<wineries[]> {
     const ts  = this;
-    return ts.api.get('/companies/wineries/read')
+    return ts.api.get('/companies/wineries/read', params)
       .pipe( map ( (resp: JsonResponse ) => {
         return resp.records;
       }));

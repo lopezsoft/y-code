@@ -16,9 +16,9 @@ export class BranchOfficeService {
     private api: ApiServerService
   ){}
 
-  getData(): Observable<BranchOffice[]> {
+  getData(params: any): Observable<BranchOffice[]> {
     const ts  = this;
-    return ts.api.get('/companies/branchoffice/read')
+    return ts.api.get('/companies/branchoffice/read', params)
       .pipe( map ( (resp: JsonResponse ) => {
         return resp.records;
       }));

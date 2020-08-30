@@ -54,6 +54,11 @@ export class EditDepartmensComponent extends FormComponent implements OnInit {
     };
     ts.PutURL   = '/companies/departments/update/';
     ts.PostURL  = '/companies/departments/create';
+
+    ts.branch.getData({}).subscribe((resp) => {
+      ts.branch_office  = resp;
+    });
+
   }
 
   async loadData(id: any = 0): Promise<void> {
@@ -61,24 +66,8 @@ export class EditDepartmensComponent extends FormComponent implements OnInit {
     const frm   = ts.customForm;
     const lang  = ts.translate;
     ts.editing  = true;
-    ts.types.getData().subscribe((resp) => {
+    ts.types.getData({uid: id}).subscribe((resp) => {
       this.model = resp[0];
-      console.log(resp)
     });
-    await ts.branch.getData().subscribe((resp) => {
-      ts.branch_office  = resp;
-      console.log("branch_office", ts.branch_office)
-    });
-
-    await ts.api.get(`/companies/branchoffice/read`).
-      subscribe((resp: any) => {
-        if (resp.records.length > 0) {
-          ts.branch_office    = resp.records[0];
-          ts.editing  = true;
-          ts.uid      = ts.model.id;
-        }
-      }, (err: ErrorResponse) => {
-        ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-      });
   }
 }

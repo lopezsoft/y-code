@@ -13,17 +13,22 @@
                 [class.is-invalid]="invalidName" required="" autofocus
                 class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid">
             </div>
+
             <div class="col-md-6">
               <label>Sucursal</label>
               <select class="form-control" fullWidth
-                      formControlName="branch_id" name="branch_id"
-                      required [class.is-invalid]="invalidBranch" [(ngModel)] = "model.branch_id"
-                [class.status-danger]="invalidBranch" [disabled] = "branch_office.length === 0">
+                      formControlName="branch_id"
+                      name="branch_id"
+                      required [class.is-invalid]="invalidBranch"
+                      [(ngModel)] = "model.branch_id"
+                      [class.status-danger]="invalidBranch"
+                      [disabled] = "branch_office.length === 0">
                 <option *ngFor="let branch of branch_office" [value]="branch.id">
                   {{ branch.branch_name }}
                 </option>
               </select>
             </div>
+
           </div>
         </form>
       </nb-card-body>

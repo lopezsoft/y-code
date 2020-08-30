@@ -22,6 +22,7 @@ class WineriesController extends Controller
             $company    = $model->getCompany();
             if($company){
                 $data       = [
+                    'branch_id'         => $request->branch_id,
                     'department_id'     => $request->department_id,
                     'winery_name'       => $request->winery_name,
                     'date_time'         => date('Y-m-d', strtotime(str_replace('/','-',$request->date_time))),

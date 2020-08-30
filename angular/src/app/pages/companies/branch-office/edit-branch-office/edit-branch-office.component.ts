@@ -37,17 +37,18 @@ export class EditBranchOfficeComponent extends FormComponent implements OnInit {
     super(fb, msg, api, router, translate, aRouter);
     this.translate.setDefaultLang(this.activeLang);
     this.customForm = this.fb.group({
-      country_id     : ['', [Validators.required, Validators.minLength(5)]],
-      city_id        : ['', [Validators.required, Validators.minLength(1)]],
-      currency_id    : ['', [Validators.required, Validators.minLength(1)]],
-      branch_name    : ['', [Validators.required, Validators.minLength(5)]],
-      postal_code    : ['', [Validators.minLength(5)]],
-      address        : ['', [Validators.required, Validators.minLength(5)]],
-      location       : ['', [Validators.minLength(5)]],
-      email          : ['', [Validators.minLength(5)]],
-      mobile         : ['', [Validators.minLength(5)]],
-      phone          : ['', [Validators.minLength(5)]],
-      web            : ['', [Validators.minLength(5)]],
+      country_id      : ['', [Validators.required, Validators.minLength(1)]],
+      city_id         : ['', [Validators.required, Validators.minLength(1)]],
+      currency_id     : ['', [Validators.required, Validators.minLength(1)]],
+      branch_name     : ['', [Validators.required, Validators.minLength(5)]],
+      postal_code     : ['', []],
+      address         : ['', [Validators.required, Validators.minLength(5)]],
+      location        : ['', []],
+      email           : ['', []],
+      mobile          : ['', []],
+      phone           : ['', []],
+      web             : ['', []],
+      is_point_of_sale: ['', []]
     });
   }
 
@@ -86,10 +87,23 @@ export class EditBranchOfficeComponent extends FormComponent implements OnInit {
       mobile: '',
       phone: '',
       web: '',
+      is_point_of_sale: 0,
       state: 1
     };
     ts.PutURL   = '/companies/branchoffice/update/';
     ts.PostURL  = '/companies/branchoffice/create';
+
+    ts.coun.getData().subscribe((resp) => {
+      ts.countries  = resp;
+    });
+    ts.cit.getData().subscribe((resp) => {
+      ts.cities  = resp;
+    });
+
+    ts.curr.getData().subscribe((resp) => {
+      ts.currency  = resp;
+    });
+
   }
 
   async loadData(id: any = 0): Promise<void> {
@@ -97,62 +111,8 @@ export class EditBranchOfficeComponent extends FormComponent implements OnInit {
     const frm   = ts.customForm;
     const lang  = ts.translate;
     ts.editing  = true;
-    ts.branch.getData().subscribe((resp) => {
+    ts.branch.getData({uid: id}).subscribe((resp) => {
       this.model = resp[0];
     });
-
-    await ts.coun.getData().subscribe((resp) => {
-      ts.countries  = resp;
-    });
-
-    await ts.api.get(`/countries`).
-      subscribe((resp: any) => {
-        if (resp.records.length > 0) {
-          ts.countries    = resp.records[0];
-          ts.editing  = true;
-          ts.uid      = ts.model.id;
-        }
-      }, (err: ErrorResponse) => {
-        ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-      });
-
-
-
-
-
-    await ts.cit.getData().subscribe((resp) => {
-      ts.cities  = resp;
-    });
-
-    await ts.api.get(`/cities`).
-      subscribe((resp: any) => {
-        if (resp.records.length > 0) {
-          ts.cities    = resp.records[0];
-          ts.editing  = true;
-          ts.uid      = ts.model.id;
-        }
-      }, (err: ErrorResponse) => {
-        ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-      });
-
-
-
-
-
-      await ts.curr.getData().subscribe((resp) => {
-        ts.currency  = resp;
-      });
-
-      await ts.api.get(`/currencysys`).
-        subscribe((resp: any) => {
-          if (resp.records.length > 0) {
-            ts.currency    = resp.records[0];
-            ts.editing  = true;
-            ts.uid      = ts.model.id;
-          }
-        }, (err: ErrorResponse) => {
-          ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-        });
-
-    }
   }
+}

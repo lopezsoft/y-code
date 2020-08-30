@@ -150,6 +150,19 @@
                 [(ngModel)] = "model.web"
               >
             </div>
+
+            <div class="col-md-4">
+              <br><br>
+              <input
+                type="checkbox"
+                class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+                formControlName="is_point_of_sale"
+                [(ngModel)] = "model.is_point_of_sale"
+                style="margin-right: 2%;"
+              >
+              <label>¿Es un punto de venta?</label>
+            </div>
+
           </div>
         </form>
       </nb-card-body>

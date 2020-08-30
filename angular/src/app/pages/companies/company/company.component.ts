@@ -93,7 +93,7 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
     const ts    = this;
     const frm   = ts.customForm;
     const lang  = ts.translate;
-    this.tor.getData().subscribe((resp) => {
+    this.tor.getData({}).subscribe((resp) => {
       this.typeOrg  = resp;
     });
 

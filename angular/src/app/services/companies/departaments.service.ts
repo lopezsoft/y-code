@@ -17,9 +17,9 @@ export class DepartamentsService {
     private api: ApiServerService
   ){}
 
-  getData(): Observable<Departments[]> {
+  getData(params: any): Observable<Departments[]> {
     const ts  = this;
-    return ts.api.get('/companies/departments/read')
+    return ts.api.get('/companies/departments/read', params)
       .pipe( map ( (resp: JsonResponse ) => {
         return resp.records;
       }));

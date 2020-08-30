@@ -27,6 +27,10 @@ const routes: Routes = [{
       component: EditBranchOfficeComponent
     },
     {
+      path: 'branchoffice/create',
+      component: EditBranchOfficeComponent
+    },
+    {
       path: 'departaments',
       component: DepartmentsComponent
     },
@@ -35,11 +39,19 @@ const routes: Routes = [{
       component: EditDepartmensComponent
     },
     {
+      path: 'departments/create',
+      component: EditDepartmensComponent
+    },
+    {
       path: 'wineries',
       component: WineriesComponent
     },
     {
       path: 'wineries/edit/:id',
+      component: EditWineriesComponent
+    },
+    {
+      path: 'wineries/create',
       component: EditWineriesComponent
     },
     {
