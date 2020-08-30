@@ -10,6 +10,7 @@ import { FormComponent } from 'src/app/core/components/forms/form.component';
 import { ErrorResponse, JsonResponse } from 'src/app/interfaces';
 
 import {  ClassOfAccounting } from 'src/app/models/accounting-model';
+import { ClassOfAccountingService } from './../../../services/accounting/index';
 
 @Component({
   selector: 'app-class-of-accounting-form',
@@ -25,6 +26,7 @@ export class ClassOfAccountingFormComponent extends FormComponent implements OnI
               public api: ApiServerService,
               public router: Router,
               public translate: TranslateService,
+              public servis: ClassOfAccountingService,
               public aRouter: ActivatedRoute
   ){
     super(fb, msg, api, router, translate, aRouter);
@@ -61,11 +63,9 @@ export class ClassOfAccountingFormComponent extends FormComponent implements OnI
     const frm   = ts.customForm;
     const lang  = ts.translate;
     ts.editing  = true;
-    ts.api.get(`/accounting/clasofaccounts/read`, { uid: id}).
-      subscribe((resp: any) => {
-        this.model = resp.records[0];
-      }, (err: ErrorResponse) => {
-        ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
+    ts.servis.getData({ uid: id}).
+      subscribe((resp) => {
+        this.model = resp[0];
       });
   }
 

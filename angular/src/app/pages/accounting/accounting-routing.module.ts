@@ -6,6 +6,7 @@ import { AccountsComponent,
   AccountingGroupsComponent,
   ClassOfAccountingComponent,
   ClassOfAccountingFormComponent,
+  AccountingGroupsFormComponent,
 } from './index';
 
 const routes: Routes = [{
@@ -27,6 +28,14 @@ const routes: Routes = [{
     {
       path: 'groups',
       component: AccountingGroupsComponent
+    },
+    {
+      path: 'groups/create',
+      component: AccountingGroupsFormComponent,
+    },
+    {
+      path: 'groups/edit/:id',
+      component: AccountingGroupsFormComponent,
     },
     {
       path: 'accounts',

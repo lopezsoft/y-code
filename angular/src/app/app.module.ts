@@ -41,6 +41,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     ThemeModule.forRoot(),
+    NgbModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [

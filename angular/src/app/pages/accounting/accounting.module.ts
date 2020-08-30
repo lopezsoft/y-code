@@ -26,6 +26,7 @@ import {
   ClassOfAccountingFormComponent
 } from './index';
 import { AccountingComponent } from './accounting.component';
+import { AccountingGroupsFormComponent } from './accounting-groups/accounting-groups-form.component';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { AccountingComponent } from './accounting.component';
     AccountsComponent,
     ClassOfAccountingComponent,
     ClassOfAccountingFormComponent,
+    AccountingGroupsFormComponent,
   ]
 })
 export class AccountingModule { }

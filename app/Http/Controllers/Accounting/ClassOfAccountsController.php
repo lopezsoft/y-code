@@ -57,7 +57,7 @@ class ClassOfAccountsController extends Controller
                 $where  = ['id' => $uid];
             }
             $table  = $company->database_name.'.class_of_accounts';
-            $limit  = isset($limit) ? $limit : 1;
+            $limit  = isset($limit) ? $limit : 10;
             $start  = isset($start) ? $start : 0;
             return $model->getTable($table, $query, $start, $limit, $where);
         }else{

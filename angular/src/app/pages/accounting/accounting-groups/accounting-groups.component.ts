@@ -24,7 +24,8 @@ export class AccountingGroupsComponent extends JqxCustomGridComponent implements
               public api: ApiServerService,
               public router: Router,
               public translate: TranslateService,
-              public aRouter: ActivatedRoute) {
+              public aRouter: ActivatedRoute
+  ) {
     super(msg, api, router, translate, aRouter);
   }
 
@@ -58,6 +59,18 @@ export class AccountingGroupsComponent extends JqxCustomGridComponent implements
     ];
 
     this.prepareGrid();
+  }
+
+  createData(): void {
+    const ts    = this;
+    const lang  = this.translate;
+    super.createData();
+    ts.goRoute('pages/accounting/groups/create');
+  }
+
+  editData(data: any): void {
+    super.editData(data);
+    this.goRoute(`pages/accounting/groups/edit/${data.id}`);
   }
 
 }
