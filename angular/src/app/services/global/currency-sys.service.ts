@@ -15,9 +15,9 @@ export class CurrencySysService {
     private api: ApiServerService
   ) { }
 
-  getData(): Observable<CurrencySys[]> {
+  getData(params: any): Observable<CurrencySys[]> {
     const ts = this;
-    return ts.api.get('/currencysys')
+    return ts.api.get('/currencysys', params)
       .pipe(map((resp: JsonResponse) => {
         return resp.records;
       }));
@@ -33,4 +33,5 @@ export interface CurrencySys {
   singular_name: string;
   denomination: string;
   currency_name: string;
+  state: number
 }

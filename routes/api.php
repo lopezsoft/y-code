@@ -133,6 +133,23 @@ Route::group(['prefix' => 'v1'], function () {
 
         });
 
+        Route::group(['prefix' => 'general'], function ()
+        {
+            Route::group(['prefix' => 'taxes'], function () {
+                Route::post('create',           'General\TaxesController@create');
+                Route::get('read',              'General\TaxesController@select');
+                Route::put('update/{id}',       'General\TaxesController@update');
+                Route::delete('delete/{id}',    'General\TaxesController@delete');
+            });
+
+            Route::group(['prefix' => 'currency'], function () {
+                Route::post('create',           'General\CurrencyController@create');
+                Route::get('read',              'General\CurrencyController@select');
+                Route::put('update/{id}',       'General\CurrencyController@update');
+                Route::delete('delete/{id}',    'General\CurrencyController@delete');
+            });
+        });
+
         Route::group(['prefix' => 'company'], function () {
             Route::post('create',           'CompanyController@createCompany');
             Route::get('read',              'CompanyController@getCompany');

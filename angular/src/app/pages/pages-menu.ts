@@ -104,12 +104,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Impuestos',
-        link: '/pages/layout/stepper',
+        link: '/pages/general/taxes',
       },
       {
         title: 'Monedas',
-        link: '/pages/layout/list',
+        link: '/pages/general/currency',
+      },
+      {
+        title: 'Documentos',
+        link: '/pages/general/identity',
+      },
+      {
+        title: 'Rango de impuestos',
+        link: '/pages/general/tas_rates',
       }
+
     ],
   }
 ];

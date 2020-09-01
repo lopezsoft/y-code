@@ -100,7 +100,7 @@ export class EditBranchOfficeComponent extends FormComponent implements OnInit {
       ts.cities  = resp;
     });
 
-    ts.curr.getData().subscribe((resp) => {
+    ts.curr.getData({}).subscribe((resp) => {
       ts.currency  = resp;
     });
 
