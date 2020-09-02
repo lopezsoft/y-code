@@ -5,57 +5,20 @@
       <nb-card-body>
         <form  [formGroup]="customForm">
           <div class="row">
-            <div class="col-md-6">
-              <label>Moneda</label>
-              <select class="form-control"
-                      fullWidth
-                      formControlName="currency_id"
-                      name="currency_id"
-                      required
-                      [class.is-invalid]="invalidCurrencyId"
-                      [(ngModel)] = "model.currency_id"
-                      [class.status-danger]="invalidCurrencyId"
-                      [disabled] = "currency.length === 0"
-              >
-                <option *ngFor="let cur of currency" [value]="cur.id">
-                  {{ cur.CurrencyName }}
-                </option>
-              </select>
-            </div>
 
             <div class="col-md-6">
-              <label>Valor del tipo de cambio</label>
-              <div class="form-group">
-                <input
-                  type="number"
-                  step="any"
-                  #focusElement
-                  fullWidth
-                  nbinput
-                  name="exchange_rate_value"
-                  [(ngModel)]="model.exchange_rate_value"
-                  formControlName="exchange_rate_value"
-                  [class.status-danger]="invalidExchangeRateValue"
-                  [class.is-invalid]="invalidExchangeRateValue"
-                  required="" autofocus
-                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
-                >
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label>Nombre Plural</label>
+              <label>Código</label>
               <div class="form-group">
                 <input
                   type="text"
                   #focusElement
                   fullWidth
                   nbinput
-                  name="plural_name"
-                  [(ngModel)]="model.plural_name"
-                  formControlName="plural_name"
-                  [class.status-danger]="invalidPluralName"
-                  [class.is-invalid]="invalidPluralName"
+                  name="code"
+                  [(ngModel)]="model.code"
+                  formControlName="code"
+                  [class.status-danger]="invalidCode"
+                  [class.is-invalid]="invalidCode"
                   required="" autofocus
                   class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
                 >
@@ -63,7 +26,26 @@
             </div>
 
             <div class="col-md-6">
-              <label>Nombre singular</label>
+              <label>Documento</label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  #focusElement
+                  fullWidth
+                  nbinput
+                  name="document_name"
+                  [(ngModel)]="model.document_name"
+                  formControlName="document_name"
+                  [class.status-danger]="invalidDocumentName"
+                  [class.is-invalid]="invalidDocumentName"
+                  required="" autofocus
+                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label>Abreviatura</label>
               <div class="form-group">
                 <input
                   type="text"
@@ -71,37 +53,16 @@
                   #focusElement
                   fullWidth
                   nbinput
-                  name="singular_name"
-                  [(ngModel)]="model.singular_name"
-                  formControlName="singular_name"
-                  [class.status-danger]="invalidSingularName"
-                  [class.is-invalid]="invalidSingularName"
+                  name="abbrev"
+                  [(ngModel)]="model.abbrev"
+                  formControlName="abbrev"
+                  [class.status-danger]="invalidAbbrev"
+                  [class.is-invalid]="invalidAbbrev"
                   required="" autofocus
                   class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
                 >
               </div>
             </div>
-
-
-            <div class="col-md-6">
-              <label>Denominación</label>
-              <div class="form-group">
-                <input
-                  type="text"
-                  #focusElement
-                  fullWidth
-                  nbinput
-                  name="denomination"
-                  [(ngModel)]="model.denomination"
-                  formControlName="denomination"
-                  [class.status-danger]="invalidDenomination"
-                  [class.is-invalid]="invalidDenomination"
-                  required="" autofocus
-                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
-                >
-              </div>
-            </div>
-
 
             <div class="col-md-6">
               <br><br>
@@ -109,15 +70,16 @@
                 <input
                 type="checkbox"
                 class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-                formControlName="national_currency"
-                [(ngModel)] = "model.national_currency"
-                [class.status-danger]="invalidNationalCurrency"
-                [class.is-invalid]="invalidNationalCurrency"
+                formControlName="active"
+                [(ngModel)] = "model.active"
+                [class.status-danger]="invalidActive"
+                [class.is-invalid]="invalidActive"
                 style="margin-right: 2%;"
               >
-              <label>¿Es moneda nacional?</label>
+              <label>Usar abreviatura</label>
               </div>
             </div>
+
 
           </div>
         </form>

@@ -33,7 +33,7 @@ export class TaxesComponent extends JqxCustomGridComponent implements OnInit, Af
     const ts = this;
     ts.crudApi = {
       create: '/general/taxes/create',
-      read: '/general/taxes/read',
+      read  : '/general/taxes/read',
       update: '/general/taxes/update/',
       delete: '/general/taxes/delete/'
     };

@@ -5,7 +5,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MessagesService, ApiServerService } from 'src/app/utils';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { CurrencySysService, CurrencySys } from 'src/app/services/global';
+import { CurrencySys, Currency }  from 'src/app/models/general-model';
+import { CurrencySysService } from 'src/app/services/general/currency-sys.service';
+import {CurrencyService} from 'src/app/services/general/currency.service'
 
 @Component({
   selector: 'app-edit-currency',
@@ -16,14 +18,15 @@ export class EditCurrencyComponent extends FormComponent implements OnInit{
 
   @ViewChild('focusElement') focusElement: ElementRef;
   model: CurrencySys;
-
+  currency: Currency[]= [];
   constructor(public fb: FormBuilder,
               public msg: MessagesService,
               public api: ApiServerService,
               public router: Router,
               public translate: TranslateService,
               public aRouter: ActivatedRoute,
-              private types: CurrencySysService
+              private types: CurrencyService,
+              private curr: CurrencySysService
   ){
     super(fb, msg, api, router, translate, aRouter);
     this.translate.setDefaultLang(this.activeLang);
@@ -59,20 +62,25 @@ export class EditCurrencyComponent extends FormComponent implements OnInit{
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
-    ts.title  = 'Crear/Editar impuesto';
+    ts.title  = 'Crear/Editar moneda';
     ts.model = {
       id: 0,
       currency_id:0,
       currency_name: '',
       denomination: '',
       exchange_rate_value: 0,
-      national_currency: false,
+      national_currency: 0,
       plural_name: '',
       singular_name: '',
+      CurrencyISO: '',
       state: 1
     };
-    ts.PutURL   = '/general/taxes/update/';
-    ts.PostURL  = '/general/taxes/create';
+    ts.PutURL   = '/general/currency/update/';
+    ts.PostURL  = '/general/currency/create';
+
+    ts.curr.getData().subscribe((resp) => {
+      ts.currency  = resp;
+    });
 
   }
 

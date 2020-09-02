@@ -15,9 +15,9 @@ export class CurrencySysService {
     private api: ApiServerService
   ) { }
 
-  getData(params: any): Observable<CurrencySys[]> {
+  getData(): Observable<CurrencySys[]> {
     const ts = this;
-    return ts.api.get('/currencysys', params)
+    return ts.api.get('/currencysys')
       .pipe(map((resp: JsonResponse) => {
         return resp.records;
       }));

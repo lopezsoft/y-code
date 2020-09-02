@@ -23,6 +23,10 @@ import { TaxesComponent, CurrencyComponent} from './index';
 import { GeneralComponent } from './general.component';
 import { EditTaxesComponent } from './taxes/edit-taxes/edit-taxes.component';
 import { EditCurrencyComponent } from './currency/edit-currency/edit-currency.component';
+import { TaxRatesComponent } from './tax-rates/tax-rates.component';
+import { IdentityDocumentsComponent } from './identity-documents/identity-documents.component';
+import { EditIdentitydocsComponent } from './identity-documents/edit-identitydocs/edit-identitydocs.component';
+import { EditTaxratesComponent } from './tax-rates/edit-taxrates/edit-taxrates.component';
 @NgModule({
   imports: [
     ThemeModule,
@@ -59,7 +63,11 @@ import { EditCurrencyComponent } from './currency/edit-currency/edit-currency.co
     CurrencyComponent,
     TaxesComponent,
     EditTaxesComponent,
-    EditCurrencyComponent
+    EditCurrencyComponent,
+    TaxRatesComponent,
+    IdentityDocumentsComponent,
+    EditIdentitydocsComponent,
+    EditTaxratesComponent
   ],
 })
 export class GeneralModule { }

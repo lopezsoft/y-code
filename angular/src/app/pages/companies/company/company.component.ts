@@ -97,7 +97,7 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
       this.typeOrg  = resp;
     });
 
-    await ts.docs.getData().subscribe((resp) => {
+    await ts.docs.getData({}).subscribe((resp) => {
       ts.identityDocs  = resp;
     });
 
@@ -105,7 +105,7 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
       ts.countries  = resp;
     });
 
-    await ts.curr.getData({}).subscribe((resp) => {
+    await ts.curr.getData().subscribe((resp) => {
       ts.currency  = resp;
     });
   }

@@ -5,7 +5,10 @@ import { TaxesComponent } from './taxes/taxes.component';
 import { CurrencyComponent } from './currency/currency.component';
 import { EditTaxesComponent } from './taxes/edit-taxes/edit-taxes.component';
 import { EditCurrencyComponent } from './currency/edit-currency/edit-currency.component';
-
+import { TaxRatesComponent } from './tax-rates/tax-rates.component';
+import { IdentityDocumentsComponent } from './identity-documents/identity-documents.component';
+import { EditIdentitydocsComponent } from './identity-documents/edit-identitydocs/edit-identitydocs.component';
+import { EditTaxratesComponent } from './tax-rates/edit-taxrates/edit-taxrates.component';
 const routes: Routes = [{
   path      : '',
   component : GeneralComponent,
@@ -33,6 +36,30 @@ const routes: Routes = [{
     {
       path: 'currency/create',
       component: EditCurrencyComponent
+    },
+    {
+      path: 'tax-rates',
+      component: TaxRatesComponent
+    },
+    {
+      path: 'tax-rates/edit/:id',
+      component: EditTaxratesComponent
+    },
+    {
+      path: 'tax-rates/create',
+      component: EditTaxratesComponent
+    },
+    {
+      path: 'identity-documents',
+      component: IdentityDocumentsComponent
+    },
+    {
+      path: 'identity-documents/edit/:id',
+      component: EditIdentitydocsComponent
+    },
+    {
+      path: 'identity-documents/create',
+      component: EditIdentitydocsComponent
     },
   ],
 }];

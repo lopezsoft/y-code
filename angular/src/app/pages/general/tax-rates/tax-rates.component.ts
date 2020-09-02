@@ -6,16 +6,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-currency',
+  selector: 'app-tax-rates',
   templateUrl: './../../global/global-grid.component.html',
-  styleUrls: ['./currency.component.scss']
+  styleUrls: ['./tax-rates.component.scss']
 })
-export class CurrencyComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
+export class TaxRatesComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
 
   @ViewChild('customGrid', { static: false }) customGrid: jqxGridComponent;
   @ViewChild('searchField') searchField: ElementRef;
 
-  title = 'Monedas';
+  title = 'Impuestos';
 
   constructor(public msg: MessagesService,
     public api: ApiServerService,
@@ -33,10 +33,10 @@ export class CurrencyComponent extends JqxCustomGridComponent implements OnInit,
   ngAfterViewInit(): void {
     const ts = this;
     ts.crudApi = {
-      create: '/general/currency/create',
-      read:   '/general/currency/read',
-      update: '/general/currency/update/',
-      delete: '/general/currency/delete/'
+      create: '/general/taxerates/create',
+      read  : '/general/taxerates/read',
+      update: '/general/taxerates/update/',
+      delete: '/general/taxerates/delete/'
     };
     ts.showActions = true;
     ts.showRowNumber = true;
@@ -44,21 +44,22 @@ export class CurrencyComponent extends JqxCustomGridComponent implements OnInit,
 
     ts.datafields = [
       { name: 'id', type: 'number' },
-      { name: 'CurrencyName', type: 'string' },
-      { name: 'CurrencyISO', type: 'string' },
-      { name: 'plural_name', type: 'string' },
-      { name: 'singular_name', type: 'string' },
-      { name: 'denomination', type: 'string' },
+      { name: 'name_taxe', type: 'number' },
+      { name: 'rate_name', type: 'string' },
+      { name: 'rate_abbre', type: 'number' },
+      { name: 'rate_value', type: 'number' },
+      { name: 'decimal_rate', type: 'number' },
       { name: 'state', type: 'number' },
     ];
 
     ts.sourceColumns =
       [
-        { text: 'Moneda', align: 'center', datafield: 'CurrencyName' },
-        { text: 'Estandar', align: 'center', datafield: 'CurrencyISO' },
-        { text: 'Nombre plural', align: 'center', datafield: 'plural_name' },
-        { text: 'Nombre singular', align: 'center', datafield: 'singular_name' },
-        { text: 'Denominación', align: 'center', datafield: 'denomination' },
+        { text: 'Impuesto', align: 'center', datafield: 'name_taxe' },
+        { text: 'Tarifa', align: 'center', datafield: 'rate_name', width: '40%'},
+        { text: 'Abreviatura de tasa', align: 'center', datafield: 'rate_abbre' },
+        { text: 'Valor tarifa', align: 'center', datafield: 'rate_value' },
+        { text: 'Tasa decimal', align: 'center', datafield: 'decimal_rate' },
+
       ];
 
     this.prepareGrid();
@@ -68,11 +69,11 @@ export class CurrencyComponent extends JqxCustomGridComponent implements OnInit,
     const ts = this;
     const lang = this.translate;
     super.createData();
-    ts.goRoute('pages/general/currency/create');
+    ts.goRoute('pages/general/tax-rates/create');
   }
 
   editData(data: any): void {
     super.editData(data);
-    this.goRoute(`pages/general/currency/edit/${data.id}`);
+    this.goRoute(`pages/general/tax-rates/edit/${data.id}`);
   }
 }

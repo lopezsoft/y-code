@@ -45,6 +45,7 @@ export class EditTaxesComponent extends FormComponent implements OnInit{
     const ts    = this;
     ts.title  = 'Crear/Editar impuesto';
     ts.model = {
+      id: 0,
       name_taxe: '',
       description: '',
       state: 1

@@ -107,16 +107,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/general/taxes',
       },
       {
+        title: 'Rango de impuestos',
+        link: '/pages/general/tax-rates',
+      },
+      {
         title: 'Monedas',
         link: '/pages/general/currency',
       },
       {
         title: 'Documentos',
-        link: '/pages/general/identity',
-      },
-      {
-        title: 'Rango de impuestos',
-        link: '/pages/general/tas_rates',
+        link: '/pages/general/identity-documents',
       }
 
     ],

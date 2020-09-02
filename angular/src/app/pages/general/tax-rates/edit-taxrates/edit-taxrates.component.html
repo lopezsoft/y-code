@@ -5,26 +5,62 @@
       <nb-card-body>
         <form  [formGroup]="customForm">
           <div class="row">
+
             <div class="col-md-6">
-              <label>Moneda</label>
-              <select class="form-control"
-                      fullWidth
-                      formControlName="currency_id"
-                      name="currency_id"
-                      required
-                      [class.is-invalid]="invalidCurrencyId"
-                      [(ngModel)] = "model.currency_id"
-                      [class.status-danger]="invalidCurrencyId"
-                      [disabled] = "currency.length === 0"
-              >
-                <option *ngFor="let cur of currency" [value]="cur.id">
-                  {{ cur.CurrencyName }}
+              <label>Impuesto</label>
+              <select class="form-control" fullWidth
+                      formControlName="tax_gruop_id"
+                      name="tax_gruop_id"
+                      required [class.is-invalid]="invalidTaxGroupId"
+                      [(ngModel)] = "model.tax_gruop_id"
+                      [class.status-danger]="invalidTaxGroupId"
+                      [disabled] = "taxgroup.length === 0">
+                <option *ngFor="let tax of taxgroup" [value]="tax.id">
+                  {{ tax.name_taxe }}
                 </option>
               </select>
             </div>
+            <div class="col-md-6">
+              <label>Nombre del rango</label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  #focusElement
+                  fullWidth
+                  nbinput
+                  name="rate_name"
+                  [(ngModel)]="model.rate_name"
+                  formControlName="rate_name"
+                  [class.status-danger]="invalidRateName"
+                  [class.is-invalid]="invalidRateName"
+                  required="" autofocus
+                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
+                >
+              </div>
+            </div>
 
             <div class="col-md-6">
-              <label>Valor del tipo de cambio</label>
+              <label>Abreviatura</label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  step="any"
+                  #focusElement
+                  fullWidth
+                  nbinput
+                  name="rate_abbre"
+                  [(ngModel)]="model.rate_abbre"
+                  formControlName="rate_abbre"
+                  [class.status-danger]="invalidRateAbbre"
+                  [class.is-invalid]="invalidRateAbbre"
+                  required="" autofocus
+                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label>Valor tarifa</label>
               <div class="form-group">
                 <input
                   type="number"
@@ -32,11 +68,11 @@
                   #focusElement
                   fullWidth
                   nbinput
-                  name="exchange_rate_value"
-                  [(ngModel)]="model.exchange_rate_value"
-                  formControlName="exchange_rate_value"
-                  [class.status-danger]="invalidExchangeRateValue"
-                  [class.is-invalid]="invalidExchangeRateValue"
+                  name="rate_value"
+                  [(ngModel)]="model.rate_value"
+                  formControlName="rate_value"
+                  [class.status-danger]="invalidRateValue"
+                  [class.is-invalid]="invalidRateValue"
                   required="" autofocus
                   class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
                 >
@@ -44,80 +80,25 @@
             </div>
 
             <div class="col-md-6">
-              <label>Nombre Plural</label>
+              <label>Tasa decimal</label>
               <div class="form-group">
                 <input
-                  type="text"
-                  #focusElement
-                  fullWidth
-                  nbinput
-                  name="plural_name"
-                  [(ngModel)]="model.plural_name"
-                  formControlName="plural_name"
-                  [class.status-danger]="invalidPluralName"
-                  [class.is-invalid]="invalidPluralName"
-                  required="" autofocus
-                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
-                >
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label>Nombre singular</label>
-              <div class="form-group">
-                <input
-                  type="text"
+                  type="number"
                   step="any"
                   #focusElement
                   fullWidth
                   nbinput
-                  name="singular_name"
-                  [(ngModel)]="model.singular_name"
-                  formControlName="singular_name"
-                  [class.status-danger]="invalidSingularName"
-                  [class.is-invalid]="invalidSingularName"
+                  name="decimal_rate"
+                  [(ngModel)]="model.decimal_rate"
+                  formControlName="decimal_rate"
+                  [class.status-danger]="invalidDecimalRate"
+                  [class.is-invalid]="invalidDecimalRate"
                   required="" autofocus
                   class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
                 >
               </div>
             </div>
 
-
-            <div class="col-md-6">
-              <label>Denominación</label>
-              <div class="form-group">
-                <input
-                  type="text"
-                  #focusElement
-                  fullWidth
-                  nbinput
-                  name="denomination"
-                  [(ngModel)]="model.denomination"
-                  formControlName="denomination"
-                  [class.status-danger]="invalidDenomination"
-                  [class.is-invalid]="invalidDenomination"
-                  required="" autofocus
-                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
-                >
-              </div>
-            </div>
-
-
-            <div class="col-md-6">
-              <br><br>
-              <div class="form-group">
-                <input
-                type="checkbox"
-                class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-                formControlName="national_currency"
-                [(ngModel)] = "model.national_currency"
-                [class.status-danger]="invalidNationalCurrency"
-                [class.is-invalid]="invalidNationalCurrency"
-                style="margin-right: 2%;"
-              >
-              <label>¿Es moneda nacional?</label>
-              </div>
-            </div>
 
           </div>
         </form>

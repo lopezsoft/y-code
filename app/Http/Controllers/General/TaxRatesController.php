@@ -4,13 +4,14 @@ namespace App\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\core\MasterModel;
 use DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
 
-class CurrencyController extends Controller
+class TaxRatesController extends Controller
 {
     public function create(Request $request)
     {
@@ -22,15 +23,14 @@ class CurrencyController extends Controller
             $company    = $model->getCompany();
             if($company){
                 $data       = [
-                    'currency_id'             => $request->currency_id,
-                    'exchange_rate_value'     => $request->exchange_rate_value,
-                    'national_currency'       => $request->national_currency,
-                    'plural_name'             => $request->plural_name,
-                    'singular_name'           => $request->singular_name,
-                    'denomination'            => $request->denomination,
-                    'state'                   => 1,
+                    'tax_gruop_id'  => $request->tax_gruop_id,
+                    'rate_name'     => $request->rate_name,
+                    'rate_abbre'    => $request->rate_abbre,
+                    'rate_value'    => $request->rate_value,
+                    'decimal_rate'  => $request->decimal_rate,
+                    'state'       => 1,
                 ];
-                $table      = $company->database_name.".currency_sys";
+                $table      = $company->database_name.".tax_rates";
 
                 $result     = $model->insertData($data, $table, $ip);
                 DB::commit();
@@ -49,6 +49,7 @@ class CurrencyController extends Controller
         }
     }
 
+
     public function select(Request $request)
     {
         $model  = new MasterModel();
@@ -66,43 +67,13 @@ class CurrencyController extends Controller
                 $where  = "a.id={$uid}";
             }
             $sqlStatement =
-                "SELECT a.*, b.CurrencyName, b.CurrencyISO
-                 FROM {$table}currency_sys a
-                 LEFT JOIN {$table}currency b ON a.currency_id = b.id";
+                "SELECT a.*, b.name_taxe
+                FROM {$table}tax_rates a
+                LEFT JOIN {$table}tax_group b ON a.tax_gruop_id= b.id";
             $sqlStatementCount =
-                "SELECT count(a.id) as total
-                 FROM {$table}currency_sys a
-                 LEFT JOIN {$table}currency b ON a.currency_id = b.id ";
+                "SELECT count(a.id) as total FROM {$table}tax_rates a LEFT JOIN {$table}tax_group b ON a.tax_gruop_id= b.id ";
 
-            $searchFields = ['a.CurrencyName'];
-            return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields ,$query, $start, $limit, $where);
-        }else{
-            return $model->getErrorResponse('Error en el servidor.');
-        }
-    }
-
-    public function getCurrencies(Request $request)
-    {
-        $model  = new MasterModel();
-        $company= $model->getCompany();
-        $start  = $request->start;
-        $limit  = $request->limit;
-        $uid    = $request->uid;
-        $query  = $request->input('query');
-        if($company){
-            $table  = $company->database_name.'.';
-            $limit  = isset($limit) ? $limit : 20;
-            $start  = isset($start) ? $start : 0;
-            $where  = "a.active = 1";
-
-            $sqlStatement =
-                "SELECT a.*
-                 FROM {$table}currency a";
-            $sqlStatementCount =
-                "SELECT count(a.id) as total
-                 FROM {$table}currency a";
-
-            $searchFields = ['a.CurrencyName'];
+            $searchFields = ['a.rate_name'];
             return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields ,$query, $start, $limit, $where);
         }else{
             return $model->getErrorResponse('Error en el servidor.');
@@ -116,7 +87,7 @@ class CurrencyController extends Controller
         $model      = new MasterModel();
         $company    = $model->getCompany();
         if($company){
-            $table          = $company->database_name.'.currency_sys';
+            $table          = $company->database_name.'.tax_rates';
             $records->id    = $id;
             return   $model->updateData($records,$table, $ip);
         }else{
@@ -130,7 +101,7 @@ class CurrencyController extends Controller
         $model      = new MasterModel();
         $company    = $model->getCompany();
         if($company){
-            $table          = $company->database_name.'.currency_sys';
+            $table          = $company->database_name.'.tax_rates';
             $records = (object)[
                 'id'    => $id,
                 'state' => 2
