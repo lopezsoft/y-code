@@ -32,6 +32,11 @@ const routes: Routes = [{
         .then(m => m.CompaniesModule),
     },
     {
+      path: 'general',
+      loadChildren: () => import('./general/general.module')
+        .then(m => m.GeneralModule),
+    },
+    {
       path      : '',
       redirectTo: 'dashboard',
       pathMatch : 'full',

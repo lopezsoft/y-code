@@ -33,4 +33,5 @@ export interface CurrencySys {
   singular_name: string;
   denomination: string;
   currency_name: string;
+  state: number
 }
