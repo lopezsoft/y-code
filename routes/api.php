@@ -133,6 +133,38 @@ Route::group(['prefix' => 'v1'], function () {
 
         });
 
+        Route::group(['prefix' => 'general'], function ()
+        {
+            Route::group(['prefix' => 'taxes'], function () {
+                Route::post('create',           'General\TaxesController@create');
+                Route::get('read',              'General\TaxesController@select');
+                Route::put('update/{id}',       'General\TaxesController@update');
+                Route::delete('delete/{id}',    'General\TaxesController@delete');
+            });
+
+            Route::group(['prefix' => 'currency'], function () {
+                Route::post('create',           'General\CurrencyController@create');
+                Route::get('read',              'General\CurrencyController@select');
+                Route::get('currencies',        'General\CurrencyController@getCurrencies');
+                Route::put('update/{id}',       'General\CurrencyController@update');
+                Route::delete('delete/{id}',    'General\CurrencyController@delete');
+            });
+
+            Route::group(['prefix' => 'taxerates'], function () {
+                Route::post('create',           'General\TaxRatesController@create');
+                Route::get('read',              'General\TaxRatesController@select');
+                Route::put('update/{id}',       'General\TaxRatesController@update');
+                Route::delete('delete/{id}',    'General\TaxRatesController@delete');
+            });
+
+            Route::group(['prefix' => 'identitydocs'], function () {
+                Route::post('create',           'General\IdentityDocumentsController@create');
+                Route::get('read',              'General\IdentityDocumentsController@select');
+                Route::put('update/{id}',       'General\IdentityDocumentsController@update');
+                Route::delete('delete/{id}',    'General\IdentityDocumentsController@delete');
+            });
+        });
+
         Route::group(['prefix' => 'company'], function () {
             Route::post('create',           'CompanyController@createCompany');
             Route::get('read',              'CompanyController@getCompany');

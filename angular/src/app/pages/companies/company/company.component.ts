@@ -97,7 +97,7 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
       this.typeOrg  = resp;
     });
 
-    await ts.docs.getData().subscribe((resp) => {
+    await ts.docs.getData({}).subscribe((resp) => {
       ts.identityDocs  = resp;
     });
 

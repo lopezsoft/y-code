@@ -16,9 +16,9 @@ export class IdentityDocumentsService {
     private api: ApiServerService
   ) { }
 
-  getData(): Observable<IdentityDocuments[]> {
+  getData(params: any): Observable<IdentityDocuments[]> {
     const ts = this;
-    return ts.api.get('/identitydocuments')
+    return ts.api.get('/identitydocuments', params)
       .pipe(map((resp: JsonResponse) => {
         return resp.records;
       }));
@@ -31,4 +31,5 @@ export interface IdentityDocuments {
   document_name: string;
   abbrev: string;
   active: number;
+  state: number,
 }
