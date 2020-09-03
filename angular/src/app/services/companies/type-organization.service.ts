@@ -16,9 +16,9 @@ export class TypeOrganizationService {
     private api: ApiServerService
   ){}
 
-  getData(): Observable<TypeOrganization[]> {
+  getData(params: any): Observable<TypeOrganization[]> {
     const ts  = this;
-    return ts.api.get('/typeorganization')
+    return ts.api.get('/typeorganization', params)
       .pipe( map ( (resp: JsonResponse ) => {
         return resp.records;
       }));

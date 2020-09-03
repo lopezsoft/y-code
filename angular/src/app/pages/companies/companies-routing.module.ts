@@ -6,6 +6,8 @@ import { BranchOfficeComponent, CompanyComponent,
         CompanyTypeComponent, CompanyTypeFormComponent,
         DepartmentsComponent, WineriesComponent,
         EditBranchOfficeComponent } from './index';
+import { EditWineriesComponent } from './wineries/edit-wineries/edit-wineries.component';
+import { EditDepartmensComponent } from './departments/edit-departmens/edit-departmens.component';
 
 
 const routes: Routes = [{
@@ -21,7 +23,11 @@ const routes: Routes = [{
       component: BranchOfficeComponent
     },
     {
-      path: 'branch-office/edit/:id',
+      path: 'branchoffice/edit/:id',
+      component: EditBranchOfficeComponent
+    },
+    {
+      path: 'branchoffice/create',
       component: EditBranchOfficeComponent
     },
     {
@@ -29,8 +35,24 @@ const routes: Routes = [{
       component: DepartmentsComponent
     },
     {
+      path: 'departments/edit/:id',
+      component: EditDepartmensComponent
+    },
+    {
+      path: 'departments/create',
+      component: EditDepartmensComponent
+    },
+    {
       path: 'wineries',
       component: WineriesComponent
+    },
+    {
+      path: 'wineries/edit/:id',
+      component: EditWineriesComponent
+    },
+    {
+      path: 'wineries/create',
+      component: EditWineriesComponent
     },
     {
       path: 'companytype',

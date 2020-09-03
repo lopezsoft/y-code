@@ -57,7 +57,7 @@ export class CompanyTypeFormComponent extends FormComponent implements OnInit {
     const frm   = ts.customForm;
     const lang  = ts.translate;
     ts.editing  = true;
-    ts.types.getData().subscribe((resp) => {
+    ts.types.getData({uid: id}).subscribe((resp) => {
       this.model = resp[0];
     });
   }

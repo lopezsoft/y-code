@@ -22,6 +22,7 @@ class BranchOfficeController extends Controller
             $company    = $model->getCompany();
             if($company){
                 $data       = [
+                    'city_id'           => $request->city_id,
                     'description'       => $request->description,
                     'currency_id'       => $request->currency_id,
                     'country_id'        => $request->country_id,
@@ -32,7 +33,7 @@ class BranchOfficeController extends Controller
                     'email'             => $request->email,
                     'mobile'            => $request->mobile,
                     'phone'             => $request->phone,
-                    'is_point_of_sale'  => $request->is_point_of_sale,
+                    'is_point_of_sale'  => $request->is_point_of_sale ?? 0,
                 ];
                 $table      = $company->database_name.".branch_offices";
 

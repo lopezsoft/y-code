@@ -5,6 +5,7 @@ import { NbButtonModule, NbCardModule, NbInputModule, NbFormFieldModule,
   NbIconModule, NbActionsModule, NbCheckboxModule, NbDatepickerModule,
   NbRadioModule, NbSelectModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NgSelect2Module } from 'ng-select2';
 
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuModule } from 'jqwidgets-ng/jqxmenu';
@@ -46,6 +47,7 @@ import { AccountingGroupsFormComponent } from './accounting-groups/accounting-gr
     NbRadioModule,
     NbSelectModule,
     ReactiveFormsModule,
+    NgSelect2Module,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 import { TranslateService } from '@ngx-translate/core';
 import { ApiServerService, MessagesService } from 'src/app/utils';
 
@@ -67,7 +66,6 @@ export class AccountingGroupsFormComponent extends FormComponent implements OnIn
     ts.PutURL   = '/accounting/accountinggroups/update/';
     ts.PostURL  = '/accounting/accountinggroups/create';
     ts.classSer.getData({}).subscribe(resp => {
-      console.log(resp);
       ts.modelClass = resp;
     });
   }
