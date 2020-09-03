@@ -279,6 +279,7 @@ export class JqxCustomGridComponent extends BaseComponent {
     const row  = this.customGrid.getrowdata(data.rowindex);
     if (data.datafield === '#edit_#'){
       this.editData(row);
+
     }else if (data.datafield === '#delete_#'){
       this.deleteData(row);
     }

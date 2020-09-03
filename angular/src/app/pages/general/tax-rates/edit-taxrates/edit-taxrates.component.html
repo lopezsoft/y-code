@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>{{ title | uppercase}}</nb-card-header>
+      <nb-card-body>
+        <form  [formGroup]="customForm">
+          <div class="row">
+
+            <div class="col-md-6">
+              <label>Impuesto</label>
+              <select class="form-control" fullWidth
+                      formControlName="tax_gruop_id"
+                      name="tax_gruop_id"
+                      required [class.is-invalid]="invalidTaxGroupId"
+                      [(ngModel)] = "model.tax_gruop_id"
+                      [class.status-danger]="invalidTaxGroupId"
+                      [disabled] = "taxgroup.length === 0">
+                <option *ngFor="let tax of taxgroup" [value]="tax.id">
+                  {{ tax.name_taxe }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label>Nombre del rango</label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  #focusElement
+                  fullWidth
+                  nbinput
+                  name="rate_name"
+                  [(ngModel)]="model.rate_name"
+                  formControlName="rate_name"
+                  [class.status-danger]="invalidRateName"
+                  [class.is-invalid]="invalidRateName"
+                  required="" autofocus
+                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label>Abreviatura</label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  step="any"
+                  #focusElement
+                  fullWidth
+                  nbinput
+                  name="rate_abbre"
+                  [(ngModel)]="model.rate_abbre"
+                  formControlName="rate_abbre"
+                  [class.status-danger]="invalidRateAbbre"
+                  [class.is-invalid]="invalidRateAbbre"
+                  required="" autofocus
+                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label>Valor tarifa</label>
+              <div class="form-group">
+                <input
+                  type="number"
+                  step="any"
+                  #focusElement
+                  fullWidth
+                  nbinput
+                  name="rate_value"
+                  [(ngModel)]="model.rate_value"
+                  formControlName="rate_value"
+                  [class.status-danger]="invalidRateValue"
+                  [class.is-invalid]="invalidRateValue"
+                  required="" autofocus
+                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
+                >
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label>Tasa decimal</label>
+              <div class="form-group">
+                <input
+                  type="number"
+                  step="any"
+                  #focusElement
+                  fullWidth
+                  nbinput
+                  name="decimal_rate"
+                  [(ngModel)]="model.decimal_rate"
+                  formControlName="decimal_rate"
+                  [class.status-danger]="invalidDecimalRate"
+                  [class.is-invalid]="invalidDecimalRate"
+                  required="" autofocus
+                  class="input-full-width size-medium status-basic shape-rectangle ng-pristine ng-touched nb-transition ng-valid"
+                >
+              </div>
+            </div>
+
+
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="row flex">
+          <div class="space-right float-right padding-top-bottom">
+            <button (click)= "cancel()" nbSuffix nbButton status="danger" class="radius-button" [disabled]="loading">
+              <i class="fas fa-undo fas-fa-22 space-right"></i>
+              <strong>{{ 'buttons.cancel' | translate }} </strong>
+            </button>
+          </div>
+          <div class="space-right padding-top-bottom">
+            <button nbSuffix nbButton (click) ="saveAndCreate()" status="success" class="radius-button" [disabled]="loading">
+              <i [ngClass]="{'fa-save':!saveACreate, 'fa-spinner fa-spin':saveACreate }" class="fas-fa-22 space-right fas">
+              </i>
+              {{'buttons.saveAndCreate' | translate }}
+            </button>
+          </div>
+          <div class="padding-top-bottom">
+            <button nbSuffix nbButton (click) ="saveAndClose()" status="primary" class="radius-button" [disabled]="loading">
+              <i [ngClass]="{'fa-save':!saveAClose, 'fa-spinner fa-spin':saveAClose }" class="fas-fa-22 space-right fas"></i>
+              {{'buttons.saveAndClose' | translate }}
+            </button>
+          </div>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

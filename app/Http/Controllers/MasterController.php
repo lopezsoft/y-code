@@ -109,14 +109,17 @@ class MasterController extends Controller
     }
 
     public function getCities(){
-        $sqlSelect  = "SELECT a.id, a.department_id, a.city_code,
-        CONCAT(TRIM(a.name_city),' (',TRIM(b.name_department),')') AS name_city
-        FROM cities a LEFT JOIN departments AS b ON a.department_id = b.id
-        ORDER BY name_city";
-        $sqlCount   = "SELECT COUNT(id) as total FROM cities";
-        $model        = new MasterModel();
-        return $model->sqlQuery($sqlSelect, $sqlCount, [], '', 0, 1200);
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.';
+
+        $sqlSelect  = "SELECT a.*, b.name_departament FROM {$table}cities AS a
+                       LEFT JOIN {$table}departments b ON a.departament_id= b.id ";
+        $sqlCount   = "SELECT COUNT(a.id) as total FROM {$table}cities AS a
+                       LEFT JOIN {$table}departments b ON a.departament_id= b.id ";
+        return $model->sqlQuery($sqlSelect, $sqlCount, [], '', 0, 10);
     }
+
 
     public function getUsers(Request $request)
     {
