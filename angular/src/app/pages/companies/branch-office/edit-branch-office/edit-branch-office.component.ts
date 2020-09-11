@@ -1,26 +1,22 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiServerService, MessagesService } from 'src/app/utils';
-import { JsonResponse, ErrorResponse } from 'src/app/interfaces';
-import { FormComponent } from 'src/app/core/components/forms/form.component';
-import { BranchOffice } from 'src/app/models/companies-model';
 import { FormBuilder, Validators } from '@angular/forms';
+
+import { ApiServerService, MessagesService } from 'src/app/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { BranchOfficeService } from 'src/app/services/companies/branch-office.service';
-import { Country, CountriesService, CitiesService, Cities, CurrencySys, CurrencySysService} from 'src/app/services/global';
+import { Country, CountriesService, CurrencySysService} from 'src/app/services/global';
 
-
+import { FormComponent } from 'src/app/core/components/forms/form.component';
+import { CurrencySys } from 'src/app/models/general-model';
 
 @Component({
   selector: 'app-edit-branch-office',
-  templateUrl: './edit-branch-office.component.html',
-  styleUrls: ['./edit-branch-office.component.scss']
+  templateUrl: './edit-branch-office.component.html'
 })
 export class EditBranchOfficeComponent extends FormComponent implements OnInit {
   @ViewChild('focusElement') focusElement: ElementRef;
-  model: BranchOffice;
   countries: Country[]=[];
-  cities: Cities[] = [];
   currency: CurrencySys[]= [];
 
   constructor(public fb: FormBuilder,
@@ -31,73 +27,46 @@ export class EditBranchOfficeComponent extends FormComponent implements OnInit {
               public aRouter: ActivatedRoute,
               private branch: BranchOfficeService,
               private coun: CountriesService,
-              private cit: CitiesService,
               private curr: CurrencySysService,
   ){
     super(fb, msg, api, router, translate, aRouter);
     this.translate.setDefaultLang(this.activeLang);
     this.customForm = this.fb.group({
-      country_id      : ['', [Validators.required, Validators.minLength(1)]],
-      city_id         : ['', [Validators.required, Validators.minLength(1)]],
-      currency_id     : ['', [Validators.required, Validators.minLength(1)]],
+      country_id      : [0, [Validators.required]],
+      currency_id     : [0, [Validators.required]],
       branch_name     : ['', [Validators.required, Validators.minLength(5)]],
-      postal_code     : ['', []],
-      address         : ['', [Validators.required, Validators.minLength(5)]],
-      location        : ['', []],
-      email           : ['', []],
-      mobile          : ['', []],
-      phone           : ['', []],
-      web             : ['', []],
-      is_point_of_sale: ['', []]
+      postal_code     : [''],
+      address         : [''],
+      address2        : [''],
+      location        : [''],
+      email           : [''],
+      mobile          : [''],
+      phone           : [''],
+      web             : [''],
+      is_point_of_sale: [false]
     });
   }
 
   get invalidCountry(): boolean{
-    return this.customForm.get('country_id').invalid && this.customForm.get('country_id').touched;
+    return (this.customForm.get('country_id').value === 0) ? true : false;
   }
-  get invalidCity(): boolean{
-    return this.customForm.get('city_id').invalid && this.customForm.get('city_id').touched;
-  }
+
   get invalidCurrency(): boolean{
-    return this.customForm.get('currency_id').invalid && this.customForm.get('currency_id').touched;
+    return (this.customForm.get('currency_id').value === 0) ? true : false;
   }
   get invalidBranchName(): boolean{
     return this.customForm.get('branch_name').invalid && this.customForm.get('branch_name').touched;
   }
-  get invalidAddress(): boolean{
-    return this.customForm.get('address').invalid && this.customForm.get('address').touched;
-  }
-
-
 
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
-    ts.title  = 'Crear/Editar sucursales';
-    ts.model  = {
-      id: 0,
-      city_id: 0,
-      currency_id: 0,
-      country_id: 0,
-      branch_name: '',
-      postal_code: '',
-      address: '',
-      location: '',
-      email: '',
-      mobile: '',
-      phone: '',
-      web: '',
-      is_point_of_sale: 0,
-      state: 1
-    };
+    const lang  = ts.translate;
     ts.PutURL   = '/companies/branchoffice/update/';
     ts.PostURL  = '/companies/branchoffice/create';
 
     ts.coun.getData().subscribe((resp) => {
       ts.countries  = resp;
-    });
-    ts.cit.getData().subscribe((resp) => {
-      ts.cities  = resp;
     });
 
     ts.curr.getData().subscribe((resp) => {
@@ -109,10 +78,22 @@ export class EditBranchOfficeComponent extends FormComponent implements OnInit {
   async loadData(id: any = 0): Promise<void> {
     const ts    = this;
     const frm   = ts.customForm;
-    const lang  = ts.translate;
     ts.editing  = true;
     ts.branch.getData({uid: id}).subscribe((resp) => {
-      this.model = resp[0];
+      frm.setValue({
+        currency_id     : resp[0].currency_id     ,
+        country_id      : resp[0].country_id      ,
+        branch_name     : resp[0].branch_name     ,
+        postal_code     : resp[0].postal_code     ,
+        address         : resp[0].address         ,
+        address2        : resp[0].address2        ,
+        location        : resp[0].location        ,
+        email           : resp[0].email           ,
+        mobile          : resp[0].mobile          ,
+        phone           : resp[0].phone           ,
+        web             : resp[0].web             ,
+        is_point_of_sale: resp[0].is_point_of_sale,
+      });
     });
   }
 }

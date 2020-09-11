@@ -38,27 +38,27 @@ const routes: Routes = [{
       component: EditCurrencyComponent
     },
     {
-      path: 'tax-rates',
+      path: 'taxrates',
       component: TaxRatesComponent
     },
     {
-      path: 'tax-rates/edit/:id',
+      path: 'taxrates/edit/:id',
       component: EditTaxratesComponent
     },
     {
-      path: 'tax-rates/create',
+      path: 'taxrates/create',
       component: EditTaxratesComponent
     },
     {
-      path: 'identity-documents',
+      path: 'identitydocuments',
       component: IdentityDocumentsComponent
     },
     {
-      path: 'identity-documents/edit/:id',
+      path: 'identitydocuments/edit/:id',
       component: EditIdentitydocsComponent
     },
     {
-      path: 'identity-documents/create',
+      path: 'identitydocuments/create',
       component: EditIdentitydocsComponent
     },
   ],

@@ -1832,11 +1832,6 @@ class AppComponent {
         if (!this.api.isAuthenticated()) {
             this.router.navigate(['/login']);
         }
-        this.changeLanguage(this.activeLang);
-    }
-    changeLanguage(lang) {
-        this.activeLang = lang;
-        this.translate.use(lang);
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_1__["ApiServerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_nebular_theme__WEBPACK_IMPORTED_MODULE_4__["NbIconLibraries"])); };
@@ -1880,6 +1875,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/__ivy_ngcc__/fesm2015/ngx-translate-http-loader.js");
 /* harmony import */ var _interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./interceptors/auth-interceptor */ "./src/app/interceptors/auth-interceptor.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js");
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
@@ -1901,6 +1897,7 @@ __webpack_require__.r(__webpack_exports__);
 /*
   * Translation
 */
+
 
 
 
@@ -1951,6 +1948,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector
                 messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
             }),
             _theme_theme_module__WEBPACK_IMPORTED_MODULE_6__["ThemeModule"].forRoot(),
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_16__["NgbModule"],
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"],
         _Auth_login_login_component__WEBPACK_IMPORTED_MODULE_10__["LoginComponent"],
@@ -1964,7 +1962,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector
         _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbInputModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbIconModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbFormFieldModule"],
-        jqwidgets_ng_jqxgrid__WEBPACK_IMPORTED_MODULE_8__["jqxGridModule"], ngx_toastr__WEBPACK_IMPORTED_MODULE_0__["ToastrModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbSidebarModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbMenuModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbDatepickerModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbDialogModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbWindowModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbToastrModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbChatModule"], _theme_theme_module__WEBPACK_IMPORTED_MODULE_6__["ThemeModule"]] }); })();
+        jqwidgets_ng_jqxgrid__WEBPACK_IMPORTED_MODULE_8__["jqxGridModule"], ngx_toastr__WEBPACK_IMPORTED_MODULE_0__["ToastrModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbSidebarModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbMenuModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbDatepickerModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbDialogModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbWindowModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbToastrModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateModule"], _nebular_theme__WEBPACK_IMPORTED_MODULE_9__["NbChatModule"], _theme_theme_module__WEBPACK_IMPORTED_MODULE_6__["ThemeModule"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_16__["NgbModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["NgModule"],
         args: [{
@@ -2005,6 +2003,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector
                         messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
                     }),
                     _theme_theme_module__WEBPACK_IMPORTED_MODULE_6__["ThemeModule"].forRoot(),
+                    _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_16__["NgbModule"],
                 ],
                 schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_4__["CUSTOM_ELEMENTS_SCHEMA"]],
                 providers: [
@@ -2047,10 +2046,12 @@ class BaseComponent {
         this.router = router;
         this.translate = translate;
         this.activeLang = 'es';
+        this.translate.setDefaultLang(this.activeLang);
+        this.translate.use(this.activeLang);
     }
     // tslint:disable-next-line: contextual-lifecycle
     ngOnInit() {
-        this.changeLanguage(this.activeLang);
+        // this.changeLanguage(this.activeLang);
     }
     changeLanguage(lang) {
         this.activeLang = lang;
@@ -2152,6 +2153,9 @@ class FormComponent extends _core_components_base_base_component__WEBPACK_IMPORT
         if (this.focusElement) {
             this.focusElement.nativeElement.focus();
         }
+        $('.select2-combo').select2({
+            theme: "classic",
+        });
     }
     loadData(id = 0) {
         // Implements
@@ -2471,6 +2475,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
+    // APIURL    : 'http://y-code/api/v1',
+    // APPURL    : 'http://y-code/',
     APIURL: 'https://y-code.lopezsoft.net.co/api/v1',
     APPURL: 'https://y-code.lopezsoft.net.co',
     APIJWT: 'y-code-jwt'

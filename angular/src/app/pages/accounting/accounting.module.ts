@@ -5,10 +5,12 @@ import { NbButtonModule, NbCardModule, NbInputModule, NbFormFieldModule,
   NbIconModule, NbActionsModule, NbCheckboxModule, NbDatepickerModule,
   NbRadioModule, NbSelectModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NgSelect2Module } from 'ng-select2';
 
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuModule } from 'jqwidgets-ng/jqxmenu';
+
+
+import { NgSelectModule } from '@ng-select/ng-select';
 
 /*
   * Translation
@@ -28,6 +30,7 @@ import {
 } from './index';
 import { AccountingComponent } from './accounting.component';
 import { AccountingGroupsFormComponent } from './accounting-groups/accounting-groups-form.component';
+import { AccountFormComponent } from './accounts/account-form.component';
 
 @NgModule({
   imports: [
@@ -47,7 +50,7 @@ import { AccountingGroupsFormComponent } from './accounting-groups/accounting-gr
     NbRadioModule,
     NbSelectModule,
     ReactiveFormsModule,
-    NgSelect2Module,
+    NgSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -65,6 +68,7 @@ import { AccountingGroupsFormComponent } from './accounting-groups/accounting-gr
     ClassOfAccountingComponent,
     ClassOfAccountingFormComponent,
     AccountingGroupsFormComponent,
+    AccountFormComponent,
   ]
 })
 export class AccountingModule { }

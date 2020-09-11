@@ -34,6 +34,7 @@ export class CompanyTypeComponent extends JqxCustomGridComponent implements OnIn
 
   ngAfterViewInit(): void {
     const ts  = this;
+    const lang= ts.translate;
     ts.crudApi        = {
       create  : '/companies/companytype/create',
       read    : '/companies/companytype/read',
@@ -52,15 +53,15 @@ export class CompanyTypeComponent extends JqxCustomGridComponent implements OnIn
 
     ts.sourceColumns =
     [
-      { text: 'Nombre del tipo de compañia', align: 'center', datafield: 'description'}
+      { text: lang.instant('typeOrganization.name') , align: 'center', datafield: 'description'}
     ];
 
-    this.prepareGrid();
+    ts.prepareGrid();
+    ts.title  = lang.instant('typeOrganization.title');
   }
 
   createData(): void {
     const ts    = this;
-    const lang  = this.translate;
     super.createData();
     ts.goRoute('pages/companies/companytype/create');
   }

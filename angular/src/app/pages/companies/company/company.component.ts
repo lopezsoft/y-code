@@ -3,15 +3,19 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Company, TypeOrganization } from 'src/app/models/companies-model';
 import { TypeOrganizationService  } from 'src/app/services/companies/type-organization.service';
 import { IdentityDocuments, IdentityDocumentsService,
-         Country, CountriesService,
-        CurrencySys, CurrencySysService  } from 'src/app/services/global/index';
+  Country, CountriesService,
+  CurrencySysService  } from 'src/app/services/global/index';
 
 import { ApiServerService, MessagesService } from 'src/app/utils';
 import { JsonResponse, ErrorResponse } from 'src/app/interfaces';
+
 import { FormComponent } from 'src/app/core/components/forms/form.component';
+
+import { Company, TypeOrganization } from 'src/app/models/companies-model';
+import { CurrencySys } from 'src/app/models/general-model';
+import { CompanyService } from 'src/app/services/companies';
 
 @Component({
   selector: 'app-company',
@@ -20,8 +24,6 @@ import { FormComponent } from 'src/app/core/components/forms/form.component';
 export class CompanyComponent extends FormComponent implements OnInit, AfterViewInit {
 
   @ViewChild('companyName') companyName: ElementRef;
-
-  model: Company;
   typeOrg: TypeOrganization[] = [];
   identityDocs: IdentityDocuments[] = [];
   countries: Country[] = [];
@@ -37,6 +39,7 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
     private docs: IdentityDocumentsService,
     private cnt: CountriesService,
     private curr: CurrencySysService,
+    private company: CompanyService,
   ) {
     super(fb, msg, api, router, translate, aRouter);
     this.customForm = this.fb.group({
@@ -47,7 +50,6 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
       number_employees              : [0],
       company_name                  : ['', [Validators.required, Validators.minLength(6)]],
       dni                           : [''],
-      // dv                            : ['', [Validators.required, Validators.maxLength(2)]],
       address                       : [''],
       location                      : [''],
       postal_code                   : [''],
@@ -61,53 +63,51 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
   ngOnInit(): void{
     this.changeLanguage(this.activeLang);
     this.title  = 'Datos de la compañia';
-    this.model = {
-      address: 'Sin asignar',
-      company_name: 'EMPRESA DEMO',
-      country_id: 45,
-      currency_id: 4,
-      dni: '',
-      dv: '',
-      email: '',
-      id: 1,
-      identity_document_id: 1,
-      image: '',
-      location: '',
-      mime: '',
-      mobile: '',
-      phone: '',
-      postal_code: '',
-      number_employees: 0,
-      type_organization_id: 1,
-      web: ''
-    };
-
     this.loadData();
   }
 
   ngAfterViewInit(): void {
     this.companyName.nativeElement.focus();
+    const ts  = this;
+    ts.docs.getData({}).subscribe((resp) => {
+      ts.identityDocs  = resp;
+    });
+
+    ts.cnt.getData().subscribe((resp) => {
+      ts.countries  = resp;
+    });
+
+    ts.curr.getData().subscribe((resp) => {
+      ts.currency  = resp;
+    });
+
+    this.tor.getData({}).subscribe((resp) => {
+      this.typeOrg  = resp;
+    });
   }
 
   async loadData(id: any = 0): Promise<void> {
     const ts    = this;
     const frm   = ts.customForm;
-    const lang  = ts.translate;
-    this.tor.getData({}).subscribe((resp) => {
-      this.typeOrg  = resp;
+    this.company.getData({}).subscribe((resp) => {
+      frm.setValue({
+        address               : resp[0].address               ,
+        company_name          : resp[0].company_name          ,
+        country_id            : resp[0].country_id            ,
+        currency_id           : resp[0].currency_id           ,
+        dni                   : resp[0].dni                   ,
+        email                 : resp[0].email                 ,
+        identity_document_id  : resp[0].identity_document_id  ,
+        location              : resp[0].location              ,
+        mobile                : resp[0].mobile                ,
+        phone                 : resp[0].phone                 ,
+        postal_code           : resp[0].postal_code           ,
+        number_employees      : resp[0].number_employees      ,
+        type_organization_id  : resp[0].type_organization_id  ,
+        web                   : resp[0].web
+      });
     });
 
-    await ts.docs.getData({}).subscribe((resp) => {
-      ts.identityDocs  = resp;
-    });
-
-    await ts.cnt.getData().subscribe((resp) => {
-      ts.countries  = resp;
-    });
-
-    await ts.curr.getData().subscribe((resp) => {
-      ts.currency  = resp;
-    });
   }
 
 

@@ -6,8 +6,11 @@ import { NbButtonModule, NbCardModule, NbInputModule, NbFormFieldModule,
   NbRadioModule, NbSelectModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuModule } from 'jqwidgets-ng/jqxmenu';
+import { jqxComboBoxModule } from 'jqwidgets-ng/jqxcombobox';
 
 /*
   * Translation
@@ -42,6 +45,8 @@ import { EditTaxratesComponent } from './tax-rates/edit-taxrates/edit-taxrates.c
     jqxMenuModule,
     NbFormFieldModule,
     jqxGridModule,
+    jqxComboBoxModule,
+    NgSelectModule,
     NbActionsModule,
     NbCheckboxModule,
     NbDatepickerModule,

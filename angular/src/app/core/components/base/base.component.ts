@@ -11,10 +11,12 @@ export class BaseComponent implements OnInit {
   constructor(public api: ApiServerService,
               public router: Router,
               public translate: TranslateService) {
+    this.translate.setDefaultLang(this.activeLang);
+    this.translate.use(this.activeLang);
   }
   // tslint:disable-next-line: contextual-lifecycle
   ngOnInit(): void {
-    this.changeLanguage(this.activeLang);
+    // this.changeLanguage(this.activeLang);
   }
 
   public changeLanguage(lang: string): void {

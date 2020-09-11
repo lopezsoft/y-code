@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { MENU_ITEMS } from './pages-menu';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pages',
@@ -15,4 +16,9 @@ import { MENU_ITEMS } from './pages-menu';
 export class PagesComponent {
 
   menu = MENU_ITEMS;
+  public activeLang = 'es';
+  constructor (private translate: TranslateService){
+    this.translate.setDefaultLang(this.activeLang);
+  }
+
 }

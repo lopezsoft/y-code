@@ -21,8 +21,6 @@ import { AccountingGroupsService, ClassOfAccountingService } from './../../../se
 export class AccountingGroupsFormComponent extends FormComponent implements OnInit, AfterViewInit {
   @ViewChild('focusElement') focusElement: ElementRef;
   modelClass: ClassOfAccounting[]=[];
-  model: AccountingGroups;
-
   constructor(public fb: FormBuilder,
               public msg: MessagesService,
               public api: ApiServerService,
@@ -57,12 +55,6 @@ export class AccountingGroupsFormComponent extends FormComponent implements OnIn
     super.ngOnInit();
     const ts    = this;
     ts.title  = 'Crear/Editar grupo contable';
-    ts.model  = {
-      id: 0,
-      class_account_id: 0,
-      accounting_group_name: '',
-      number: 0
-    };
     ts.PutURL   = '/accounting/accountinggroups/update/';
     ts.PostURL  = '/accounting/accountinggroups/create';
     ts.classSer.getData({}).subscribe(resp => {
@@ -73,10 +65,13 @@ export class AccountingGroupsFormComponent extends FormComponent implements OnIn
   loadData(id: any = 0): void {
     const ts    = this;
     const frm   = ts.customForm;
-    const lang  = ts.translate;
     ts.editing  = true;
     ts.groupServi.getData({ uid: id}).subscribe((resp) => {
-        this.model = resp[0];
+        frm.setValue({
+          class_account_id      : resp[0].class_account_id      ,
+          accounting_group_name : resp[0].accounting_group_name ,
+          number                : resp[0].number
+        });
     });
   }
 }

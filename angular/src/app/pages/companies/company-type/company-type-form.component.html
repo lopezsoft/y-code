@@ -1,14 +1,15 @@
 <div class="row">
   <div class="col-md-12">
     <nb-card class="inline-form-card">
-      <nb-card-header>{{ title | uppercase}}</nb-card-header>
+      <nb-card-header>{{ 'general.createEdit' | translate | uppercase}} {{ 'typeOrganization.title' | translate | uppercase}}</nb-card-header>
       <nb-card-body>
         <form  [formGroup]="customForm">
           <div class ="row">
             <div class="col-12">
               <div class="form-group">
-                <input type="text" #focusElement nbInput fullWidth placeholder="Descripción *" name="description" [(ngModel)]="model.description"
-                  formControlName="description"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required="" autofocus>
+                <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{ 'typeOrganization.name' | translate }}</label>
+                <input type="text" #focusElement nbInput fullWidth name="description"
+                  formControlName="description"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required autofocus>
               </div>
             </div>
           </div>

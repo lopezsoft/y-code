@@ -1,5 +1,245 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["accounting-accounting-module"],{
 
+/***/ "./src/app/pages/accounting/accounting-groups/accounting-groups-form.component.ts":
+/*!****************************************************************************************!*\
+  !*** ./src/app/pages/accounting/accounting-groups/accounting-groups-form.component.ts ***!
+  \****************************************************************************************/
+/*! exports provided: AccountingGroupsFormComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountingGroupsFormComponent", function() { return AccountingGroupsFormComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var src_app_core_components_forms_form_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/components/forms/form.component */ "./src/app/core/components/forms/form.component.ts");
+/* harmony import */ var src_app_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/utils */ "./src/app/utils/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../services/accounting/index */ "./src/app/services/accounting/index.ts");
+/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/__ivy_ngcc__/fesm2015/index.js");
+/* harmony import */ var _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-select/ng-select */ "./node_modules/@ng-select/ng-select/__ivy_ngcc__/fesm2015/ng-select-ng-select.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+
+
+
+
+
+
+
+
+
+
+
+
+const _c0 = ["focusElement"];
+function AccountingGroupsFormComponent_ng_option_35_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ng-option", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const modClass_r2 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", modClass_r2.id);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", modClass_r2.name, " ");
+} }
+const _c1 = function (a0, a1) { return { "fa-save": a0, "fa-spinner fa-spin": a1 }; };
+class AccountingGroupsFormComponent extends src_app_core_components_forms_form_component__WEBPACK_IMPORTED_MODULE_2__["FormComponent"] {
+    constructor(fb, msg, api, router, translate, aRouter, groupServi, classSer) {
+        super(fb, msg, api, router, translate, aRouter);
+        this.fb = fb;
+        this.msg = msg;
+        this.api = api;
+        this.router = router;
+        this.translate = translate;
+        this.aRouter = aRouter;
+        this.groupServi = groupServi;
+        this.classSer = classSer;
+        this.modelClass = [];
+        this.translate.setDefaultLang(this.activeLang);
+        this.customForm = this.fb.group({
+            accounting_group_name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].minLength(5)]],
+            class_account_id: [0, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            number: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+        });
+    }
+    get invalidName() {
+        return this.customForm.get('accounting_group_name').invalid && this.customForm.get('accounting_group_name').touched;
+    }
+    get invalidClass() {
+        return (this.customForm.get('class_account_id').value === 0) ? true : false;
+    }
+    get invalidNumber() {
+        return this.customForm.get('number').invalid && this.customForm.get('number').touched;
+    }
+    ngOnInit() {
+        super.ngOnInit();
+        const ts = this;
+        ts.title = 'Crear/Editar grupo contable';
+        ts.PutURL = '/accounting/accountinggroups/update/';
+        ts.PostURL = '/accounting/accountinggroups/create';
+        ts.classSer.getData({}).subscribe(resp => {
+            ts.modelClass = resp;
+        });
+    }
+    loadData(id = 0) {
+        const ts = this;
+        const frm = ts.customForm;
+        ts.editing = true;
+        ts.groupServi.getData({ uid: id }).subscribe((resp) => {
+            frm.setValue({
+                class_account_id: resp[0].class_account_id,
+                accounting_group_name: resp[0].accounting_group_name,
+                number: resp[0].number
+            });
+        });
+    }
+}
+AccountingGroupsFormComponent.ɵfac = function AccountingGroupsFormComponent_Factory(t) { return new (t || AccountingGroupsFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["AccountingGroupsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["ClassOfAccountingService"])); };
+AccountingGroupsFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AccountingGroupsFormComponent, selectors: [["app-accounting-groups-form"]], viewQuery: function AccountingGroupsFormComponent_Query(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
+    } if (rf & 2) {
+        var _t;
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.focusElement = _t.first);
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 54, vars: 45, consts: [[1, "row"], [1, "col-md-12"], [1, "inline-form-card"], [3, "formGroup"], [1, "col-12", "col-sm-12", "col-md-6"], [1, "form-group"], [1, "asterisk"], ["type", "text", "nbInput", "", "fullWidth", "", "name", "accounting_group_name", "formControlName", "accounting_group_name", "required", "", "autofocus", "", 1, "form-control"], ["focusElement", ""], ["type", "number", "nbInput", "", "fullWidth", "", "min", "0", "formControlName", "number", "name", "number", 1, "form-control"], [1, "col-12", "col-sm-12", "col-md-12"], [1, "form-group", "overflow-box"], ["fullWidth", "", "formControlName", "class_account_id", "required", "", "name", "class_account_id", "appendTo", "body", 3, "loading"], [3, "value", 4, "ngFor", "ngForOf"], [1, "row", "flex"], [1, "space-right", "float-right", "padding-top-bottom"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], [1, "fas", "fa-undo", "fas-fa-22", "space-right"], [1, "space-right", "padding-top-bottom"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], [1, "fas-fa-22", "space-right", "fas", 3, "ngClass"], [1, "padding-top-bottom"], ["nbSuffix", "", "nbButton", "", "status", "primary", 1, "radius-button", 3, "disabled", "click"], [3, "value"]], template: function AccountingGroupsFormComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "nb-card", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "nb-card-header");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](5, "uppercase");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "nb-card-body");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "form", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](14, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15, "Nombre del grupo");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "input", 7, 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](23, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](24, "N\u00FAmero");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](25, "input", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "div", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](31);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](32, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](33, "Clase de cuenta");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "ng-select", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](35, AccountingGroupsFormComponent_ng_option_35_Template, 2, 2, "ng-option", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](36, "nb-card-footer");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "div", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](38, "div", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](39, "button", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountingGroupsFormComponent_Template_button_click_39_listener() { return ctx.cancel(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](40, "i", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](41, "strong");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](42);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](43, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](44, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](45, "button", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountingGroupsFormComponent_Template_button_click_45_listener() { return ctx.saveAndCreate(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](46, "i", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](47);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](48, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](49, "div", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](50, "button", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountingGroupsFormComponent_Template_button_click_50_listener() { return ctx.saveAndClose(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](51, "i", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](52);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](53, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 25, ctx.title));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx.customForm);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 27, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("status-danger", ctx.invalidName)("is-invalid", ctx.invalidName);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](23, 29, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("is-invalid", ctx.invalidNumber)("status-danger", ctx.invalidNumber);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](32, 31, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("is-invalid", ctx.invalidClass);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("loading", ctx.modelClass.length === 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.modelClass);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.loading);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](43, 33, "buttons.cancel"), " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.loading);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](39, _c1, !ctx.saveACreate, ctx.saveACreate));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](48, 35, "buttons.saveAndCreate"), " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.loading);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](42, _c1, !ctx.saveAClose, ctx.saveAClose));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](53, 37, "buttons.saveAndClose"), " ");
+    } }, directives: [_nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardHeaderComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardBodyComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbInputDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_8__["NgSelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgForOf"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardFooterComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbButtonComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbSuffixDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgClass"], _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_8__["ɵr"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["UpperCasePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"]], styles: ["nb-checkbox[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n\n.form-inline[_ngcontent-%COMP%]   [fullWidth][_ngcontent-%COMP%] {\n  flex: 1;\n}\n\n.form-inline[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n  margin: 0 1.5rem 1.5rem 0;\n}\n\nnb-card.inline-form-card[_ngcontent-%COMP%]   nb-card-body[_ngcontent-%COMP%] {\n  padding-bottom: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvc2hhcmVkL2Zvcm0tbGF5b3V0cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxPQUFBO0FBQ0Y7O0FBRUE7RUFDRSx5QkFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3NoYXJlZC9mb3JtLWxheW91dHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJuYi1jaGVja2JveCB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMXJlbTtcclxufVxyXG5cclxuLmZvcm0taW5saW5lIFtmdWxsV2lkdGhdIHtcclxuICBmbGV4OiAxO1xyXG59XHJcblxyXG4uZm9ybS1pbmxpbmUgPiAqIHtcclxuICBtYXJnaW46IDAgMS41cmVtIDEuNXJlbSAwO1xyXG59XHJcblxyXG5uYi1jYXJkLmlubGluZS1mb3JtLWNhcmQgbmItY2FyZC1ib2R5IHtcclxuICBwYWRkaW5nLWJvdHRvbTogMDtcclxufVxyXG4iXX0= */"] });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountingGroupsFormComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+        args: [{
+                selector: 'app-accounting-groups-form',
+                templateUrl: './accounting-groups-form.component.html',
+                styleUrls: ['./../../shared/form-layouts.component.scss']
+            }]
+    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }, { type: _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["AccountingGroupsService"] }, { type: _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["ClassOfAccountingService"] }]; }, { focusElement: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
+            args: ['focusElement']
+        }] }); })();
+
+
+/***/ }),
+
 /***/ "./src/app/pages/accounting/accounting-groups/accounting-groups.component.ts":
 /*!***********************************************************************************!*\
   !*** ./src/app/pages/accounting/accounting-groups/accounting-groups.component.ts ***!
@@ -67,6 +307,16 @@ class AccountingGroupsComponent extends src_app_core_data_custom_grid_jqx_custom
             ];
         this.prepareGrid();
     }
+    createData() {
+        const ts = this;
+        const lang = this.translate;
+        super.createData();
+        ts.goRoute('pages/accounting/groups/create');
+    }
+    editData(data) {
+        super.editData(data);
+        this.goRoute(`pages/accounting/groups/edit/${data.id}`);
+    }
 }
 AccountingGroupsComponent.ɵfac = function AccountingGroupsComponent_Factory(t) { return new (t || AccountingGroupsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_2__["MessagesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"])); };
 AccountingGroupsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AccountingGroupsComponent, selectors: [["app-accounting-groups"]], viewQuery: function AccountingGroupsComponent_Query(rf, ctx) { if (rf & 1) {
@@ -76,7 +326,7 @@ AccountingGroupsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.customGrid = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.searchField = _t.first);
-    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 77, vars: 41, consts: [[1, "example-items-col"], [1, "menuExport"], [1, "space-right"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "sync", "pack", "fas", 1, "fas-fa-22"], [1, "myMenu", "space-right"], [1, "clearColor", 3, "height", "onItemclick"], ["myMenu", ""], ["id", "Exports"], [1, "fas", "fa-cog", "fas-fa-22", "fas-fa-red"], ["href", "javascript:void(0)"], [2, "width", "200px"], [1, "fas", "fa-file-excel", "fas-fa-xls"], [1, "fas", "fa-file-csv", "fas-fa-xls"], ["type", "separator"], [1, "fas", "fa-file-pdf", "fas-fa-pdf"], [1, "fas", "fa-file-code", "fas-fa-code"], [1, "fas", "fa-print", "fas-fa-print"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "plus", "pack", "fas", 1, "fas-fa-22"], ["nbSuffix", "", "nbButton", "", "status", "info", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "upload", "pack", "fas", 1, "fas-fa-22"], ["type", "text", "nbInput", "", "fullWidth", "", "fieldSize", "medium", "autofocus", "", 3, "placeholder", "keyup"], ["searchField", ""], ["nbSuffix", "", "nbButton", "", "ghost", "", "status", "danger", 3, "disabled", "click"], ["nbPrefix", "", "icon", "backspace", "pack", "fas"], ["width", "100%", 3, "disabled", "auto-create", "onCellselect", "onBindingcomplete"], ["customGrid", ""]], template: function AccountingGroupsComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 77, vars: 41, consts: [[1, "example-items-col"], [1, "menuExport"], [1, "space-right"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "sync", "pack", "fas", 1, "fas-fa-22"], [1, "myMenu", "space-right"], [1, "clearColor", 3, "height", "onItemclick"], ["myMenu", ""], ["id", "Exports"], [1, "fas", "fa-cog", "fas-fa-22", "fas-fa-red"], ["href", "javascript:void(0)"], [2, "width", "200px"], [1, "fas", "fa-file-excel", "fas-fa-xls"], [1, "fas", "fa-file-csv", "fas-fa-xls"], ["type", "separator"], [1, "fas", "fa-file-pdf", "fas-fa-pdf"], [1, "fas", "fa-file-code", "fas-fa-code"], [1, "fas", "fa-print", "fas-fa-print"], [1, "margin-left", "space-right"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "plus", "pack", "fas", 1, "fas-fa-22"], ["nbSuffix", "", "nbButton", "", "status", "info", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "upload", "pack", "fas", 1, "fas-fa-22"], ["type", "text", "nbInput", "", "fullWidth", "", "fieldSize", "medium", "autofocus", "", 3, "placeholder", "keyup"], ["searchField", ""], ["nbSuffix", "", "nbButton", "", "ghost", "", "status", "danger", 3, "disabled", "click"], ["nbPrefix", "", "icon", "backspace", "pack", "fas"], ["width", "100%", 3, "disabled", "auto-create", "onCellselect", "onBindingcomplete"], ["customGrid", ""]], template: function AccountingGroupsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "nb-card");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "nb-card-header");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -162,33 +412,33 @@ AccountingGroupsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](61, "button", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](61, "button", 19);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountingGroupsComponent_Template_button_click_61_listener() { return ctx.createData(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](62, "nb-icon", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](62, "nb-icon", 20);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](63);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](64, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](65, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](66, "button", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](66, "button", 21);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountingGroupsComponent_Template_button_click_66_listener() { return ctx.importData(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](67, "nb-icon", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](67, "nb-icon", 22);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](68);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](69, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](70, "nb-form-field");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](71, "input", 22, 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](71, "input", 23, 24);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("keyup", function AccountingGroupsComponent_Template_input_keyup_71_listener($event) { return ctx.inputKey($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](73, "button", 24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](73, "button", 25);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountingGroupsComponent_Template_button_click_73_listener() { return ctx.clearFilter(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](74, "nb-icon", 25);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](74, "nb-icon", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](75, "jqxGrid", 26, 27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](75, "jqxGrid", 27, 28);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("onCellselect", function AccountingGroupsComponent_Template_jqxGrid_onCellselect_75_listener($event) { return ctx.cellClick($event); })("onBindingcomplete", function AccountingGroupsComponent_Template_jqxGrid_onBindingcomplete_75_listener($event) { return ctx.Bindingcomplete($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -289,8 +539,24 @@ const routes = [{
                 component: _index__WEBPACK_IMPORTED_MODULE_3__["AccountingGroupsComponent"]
             },
             {
+                path: 'groups/create',
+                component: _index__WEBPACK_IMPORTED_MODULE_3__["AccountingGroupsFormComponent"],
+            },
+            {
+                path: 'groups/edit/:id',
+                component: _index__WEBPACK_IMPORTED_MODULE_3__["AccountingGroupsFormComponent"],
+            },
+            {
                 path: 'accounts',
                 component: _index__WEBPACK_IMPORTED_MODULE_3__["AccountsComponent"]
+            },
+            {
+                path: 'accounts/create',
+                component: _index__WEBPACK_IMPORTED_MODULE_3__["AccountFormComponent"],
+            },
+            {
+                path: 'accounts/edit/:id',
+                component: _index__WEBPACK_IMPORTED_MODULE_3__["AccountFormComponent"],
             }
         ],
     }];
@@ -360,13 +626,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @nebular/eva-icons */ "./node_modules/@nebular/eva-icons/__ivy_ngcc__/fesm2015/index.js");
 /* harmony import */ var jqwidgets_ng_jqxgrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jqwidgets-ng/jqxgrid */ "./node_modules/jqwidgets-ng/__ivy_ngcc__/fesm2015/jqwidgets-ng-jqxgrid.js");
 /* harmony import */ var jqwidgets_ng_jqxmenu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! jqwidgets-ng/jqxmenu */ "./node_modules/jqwidgets-ng/__ivy_ngcc__/fesm2015/jqwidgets-ng-jqxmenu.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/__ivy_ngcc__/fesm2015/ngx-translate-http-loader.js");
-/* harmony import */ var _theme_theme_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../@theme/theme.module */ "./src/app/@theme/theme.module.ts");
-/* harmony import */ var _accounting_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./accounting-routing.module */ "./src/app/pages/accounting/accounting-routing.module.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./index */ "./src/app/pages/accounting/index.ts");
-/* harmony import */ var _accounting_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./accounting.component */ "./src/app/pages/accounting/accounting.component.ts");
+/* harmony import */ var _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-select/ng-select */ "./node_modules/@ng-select/ng-select/__ivy_ngcc__/fesm2015/ng-select-ng-select.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/__ivy_ngcc__/fesm2015/ngx-translate-http-loader.js");
+/* harmony import */ var _theme_theme_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../@theme/theme.module */ "./src/app/@theme/theme.module.ts");
+/* harmony import */ var _accounting_routing_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./accounting-routing.module */ "./src/app/pages/accounting/accounting-routing.module.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./index */ "./src/app/pages/accounting/index.ts");
+/* harmony import */ var _accounting_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./accounting.component */ "./src/app/pages/accounting/accounting.component.ts");
+/* harmony import */ var _accounting_groups_accounting_groups_form_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./accounting-groups/accounting-groups-form.component */ "./src/app/pages/accounting/accounting-groups/accounting-groups-form.component.ts");
+/* harmony import */ var _accounts_account_form_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./accounts/account-form.component */ "./src/app/pages/accounting/accounts/account-form.component.ts");
+
 
 
 
@@ -385,18 +655,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 class AccountingModule {
 }
 AccountingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AccountingModule });
 AccountingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AccountingModule_Factory(t) { return new (t || AccountingModule)(); }, imports: [[
-            _theme_theme_module__WEBPACK_IMPORTED_MODULE_9__["ThemeModule"],
+            _theme_theme_module__WEBPACK_IMPORTED_MODULE_10__["ThemeModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbCardModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbButtonModule"],
             _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_3__["NbEvaIconsModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbInputModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbIconModule"],
             jqwidgets_ng_jqxmenu__WEBPACK_IMPORTED_MODULE_5__["jqxMenuModule"],
-            _accounting_routing_module__WEBPACK_IMPORTED_MODULE_10__["AccountsRoutingModule"],
+            _accounting_routing_module__WEBPACK_IMPORTED_MODULE_11__["AccountsRoutingModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbFormFieldModule"],
             jqwidgets_ng_jqxgrid__WEBPACK_IMPORTED_MODULE_4__["jqxGridModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbActionsModule"],
@@ -405,28 +677,31 @@ AccountingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbRadioModule"],
             _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbSelectModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ReactiveFormsModule"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateModule"].forRoot({
+            _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_6__["NgSelectModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateModule"].forRoot({
                 loader: {
-                    provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateLoader"],
+                    provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateLoader"],
                     useFactory: (http) => {
-                        return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_8__["TranslateHttpLoader"](http);
+                        return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_9__["TranslateHttpLoader"](http);
                     },
-                    deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClient"]]
+                    deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClient"]]
                 }
             }),
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AccountingModule, { declarations: [_accounting_component__WEBPACK_IMPORTED_MODULE_12__["AccountingComponent"],
-        _index__WEBPACK_IMPORTED_MODULE_11__["AccountingGroupsComponent"],
-        _index__WEBPACK_IMPORTED_MODULE_11__["AccountsComponent"],
-        _index__WEBPACK_IMPORTED_MODULE_11__["ClassOfAccountingComponent"],
-        _index__WEBPACK_IMPORTED_MODULE_11__["ClassOfAccountingFormComponent"]], imports: [_theme_theme_module__WEBPACK_IMPORTED_MODULE_9__["ThemeModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AccountingModule, { declarations: [_accounting_component__WEBPACK_IMPORTED_MODULE_13__["AccountingComponent"],
+        _index__WEBPACK_IMPORTED_MODULE_12__["AccountingGroupsComponent"],
+        _index__WEBPACK_IMPORTED_MODULE_12__["AccountsComponent"],
+        _index__WEBPACK_IMPORTED_MODULE_12__["ClassOfAccountingComponent"],
+        _index__WEBPACK_IMPORTED_MODULE_12__["ClassOfAccountingFormComponent"],
+        _accounting_groups_accounting_groups_form_component__WEBPACK_IMPORTED_MODULE_14__["AccountingGroupsFormComponent"],
+        _accounts_account_form_component__WEBPACK_IMPORTED_MODULE_15__["AccountFormComponent"]], imports: [_theme_theme_module__WEBPACK_IMPORTED_MODULE_10__["ThemeModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbCardModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbButtonModule"],
         _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_3__["NbEvaIconsModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbInputModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbIconModule"],
         jqwidgets_ng_jqxmenu__WEBPACK_IMPORTED_MODULE_5__["jqxMenuModule"],
-        _accounting_routing_module__WEBPACK_IMPORTED_MODULE_10__["AccountsRoutingModule"],
+        _accounting_routing_module__WEBPACK_IMPORTED_MODULE_11__["AccountsRoutingModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbFormFieldModule"],
         jqwidgets_ng_jqxgrid__WEBPACK_IMPORTED_MODULE_4__["jqxGridModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbActionsModule"],
@@ -434,19 +709,20 @@ AccountingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbDatepickerModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbRadioModule"],
         _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbSelectModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ReactiveFormsModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateModule"]] }); })();
+        _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ReactiveFormsModule"],
+        _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_6__["NgSelectModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [
-                    _theme_theme_module__WEBPACK_IMPORTED_MODULE_9__["ThemeModule"],
+                    _theme_theme_module__WEBPACK_IMPORTED_MODULE_10__["ThemeModule"],
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbCardModule"],
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbButtonModule"],
                     _nebular_eva_icons__WEBPACK_IMPORTED_MODULE_3__["NbEvaIconsModule"],
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbInputModule"],
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbIconModule"],
                     jqwidgets_ng_jqxmenu__WEBPACK_IMPORTED_MODULE_5__["jqxMenuModule"],
-                    _accounting_routing_module__WEBPACK_IMPORTED_MODULE_10__["AccountsRoutingModule"],
+                    _accounting_routing_module__WEBPACK_IMPORTED_MODULE_11__["AccountsRoutingModule"],
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbFormFieldModule"],
                     jqwidgets_ng_jqxgrid__WEBPACK_IMPORTED_MODULE_4__["jqxGridModule"],
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbActionsModule"],
@@ -455,25 +731,442 @@ AccountingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbRadioModule"],
                     _nebular_theme__WEBPACK_IMPORTED_MODULE_2__["NbSelectModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ReactiveFormsModule"],
-                    _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateModule"].forRoot({
+                    _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_6__["NgSelectModule"],
+                    _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateModule"].forRoot({
                         loader: {
-                            provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateLoader"],
+                            provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateLoader"],
                             useFactory: (http) => {
-                                return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_8__["TranslateHttpLoader"](http);
+                                return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_9__["TranslateHttpLoader"](http);
                             },
-                            deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClient"]]
+                            deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClient"]]
                         }
                     }),
                 ],
                 declarations: [
-                    _accounting_component__WEBPACK_IMPORTED_MODULE_12__["AccountingComponent"],
-                    _index__WEBPACK_IMPORTED_MODULE_11__["AccountingGroupsComponent"],
-                    _index__WEBPACK_IMPORTED_MODULE_11__["AccountsComponent"],
-                    _index__WEBPACK_IMPORTED_MODULE_11__["ClassOfAccountingComponent"],
-                    _index__WEBPACK_IMPORTED_MODULE_11__["ClassOfAccountingFormComponent"],
+                    _accounting_component__WEBPACK_IMPORTED_MODULE_13__["AccountingComponent"],
+                    _index__WEBPACK_IMPORTED_MODULE_12__["AccountingGroupsComponent"],
+                    _index__WEBPACK_IMPORTED_MODULE_12__["AccountsComponent"],
+                    _index__WEBPACK_IMPORTED_MODULE_12__["ClassOfAccountingComponent"],
+                    _index__WEBPACK_IMPORTED_MODULE_12__["ClassOfAccountingFormComponent"],
+                    _accounting_groups_accounting_groups_form_component__WEBPACK_IMPORTED_MODULE_14__["AccountingGroupsFormComponent"],
+                    _accounts_account_form_component__WEBPACK_IMPORTED_MODULE_15__["AccountFormComponent"],
                 ]
             }]
     }], null, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/pages/accounting/accounts/account-form.component.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/pages/accounting/accounts/account-form.component.ts ***!
+  \*********************************************************************/
+/*! exports provided: AccountFormComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountFormComponent", function() { return AccountFormComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var src_app_core_components_forms_form_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/components/forms/form.component */ "./src/app/core/components/forms/form.component.ts");
+/* harmony import */ var src_app_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/utils */ "./src/app/utils/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../services/accounting/index */ "./src/app/services/accounting/index.ts");
+/* harmony import */ var _services_accounting_accounting_groups_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../../services/accounting/accounting-groups.service */ "./src/app/services/accounting/accounting-groups.service.ts");
+/* harmony import */ var src_app_services_global__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/global */ "./src/app/services/global/index.ts");
+/* harmony import */ var _services_general_tax_rates_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../../services/general/tax-rates.service */ "./src/app/services/general/tax-rates.service.ts");
+/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/__ivy_ngcc__/fesm2015/index.js");
+/* harmony import */ var _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ng-select/ng-select */ "./node_modules/@ng-select/ng-select/__ivy_ngcc__/fesm2015/ng-select-ng-select.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const _c0 = ["focusElement"];
+function AccountFormComponent_ng_option_41_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ng-option", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const account_r6 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", account_r6.id);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", account_r6.accounting_group_name, " ");
+} }
+function AccountFormComponent_ng_option_52_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ng-option", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "img", 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const cur_r7 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", cur_r7.id);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", "assets/flags/" + cur_r7.image, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", cur_r7.CurrencyName, " ");
+} }
+function AccountFormComponent_ng_option_61_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ng-option", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const tax_r8 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", tax_r8.id);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](" ", tax_r8.name_taxe, " - ", tax_r8.rate_name, " ");
+} }
+function AccountFormComponent_div_70_ng_option_5_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ng-option", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const master_r10 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("value", master_r10.id);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](" ", master_r10.account_number, " - ", master_r10.account_name, " ");
+} }
+function AccountFormComponent_div_70_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "label");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Cuenta maestra");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "ng-select", 30);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, AccountFormComponent_div_70_ng_option_5_Template, 2, 3, "ng-option", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("loading", ctx_r5.master.length === 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r5.master);
+} }
+const _c1 = function (a0, a1) { return { "fa-save": a0, "fa-spinner fa-spin": a1 }; };
+class AccountFormComponent extends src_app_core_components_forms_form_component__WEBPACK_IMPORTED_MODULE_2__["FormComponent"] {
+    constructor(fb, msg, api, router, translate, servis, accountSer, masterSer, groupSer, currSer, taxSer, aRouter) {
+        super(fb, msg, api, router, translate, aRouter);
+        this.fb = fb;
+        this.msg = msg;
+        this.api = api;
+        this.router = router;
+        this.translate = translate;
+        this.servis = servis;
+        this.accountSer = accountSer;
+        this.masterSer = masterSer;
+        this.groupSer = groupSer;
+        this.currSer = currSer;
+        this.taxSer = taxSer;
+        this.aRouter = aRouter;
+        this.accountGroup = [];
+        this.currency = [];
+        this.tax = [];
+        this.master = [];
+        this.is_subaccount = false;
+        this.translate.setDefaultLang(this.activeLang);
+        this.customForm = this.fb.group({
+            account_id: [''],
+            accounting_group_id: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            currency_id: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            tax_rate_id: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            account_name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].minLength(5)]],
+            description: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].minLength(5)]],
+            account_number: [''],
+            // initial_date        : [''],
+            is_subaccount: [false],
+        });
+    }
+    get invalidName() {
+        return this.customForm.get('account_name').invalid && this.customForm.get('account_name').touched;
+    }
+    get invalidDescription() {
+        return this.customForm.get('description').invalid && this.customForm.get('description').touched;
+    }
+    get invalidCurrency() {
+        return (this.customForm.get('currency_id').value === 0) ? true : false;
+    }
+    get invalidGroupId() {
+        return (this.customForm.get('accounting_group_id').value === 0) ? true : false;
+    }
+    get invalidTaxId() {
+        return (this.customForm.get('tax_rate_id').value === 0) ? true : false;
+    }
+    ngOnInit() {
+        super.ngOnInit();
+        const ts = this;
+        ts.title = 'Crear/Editar cuenta';
+        ts.PutURL = '/accounting/accounts/update/';
+        ts.PostURL = '/accounting/accounts/create';
+    }
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+        const ts = this;
+        ts.groupSer.getData({}).subscribe((resp) => {
+            ts.accountGroup = resp;
+        });
+        ts.currSer.getData().subscribe((resp) => {
+            ts.currency = resp;
+        });
+        ts.taxSer.getData({}).subscribe((resp) => {
+            ts.tax = resp;
+        });
+        ts.masterSer.getMasterAccounts({}).subscribe((resp) => {
+            ts.master = resp;
+        });
+    }
+    onChageSub(e) {
+        this.is_subaccount = e.currentTarget.checked;
+    }
+    loadData(id = 0) {
+        const ts = this;
+        const frm = ts.customForm;
+        ts.editing = true;
+        ts.accountSer.getData({ uid: id }).
+            subscribe((resp) => {
+            frm.setValue({
+                account_id: resp[0].account_id,
+                accounting_group_id: resp[0].accounting_group_id,
+                currency_id: resp[0].currency_id,
+                tax_rate_id: resp[0].tax_rate_id,
+                account_name: resp[0].account_name,
+                description: resp[0].description,
+                account_number: resp[0].account_number,
+                // initial_date        : resp[0].initial_date       ,
+                is_subaccount: resp[0].is_subaccount,
+            });
+            ts.is_subaccount = resp[0].is_subaccount;
+        });
+    }
+}
+AccountFormComponent.ɵfac = function AccountFormComponent_Factory(t) { return new (t || AccountFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["ClassOfAccountingService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["AccountsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_accounting_accounting_groups_service__WEBPACK_IMPORTED_MODULE_7__["AccountingGroupsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_global__WEBPACK_IMPORTED_MODULE_8__["CurrencySysService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_general_tax_rates_service__WEBPACK_IMPORTED_MODULE_9__["TaxRatesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"])); };
+AccountFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AccountFormComponent, selectors: [["app-account-form"]], viewQuery: function AccountFormComponent_Query(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
+    } if (rf & 2) {
+        var _t;
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.focusElement = _t.first);
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 89, vars: 69, consts: [[1, "row"], [1, "col-md-12"], [1, "inline-form-card"], [3, "formGroup"], [1, "col-md-6"], [1, "form-group"], [1, "asterisk"], ["type", "text", "nbInput", "", "fullWidth", "", "name", "account_name", "formControlName", "account_name", "required", "", "autofocus", "", 1, "form-control"], ["focusElement", ""], ["type", "text", "nbInput", "", "fullWidth", "", "name", "description", "formControlName", "description", "required", "", 1, "form-control"], ["type", "text", "nbInput", "", "fullWidth", "", "formControlName", "account_number", "name", "account_number", 1, "form-control"], [1, "form-group", "overflow-box"], ["fullWidth", "", "formControlName", "accounting_group_id", "required", "", "name", "accounting_group_id", "appendTo", "body", 3, "loading"], [3, "value", 4, "ngFor", "ngForOf"], ["fullWidth", "", "formControlName", "currency_id", "name", "currency_id", "required", "", "appendTo", "body", 3, "loading"], ["fullWidth", "", "formControlName", "tax_rate_id", "required", "", "name", "tax_rate_id", "appendTo", "body", 3, "loading"], ["type", "checkbox", "formControlName", "is_subaccount", "id", "is_subaccount", "name", "is_subaccount", 1, "input-full-width", "size-medium", "status-basic", "shape-rectangle", "nb-transition", 2, "margin-right", "2%", 3, "change"], ["for", "is_subaccount"], ["class", "col-md-6", 4, "ngIf"], [1, "row", "flex"], [1, "space-right", "float-right", "padding-top-bottom"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], [1, "fas", "fa-undo", "fas-fa-22", "space-right"], [1, "space-right", "padding-top-bottom"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], [1, "fas-fa-22", "space-right", "fas", 3, "ngClass"], [1, "padding-top-bottom"], ["nbSuffix", "", "nbButton", "", "status", "primary", 1, "radius-button", 3, "disabled", "click"], [3, "value"], ["height", "15", "width", "15", 3, "src"], ["fullWidth", "", "formControlName", "account_id", "required", "", "name", "account_id", "appendTo", "body", 3, "loading"]], template: function AccountFormComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "nb-card", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "nb-card-header");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](5, "uppercase");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "nb-card-body");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "form", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](14, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15, "Nombre de la cuenta");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "input", 7, 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](23, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](24, "Descripci\u00F3n");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](25, "input", 9, 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](31, "N\u00FAmero");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](32, "input", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](35, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](36, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](38, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](39, "Grupo contable");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](40, "ng-select", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](41, AccountFormComponent_ng_option_41_Template, 2, 2, "ng-option", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](42, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](43, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](44, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](45, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](46, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](47);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](48, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](49);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](50, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](51, "ng-select", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](52, AccountFormComponent_ng_option_52_Template, 3, 3, "ng-option", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](53, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](54, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](55, "label");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](56, "span", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](57);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](58, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](59, "Impuesto");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "ng-select", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](61, AccountFormComponent_ng_option_61_Template, 2, 3, "ng-option", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](62, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](63, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](64, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](65, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](66, "br");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](67, "input", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function AccountFormComponent_Template_input_change_67_listener($event) { return ctx.onChageSub($event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](68, "label", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](69, "\u00BFSubcuenta?");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](70, AccountFormComponent_div_70_Template, 6, 2, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](71, "nb-card-footer");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](72, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](73, "div", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](74, "button", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountFormComponent_Template_button_click_74_listener() { return ctx.cancel(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](75, "i", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](76, "strong");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](77);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](78, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](79, "div", 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](80, "button", 24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountFormComponent_Template_button_click_80_listener() { return ctx.saveAndCreate(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](81, "i", 25);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](82);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](83, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](84, "div", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](85, "button", 27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountFormComponent_Template_button_click_85_listener() { return ctx.saveAndClose(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](86, "i", 25);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](87);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](88, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 43, ctx.title));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx.customForm);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 45, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("status-danger", ctx.invalidName)("is-invalid", ctx.invalidName);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](23, 47, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("status-danger", ctx.invalidDescription)("is-invalid", ctx.invalidDescription);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](38, 49, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("is-invalid", ctx.invalidGroupId)("status-danger", ctx.invalidGroupId);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("loading", ctx.accountGroup.length === 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.accountGroup);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](48, 51, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](50, 53, "general.currency"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("is-invalid", ctx.invalidCurrency)("status-danger", ctx.invalidCurrency);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("loading", ctx.currency.length === 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.currency);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](58, 55, "general.asterisk"));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("is-invalid", ctx.invalidTaxId)("status-danger", ctx.invalidTaxId);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("loading", ctx.accountGroup.length === 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.tax);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.is_subaccount);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.loading);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](78, 57, "buttons.cancel"), " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.loading);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](63, _c1, !ctx.saveACreate, ctx.saveACreate));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](83, 59, "buttons.saveAndCreate"), " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.loading);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](66, _c1, !ctx.saveAClose, ctx.saveAClose));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](88, 61, "buttons.saveAndClose"), " ");
+    } }, directives: [_nebular_theme__WEBPACK_IMPORTED_MODULE_10__["NbCardComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_10__["NbCardHeaderComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_10__["NbCardBodyComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _nebular_theme__WEBPACK_IMPORTED_MODULE_10__["NbInputDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_11__["NgSelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["CheckboxControlValueAccessor"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgIf"], _nebular_theme__WEBPACK_IMPORTED_MODULE_10__["NbCardFooterComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_10__["NbButtonComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_10__["NbSuffixDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_12__["NgClass"], _ng_select_ng_select__WEBPACK_IMPORTED_MODULE_11__["ɵr"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_12__["UpperCasePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"]], styles: ["nb-checkbox[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n\n.form-inline[_ngcontent-%COMP%]   [fullWidth][_ngcontent-%COMP%] {\n  flex: 1;\n}\n\n.form-inline[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n  margin: 0 1.5rem 1.5rem 0;\n}\n\nnb-card.inline-form-card[_ngcontent-%COMP%]   nb-card-body[_ngcontent-%COMP%] {\n  padding-bottom: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvc2hhcmVkL2Zvcm0tbGF5b3V0cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxPQUFBO0FBQ0Y7O0FBRUE7RUFDRSx5QkFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3NoYXJlZC9mb3JtLWxheW91dHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJuYi1jaGVja2JveCB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMXJlbTtcclxufVxyXG5cclxuLmZvcm0taW5saW5lIFtmdWxsV2lkdGhdIHtcclxuICBmbGV4OiAxO1xyXG59XHJcblxyXG4uZm9ybS1pbmxpbmUgPiAqIHtcclxuICBtYXJnaW46IDAgMS41cmVtIDEuNXJlbSAwO1xyXG59XHJcblxyXG5uYi1jYXJkLmlubGluZS1mb3JtLWNhcmQgbmItY2FyZC1ib2R5IHtcclxuICBwYWRkaW5nLWJvdHRvbTogMDtcclxufVxyXG4iXX0= */"] });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountFormComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+        args: [{
+                selector: 'app-account-form',
+                templateUrl: './account-form.component.html',
+                styleUrls: ['./../../shared/form-layouts.component.scss']
+            }]
+    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"] }, { type: _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["ClassOfAccountingService"] }, { type: _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["AccountsService"] }, { type: _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["AccountsService"] }, { type: _services_accounting_accounting_groups_service__WEBPACK_IMPORTED_MODULE_7__["AccountingGroupsService"] }, { type: src_app_services_global__WEBPACK_IMPORTED_MODULE_8__["CurrencySysService"] }, { type: _services_general_tax_rates_service__WEBPACK_IMPORTED_MODULE_9__["TaxRatesService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }]; }, { focusElement: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
+            args: ['focusElement']
+        }] }); })();
 
 
 /***/ }),
@@ -553,10 +1246,11 @@ class AccountsComponent extends src_app_core_data_custom_grid_jqx_custom_grid_co
                 { text: 'Código', datafield: 'account_number', align: 'center', cellsalign: 'left', width: 75, cellsrenderer: (row, column, value) => {
                         const data = ts.customGrid.getrowdata(row);
                         if (data.is_subaccount) {
-                            return value;
+                            return `<p style="padding: 8px;">${value}</p>`;
+                            ;
                         }
                         else {
-                            return `<p><strong>${value}</strong></p>`;
+                            return `<p style="padding: 8px;"><strong>${value}</strong></p>`;
                         }
                     },
                 },
@@ -569,11 +1263,13 @@ class AccountsComponent extends src_app_core_data_custom_grid_jqx_custom_grid_co
         this.prepareGrid();
     }
     createData() {
+        const ts = this;
         super.createData();
-        console.log('kkdkdkdk');
+        ts.goRoute('pages/accounting/accounts/create');
     }
     editData(data) {
-        console.log(data);
+        super.editData(data);
+        this.goRoute(`pages/accounting/accounts/edit/${data.id}`);
     }
 }
 AccountsComponent.ɵfac = function AccountsComponent_Factory(t) { return new (t || AccountsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_2__["MessagesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"])); };
@@ -584,7 +1280,7 @@ AccountsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.customGrid = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.searchField = _t.first);
-    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 77, vars: 41, consts: [[1, "example-items-col"], [1, "menuExport"], [1, "space-right"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "sync", "pack", "fas", 1, "fas-fa-22"], [1, "myMenu", "space-right"], [1, "clearColor", 3, "height", "onItemclick"], ["myMenu", ""], ["id", "Exports"], [1, "fas", "fa-cog", "fas-fa-22", "fas-fa-red"], ["href", "javascript:void(0)"], [2, "width", "200px"], [1, "fas", "fa-file-excel", "fas-fa-xls"], [1, "fas", "fa-file-csv", "fas-fa-xls"], ["type", "separator"], [1, "fas", "fa-file-pdf", "fas-fa-pdf"], [1, "fas", "fa-file-code", "fas-fa-code"], [1, "fas", "fa-print", "fas-fa-print"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "plus", "pack", "fas", 1, "fas-fa-22"], ["nbSuffix", "", "nbButton", "", "status", "info", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "upload", "pack", "fas", 1, "fas-fa-22"], ["type", "text", "nbInput", "", "fullWidth", "", "fieldSize", "medium", "autofocus", "", 3, "placeholder", "keyup"], ["searchField", ""], ["nbSuffix", "", "nbButton", "", "ghost", "", "status", "danger", 3, "disabled", "click"], ["nbPrefix", "", "icon", "backspace", "pack", "fas"], ["width", "100%", 3, "disabled", "auto-create", "onCellselect", "onBindingcomplete"], ["customGrid", ""]], template: function AccountsComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 77, vars: 41, consts: [[1, "example-items-col"], [1, "menuExport"], [1, "space-right"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "sync", "pack", "fas", 1, "fas-fa-22"], [1, "myMenu", "space-right"], [1, "clearColor", 3, "height", "onItemclick"], ["myMenu", ""], ["id", "Exports"], [1, "fas", "fa-cog", "fas-fa-22", "fas-fa-red"], ["href", "javascript:void(0)"], [2, "width", "200px"], [1, "fas", "fa-file-excel", "fas-fa-xls"], [1, "fas", "fa-file-csv", "fas-fa-xls"], ["type", "separator"], [1, "fas", "fa-file-pdf", "fas-fa-pdf"], [1, "fas", "fa-file-code", "fas-fa-code"], [1, "fas", "fa-print", "fas-fa-print"], [1, "margin-left", "space-right"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "plus", "pack", "fas", 1, "fas-fa-22"], ["nbSuffix", "", "nbButton", "", "status", "info", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "upload", "pack", "fas", 1, "fas-fa-22"], ["type", "text", "nbInput", "", "fullWidth", "", "fieldSize", "medium", "autofocus", "", 3, "placeholder", "keyup"], ["searchField", ""], ["nbSuffix", "", "nbButton", "", "ghost", "", "status", "danger", 3, "disabled", "click"], ["nbPrefix", "", "icon", "backspace", "pack", "fas"], ["width", "100%", 3, "disabled", "auto-create", "onCellselect", "onBindingcomplete"], ["customGrid", ""]], template: function AccountsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "nb-card");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "nb-card-header");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -670,33 +1366,33 @@ AccountsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](61, "button", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](61, "button", 19);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountsComponent_Template_button_click_61_listener() { return ctx.createData(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](62, "nb-icon", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](62, "nb-icon", 20);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](63);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](64, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](65, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](66, "button", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](66, "button", 21);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountsComponent_Template_button_click_66_listener() { return ctx.importData(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](67, "nb-icon", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](67, "nb-icon", 22);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](68);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](69, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](70, "nb-form-field");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](71, "input", 22, 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](71, "input", 23, 24);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("keyup", function AccountsComponent_Template_input_keyup_71_listener($event) { return ctx.inputKey($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](73, "button", 24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](73, "button", 25);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountsComponent_Template_button_click_73_listener() { return ctx.clearFilter(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](74, "nb-icon", 25);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](74, "nb-icon", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](75, "jqxGrid", 26, 27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](75, "jqxGrid", 27, 28);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("onCellselect", function AccountsComponent_Template_jqxGrid_onCellselect_75_listener($event) { return ctx.cellClick($event); })("onBindingcomplete", function AccountsComponent_Template_jqxGrid_onBindingcomplete_75_listener($event) { return ctx.Bindingcomplete($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -772,8 +1468,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/utils */ "./src/app/utils/index.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/__ivy_ngcc__/fesm2015/index.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../services/accounting/index */ "./src/app/services/accounting/index.ts");
+/* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/__ivy_ngcc__/fesm2015/index.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+
 
 
 
@@ -787,13 +1485,14 @@ __webpack_require__.r(__webpack_exports__);
 const _c0 = ["focusElement"];
 const _c1 = function (a0, a1) { return { "fa-save": a0, "fa-spinner fa-spin": a1 }; };
 class ClassOfAccountingFormComponent extends src_app_core_components_forms_form_component__WEBPACK_IMPORTED_MODULE_2__["FormComponent"] {
-    constructor(fb, msg, api, router, translate, aRouter) {
+    constructor(fb, msg, api, router, translate, servis, aRouter) {
         super(fb, msg, api, router, translate, aRouter);
         this.fb = fb;
         this.msg = msg;
         this.api = api;
         this.router = router;
         this.translate = translate;
+        this.servis = servis;
         this.aRouter = aRouter;
         this.translate.setDefaultLang(this.activeLang);
         this.customForm = this.fb.group({
@@ -824,15 +1523,13 @@ class ClassOfAccountingFormComponent extends src_app_core_components_forms_form_
         const frm = ts.customForm;
         const lang = ts.translate;
         ts.editing = true;
-        ts.api.get(`/accounting/clasofaccounts/read`, { uid: id }).
+        ts.servis.getData({ uid: id }).
             subscribe((resp) => {
-            this.model = resp.records[0];
-        }, (err) => {
-            ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
+            this.model = resp[0];
         });
     }
 }
-ClassOfAccountingFormComponent.ɵfac = function ClassOfAccountingFormComponent_Factory(t) { return new (t || ClassOfAccountingFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"])); };
+ClassOfAccountingFormComponent.ɵfac = function ClassOfAccountingFormComponent_Factory(t) { return new (t || ClassOfAccountingFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["ClassOfAccountingService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"])); };
 ClassOfAccountingFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ClassOfAccountingFormComponent, selectors: [["app-class-of-accounting-form"]], viewQuery: function ClassOfAccountingFormComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
     } if (rf & 2) {
@@ -926,7 +1623,7 @@ ClassOfAccountingFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](31, _c1, !ctx.saveAClose, ctx.saveAClose));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](33, 26, "buttons.saveAndClose"), " ");
-    } }, directives: [_nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbCardComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbCardHeaderComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbCardBodyComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbInputDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbCardFooterComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbButtonComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_6__["NbSuffixDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgClass"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["UpperCasePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"]], styles: ["nb-checkbox[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n\n.form-inline[_ngcontent-%COMP%]   [fullWidth][_ngcontent-%COMP%] {\n  flex: 1;\n}\n\n.form-inline[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n  margin: 0 1.5rem 1.5rem 0;\n}\n\nnb-card.inline-form-card[_ngcontent-%COMP%]   nb-card-body[_ngcontent-%COMP%] {\n  padding-bottom: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvc2hhcmVkL2Zvcm0tbGF5b3V0cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxPQUFBO0FBQ0Y7O0FBRUE7RUFDRSx5QkFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3NoYXJlZC9mb3JtLWxheW91dHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJuYi1jaGVja2JveCB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMXJlbTtcclxufVxyXG5cclxuLmZvcm0taW5saW5lIFtmdWxsV2lkdGhdIHtcclxuICBmbGV4OiAxO1xyXG59XHJcblxyXG4uZm9ybS1pbmxpbmUgPiAqIHtcclxuICBtYXJnaW46IDAgMS41cmVtIDEuNXJlbSAwO1xyXG59XHJcblxyXG5uYi1jYXJkLmlubGluZS1mb3JtLWNhcmQgbmItY2FyZC1ib2R5IHtcclxuICBwYWRkaW5nLWJvdHRvbTogMDtcclxufVxyXG4iXX0= */"] });
+    } }, directives: [_nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardHeaderComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardBodyComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbInputDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbCardFooterComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbButtonComponent"], _nebular_theme__WEBPACK_IMPORTED_MODULE_7__["NbSuffixDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgClass"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_8__["UpperCasePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"]], styles: ["nb-checkbox[_ngcontent-%COMP%] {\n  margin-bottom: 1rem;\n}\n\n.form-inline[_ngcontent-%COMP%]   [fullWidth][_ngcontent-%COMP%] {\n  flex: 1;\n}\n\n.form-inline[_ngcontent-%COMP%]    > *[_ngcontent-%COMP%] {\n  margin: 0 1.5rem 1.5rem 0;\n}\n\nnb-card.inline-form-card[_ngcontent-%COMP%]   nb-card-body[_ngcontent-%COMP%] {\n  padding-bottom: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvc2hhcmVkL2Zvcm0tbGF5b3V0cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG1CQUFBO0FBQ0Y7O0FBRUE7RUFDRSxPQUFBO0FBQ0Y7O0FBRUE7RUFDRSx5QkFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3NoYXJlZC9mb3JtLWxheW91dHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJuYi1jaGVja2JveCB7XHJcbiAgbWFyZ2luLWJvdHRvbTogMXJlbTtcclxufVxyXG5cclxuLmZvcm0taW5saW5lIFtmdWxsV2lkdGhdIHtcclxuICBmbGV4OiAxO1xyXG59XHJcblxyXG4uZm9ybS1pbmxpbmUgPiAqIHtcclxuICBtYXJnaW46IDAgMS41cmVtIDEuNXJlbSAwO1xyXG59XHJcblxyXG5uYi1jYXJkLmlubGluZS1mb3JtLWNhcmQgbmItY2FyZC1ib2R5IHtcclxuICBwYWRkaW5nLWJvdHRvbTogMDtcclxufVxyXG4iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ClassOfAccountingFormComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -934,7 +1631,7 @@ ClassOfAccountingFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
                 templateUrl: './class-of-accounting-form.component.html',
                 styleUrls: ['./../../shared/form-layouts.component.scss']
             }]
-    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }]; }, { focusElement: [{
+    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["MessagesService"] }, { type: src_app_utils__WEBPACK_IMPORTED_MODULE_3__["ApiServerService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslateService"] }, { type: _services_accounting_index__WEBPACK_IMPORTED_MODULE_6__["ClassOfAccountingService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }]; }, { focusElement: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['focusElement']
         }] }); })();
@@ -1026,7 +1723,7 @@ ClassOfAccountingComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.customGrid = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.searchField = _t.first);
-    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 77, vars: 41, consts: [[1, "example-items-col"], [1, "menuExport"], [1, "space-right"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "sync", "pack", "fas", 1, "fas-fa-22"], [1, "myMenu", "space-right"], [1, "clearColor", 3, "height", "onItemclick"], ["myMenu", ""], ["id", "Exports"], [1, "fas", "fa-cog", "fas-fa-22", "fas-fa-red"], ["href", "javascript:void(0)"], [2, "width", "200px"], [1, "fas", "fa-file-excel", "fas-fa-xls"], [1, "fas", "fa-file-csv", "fas-fa-xls"], ["type", "separator"], [1, "fas", "fa-file-pdf", "fas-fa-pdf"], [1, "fas", "fa-file-code", "fas-fa-code"], [1, "fas", "fa-print", "fas-fa-print"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "plus", "pack", "fas", 1, "fas-fa-22"], ["nbSuffix", "", "nbButton", "", "status", "info", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "upload", "pack", "fas", 1, "fas-fa-22"], ["type", "text", "nbInput", "", "fullWidth", "", "fieldSize", "medium", "autofocus", "", 3, "placeholder", "keyup"], ["searchField", ""], ["nbSuffix", "", "nbButton", "", "ghost", "", "status", "danger", 3, "disabled", "click"], ["nbPrefix", "", "icon", "backspace", "pack", "fas"], ["width", "100%", 3, "disabled", "auto-create", "onCellselect", "onBindingcomplete"], ["customGrid", ""]], template: function ClassOfAccountingComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 77, vars: 41, consts: [[1, "example-items-col"], [1, "menuExport"], [1, "space-right"], ["nbSuffix", "", "nbButton", "", "status", "danger", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "sync", "pack", "fas", 1, "fas-fa-22"], [1, "myMenu", "space-right"], [1, "clearColor", 3, "height", "onItemclick"], ["myMenu", ""], ["id", "Exports"], [1, "fas", "fa-cog", "fas-fa-22", "fas-fa-red"], ["href", "javascript:void(0)"], [2, "width", "200px"], [1, "fas", "fa-file-excel", "fas-fa-xls"], [1, "fas", "fa-file-csv", "fas-fa-xls"], ["type", "separator"], [1, "fas", "fa-file-pdf", "fas-fa-pdf"], [1, "fas", "fa-file-code", "fas-fa-code"], [1, "fas", "fa-print", "fas-fa-print"], [1, "margin-left", "space-right"], ["nbSuffix", "", "nbButton", "", "status", "success", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "plus", "pack", "fas", 1, "fas-fa-22"], ["nbSuffix", "", "nbButton", "", "status", "info", 1, "radius-button", 3, "disabled", "click"], ["nbPrefix", "", "icon", "upload", "pack", "fas", 1, "fas-fa-22"], ["type", "text", "nbInput", "", "fullWidth", "", "fieldSize", "medium", "autofocus", "", 3, "placeholder", "keyup"], ["searchField", ""], ["nbSuffix", "", "nbButton", "", "ghost", "", "status", "danger", 3, "disabled", "click"], ["nbPrefix", "", "icon", "backspace", "pack", "fas"], ["width", "100%", 3, "disabled", "auto-create", "onCellselect", "onBindingcomplete"], ["customGrid", ""]], template: function ClassOfAccountingComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "nb-card");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "nb-card-header");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -1112,33 +1809,33 @@ ClassOfAccountingComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](61, "button", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](60, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](61, "button", 19);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ClassOfAccountingComponent_Template_button_click_61_listener() { return ctx.createData(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](62, "nb-icon", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](62, "nb-icon", 20);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](63);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](64, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](65, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](66, "button", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](66, "button", 21);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ClassOfAccountingComponent_Template_button_click_66_listener() { return ctx.importData(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](67, "nb-icon", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](67, "nb-icon", 22);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](68);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](69, "translate");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](70, "nb-form-field");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](71, "input", 22, 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](71, "input", 23, 24);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("keyup", function ClassOfAccountingComponent_Template_input_keyup_71_listener($event) { return ctx.inputKey($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](73, "button", 24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](73, "button", 25);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function ClassOfAccountingComponent_Template_button_click_73_listener() { return ctx.clearFilter(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](74, "nb-icon", 25);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](74, "nb-icon", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](75, "jqxGrid", 26, 27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](75, "jqxGrid", 27, 28);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("onCellselect", function ClassOfAccountingComponent_Template_jqxGrid_onCellselect_75_listener($event) { return ctx.cellClick($event); })("onBindingcomplete", function ClassOfAccountingComponent_Template_jqxGrid_onBindingcomplete_75_listener($event) { return ctx.Bindingcomplete($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -1202,7 +1899,7 @@ ClassOfAccountingComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
 /*!*******************************************!*\
   !*** ./src/app/pages/accounting/index.ts ***!
   \*******************************************/
-/*! exports provided: AccountingGroupsComponent, AccountsComponent, ClassOfAccountingComponent, ClassOfAccountingFormComponent */
+/*! exports provided: AccountingGroupsComponent, AccountingGroupsFormComponent, AccountsComponent, AccountFormComponent, ClassOfAccountingComponent, ClassOfAccountingFormComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1210,14 +1907,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _accounting_groups_accounting_groups_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./accounting-groups/accounting-groups.component */ "./src/app/pages/accounting/accounting-groups/accounting-groups.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountingGroupsComponent", function() { return _accounting_groups_accounting_groups_component__WEBPACK_IMPORTED_MODULE_0__["AccountingGroupsComponent"]; });
 
-/* harmony import */ var _accounts_accounts_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./accounts/accounts.component */ "./src/app/pages/accounting/accounts/accounts.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountsComponent", function() { return _accounts_accounts_component__WEBPACK_IMPORTED_MODULE_1__["AccountsComponent"]; });
+/* harmony import */ var _accounting_groups_accounting_groups_form_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./accounting-groups/accounting-groups-form.component */ "./src/app/pages/accounting/accounting-groups/accounting-groups-form.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountingGroupsFormComponent", function() { return _accounting_groups_accounting_groups_form_component__WEBPACK_IMPORTED_MODULE_1__["AccountingGroupsFormComponent"]; });
 
-/* harmony import */ var _class_of_accounting_class_of_accounting_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./class-of-accounting/class-of-accounting.component */ "./src/app/pages/accounting/class-of-accounting/class-of-accounting.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ClassOfAccountingComponent", function() { return _class_of_accounting_class_of_accounting_component__WEBPACK_IMPORTED_MODULE_2__["ClassOfAccountingComponent"]; });
+/* harmony import */ var _accounts_accounts_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./accounts/accounts.component */ "./src/app/pages/accounting/accounts/accounts.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountsComponent", function() { return _accounts_accounts_component__WEBPACK_IMPORTED_MODULE_2__["AccountsComponent"]; });
 
-/* harmony import */ var _class_of_accounting_class_of_accounting_form_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./class-of-accounting/class-of-accounting-form.component */ "./src/app/pages/accounting/class-of-accounting/class-of-accounting-form.component.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ClassOfAccountingFormComponent", function() { return _class_of_accounting_class_of_accounting_form_component__WEBPACK_IMPORTED_MODULE_3__["ClassOfAccountingFormComponent"]; });
+/* harmony import */ var _accounts_account_form_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./accounts/account-form.component */ "./src/app/pages/accounting/accounts/account-form.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountFormComponent", function() { return _accounts_account_form_component__WEBPACK_IMPORTED_MODULE_3__["AccountFormComponent"]; });
+
+/* harmony import */ var _class_of_accounting_class_of_accounting_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./class-of-accounting/class-of-accounting.component */ "./src/app/pages/accounting/class-of-accounting/class-of-accounting.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ClassOfAccountingComponent", function() { return _class_of_accounting_class_of_accounting_component__WEBPACK_IMPORTED_MODULE_4__["ClassOfAccountingComponent"]; });
+
+/* harmony import */ var _class_of_accounting_class_of_accounting_form_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./class-of-accounting/class-of-accounting-form.component */ "./src/app/pages/accounting/class-of-accounting/class-of-accounting-form.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ClassOfAccountingFormComponent", function() { return _class_of_accounting_class_of_accounting_form_component__WEBPACK_IMPORTED_MODULE_5__["ClassOfAccountingFormComponent"]; });
+
+
 
 
 

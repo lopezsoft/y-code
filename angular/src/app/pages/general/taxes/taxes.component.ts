@@ -7,14 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-taxes',
-  templateUrl: './../../global/global-grid.component.html',
-  styleUrls: ['./taxes.component.scss']
+  templateUrl: './../../global/global-grid.component.html'
 })
 export class TaxesComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
   @ViewChild('customGrid', { static: false }) customGrid: jqxGridComponent;
   @ViewChild('searchField') searchField: ElementRef;
-
-  title = 'Impuestos';
 
   constructor(public msg: MessagesService,
     public api: ApiServerService,
@@ -27,10 +24,14 @@ export class TaxesComponent extends JqxCustomGridComponent implements OnInit, Af
 
   ngOnInit(): void {
     this.changeLanguage(this.activeLang);
+    this.title = this.translate.instant('taxes.title');
   }
 
   ngAfterViewInit(): void {
-    const ts = this;
+    this.changeLanguage(this.activeLang);
+    this.title = this.translate.instant('taxes.title');
+    const ts  = this;
+    const lang= ts.translate;
     ts.crudApi = {
       create: '/general/taxes/create',
       read  : '/general/taxes/read',
@@ -46,22 +47,22 @@ export class TaxesComponent extends JqxCustomGridComponent implements OnInit, Af
       { name: 'name_taxe', type: 'number' },
       { name: 'description', type: 'string' },
       { name: 'state', type: 'number' },
+      { name: 'is_vat', type: 'bool' },
     ];
 
     ts.sourceColumns =
       [
-        { text: 'Impuesto', align: 'center', datafield: 'name_taxe' },
-        { text: 'Descripcion', align: 'center', datafield: 'description' },
+        { text: lang.instant('taxes.name'), align: 'center', datafield: 'name_taxe', minWidth: 120 },
+        { text: lang.instant('taxes.description'), align: 'center', datafield: 'description', minWidth: 150 },
+        { text: lang.instant('taxes.is_vat'), align: 'center', datafield: 'is_vat', columntype: 'checkbox', threestatecheckbox: true, width: 80 },
       ];
 
-    this.prepareGrid();
+    ts.prepareGrid();
   }
 
   createData(): void {
-    const ts = this;
-    const lang = this.translate;
     super.createData();
-    ts.goRoute('pages/general/taxes/create');
+    this.goRoute('pages/general/taxes/create');
   }
 
   editData(data: any): void {

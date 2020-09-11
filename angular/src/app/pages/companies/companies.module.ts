@@ -9,6 +9,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuModule } from 'jqwidgets-ng/jqxmenu';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 /*
   * Translation
 */
@@ -28,6 +30,8 @@ import { EditBranchOfficeComponent } from './branch-office/edit-branch-office/ed
 import { CompanyTypeFormComponent } from './company-type/company-type-form.component';
 import { EditWineriesComponent } from './wineries/edit-wineries/edit-wineries.component';
 import { EditDepartmensComponent } from './departments/edit-departmens/edit-departmens.component';
+import { PointsOfSaleComponent } from './points-of-sale/points-of-sale.component';
+import { PointsOfSaleFormComponent } from './points-of-sale/points-of-sale-form.component';
 
 @NgModule({
   imports: [
@@ -45,6 +49,7 @@ import { EditDepartmensComponent } from './departments/edit-departmens/edit-depa
     NbFormFieldModule,
     jqxGridModule,
     NbActionsModule,
+    NgSelectModule,
     NbCheckboxModule,
     NbDatepickerModule,
     NbRadioModule,
@@ -71,7 +76,9 @@ import { EditDepartmensComponent } from './departments/edit-departmens/edit-depa
     EditBranchOfficeComponent,
     CompanyTypeFormComponent,
     EditWineriesComponent,
-    EditDepartmensComponent
+    EditDepartmensComponent,
+    PointsOfSaleComponent,
+    PointsOfSaleFormComponent
   ],
 })
 export class CompaniesModule { }

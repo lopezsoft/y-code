@@ -6,9 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-identity-documents',
-  templateUrl: './../../global/global-grid.component.html',
-  styleUrls: ['./identity-documents.component.scss']
+  selector: 'app-identitydocuments',
+  templateUrl: './../../global/global-grid.component.html'
 })
 export class IdentityDocumentsComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
 
@@ -31,7 +30,9 @@ export class IdentityDocumentsComponent extends JqxCustomGridComponent implement
   }
 
   ngAfterViewInit(): void {
-    const ts = this;
+    const ts  = this;
+    const lang= ts.translate;
+    ts.title  = lang.instant('identityDocuments.title');
     ts.crudApi = {
       create: '/general/identitydocs/create',
       read  : '/general/identitydocs/read',
@@ -52,9 +53,9 @@ export class IdentityDocumentsComponent extends JqxCustomGridComponent implement
 
     ts.sourceColumns =
       [
-        { text: 'Código', align: 'center', datafield: 'code' },
-        { text: 'Nombre de documento', align: 'center', datafield: 'document_name', width: '40%'},
-        { text: 'Abreviatura', align: 'center', datafield: 'abbrev' },
+        { text:  lang.instant('identityDocuments.code') , align: 'center', datafield: 'code', width: 65 },
+        { text:  lang.instant('identityDocuments.name') , align: 'center', datafield: 'document_name', minWidth: 120},
+        { text:  lang.instant('identityDocuments.abbrev') , align: 'center', datafield: 'abbrev', width: 80 },
 
       ];
 
@@ -65,11 +66,11 @@ export class IdentityDocumentsComponent extends JqxCustomGridComponent implement
     const ts = this;
     const lang = this.translate;
     super.createData();
-    ts.goRoute('pages/general/identity-documents/create');
+    ts.goRoute('pages/general/identitydocuments/create');
   }
 
   editData(data: any): void {
     super.editData(data);
-    this.goRoute(`pages/general/identity-documents/edit/${data.id}`);
+    this.goRoute(`pages/general/identitydocuments/edit/${data.id}`);
   }
 }

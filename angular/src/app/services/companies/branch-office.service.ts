@@ -24,4 +24,12 @@ export class BranchOfficeService {
       }));
   }
 
+  getPointsOfSale(params: any): Observable<BranchOffice[]> {
+    const ts  = this;
+    return ts.api.get('/companies/branchoffice/read/pointofsale', params)
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
+  }
+
 }

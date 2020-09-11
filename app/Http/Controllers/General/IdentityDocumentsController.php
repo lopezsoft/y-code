@@ -5,7 +5,7 @@ namespace App\Http\Controllers\General;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\core\MasterModel;
+use App\Core\MasterModel;
 use DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +26,7 @@ class IdentityDocumentsController extends Controller
                     'document_name'  => $request->document_name,
                     'abbrev'         => $request->abbrev,
                     'active'         => $request->active ?? 1,
-                    'state'       => 1,
+                    'state'         => 1,
                 ];
                 $table      = $company->database_name.".identity_documents";
 
@@ -38,12 +38,7 @@ class IdentityDocumentsController extends Controller
             }
         } catch (Exception $e) {
             DB::rollBack();
-
-            return response()->json([
-                'message'   => 'Internal Server Error',
-                'success'   => false,
-                'payload'   => $e->getMessage()
-            ], 500);
+            return $model->getErrorResponse($e->getMessage());
         }
     }
 

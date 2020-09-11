@@ -66,9 +66,9 @@ export class AccountsComponent extends JqxCustomGridComponent implements AfterVi
         cellsrenderer: (row: number, column: any, value: string): string => {
           const data  = ts.customGrid.getrowdata(row);
           if (data.is_subaccount){
-            return value;
+            return  `<p style="padding: 8px;">${value}</p>`;;
           }else{
-            return `<p><strong>${value}</strong></p>`;
+            return `<p style="padding: 8px;"><strong>${value}</strong></p>`;
           }
         },
       },
@@ -83,11 +83,13 @@ export class AccountsComponent extends JqxCustomGridComponent implements AfterVi
   }
 
   createData(): void {
+    const ts    = this;
     super.createData();
-    console.log('kkdkdkdk');
+    ts.goRoute('pages/accounting/accounts/create');
   }
 
   editData(data: any): void {
-    console.log(data);
+    super.editData(data);
+    this.goRoute(`pages/accounting/accounts/edit/${data.id}`);
   }
 }

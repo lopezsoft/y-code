@@ -5,6 +5,7 @@ import { JsonResponse } from '../../interfaces';
 
 
 import { ApiServerService } from '../../utils/api-server.service';
+import { CurrencySys } from 'src/app/models/general-model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +25,3 @@ export class CurrencySysService {
   }
 }
 
-export interface CurrencySys {
-  id: number;
-  currency_id: number;
-  exchange_rate_value: number;
-  national_currency: boolean;
-  plural_name: string;
-  singular_name: string;
-  denomination: string;
-  currency_name: string;
-  state: number
-}

@@ -4,9 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Core\MasterModel;
+use Exception;
 
 class MasterController extends Controller
 {
+
+    public function getIpInfo(Request $request){
+        try {
+            $url        = "http://ipinfo.io/json";
+            $data       = json_decode( file_get_contents($url));
+            return response()->json([
+                'success'       => true,
+                'info'          => $data,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Internal Server Error',
+                'success'   => false,
+                'payload'   => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function geShippingFrequency(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.shipping_frequency';
+        return $model->getTable($table, '', 0, 10);
+    }
+
     public function geMeansPayment(){
         $model      = new MasterModel();
         return $model->getTable('means_payment', '', 0, 100);
@@ -93,7 +119,9 @@ class MasterController extends Controller
             'active'    => 1
         ];
         $model      = new MasterModel();
-        return $model->getTable('currency', '', 0, 30, $where);
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.currency';
+        return $model->getTable($table, '', 0, 30, $where);
     }
 
     public function getCurrencySys(){
@@ -101,7 +129,7 @@ class MasterController extends Controller
         $company    = $model->getCompany();
         $table      = $company->database_name.'.';
 
-        $sqlSelect  = "SELECT a.*, CONCAT(TRIM(b.CurrencyISO),' ',TRIM(b.CurrencyName)) AS currency_name
+        $sqlSelect  = "SELECT a.*, CONCAT(TRIM(b.CurrencyISO),' - ',TRIM(b.CurrencyName)) AS CurrencyName, b.image, b.Symbol, b.CurrencyISO
                             FROM {$table}currency_sys AS a
                             LEFT JOIN {$table}currency AS b ON a.currency_id = b.id";
         $sqlCount   = "SELECT COUNT(id) as total FROM {$table}currency_sys";

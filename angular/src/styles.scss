@@ -8,35 +8,37 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
-  margin: 0;
+  margin  : 0;
   overflow: hidden;
 }
 
 .title-center-black {
-  color:#111e2c !important;
+  color: #111e2c !important;
 }
 
-.center-column{
-  margin : 0 auto;
+.center-column {
+  margin     : 0 auto;
   padding-top: 50px;
 }
 
 .loginform {
-  max-width: 450px;
+  max-width       : 450px;
   background-color: #1e2833;
-  color: white;
-  padding: 25px 15px;
-  border-radius: 6px;
+  color           : white;
+  padding         : 25px 15px;
+  border-radius   : 6px;
   // margin: auto;
-  box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+  box-shadow      : 3px 3px 4px rgba(0, 0, 0, 0.2);
 
   .btn-info {
     border-radius: 28px;
-    background: #214a80;
-    border: 1px solid #ffffff;
+    background   : #214a80;
+    border       : 1px solid #ffffff;
+
     &:hover {
       background: #3c587c;
     }
+
     &:active {
       background: #214a80;
     }
@@ -44,19 +46,20 @@ body {
 
   .illustration {
     text-align: center;
-    padding: 15px;
-    font-size: 96px;
-    color: #2980ef;
+    padding   : 15px;
+    font-size : 96px;
+    color     : #2980ef;
   }
 
 
   input {
     background-color: rgba(255, 255, 255, 0.274);
-    color: white;
-    border-radius: 4px;
+    color           : white;
+    border-radius   : 4px;
+
     &:focus {
       background-color: rgba(255, 255, 255, 0.274);
-      color: white;
+      color           : white;
     }
 
     &::placeholder {
@@ -67,134 +70,143 @@ body {
 }
 
 .fas-fa-ok-thumbs {
-  color:orangered;
+  color: orangered;
+
   &:before {
     font-family: FontAwesome;
-    content: '\f164';
-    font-size: 22px !important;
-    color:green;
+    content    : '\f164';
+    font-size  : 22px !important;
+    color      : green;
   }
 }
 
 
 .fas-fa-ok {
-  color:green;
+  color: green;
+
   &:before {
     font-family: FontAwesome;
-    content: '\f00c';
-    font-size: 22px !important;
-    color:green;
+    content    : '\f00c';
+    font-size  : 22px !important;
+    color      : green;
   }
 }
 
 
 .fas-fa-warning {
-  color:orangered;
+  color: orangered;
+
   &:before {
     font-family: FontAwesome;
-    content: '\f06a';
-    font-size: 22px !important;
-    color:orangered;
+    content    : '\f06a';
+    font-size  : 22px !important;
+    color      : orangered;
   }
 }
 
 
 .fas-fa-error {
-  color:red;
+  color: red;
+
   &:before {
     font-family: FontAwesome;
-    content: '\f188';
-    font-size: 22px !important;
-    color:red;
+    content    : '\f188';
+    font-size  : 22px !important;
+    color      : red;
   }
 }
 
 
 .fas-fa-pdf {
-  color:red;
+  color: red;
+
   &:before {
     font-family: FontAwesome;
-    content: '\f1c1';
-    font-size: 22px !important;
-    color:red;
+    content    : '\f1c1';
+    font-size  : 22px !important;
+    color      : red;
   }
 }
 
 .fas-fa-xls {
-  color:green;
+  color: green;
+
   &:before {
     font-size: 22px !important;
-    color:green;
+    color    : green;
   }
 }
 
 .fas-fa-code {
-  color:orangered;
+  color: orangered;
+
   &:before {
     font-size: 22px !important;
-    color:orangered;
+    color    : orangered;
   }
 }
 
 
 
 .fas-fa-print {
-  color:blueviolet;
+  color: blueviolet;
+
   &:before {
     font-size: 22px !important;
-    color:blueviolet;
+    color    : blueviolet;
   }
 }
 
 
 .fas-fa-mail {
-  color:blueviolet;
+  color: blueviolet;
+
   &:before {
     font-family: FontAwesome;
-    content: '\f658';
-    font-size: 22px !important;
-    color:blueviolet;
+    content    : '\f658';
+    font-size  : 22px !important;
+    color      : blueviolet;
   }
 }
 
 .fas-fa-edit {
-  color:green;
+  color    : green;
   font-size: 22px !important;
-  padding: 6px;
+  padding  : 6px;
 }
 
 .fas-fa-delete {
-  color:red;
+  color    : red;
   font-size: 22px !important;
-  padding: 6px;
+  padding  : 6px;
 }
 
 .fa-cursor {
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }
 
 .menuExport {
-  padding: 6px;
+  padding            : 6px;
   // background-color: rgba(192, 192, 192, 0.192);
-  height: 48px;
-  display: flex;
-  margin-bottom: 4px;
+  height             : 48px;
+  display            : flex;
+  margin-bottom      : 4px;
 }
 
 .radius-button {
   border-radius: 25px !important;
 }
 
-.space-right  {
+.space-right {
   margin-right: 10px
 }
 
 .fas-fa-22 {
   &:before {
     font-family: FontAwesome;
-    font-size: 22px !important;
+    font-size  : 22px !important;
   }
 }
 
@@ -204,11 +216,15 @@ body {
 
 .clearColor {
   background-color: transparent !important;
-  border: 0px !important;
+  border          : 0px !important;
 }
 
 .myMenu {
-  width: 44px !important;
+  width      : 44px !important;
+  // margin-left: auto !important;
+}
+
+.margin-left {
   margin-left: auto !important;
 }
 
@@ -223,21 +239,56 @@ body {
 }
 
 .padding-top-bottom {
-  padding-top : 4px;
-  padding-bottom : 4px;
+  padding-top   : 4px;
+  padding-bottom: 4px;
 }
 
 .full-screen {
-  width: 50%;
-  height: 50%;
-  z-index: 10000;
+  width           : 50%;
+  height          : 50%;
+  z-index         : 10000;
   background-color: rgba(0, 255, 255, 0.151);
-  position: fixed;
-  margin: auto;
+  position        : fixed;
+  margin          : auto;
 }
+
+.aterisk {
+  color        : red;
+  font-weight  : bold;
+  padding-right: 5px;
+}
+
+.asterisk {
+  color        : red;
+  font-weight  : bold;
+  padding-right: 5px;
+}
+
+.select2 {
+  width           : 100% !important;
+  height          : 38px !important;
+
+  .select2-selection__rendered {
+    line-height: 36px !important;
+  }
+  .select2-selection__arrow {
+    height: 36px !important;
+  }
+}
+
+.select2-container {
+  height: 38px !important;
+
+  .select2-selection--single {
+    height: 38px !important;
+  }
+}
+
 
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+@import "~@ng-select/ng-select/themes/default.theme.css";

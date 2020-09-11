@@ -7,8 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-currency',
-  templateUrl: './../../global/global-grid.component.html',
-  styleUrls: ['./currency.component.scss']
+  templateUrl: './../../global/global-grid.component.html'
 })
 export class CurrencyComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
 
@@ -24,14 +23,17 @@ export class CurrencyComponent extends JqxCustomGridComponent implements OnInit,
     public aRouter: ActivatedRoute
   ) {
     super(msg, api, router, translate, aRouter);
+    this.translate.setDefaultLang(this.activeLang);
   }
 
   ngOnInit(): void {
     this.changeLanguage(this.activeLang);
+    this.title  = this.translate.instant('currency.title');
   }
 
   ngAfterViewInit(): void {
-    const ts = this;
+    const ts  = this;
+    const lang= ts.translate;
     ts.crudApi = {
       create: '/general/currency/create',
       read:   '/general/currency/read',
@@ -54,11 +56,10 @@ export class CurrencyComponent extends JqxCustomGridComponent implements OnInit,
 
     ts.sourceColumns =
       [
-        { text: 'Moneda', align: 'center', datafield: 'CurrencyName' },
-        { text: 'Estandar', align: 'center', datafield: 'CurrencyISO' },
-        { text: 'Nombre plural', align: 'center', datafield: 'plural_name' },
-        { text: 'Nombre singular', align: 'center', datafield: 'singular_name' },
-        { text: 'Denominación', align: 'center', datafield: 'denomination' },
+        { text: lang.instant('currency.name')         || 'Moneda', align: 'center', datafield: 'CurrencyName', minWidth: 150 },
+        { text: lang.instant('currency.pluralName')   || 'Nombre plural', align: 'center', datafield: 'plural_name' },
+        { text: lang.instant('currency.singularName') || 'Nombre singular', align: 'center', datafield: 'singular_name' },
+        { text: lang.instant('currency.denomination') || 'Denominación', align: 'center', datafield: 'denomination' },
       ];
 
     this.prepareGrid();

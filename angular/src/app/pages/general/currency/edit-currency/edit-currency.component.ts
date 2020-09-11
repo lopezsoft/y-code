@@ -11,13 +11,12 @@ import {CurrencyService} from 'src/app/services/general/currency.service'
 
 @Component({
   selector: 'app-edit-currency',
-  templateUrl: './edit-currency.component.html',
-  styleUrls: ['./edit-currency.component.scss']
+  templateUrl: './edit-currency.component.html'
 })
 export class EditCurrencyComponent extends FormComponent implements OnInit{
 
   @ViewChild('focusElement') focusElement: ElementRef;
-  model: CurrencySys;
+  @ViewChild('exchangeRateValue') exchangeRateValue: ElementRef;
   currency: Currency[]= [];
   constructor(public fb: FormBuilder,
               public msg: MessagesService,
@@ -25,15 +24,15 @@ export class EditCurrencyComponent extends FormComponent implements OnInit{
               public router: Router,
               public translate: TranslateService,
               public aRouter: ActivatedRoute,
-              private types: CurrencyService,
-              private curr: CurrencySysService
+              private curr: CurrencyService,
+              private currSys: CurrencySysService
   ){
     super(fb, msg, api, router, translate, aRouter);
     this.translate.setDefaultLang(this.activeLang);
     this.customForm = this.fb.group({
-      currency_id                 : ['', [Validators.required, Validators.minLength(1)] ],
-      exchange_rate_value         : ['', [Validators.required, Validators.minLength(3)] ],
-      national_currency           : ['', [Validators.required, Validators.minLength(1)] ],
+      currency_id                 : [0, [Validators.required] ],
+      exchange_rate_value         : [0, [Validators.required] ],
+      national_currency           : [false],
       plural_name                 : ['', [Validators.required, Validators.minLength(3)] ],
       singular_name               : ['', [Validators.required, Validators.minLength(3)] ],
       denomination                : ['', [Validators.required, Validators.minLength(3)] ],
@@ -62,23 +61,11 @@ export class EditCurrencyComponent extends FormComponent implements OnInit{
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
-    ts.title  = 'Crear/Editar moneda';
-    ts.model = {
-      id: 0,
-      currency_id:0,
-      currency_name: '',
-      denomination: '',
-      exchange_rate_value: 0,
-      national_currency: 0,
-      plural_name: '',
-      singular_name: '',
-      CurrencyISO: '',
-      state: 1
-    };
+    const lang  = ts.translate;
+    ts.title    = `${lang.instant('general.createEdit')} ${lang.instant('currency.title')}`; 
     ts.PutURL   = '/general/currency/update/';
     ts.PostURL  = '/general/currency/create';
-
-    ts.curr.getData().subscribe((resp) => {
+    ts.curr.getData({}).subscribe((resp) => {
       ts.currency  = resp;
     });
 
@@ -90,9 +77,31 @@ export class EditCurrencyComponent extends FormComponent implements OnInit{
     const lang  = ts.translate;
     ts.editing  = true;
 
-    ts.types.getData({uid: id}).subscribe((resp) => {
-      this.model = resp[0];
+    ts.currSys.getData({uid: id}).subscribe((resp) => {
+      ts.customForm.setValue({
+        currency_id                 : resp[0].currency_id        ,
+        exchange_rate_value         : resp[0].exchange_rate_value,
+        national_currency           : resp[0].national_currency  ,
+        plural_name                 : resp[0].plural_name        ,
+        singular_name               : resp[0].singular_name      ,
+        denomination                : resp[0].denomination       ,
+      })
     });
   }
 
+  onCurrencyChange(id: any): void{
+    const ts  = this;
+    if(id){
+      const curr = ts.currency.find( currency => currency.id === id);
+      const local = ts.customForm.get('national_currency').value;
+      if (!local){
+        ts.activeLoading();
+        ts.currSys.getChangeLocal({ source: curr.CurrencyISO}).
+                  subscribe((resp) => {
+                    ts.disabledLoading();
+                    ts.exchangeRateValue.nativeElement.value = resp[0].value;
+                  });
+      }
+    }
+  }
 }

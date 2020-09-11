@@ -78,8 +78,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title :   'Suscursales',
-        icon: { icon: 'building', pack: 'fas' },
-        link: '/pages/companies/branch-office',
+        icon: { icon: 'home', pack: 'fas' },
+        link: '/pages/companies/branchoffice',
+      },
+      {
+        title :   'Puntos de venta',
+        icon: { icon: 'store-alt', pack: 'fas' },
+        link: '/pages/companies/pointofsale',
       },
       {
         title :   'Departamentos',
@@ -99,26 +104,29 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ]
   },
   {
-    title: 'General',
-    icon: 'layout-outline',
+    title: 'Ajustes',
+    icon: { icon: 'user-cog', pack: 'fas' },
     children: [
       {
-        title: 'Impuestos',
+        title: 'Grupo de impuestos',
+        icon: { icon: 'user-cog', pack: 'fas' },
         link: '/pages/general/taxes',
       },
       {
         title: 'Rango de impuestos',
-        link: '/pages/general/tax-rates',
+        icon: { icon: 'user-cog', pack: 'fas' },
+        link: '/pages/general/taxrates',
       },
       {
         title: 'Monedas',
+        icon: { icon: 'hand-holding-usd', pack: 'fas' },
         link: '/pages/general/currency',
       },
       {
-        title: 'Documentos',
-        link: '/pages/general/identity-documents',
+        title: 'Documentos identidad',
+        icon: { icon: 'id-card', pack: 'far' },
+        link: '/pages/general/identitydocuments',
       }
-
     ],
   }
 ];

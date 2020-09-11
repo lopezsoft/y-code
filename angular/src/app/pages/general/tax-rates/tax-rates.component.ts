@@ -1,14 +1,15 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { JqxCustomGridComponent } from 'src/app/core/data/custom-grid/jqx-custom-grid.component';
-import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
-import { MessagesService, ApiServerService } from 'src/app/utils';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
+import { JqxCustomGridComponent } from 'src/app/core/data/custom-grid/jqx-custom-grid.component';
+import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
+
+import { MessagesService, ApiServerService } from 'src/app/utils';
+
 @Component({
-  selector: 'app-tax-rates',
-  templateUrl: './../../global/global-grid.component.html',
-  styleUrls: ['./tax-rates.component.scss']
+  selector: 'app-taxrates',
+  templateUrl: './../../global/global-grid.component.html'
 })
 export class TaxRatesComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
 
@@ -28,10 +29,12 @@ export class TaxRatesComponent extends JqxCustomGridComponent implements OnInit,
 
   ngOnInit(): void {
     this.changeLanguage(this.activeLang);
+    this.title  = this.translate.instant('taxes.rate.title');
   }
 
   ngAfterViewInit(): void {
-    const ts = this;
+    const ts  = this;
+    const lang= ts.translate;
     ts.crudApi = {
       create: '/general/taxerates/create',
       read  : '/general/taxerates/read',
@@ -46,20 +49,25 @@ export class TaxRatesComponent extends JqxCustomGridComponent implements OnInit,
       { name: 'id', type: 'number' },
       { name: 'name_taxe', type: 'number' },
       { name: 'rate_name', type: 'string' },
+      { name: 'fecuency_name', type: 'string' },
+      { name: 'account_name', type: 'string' },
       { name: 'rate_abbre', type: 'number' },
       { name: 'rate_value', type: 'number' },
       { name: 'decimal_rate', type: 'number' },
+      { name: 'is_exempt', type: 'bool' },
       { name: 'state', type: 'number' },
     ];
 
     ts.sourceColumns =
       [
-        { text: 'Impuesto', align: 'center', datafield: 'name_taxe' },
-        { text: 'Tarifa', align: 'center', datafield: 'rate_name', width: '40%'},
-        { text: 'Abreviatura de tasa', align: 'center', datafield: 'rate_abbre' },
-        { text: 'Valor tarifa', align: 'center', datafield: 'rate_value' },
-        { text: 'Tasa decimal', align: 'center', datafield: 'decimal_rate' },
-
+        { text: lang.instant('taxes.rate.group'), align: 'center', datafield: 'name_taxe', minWidth: 60 },
+        { text: lang.instant('taxes.rate.name'), align: 'center', datafield: 'rate_name', width: '40%'},
+        { text: lang.instant('taxes.rate.abbre'), align: 'center', datafield: 'rate_abbre', minWidth: 45 },
+        { text: lang.instant('taxes.rate.value'), align: 'center', datafield: 'rate_value', minWidth: 45 },
+        { text: lang.instant('taxes.rate.decimal'), align: 'center', datafield: 'decimal_rate', minWidth: 45 },
+        { text: lang.instant('taxes.rate.is_exempt'), align: 'center', datafield: 'is_exempt', columntype: 'checkbox', threestatecheckbox: true, width: 80 },
+        { text: lang.instant('taxes.rate.frecuency'), align: 'center', datafield: 'fecuency_name', minWidth: 80 },
+        { text: lang.instant('taxes.rate.accountName'), align: 'center', datafield: 'account_name', minWidth: 120 },
       ];
 
     this.prepareGrid();
@@ -67,13 +75,12 @@ export class TaxRatesComponent extends JqxCustomGridComponent implements OnInit,
 
   createData(): void {
     const ts = this;
-    const lang = this.translate;
     super.createData();
-    ts.goRoute('pages/general/tax-rates/create');
+    ts.goRoute('pages/general/taxrates/create');
   }
 
   editData(data: any): void {
     super.editData(data);
-    this.goRoute(`pages/general/tax-rates/edit/${data.id}`);
+    this.goRoute(`pages/general/taxrates/edit/${data.id}`);
   }
 }

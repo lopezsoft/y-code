@@ -10,7 +10,7 @@ import { ApiServerService, MessagesService } from './../../../utils/index';
 import { BaseComponent } from './../../../core/components/base/base.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorResponse, JsonResponse } from 'src/app/interfaces';
-
+declare var $:any;
 @Injectable()
 export class FormComponent extends BaseComponent implements OnInit, AfterViewInit {
   title = 'Titulo del formulario';
@@ -48,6 +48,9 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
     if (this.focusElement){
       this.focusElement.nativeElement.focus();
     }
+    $('.select2-combo').select2({
+      theme: "classic",
+    });
   }
 
 

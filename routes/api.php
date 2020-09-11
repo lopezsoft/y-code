@@ -24,13 +24,13 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('signup', 'AuthController@signup');
         Route::get('signup/activate/{token}', 'AuthController@signupActivate');
 
-        Route::group(['middleware' => 'auth:api'], function() {
+        Route::group(['middleware' => 'auth:api'], function () {
             Route::get('logout', 'AuthController@logout');
             Route::get('user', 'AuthController@user');
         });
     });
 
-    Route::group(['middleware' => 'auth:api'], function() {
+    Route::group(['middleware' => 'auth:api'], function () {
         Route::get('currency', 'MasterController@getCurrency');
         Route::get('currencysys', 'MasterController@getCurrencySys');
         Route::get('countries', 'MasterController@getCountries');
@@ -48,6 +48,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('referenceprice', 'MasterController@getReferencePrice');
         Route::get('paymentmethods', 'MasterController@getPaymentMethods');
         Route::get('meanspayment', 'MasterController@geMeansPayment');
+        Route::get('shippingfrequency', 'MasterController@geShippingFrequency');
+        Route::get('ipinfo', 'MasterController@getIpInfo');
 
 
         // Products
@@ -77,6 +79,9 @@ Route::group(['prefix' => 'v1'], function () {
             Route::group(['prefix' => 'accounts'], function () {
                 Route::post('create',           'Accounting\AccountsController@create');
                 Route::get('read',              'Accounting\AccountsController@select');
+                Route::get('read/all',          'Accounting\AccountsController@selectAll');
+                Route::get('read/subaccounts',  'Accounting\AccountsController@selectSubAccounts');
+                Route::get('read/masteraccounts',   'Accounting\AccountsController@selectMasterAccounts');
                 Route::put('update/{id}',       'Accounting\AccountsController@update');
                 Route::delete('delete/{id}',    'Accounting\AccountsController@delete');
             });
@@ -94,8 +99,7 @@ Route::group(['prefix' => 'v1'], function () {
             });
         });
 
-        Route::group(['prefix' => 'companies'], function ()
-        {
+        Route::group(['prefix' => 'companies'], function () {
             Route::group(['prefix' => 'company'], function () {
                 Route::post('create',           'Companies\CompanyController@createCompany');
                 Route::get('read',              'Companies\CompanyController@select');
@@ -104,10 +108,13 @@ Route::group(['prefix' => 'v1'], function () {
             });
 
             Route::group(['prefix' => 'branchoffice'], function () {
-                Route::post('create',           'Companies\BranchOfficeController@create');
-                Route::get('read',              'Companies\BranchOfficeController@select');
-                Route::put('update/{id}',       'Companies\BranchOfficeController@update');
-                Route::delete('delete/{id}',    'Companies\BranchOfficeController@delete');
+                Route::post('create',                   'Companies\BranchOfficeController@create');
+                Route::post('create/pointofsale',       'Companies\BranchOfficeController@createPointOfSale');
+                Route::get('read',                      'Companies\BranchOfficeController@select');
+                Route::get('read/pointofsale',          'Companies\BranchOfficeController@selectPointOfSale');
+                Route::put('update/{id}',               'Companies\BranchOfficeController@update');
+                Route::put('update/pointofsale/{id}',   'Companies\BranchOfficeController@updatePointOfSale');
+                Route::delete('delete/{id}',            'Companies\BranchOfficeController@delete');
             });
 
             Route::group(['prefix' => 'departments'], function () {
@@ -130,11 +137,9 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::put('update/{id}',       'Companies\CompanyTypeController@update');
                 Route::delete('delete/{id}',    'Companies\CompanyTypeController@delete');
             });
-
         });
 
-        Route::group(['prefix' => 'general'], function ()
-        {
+        Route::group(['prefix' => 'general'], function () {
             Route::group(['prefix' => 'taxes'], function () {
                 Route::post('create',           'General\TaxesController@create');
                 Route::get('read',              'General\TaxesController@select');
@@ -144,8 +149,9 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::group(['prefix' => 'currency'], function () {
                 Route::post('create',           'General\CurrencyController@create');
+                Route::get('change',            'General\CurrencyController@getChange');
+                Route::get('change/local',      'General\CurrencyController@getChangeLocal');
                 Route::get('read',              'General\CurrencyController@select');
-                Route::get('currencies',        'General\CurrencyController@getCurrencies');
                 Route::put('update/{id}',       'General\CurrencyController@update');
                 Route::delete('delete/{id}',    'General\CurrencyController@delete');
             });
@@ -172,7 +178,4 @@ Route::group(['prefix' => 'v1'], function () {
             Route::delete('delete/{id}',    'CompanyController@deleteCompany');
         });
     });
-
-
-
 });

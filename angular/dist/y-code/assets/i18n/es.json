@@ -79,15 +79,21 @@
     "pleaseWait"          : "Espere por favor",
     "savedSuccessfully"   : "Guardado exitosamente",
     "successfullyCreated" : "Creado exitosamente",
-    "loading"             : "Cargando"
+    "loading"             : "Cargando",
+    "createEdit"          : "Crear/Editar",
+    "currency"            : "Moneda",
+    "country"             : "País",
+    "aterisk"             : "*",
+    "404"                 : "404 La página no existe",
+    "asterisk"            : "*"
   },
   "companies": {
-    "company_name"      : "Nombre de la compañia *",
-    "type_organization" : "Tipo de organización *",
-    "identity_document" : "Identificación tributaria *",
+    "company_name"      : "Nombre de la compañia",
+    "type_organization" : "Tipo de organización",
+    "identity_document" : "Identificación tributaria",
     "number_employees"  : "Número de empleados",
-    "currency"          : "Moneda *",
-    "country"           : "País *",
+    "currency"          : "Moneda",
+    "country"           : "País",
     "dni"               : "Número de identificación tributaria",
     "dv"                : "Digite DV",
     "address"           : "Dirección principal",
@@ -97,5 +103,76 @@
     "phone"             : "Número de télefono fijo",
     "email"             : "Correo electronico",
     "web"               : "Dirección de sitio web"
+  },
+  "taxes": {
+    "title"       : "Grupo de impuestos",
+    "name"        : "Nombre del grupo",
+    "is_vat"      : "¿Es IVA?",
+    "description" : "Descripción",
+    "rate"       : {
+      "title"       : "Rango de impuestos",
+      "group"       : "Grupo",
+      "name"        : "Nombre de la tarifa",
+      "is_exempt"   : "¿Es exento?",
+      "abbre"       : "Abreviatura",
+      "decimal"     : "Tasa decimal",
+      "frecuency"   : "Frecuencia de envío",
+      "accountName" : "Cuenta contable",
+      "value"       : "Tasa"
+    }
+  },
+  "currency": {
+    "title"                 : "Monedas",
+    "ISO"                   : "ISO",
+    "name"                  : "Nombre de la moneda",
+    "singularName"          : "Nombre singular",
+    "pluralName"            : "Nombre plural",
+    "symbol"                : "Simbolo",
+    "exchangeRateValue"     : "Tasa de cambio",
+    "denomination"          : "Denominación",
+    "nationalCurrency"      : "¿Moneda nacional?"
+  },
+  "identityDocuments": {
+    "title"           : "Documentos de identidad",
+    "name"            : "Nombre del documento",
+    "abbrev"          : "Abreviatura",
+    "active"          : "Activo",
+    "code"            : "Código"
+  },
+  "branchs" : {
+    "title"         : "Sucursales",
+    "name"          : "Nombre de la sucursal",
+    "address"       : "Dirección principal",
+    "address2"      : "Dirección de la sucursal",
+    "location"      : "Ubicación geografica",
+    "email"         : "Correo electrónico",
+    "phone"         : "Teléfono",
+    "web"           : "Sitio web",
+    "postalCode"    : "Código postal",
+    "isPointOfSale" : "¿Es un punto de venta?",
+    "mobile"        : "Celular"
+  },
+  "pointsofsale" : {
+    "title"         : "Puntos de venta",
+    "name"          : "Nombre del punto de venta",
+    "branch_name"   : "Sucursal",
+    "address"       : "Dirección",
+    "phone"         : "Teléfono",
+    "mobile"        : "Celular"
+  },
+  "departments" : {
+    "title"         : "Departamentos",
+    "name"          : "Nombre del departamento",
+    "branch"        : "Sucursal"
+  },
+  "wineries" : {
+    "title"         : "Bodegas",
+    "name"          : "Nombre de la bodega",
+    "branch"        : "Sucursal",
+    "department"    : "Departamento"
+  },
+  "typeOrganization" : {
+    "title"         : "Tipos de empresa",
+    "name"          : "Nombre del tipo de empresa"
   }
 }

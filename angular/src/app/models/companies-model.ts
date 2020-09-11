@@ -32,7 +32,9 @@ export interface wineries
 {
   id: number;
   branch_id: number;
+  department_id?: number;
   winery_name: string;
+  department_name?: string;
   state: number;
 }
 export interface Departments{
@@ -44,12 +46,14 @@ export interface Departments{
 
 export interface BranchOffice{
   id: number;
-  city_id:number;
   currency_id:number;
+  branch_id?:number;
   country_id:number;
   branch_name:string;
+  branch?:string;
   postal_code:string;
   address:string;
+  address2:string;
   location:string;
   email:string;
   mobile:string;

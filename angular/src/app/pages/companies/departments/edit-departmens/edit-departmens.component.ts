@@ -1,18 +1,17 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormComponent } from 'src/app/core/components/forms/form.component';
-import { Departments, BranchOffice } from 'src/app/models/companies-model';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessagesService, ApiServerService } from 'src/app/utils';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { DepartamentsService } from 'src/app/services/companies/departaments.service';
-import { BranchOfficeService } from 'src/app/services/companies/branch-office.service';
-import { JsonResponse, ErrorResponse } from 'src/app/interfaces';
+
+import { FormComponent } from 'src/app/core/components/forms/form.component';
+import { Departments, BranchOffice } from 'src/app/models/companies-model';
+
+import { MessagesService, ApiServerService } from 'src/app/utils';
+import { DepartmentsService, BranchOfficeService } from 'src/app/services/companies/index';
 
 @Component({
   selector: 'app-edit-departmens',
-  templateUrl: './edit-departmens.component.html',
-  styleUrls: ['./edit-departmens.component.scss']
+  templateUrl: './edit-departmens.component.html'
 })
 export class EditDepartmensComponent extends FormComponent implements OnInit {
   @ViewChild('focusElement') focusElement: ElementRef;
@@ -24,7 +23,7 @@ export class EditDepartmensComponent extends FormComponent implements OnInit {
               public router: Router,
               public translate: TranslateService,
               public aRouter: ActivatedRoute,
-              private types: DepartamentsService,
+              private types: DepartmentsService,
               private branch: BranchOfficeService,
   ){
     super(fb, msg, api, router, translate, aRouter);
@@ -39,19 +38,13 @@ export class EditDepartmensComponent extends FormComponent implements OnInit {
     return this.customForm.get('department_name').invalid && this.customForm.get('department_name').touched;
   }
   get invalidBranch(): boolean{
-    return this.customForm.get('branch_office_id').invalid && this.customForm.get('branch_office_id').touched;
+    return (this.customForm.get('branch_office_id').value === 0) ? true : false;
   }
 
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
-    ts.title  = 'Crear/Editar departamentos';
-    ts.model  = {
-      id: 0,
-      branch_office_id: 0,
-      department_name: '',
-      state: 1
-    };
+    ts.title    = 'Crear/Editar departamentos';
     ts.PutURL   = '/companies/departments/update/';
     ts.PostURL  = '/companies/departments/create';
 
@@ -64,10 +57,12 @@ export class EditDepartmensComponent extends FormComponent implements OnInit {
   async loadData(id: any = 0): Promise<void> {
     const ts    = this;
     const frm   = ts.customForm;
-    const lang  = ts.translate;
     ts.editing  = true;
     ts.types.getData({uid: id}).subscribe((resp) => {
-      this.model = resp[0];
+      frm.setValue( {
+        branch_office_id  : resp[0].branch_office_id  ,
+        department_name   : resp[0].department_name   ,
+      });
     });
   }
 }

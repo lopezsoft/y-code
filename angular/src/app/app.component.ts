@@ -17,7 +17,10 @@ import { ApiServerService } from './utils/api-server.service';
 })
 export class AppComponent implements OnInit {
   public activeLang = 'es';
-  constructor(private api: ApiServerService, private router: Router, private translate: TranslateService, private iconsLibrary: NbIconLibraries) {
+  constructor(private api: ApiServerService, private router: Router,
+    private translate: TranslateService,
+    private iconsLibrary: NbIconLibraries
+    ) {
     this.translate.setDefaultLang(this.activeLang);
     this.iconsLibrary.registerFontPack('fa', { packClass: 'fa', iconClassPrefix: 'fa' });
     this.iconsLibrary.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });
@@ -32,13 +35,7 @@ export class AppComponent implements OnInit {
     if(!this.api.isAuthenticated()) {
       this.router.navigate(['/login']);
     }
-
-    this.changeLanguage(this.activeLang);
   }
 
-  public changeLanguage(lang: string): void {
-    this.activeLang = lang;
-    this.translate.use(lang);
-  }
 
 }

@@ -29,25 +29,19 @@ export class CompanyTypeFormComponent extends FormComponent implements OnInit {
               private types: TypeOrganizationService
   ){
     super(fb, msg, api, router, translate, aRouter);
-    this.translate.setDefaultLang(this.activeLang);
     this.customForm = this.fb.group({
       description  : ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 
   get invalidName(): boolean{
-  return this.customForm.get('description').invalid && this.customForm.get('description').touched;
+    return this.customForm.get('description').invalid && this.customForm.get('description').touched;
   }
 
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
-    ts.title  = 'Crear/Editar tipo de compañia';
-    ts.model  = {
-      id: 0,
-      description: '',
-      code: 0
-    };
+    ts.title    = 'Crear/Editar tipo de compañia';
     ts.PutURL   = '/companies/companytype/update/';
     ts.PostURL  = '/companies/companytype/create';
   }
@@ -55,10 +49,11 @@ export class CompanyTypeFormComponent extends FormComponent implements OnInit {
   loadData(id: any = 0): void {
     const ts    = this;
     const frm   = ts.customForm;
-    const lang  = ts.translate;
     ts.editing  = true;
     ts.types.getData({uid: id}).subscribe((resp) => {
-      this.model = resp[0];
+      frm.setValue({
+        description: resp[0].description
+      });
     });
   }
 

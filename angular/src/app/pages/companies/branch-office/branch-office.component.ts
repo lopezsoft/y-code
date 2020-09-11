@@ -34,7 +34,8 @@ export class BranchOfficeComponent extends JqxCustomGridComponent implements OnI
   }
 
   ngAfterViewInit(): void {
-    const ts = this;
+    const ts  = this;
+    const lang= ts.translate;
     ts.crudApi = {
       create: '/companies/branchoffice/create',
       read: '/companies/branchoffice/read',
@@ -52,6 +53,7 @@ export class BranchOfficeComponent extends JqxCustomGridComponent implements OnI
       { name: 'postal_code', type: 'string' },
       { name: 'branch_name', type: 'string' },
       { name: 'address', type: 'string' },
+      { name: 'address2', type: 'string' },
       { name: 'currencyname', type: 'string' },
       { name: 'country_name', type: 'string' },
       { name: 'location', type: 'string' },
@@ -65,19 +67,20 @@ export class BranchOfficeComponent extends JqxCustomGridComponent implements OnI
 
     ts.sourceColumns =
       [
-        { text: 'Nombre de la sucursal', align: 'center', datafield: 'branch_name' },
-        { text: 'Moneda', align: 'center', datafield: 'currencyname' },
-        { text: 'Pais', align: 'center', datafield: 'country_name' },
-        { text: 'Dirección', align: 'center', datafield: 'address' },
-        { text: 'Es Punto de venta?', align: 'center', datafield: 'is_point_of_sale', columntype: 'checkbox', threestatecheckbox: true, width: 110 }
+        { text: lang.instant('branchs.name'), align: 'center', datafield: 'branch_name', minWidth: 150 },
+        { text: lang.instant('general.currency'), align: 'center', datafield: 'currencyname', minWidth: 100, width: 150 },
+        { text: lang.instant('general.country'), align: 'center', datafield: 'country_name', minWidth: 100 },
+        { text: lang.instant('branchs.address'), align: 'center', datafield: 'address', minWidth: 100 },
+        { text: lang.instant('branchs.isPointOfSale'), align: 'center', datafield: 'is_point_of_sale', columntype: 'checkbox',
+        threestatecheckbox: true, width: 110 }
       ];
 
     this.prepareGrid();
+    ts.title  = lang.instant('branchs.title');
   }
 
   createData(): void {
     const ts = this;
-    const lang = this.translate;
     super.createData();
     ts.goRoute('pages/companies/branchoffice/create');
   }

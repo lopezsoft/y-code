@@ -9,13 +9,11 @@ import { TaxesService } from 'src/app/services/general/taxes.service';
 
 @Component({
   selector: 'app-edit-taxes',
-  templateUrl: './edit-taxes.component.html',
-  styleUrls: ['./edit-taxes.component.scss']
+  templateUrl: './edit-taxes.component.html'
 })
 export class EditTaxesComponent extends FormComponent implements OnInit{
 
   @ViewChild('focusElement') focusElement: ElementRef;
-  model: Taxes;
   constructor(public fb: FormBuilder,
               public msg: MessagesService,
               public api: ApiServerService,
@@ -29,6 +27,7 @@ export class EditTaxesComponent extends FormComponent implements OnInit{
     this.customForm = this.fb.group({
       name_taxe            : ['', [Validators.required, Validators.minLength(2)] ],
       description          : ['', [Validators.required, Validators.minLength(5)] ],
+      is_vat               : [false],
     });
   }
 
@@ -43,26 +42,22 @@ export class EditTaxesComponent extends FormComponent implements OnInit{
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
-    ts.title  = 'Crear/Editar impuesto';
-    ts.model = {
-      id: 0,
-      name_taxe: '',
-      description: '',
-      state: 1
-    };
+    const lang  = ts.translate;
+    ts.title    = `${lang.instant('general.createEdit')} ${lang.instant('taxes.title')}`;
     ts.PutURL   = '/general/taxes/update/';
     ts.PostURL  = '/general/taxes/create';
-
   }
 
   async loadData(id: any = 0): Promise<void> {
     const ts    = this;
-    const frm   = ts.customForm;
-    const lang  = ts.translate;
     ts.editing  = true;
 
     ts.types.getData({uid: id}).subscribe((resp) => {
-      this.model = resp[0];
+      this.customForm.setValue({
+        name_taxe   : resp[0].name_taxe,
+        description : resp[0].description,
+        is_vat      : resp[0].is_vat,
+      });
     });
 
   }

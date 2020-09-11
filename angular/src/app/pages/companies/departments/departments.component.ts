@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-departaments',
   templateUrl: './../../global/global-grid.component.html',
 })
-export class DepartmentsComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
+export class DepartmentsComponent extends JqxCustomGridComponent implements AfterViewInit{
 
   @ViewChild('customGrid', { static: false }) customGrid: jqxGridComponent;
   @ViewChild('searchField') searchField: ElementRef;
@@ -30,12 +30,9 @@ export class DepartmentsComponent extends JqxCustomGridComponent implements OnIn
     super(msg, api, router, translate, aRouter);
   }
 
-  ngOnInit(): void {
-    this.changeLanguage(this.activeLang);
-  }
-
   ngAfterViewInit(): void {
-    const ts = this;
+    const ts  = this;
+    const lang= ts.translate;
     ts.crudApi = {
       create: '/companies/departments/create',
       read: '/companies/departments/read',
@@ -56,16 +53,16 @@ export class DepartmentsComponent extends JqxCustomGridComponent implements OnIn
 
     ts.sourceColumns =
       [
-        { text: 'Nombre del departamento', align: 'center', datafield: 'department_name' },
-        { text: 'Sucursal', align: 'center', datafield: 'branch_name' },
+        { text:  lang.instant('departments.name')   || 'Nombre del departamento', align: 'center', datafield: 'department_name' },
+        { text:  lang.instant('departments.branch') || 'Sucursal', align: 'center', datafield: 'branch_name' },
       ];
 
     this.prepareGrid();
+    ts.title  = lang.instant('departments.title');
   }
 
   createData(): void {
     const ts = this;
-    const lang = this.translate;
     super.createData();
     ts.goRoute('pages/companies/departments/create');
   }

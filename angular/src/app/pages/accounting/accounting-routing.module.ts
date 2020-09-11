@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AccountingComponent } from './accounting.component';
 import { AccountsComponent,
+  AccountFormComponent,
   AccountingGroupsComponent,
   ClassOfAccountingComponent,
   ClassOfAccountingFormComponent,
@@ -40,6 +41,14 @@ const routes: Routes = [{
     {
       path: 'accounts',
       component: AccountsComponent
+    },
+    {
+      path: 'accounts/create',
+      component: AccountFormComponent,
+    },
+    {
+      path: 'accounts/edit/:id',
+      component: AccountFormComponent,
     }
   ],
 }];

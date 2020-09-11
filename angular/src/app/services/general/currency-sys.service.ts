@@ -4,21 +4,29 @@ import { map } from 'rxjs/operators';
 import { JsonResponse } from 'src/app/interfaces';
 
 import { ApiServerService } from '../../utils/api-server.service';
-import { Currency} from './../../models/general-model';
+import { CurrencySys, CurrencyChange} from './../../models/general-model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencySysService {
-  data: Currency[] = [];
+  data: CurrencySys[] = [];
   constructor(
     private api: ApiServerService
   ){}
 
-  getData(): Observable<Currency[]> {
+  getData(params: any): Observable<CurrencySys[]> {
     const ts  = this;
-    return ts.api.get('/general/currency/currencies')
+    return ts.api.get('/general/currency/read', params)
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
+
+    }
+  getChangeLocal(params: any): Observable<CurrencyChange[]> {
+    const ts  = this;
+    return ts.api.get('/general/currency/change/local', params)
       .pipe( map ( (resp: JsonResponse ) => {
         return resp.records;
       }));

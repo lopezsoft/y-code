@@ -5,7 +5,10 @@ import { CompaniesComponent } from './companies.component';
 import { BranchOfficeComponent, CompanyComponent,
         CompanyTypeComponent, CompanyTypeFormComponent,
         DepartmentsComponent, WineriesComponent,
-        EditBranchOfficeComponent } from './index';
+        EditBranchOfficeComponent,
+        PointsOfSaleComponent,
+        PointsOfSaleFormComponent
+       } from './index';
 import { EditWineriesComponent } from './wineries/edit-wineries/edit-wineries.component';
 import { EditDepartmensComponent } from './departments/edit-departmens/edit-departmens.component';
 
@@ -19,7 +22,7 @@ const routes: Routes = [{
       component: CompanyComponent,
     },
     {
-      path: 'branch-office',
+      path: 'branchoffice',
       component: BranchOfficeComponent
     },
     {
@@ -29,6 +32,18 @@ const routes: Routes = [{
     {
       path: 'branchoffice/create',
       component: EditBranchOfficeComponent
+    },
+    {
+      path: 'pointofsale',
+      component: PointsOfSaleComponent
+    },
+    {
+      path: 'pointofsale/edit/:id',
+      component: PointsOfSaleFormComponent
+    },
+    {
+      path: 'pointofsale/create',
+      component: PointsOfSaleFormComponent
     },
     {
       path: 'departaments',
