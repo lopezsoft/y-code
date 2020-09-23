@@ -82,6 +82,7 @@
     "loading"             : "Cargando",
     "createEdit"          : "Crear/Editar",
     "currency"            : "Moneda",
+    "tax"                 : "Impuesto",
     "country"             : "País",
     "aterisk"             : "*",
     "404"                 : "404 La página no existe",
@@ -174,5 +175,28 @@
   "typeOrganization" : {
     "title"         : "Tipos de empresa",
     "name"          : "Nombre del tipo de empresa"
+  },
+  "accounting"  : {
+    "title"         : "Catalógo de cuentas",
+    "account"       : "Cuenta",
+    "name"          : "Nombre de la cuenta",
+    "description"   : "Descripción",
+    "number"        : "Número",
+    "group"         : "Grupo contable",
+    "master"        : "Cuenta maestra",
+    "isSubAccount"  : "¿Subcuenta?",
+    "groups"        : {
+      "title"         : "Grupos contables",
+      "group"         : "Grupo contable",
+      "name"          : "Nombre del grupo",
+      "classOfAccount": "Close de cuenta",
+      "number"        : "Número"
+    },
+    "class"        : {
+      "title"         : "Clases de cuentas",
+      "class"         : "Clase de cuenta",
+      "name"          : "Nombre de la clase de cuenta",
+      "number"        : "Número"
+    }
   }
 }

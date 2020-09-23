@@ -295,6 +295,11 @@ const MENU_ITEMS = [
                 icon: { icon: 'list-alt', pack: 'fas' },
                 link: '/pages/products/attributes',
             },
+            {
+                title: 'Terminos de atributos',
+                icon: { icon: 'list-alt', pack: 'fas' },
+                link: '/pages/products/terms',
+            },
         ],
     },
     {
@@ -302,23 +307,19 @@ const MENU_ITEMS = [
         icon: { icon: 'calculator', pack: 'fas' },
         children: [
             {
-                title: 'Clases de cuenta',
+                title: 'Catalogo de cuentas',
                 icon: { icon: 'calculator', pack: 'fas' },
-                link: '/pages/accounting/class',
+                link: '/pages/accounting/accounts',
             },
             {
                 title: 'Grupos contables',
                 icon: { icon: 'calculator', pack: 'fas' },
                 link: '/pages/accounting/groups',
             },
-            // {
-            //   title: 'Tipos de cuenta',
-            //   link: '/pages/accounting/types',
-            // },
             {
-                title: 'Catalogo de cuentas',
+                title: 'Clases de cuenta',
                 icon: { icon: 'calculator', pack: 'fas' },
-                link: '/pages/accounting/accounts',
+                link: '/pages/accounting/class',
             },
         ],
     },
@@ -326,11 +327,6 @@ const MENU_ITEMS = [
         title: 'Empresa',
         icon: { icon: 'building', pack: 'fas' },
         children: [
-            {
-                title: 'Datos de la empresa',
-                icon: { icon: 'building', pack: 'fas' },
-                link: '/pages/companies/company',
-            },
             {
                 title: 'Suscursales',
                 icon: { icon: 'home', pack: 'fas' },
@@ -350,6 +346,11 @@ const MENU_ITEMS = [
                 title: 'Bodegas',
                 icon: { icon: 'building', pack: 'fas' },
                 link: '/pages/companies/wineries',
+            },
+            {
+                title: 'Datos de la empresa',
+                icon: { icon: 'building', pack: 'fas' },
+                link: '/pages/companies/company',
             },
             {
                 title: 'Tipos de empresa',
@@ -423,7 +424,7 @@ const routes = [{
             // },
             {
                 path: 'products',
-                loadChildren: () => Promise.all(/*! import() | products-products-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c"), __webpack_require__.e("products-products-module")]).then(__webpack_require__.bind(null, /*! ./products/products.module */ "./src/app/pages/products/products.module.ts"))
+                loadChildren: () => Promise.all(/*! import() | products-products-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c"), __webpack_require__.e("common"), __webpack_require__.e("products-products-module")]).then(__webpack_require__.bind(null, /*! ./products/products.module */ "./src/app/pages/products/products.module.ts"))
                     .then(m => m.ProductsModule),
             },
             {

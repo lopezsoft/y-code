@@ -10,12 +10,31 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuModule } from 'jqwidgets-ng/jqxmenu';
 
+
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgFallimgModule } from 'ng-fallimg';
+
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { NgxCurrencyModule } from "ngx-currency";
+
+
+export const customCurrencyMaskConfig = {
+  align         : "right",
+  allowNegative : true,
+  allowZero     : true,
+  decimal       : ".",
+  precision     : 2,
+  prefix        : "$ ",
+  suffix        : "",
+  thousands     : ",",
+  nullable      : true
+};
+
 /*
   * Translation
 */
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import {
@@ -24,16 +43,26 @@ import {
   AttributesComponent,
   ItemsComponent} from './index';
 import { ProductsComponent } from './products.component';
+import { BrandsFormComponent } from './brands/brands-form.component';
+import { CategoriesFormComponent } from './categories/categories-form.component';
+import { AttributesFormComponent } from './attributes/attributes-form.component';
+import { TermsComponent } from './terms/terms.component';
+import { TermsFormComponent } from './terms/terms-form.component';
+import { ItemsFormComponent } from './items/items-form.component';
 
 @NgModule({
   imports: [
     ThemeModule,
     NbCardModule,
+    NgbModule,
+    NgbPaginationModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     NbButtonModule,
     NbEvaIconsModule,
     NbInputModule,
     NbIconModule,
     jqxMenuModule,
+    NgSelectModule,
     ProductsRoutingModule,
     NbFormFieldModule,
     jqxGridModule,
@@ -43,15 +72,8 @@ import { ProductsComponent } from './products.component';
     NbRadioModule,
     NbSelectModule,
     ReactiveFormsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) => {
-          return new TranslateHttpLoader(http);
-        },
-        deps: [ HttpClient ]
-      }
-    }),
+    TranslateModule,
+    NgFallimgModule
   ],
   declarations: [
     ProductsComponent,
@@ -59,6 +81,12 @@ import { ProductsComponent } from './products.component';
     CategoriesComponent,
     BrandsComponent,
     AttributesComponent,
+    BrandsFormComponent,
+    CategoriesFormComponent,
+    AttributesFormComponent,
+    TermsComponent,
+    TermsFormComponent,
+    ItemsFormComponent,
   ],
 })
 export class ProductsModule { }

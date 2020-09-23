@@ -71,6 +71,7 @@ class TaxRatesController extends Controller
         $start  = $request->start;
         $limit  = $request->limit;
         $uid    = $request->uid;
+        $isVat  = $request->isVat;
         $query  = $request->input('query');
         if($company){
             $table  = $company->database_name.'.';
@@ -79,6 +80,9 @@ class TaxRatesController extends Controller
             $where  = "a.state = 1";
             if(isset($uid)){
                 $where  = "a.id={$uid}";
+            }
+            if(isset($isVat)){
+                $where  = "{$where} AND b.is_vat = 1";
             }
             $sqlStatement =
                 "SELECT a.*, b.name_taxe, c.name AS fecuency_name,

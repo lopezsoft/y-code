@@ -47,12 +47,7 @@ export class ClassOfAccountingFormComponent extends FormComponent implements OnI
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
-    ts.title  = 'Crear/Editar clase de cuenta';
-    ts.model  = {
-      id: 0,
-      name: '',
-      number: 0
-    };
+    ts.title    = 'Crear/Editar clase de cuenta';
     ts.PutURL   = '/accounting/clasofaccounts/update/';
     ts.PostURL  = '/accounting/clasofaccounts/create';
   }
@@ -60,11 +55,13 @@ export class ClassOfAccountingFormComponent extends FormComponent implements OnI
   loadData(id: any = 0): void {
     const ts    = this;
     const frm   = ts.customForm;
-    const lang  = ts.translate;
     ts.editing  = true;
     ts.servis.getData({ uid: id}).
       subscribe((resp) => {
-        this.model = resp[0];
+        frm.setValue({
+          name    : resp[0].name,
+          number  : resp[0].number
+        });
       });
   }
 

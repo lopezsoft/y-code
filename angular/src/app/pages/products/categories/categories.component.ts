@@ -48,14 +48,28 @@ export class CategoriesComponent extends JqxCustomGridComponent implements OnIni
     ts.datafields = [
       { name: 'id', type: 'number' },
       { name: 'category_name', type: 'string' },
+      { name: 'parent_name', type: 'string' },
+      { name: 'image', type: 'string' },
     ];
 
     ts.sourceColumns =
     [
       { text: 'Nombre de la categoria', datafield: 'category_name', align: 'center'},
+      { text: 'Categoria padre', datafield: 'parent_name', align: 'center'},
     ];
 
     this.prepareGrid();
+  }
+
+  createData(): void {
+    const ts    = this;
+    super.createData();
+    ts.goRoute('pages/products/categories/create');
+  }
+
+  editData(data: any): void {
+    super.editData(data);
+    this.goRoute(`pages/products/categories/edit/${data.id}`);
   }
 
 }

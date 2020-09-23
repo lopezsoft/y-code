@@ -46,8 +46,8 @@
     <nb-form-field>
       <input type="text" #searchField nbInput fullWidth fieldSize="medium" [placeholder]="placeholderSearch" (keyup)="inputKey($event)"
         autofocus>
-      <button nbSuffix nbButton ghost (click)="clearFilter()" [disabled]="loading" status="danger">
-        <nb-icon nbPrefix icon="backspace" pack="fas"></nb-icon>
+      <button nbSuffix nbButton ghost (click)="searchQuery()" [disabled]="loading" status="danger">
+        <nb-icon nbPrefix icon="search" pack="fas"></nb-icon>
       </button>
     </nb-form-field>
     <jqxGrid #customGrid width="100%" [disabled]="loading" [auto-create]="false" (onCellselect)="cellClick($event)"

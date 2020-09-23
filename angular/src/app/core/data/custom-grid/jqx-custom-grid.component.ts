@@ -253,7 +253,8 @@ export class JqxCustomGridComponent extends BaseComponent {
     const ts  = this;
     if (!ts.loading) {
       ts.searchString  = ts.searchField.nativeElement.value;
-      if (ts.searchString.length >= ts.minChar ){
+      // if (ts.searchString.length >= ts.minChar ){
+      if (event.keyCode === 13 ){
         ts.searchQuery();
       }else if (ts.searchString.length === 0){
         ts.searchQuery();

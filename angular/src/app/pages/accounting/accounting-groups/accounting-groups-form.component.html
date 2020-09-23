@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-md-12">
     <nb-card class="inline-form-card">
-      <nb-card-header>{{ title | uppercase}}</nb-card-header>
+      <nb-card-header>{{ 'general.createEdit' | translate | uppercase}} {{ 'accounting.groups.group' | translate | uppercase}}</nb-card-header>
       <nb-card-body>
         <form [formGroup]="customForm">
           <div class="row">
             <div class="col-12 col-sm-12 col-md-6">
               <div class="form-group">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>Nombre del grupo</label>
+                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'accounting.groups.name' | translate }}</label>
                 <input class="form-control" type="text" #focusElement nbInput fullWidth name="accounting_group_name"
                   formControlName="accounting_group_name" [class.status-danger]="invalidName"
                   [class.is-invalid]="invalidName" required="" autofocus>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-12 col-sm-12 col-md-6">
               <div class="form-group">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>Número</label>
+                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'accounting.groups.number' | translate }}</label>
                 <input class="form-control" type="number" nbInput fullWidth min="0" formControlName="number"
                   [class.is-invalid]="invalidNumber" name="number" [class.status-danger]="invalidNumber">
               </div>
@@ -24,7 +24,7 @@
           <div class="row">
             <div class="col-12 col-sm-12 col-md-12">
               <div class="form-group overflow-box">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>Clase de cuenta</label>
+                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'accounting.groups.classOfAccount' | translate }}</label>
                 <ng-select fullWidth formControlName="class_account_id" required name="class_account_id" appendTo="body"
                   [class.is-invalid]="invalidClass" [loading]="modelClass.length === 0">
                   <ng-option *ngFor="let modClass of modelClass" [value]="modClass.id">

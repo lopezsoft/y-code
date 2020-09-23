@@ -46,23 +46,21 @@ export class ItemsComponent extends JqxCustomGridComponent implements OnInit, Af
     ts.pagesize       = 10;
 
     ts.datafields = [
-      { name: 'product_class_name', type: 'string' },
       { name: 'sku', type: 'string' },
       { name: 'qr_code', type: 'string' },
       { name: 'product_name', type: 'string' },
       { name: 'location', type: 'string' },
       { name: 'notes', type: 'string' },
-      { name: 'product_description', type: 'string' },
+      { name: 'description_sales', type: 'string' },
+      { name: 'shopping_description', type: 'string' },
       { name: 'barcode', type: 'string' },
       { name: 'description', type: 'string' },
-      { name: 'accounting_group_name', type: 'string' },
       { name: 'rate_name', type: 'string' },
       { name: 'internal_code', type: 'string' },
       { name: 'state', type: 'number' },
       { name: 'initial_date', type: 'date' },
-      { name: 'accounting_group_id', type: 'number' },
-      { name: 'sale_price', type: 'number' },
-      { name: 'purchase_cost', type: 'number' },
+      { name: 'sale_price', type: 'float' },
+      { name: 'purchase_cost', type: 'float' },
       { name: 'tax_sales', type: 'number' },
       { name: 'tax_bill', type: 'number' },
       { name: 'stock_min', type: 'number' },
@@ -73,7 +71,7 @@ export class ItemsComponent extends JqxCustomGridComponent implements OnInit, Af
       { name: 'tax_rate_id', type: 'number' },
       { name: 'item_type_id', type: 'number' },
       { name: 'class_id', type: 'number' },
-      { name: 'average_cost', type: 'number' },
+      { name: 'average_cost', type: 'float' },
       { name: 'recipe', type: 'bool' },
       { name: 'perishable', type: 'bool' },
       { name: 'id', type: 'number' }
@@ -91,5 +89,17 @@ export class ItemsComponent extends JqxCustomGridComponent implements OnInit, Af
 
     this.prepareGrid();
   }
+
+  createData(): void {
+    const ts    = this;
+    super.createData();
+    ts.goRoute('pages/products/items/create');
+  }
+
+  editData(data: any): void {
+    super.editData(data);
+    this.goRoute(`pages/products/items/edit/${data.id}`);
+  }
+
 
 }

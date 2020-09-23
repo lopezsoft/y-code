@@ -16,13 +16,17 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
   title = 'Titulo del formulario';
   customForm: FormGroup;
   focusElement: ElementRef;
-  public saveAClose = false;
-  public saveACreate = false;
-  public toClose = false;
-  public editing = false;
-  public uid: any = 0;
-  public PostURL  = '';
-  public PutURL   = '';
+  uploadFile: ElementRef;
+  public saveAClose   = false;
+  public saveACreate  = false;
+  public changeImage  = false;
+  public toClose      = false;
+  public editing      = false;
+  public uid: any     = 0;
+  public PostURL      = '';
+  public PutURL       = '';
+  public imgData     : any = '';
+  public imgname     = '';
   constructor(public fb: FormBuilder,
               public msg: MessagesService,
               public api: ApiServerService,
@@ -126,14 +130,22 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
   }
 
   saveData(): void {
-    const ts = this;
-    const frm = ts.customForm;
-    const lang = ts.translate;
+    const ts    = this;
+    const frm   = ts.customForm;
+    const lang  = ts.translate;
+    let values: any = {};
     if (!frm.invalid) {
+
+      values  = frm.value;
+      if(ts.changeImage) {
+        values.imgdata = ts.imgData;
+        values.imgname = ts.imgname;
+      }
+
       if (ts.editing) {
 
         const data = {
-          records: JSON.stringify(frm.value)
+          records: JSON.stringify(values)
         };
 
         ts.api.put(`${ts.PutURL}${ts.uid}`, data)
@@ -152,7 +164,7 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
             ts.disabledLoading();
           });
       } else {
-        ts.api.post(ts.PostURL, frm.value)
+        ts.api.post(ts.PostURL, values)
           .subscribe((resp: JsonResponse) => {
             ts.msg.toastMessage(lang.instant('general.successfullyCreated'), resp.message, 0);
             if (ts.toClose) {
@@ -166,6 +178,37 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
             ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
             ts.disabledLoading();
           });
+      }
+    }
+  }
+
+  uploadImage(e: any): void {
+    const ts    = this;
+    const file  = e.target.files[0];
+    let size    = 0;
+    if (file){
+      size        = (parseInt(file.size)/1024);
+      ts.imgData  = 'assets/avatars/no-image.png';
+      if(parseInt(file.size) > 512000){
+        ts.msg.toastMessage('Archivo muy grande.',`El tamaño del archivo no debe ser mayor a 512 kb. Peso del archivo actual: ${size.toFixed(3)}`, 3);
+        ts.uploadFile.nativeElement.value = '';
+        return;
+      }
+      if(file.type == "image/jpeg" || file.type == "image/png"){
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          ts.imgData      = reader.result;
+          ts.changeImage  = true;
+          ts.imgname      = file.name;
+        };
+        reader.onerror = function (error: any) {
+            console.log('Error: ', error);
+            ts.msg.toastMessage('Error', error, 4);
+        };
+      }else{
+        ts.uploadFile.nativeElement.value = '';
+        ts.msg.toastMessage('Formato no soportado.','Solo se permiten archivos en formato PNG/JPG', 4);
       }
     }
   }

@@ -56,4 +56,17 @@ export class BrandsComponent extends JqxCustomGridComponent implements OnInit, A
 
     this.prepareGrid();
   }
+
+  createData(): void {
+    const ts    = this;
+    const lang  = this.translate;
+    super.createData();
+    ts.goRoute('pages/products/brands/create');
+  }
+
+  editData(data: any): void {
+    super.editData(data);
+    this.goRoute(`pages/products/brands/edit/${data.id}`);
+  }
+
 }

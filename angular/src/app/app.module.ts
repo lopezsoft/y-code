@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { NgFallimgModule } from 'ng-fallimg';
+
 import { ThemeModule } from './@theme/theme.module';
 import { AppRoutingModule } from './app-routing.module';
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
@@ -41,7 +43,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AuthInterceptor } from './interceptors/auth-interceptor';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +53,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterComponent,
   ],
   imports: [
+    NgbPaginationModule,
+    NgbAlertModule,
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -79,6 +84,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
+    }),
+    NgFallimgModule.forRoot({
+      default : 'assets/avatars/no-image.png'
     }),
     ThemeModule.forRoot(),
     NgbModule,

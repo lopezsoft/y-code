@@ -98,7 +98,7 @@ export class AccountFormComponent extends FormComponent implements OnInit, After
       ts.currency = resp;
     });
 
-    ts.taxSer.getData({}).subscribe((resp) => {
+    ts.taxSer.getData({isVat: 1}).subscribe((resp) => {
       ts.tax = resp;
     });
 

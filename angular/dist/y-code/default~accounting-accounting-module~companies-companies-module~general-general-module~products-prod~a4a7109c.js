@@ -818,7 +818,8 @@ class JqxCustomGridComponent extends _components_base_base_component__WEBPACK_IM
         const ts = this;
         if (!ts.loading) {
             ts.searchString = ts.searchField.nativeElement.value;
-            if (ts.searchString.length >= ts.minChar) {
+            // if (ts.searchString.length >= ts.minChar ){
+            if (event.keyCode === 13) {
                 ts.searchQuery();
             }
             else if (ts.searchString.length === 0) {

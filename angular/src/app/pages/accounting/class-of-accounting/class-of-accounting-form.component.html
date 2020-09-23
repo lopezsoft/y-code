@@ -1,19 +1,21 @@
 <div class="row">
   <div class="col-md-12">
     <nb-card class="inline-form-card">
-      <nb-card-header>{{ title | uppercase}}</nb-card-header>
+      <nb-card-header>{{ 'general.createEdit' |translate | uppercase }} {{ 'accounting.class.class' | translate | uppercase}}</nb-card-header>
       <nb-card-body>
         <form  [formGroup]="customForm">
           <div class ="row">
             <div class="col-12 col-sm-12 col-md-6">
               <div class="form-group">
-                <input type="text" #focusElement nbInput fullWidth placeholder="Nombre de la clase *" name="name" [(ngModel)]="model.name"
-                  formControlName="name"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required="" autofocus>
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> {{ 'accounting.class.name' | translate }} </label>
+                <input type="text" #focusElement nbInput fullWidth name="name"
+                  formControlName="name"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required autofocus>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6">
               <div class="form-group">
-                <input type="number" nbInput fullWidth placeholder="Número *" min="0" [(ngModel)]="model.number"
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> {{ 'accounting.class.number' | translate }} </label>
+                <input type="number" nbInput fullWidth min="1"
                 formControlName="number" [class.is-invalid]="invalidNumber" name="number" [class.status-danger]="invalidNumber">
               </div>
             </div>

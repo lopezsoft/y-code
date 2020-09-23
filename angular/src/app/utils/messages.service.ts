@@ -11,7 +11,7 @@ export class MessagesService {
 
   }
 
-  toastMessage(title: string, msg: string, type: number){
+  toastMessage(title: string, msg: string, type: number = 0){
     switch (type) {
       case 2:
         this.toastr.info(msg, title, {positionClass: 'toast-top-full-width'});

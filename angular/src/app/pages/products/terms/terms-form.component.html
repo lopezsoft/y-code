@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>{{ 'general.createEdit' | translate | uppercase }} TERMINO</nb-card-header>
+      <nb-card-body>
+        <form  [formGroup]="customForm">
+          <div class ="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Nombre del termino</label>
+                <input type="text" #focusElement nbInput fullWidth name="term_name"
+                  formControlName="term_name"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required autofocus>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Atributo</label>
+                <ng-select fullWidth name="attribute_id" formControlName = "attribute_id" [loading] = "attributes.length === 0"
+                [class.status-danger]="invalidAttributeId"  [class.is-invalid]="invalidAttributeId" required>
+                  <ng-option *ngFor="let attr of attributes" [value] ="attr.id">
+                    {{ attr.attribute_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div div class="col-md-6">
+              <label>Color</label>
+              <input type="color" fullWidth name="term_color" formControlName="term_color" class="form-control">
+            </div>
+            <div div class="col-md-6">
+              <label>Descripción</label>
+              <textarea nbinput fullWidth name="term_description" formControlName="term_description"
+                class="input-full-width size-medium status-basic shape-rectangle nb-transition">
+              </textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div div class="col-md-6">
+              <div class="form-group">
+                <label for="file">Seleccionar imagen</label>
+                <input type="file" id="file" #uploadFile
+                (change)="uploadImage($event)" class="form-control-file">
+              </div>
+            </div>
+            <div div class="col-md-6">
+              <img width="128px" [src]="imgData"  class="img-thumbnail" fallimg>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="row flex">
+          <div class="space-right float-right padding-top-bottom">
+            <button (click)= "cancel()" nbSuffix nbButton status="danger" class="radius-button" [disabled]="loading">
+              <i class="fas fa-undo fas-fa-22 space-right"></i>
+              <strong>{{ 'buttons.cancel' | translate }} </strong>
+            </button>
+          </div>
+          <div class="space-right padding-top-bottom">
+            <button nbSuffix nbButton (click) ="saveAndCreate()" status="success" class="radius-button" [disabled]="loading">
+              <i [ngClass]="{'fa-save':!saveACreate, 'fa-spinner fa-spin':saveACreate }" class="fas-fa-22 space-right fas">
+              </i>
+              {{'buttons.saveAndCreate' | translate }}
+            </button>
+          </div>
+          <div class="padding-top-bottom">
+            <button nbSuffix nbButton (click) ="saveAndClose()" status="primary" class="radius-button" [disabled]="loading">
+              <i [ngClass]="{'fa-save':!saveAClose, 'fa-spinner fa-spin':saveAClose }" class="fas-fa-22 space-right fas"></i>
+              {{'buttons.saveAndClose' | translate }}
+            </button>
+          </div>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

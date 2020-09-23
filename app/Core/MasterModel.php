@@ -411,11 +411,16 @@ class MasterModel
                     $total  = DB::table($tb)
                                 ->where($queryField, 'like', '%'. $query .'%')
                                 ->count();
+
                     $table  = DB::table($tb)->orderBy($primaryKey, 'DESC')
-                                ->where($queryField, 'like', '%'. $query .'%')
-                                ->offset($start)
-                                ->limit($limit)
-                                ->get();
+                                ->where($queryField, 'like', '%'. $query .'%');
+
+                    if($limit > 0){
+                        $table->offset($start)->limit($limit);
+                    }
+
+                    $table  = $table->get();
+
                 }else {
                     $total  = 0;
                     $table  = [];

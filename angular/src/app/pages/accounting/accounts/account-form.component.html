@@ -1,21 +1,23 @@
 <div class="row">
   <div class="col-md-12">
     <nb-card class="inline-form-card">
-      <nb-card-header>{{ title | uppercase}}</nb-card-header>
+      <nb-card-header>{{ 'general.createEdit' | translate | uppercase }} {{ 'accounting.account' | translate | uppercase}}</nb-card-header>
       <nb-card-body>
         <form [formGroup]="customForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>Nombre de la cuenta</label>
+                <label><span
+                    class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'accounting.name' | translate }}</label>
                 <input class="form-control" type="text" #focusElement nbInput fullWidth name="account_name"
-                  formControlName="account_name" [class.status-danger]="invalidName"
-                  [class.is-invalid]="invalidName" required autofocus>
+                  formControlName="account_name" [class.status-danger]="invalidName" [class.is-invalid]="invalidName"
+                  required autofocus>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>Descripción</label>
+                <label><span
+                    class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'accounting.description' | translate }}</label>
                 <input class="form-control" type="text" #focusElement nbInput fullWidth name="description"
                   formControlName="description" [class.status-danger]="invalidDescription"
                   [class.is-invalid]="invalidDescription" required>
@@ -25,16 +27,18 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Número</label>
+                <label>{{ 'accounting.number' | translate }}</label>
                 <input class="form-control" type="text" nbInput fullWidth formControlName="account_number"
                   name="account_number">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group overflow-box">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>Grupo contable</label>
-                <ng-select fullWidth formControlName="accounting_group_id" required name="accounting_group_id" appendTo="body"
-                  [loading]="accountGroup.length === 0"  [class.is-invalid]="invalidGroupId" [class.status-danger]="invalidGroupId">
+                <label><span
+                    class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'accounting.group' | translate }}</label>
+                <ng-select fullWidth formControlName="accounting_group_id" required name="accounting_group_id"
+                  appendTo="body" [loading]="accountGroup.length === 0" [class.is-invalid]="invalidGroupId"
+                  [class.status-danger]="invalidGroupId">
                   <ng-option *ngFor="let account of accountGroup" [value]="account.id">
                     {{ account.accounting_group_name }}
                   </ng-option>
@@ -45,7 +49,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group overflow-box">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'general.currency'  | translate }}</label>
+                <label><span
+                    class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'general.currency'  | translate }}</label>
                 <ng-select fullWidth formControlName="currency_id" name="currency_id" required
                   [class.is-invalid]="invalidCurrency" [class.status-danger]="invalidCurrency"
                   [loading]="currency.length === 0" appendTo="body">
@@ -57,9 +62,10 @@
             </div>
             <div class="col-md-6">
               <div class="form-group overflow-box">
-                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>Impuesto</label>
+                <label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'general.tax' | translate }}</label>
                 <ng-select fullWidth formControlName="tax_rate_id" required name="tax_rate_id" appendTo="body"
-                  [loading]="accountGroup.length === 0" [class.is-invalid]="invalidTaxId" [class.status-danger]="invalidTaxId">
+                  [loading]="accountGroup.length === 0" [class.is-invalid]="invalidTaxId"
+                  [class.status-danger]="invalidTaxId">
                   <ng-option *ngFor="let tax of tax" [value]="tax.id">
                     {{ tax.name_taxe }} - {{ tax.rate_name }}
                   </ng-option>
@@ -72,13 +78,14 @@
               <div class="form-group">
                 <br><br>
                 <input type="checkbox" class="input-full-width size-medium status-basic shape-rectangle nb-transition"
-                  formControlName="is_subaccount" id="is_subaccount" name="is_subaccount" style="margin-right: 2%;" (change)="onChageSub($event)">
-                <label for="is_subaccount">¿Subcuenta?</label>
+                  formControlName="is_subaccount" id="is_subaccount" name="is_subaccount" style="margin-right: 2%;"
+                  (change)="onChageSub($event)">
+                <label for="is_subaccount">{{ 'accounting.isSubAccount' | translate }}</label>
               </div>
             </div>
             <div class="col-md-6" *ngIf="is_subaccount">
               <div class="form-group overflow-box">
-                <label>Cuenta maestra</label>
+                <label>{{ 'accounting.master' | translate }}</label>
                 <ng-select fullWidth formControlName="account_id" required name="account_id" appendTo="body"
                   [loading]="master.length === 0">
                   <ng-option *ngFor="let master of master" [value]="master.id">

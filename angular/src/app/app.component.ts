@@ -6,6 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbIconLibraries } from '@nebular/theme';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 //Services
 import { TranslateService } from '@ngx-translate/core';
@@ -19,8 +20,10 @@ export class AppComponent implements OnInit {
   public activeLang = 'es';
   constructor(private api: ApiServerService, private router: Router,
     private translate: TranslateService,
-    private iconsLibrary: NbIconLibraries
+    private iconsLibrary: NbIconLibraries,
+    private config: NgSelectConfig
     ) {
+    this.config.appendTo = 'body';
     this.translate.setDefaultLang(this.activeLang);
     this.iconsLibrary.registerFontPack('fa', { packClass: 'fa', iconClassPrefix: 'fa' });
     this.iconsLibrary.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });

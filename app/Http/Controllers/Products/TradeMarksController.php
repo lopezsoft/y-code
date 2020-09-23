@@ -43,6 +43,27 @@ class TradeMarksController extends Controller
         }
     }
 
+    public function selectAll(Request $request)
+    {
+        $model  = new MasterModel();
+        $company= $model->getCompany();
+        $start  = $request->start;
+        $uid    = $request->uid;
+        $limit  = $request->limit;
+        $query  = $request->input('query');
+        if($company){
+            $where  = ['state' => 1];
+            if(isset($uid)){
+                $where  = ['id' => $uid];
+            }
+            $table  = $company->database_name.'.trademarks';
+            $start  = isset($start) ? $start : 0;
+            return $model->getTable($table, $query, $start, 0, $where, ['brand_name' => 'ASC']);
+        }else{
+            return $model->getErrorResponse('Error en el servidor.');
+        }
+    }
+
     public function select(Request $request)
     {
         $model  = new MasterModel();

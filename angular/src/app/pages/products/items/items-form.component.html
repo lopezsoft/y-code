@@ -1,0 +1,182 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>{{ 'general.createEdit' | translate | uppercase }} TERMINO</nb-card-header>
+      <nb-card-body>
+        <form  [formGroup]="customForm">
+          <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink class="display-none">General</a>
+              <ng-template ngbNavContent>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Nombre del item</label>
+                      <input #focusElement autofocus nbInput fullWidth class="form-control" type="text" name="product_name" formControlName="product_name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Clase</label>
+                      <ng-select name="class_id" formControlName="class_id" [loading]="classof.length === 0" (change)="classChange($event)">
+                        <ng-option *ngFor="let class of classof" [value] ="class.id">
+                          {{ class.product_class_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Impuesto en compras</label>
+                      <ng-select name="tax_bill_id" formControlName="tax_bill_id" [loading] ="taxBill.length === 0">
+                        <ng-option *ngFor="let taxb of taxBill" [value] ="taxb.id">
+                          {{ taxb.name_taxe }} - {{  taxb.rate_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Impuesto en ventas</label>
+                      <ng-select name="tax_sales_id" formControlName="tax_sales_id" [loading] ="taxSale.length === 0">
+                        <ng-option *ngFor="let taxs of taxSale" [value] ="taxs.id">
+                          {{ taxs.name_taxe }} - {{  taxs.rate_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Descripción para compras</label>
+                      <input nbInput fullWidth class="form-control" type="text" name="shopping_description" formControlName="shopping_description">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Descripción para ventas</label>
+                      <input nbInput fullWidth class="form-control" type="text" name="description_sales" formControlName="description_sales">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Marca</label>
+                      <ng-select name="brand_id" formControlName="brand_id" [loading] ="brands.length === 0">
+                        <ng-option *ngFor="let brand of brands" [value] ="brand.id">
+                          {{ brand.brand_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Categoria</label>
+                      <ng-select name="category_id" formControlName="category_id" [loading] ="categories.length === 0" (change) = "categoryChange($event)">
+                        <ng-option *ngFor="let category of categories" [value] ="category.id">
+                          {{ category.category_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Sub categoria</label>
+                      <ng-select #subCatElement name="sub_category_id" formControlName="sub_category_id">
+                        <ng-option *ngFor="let subcateg of subCateg" [value] ="subcateg.id">
+                          {{ subcateg.category_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Costo unitario</label>
+                      <input nbInput fullWidth class="form-control" currencyMask name="purchase_cost" formControlName="purchase_cost">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Precio de venta</label>
+                      <input nbInput fullWidth class="form-control" currencyMask name="sale_price" formControlName="sale_price">
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink  class="display-none">Adicionales</a>
+              <ng-template ngbNavContent>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>SKU</label>
+                      <input #focusElement autofocus nbInput fullWidth class="form-control" type="text" name="sku" formControlName="sku">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Código de barras</label>
+                      <input #focusElement autofocus nbInput fullWidth class="form-control" type="text" name="barcode" formControlName="barcode">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Código QR</label>
+                      <input #focusElement autofocus nbInput fullWidth class="form-control" type="text" name="qr_code" formControlName="qr_code">
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+              <a ngbNavLink class="display-none">Galeria</a>
+              <ng-template ngbNavContent>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="4" [disabled]="disabled">
+              <a ngbNavLink class="display-none">Stock</a>
+              <ng-template ngbNavContent>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="row flex">
+          <div class="space-right float-right padding-top-bottom">
+            <button (click)= "cancel()" nbSuffix nbButton status="danger" class="radius-button" [disabled]="loading">
+              <i class="fas fa-undo fas-fa-22 space-right"></i>
+              <strong>{{ 'buttons.cancel' | translate }} </strong>
+            </button>
+          </div>
+          <div class="space-right padding-top-bottom">
+            <button nbSuffix nbButton (click) ="saveAndCreate()" status="success" class="radius-button" [disabled]="loading">
+              <i [ngClass]="{'fa-save':!saveACreate, 'fa-spinner fa-spin':saveACreate }" class="fas-fa-22 space-right fas">
+              </i>
+              {{'buttons.saveAndCreate' | translate }}
+            </button>
+          </div>
+          <div class="padding-top-bottom">
+            <button nbSuffix nbButton (click) ="saveAndClose()" status="primary" class="radius-button" [disabled]="loading">
+              <i [ngClass]="{'fa-save':!saveAClose, 'fa-spinner fa-spin':saveAClose }" class="fas-fa-22 space-right fas"></i>
+              {{'buttons.saveAndClose' | translate }}
+            </button>
+          </div>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
+

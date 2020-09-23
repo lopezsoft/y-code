@@ -40,6 +40,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: { icon: 'list-alt', pack: 'fas' },
         link: '/pages/products/attributes',
       },
+      {
+        title: 'Terminos de atributos',
+        icon: { icon: 'list-alt', pack: 'fas' },
+        link: '/pages/products/terms',
+      },
     ],
   },
   {
@@ -47,35 +52,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: { icon: 'calculator', pack: 'fas' },
     children: [
       {
-        title: 'Clases de cuenta',
+        title: 'Catalogo de cuentas',
         icon: { icon: 'calculator', pack: 'fas' },
-        link: '/pages/accounting/class',
+        link: '/pages/accounting/accounts',
       },
       {
         title: 'Grupos contables',
         icon: { icon: 'calculator', pack: 'fas' },
         link: '/pages/accounting/groups',
       },
+      {
+        title: 'Clases de cuenta',
+        icon: { icon: 'calculator', pack: 'fas' },
+        link: '/pages/accounting/class',
+      },
       // {
       //   title: 'Tipos de cuenta',
       //   link: '/pages/accounting/types',
       // },
-      {
-        title: 'Catalogo de cuentas',
-        icon: { icon: 'calculator', pack: 'fas' },
-        link: '/pages/accounting/accounts',
-      },
     ],
   },
   {
     title: 'Empresa',
     icon: { icon: 'building', pack: 'fas' },
     children: [
-      {
-        title :   'Datos de la empresa',
-        icon: { icon: 'building', pack: 'fas' },
-        link: '/pages/companies/company',
-      },
       {
         title :   'Suscursales',
         icon: { icon: 'home', pack: 'fas' },
@@ -95,6 +95,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title :   'Bodegas',
         icon: { icon: 'building', pack: 'fas' },
         link: '/pages/companies/wineries',
+      },
+      {
+        title :   'Datos de la empresa',
+        icon: { icon: 'building', pack: 'fas' },
+        link: '/pages/companies/company',
       },
       {
         title :   'Tipos de empresa',

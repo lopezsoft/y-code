@@ -54,6 +54,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Products
         Route::group(['prefix' => 'products'], function () {
+            Route::get('class',                 'MasterController@getClasOfProducts');
             Route::group(['prefix' => 'items'], function () {
                 Route::post('create',           'Products\ItemsController@create');
                 Route::get('read',              'Products\ItemsController@select');
@@ -63,14 +64,31 @@ Route::group(['prefix' => 'v1'], function () {
             Route::group(['prefix' => 'categories'], function () {
                 Route::post('create',           'Products\CategoriesController@create');
                 Route::get('read',              'Products\CategoriesController@select');
+                Route::get('read/all',          'Products\CategoriesController@selectAll');
+                Route::get('parents',           'Products\CategoriesController@selectParents');
+                Route::get('childs',            'Products\CategoriesController@selectChilds');
                 Route::put('update/{id}',       'Products\CategoriesController@update');
                 Route::delete('delete/{id}',    'Products\CategoriesController@delete');
             });
             Route::group(['prefix' => 'brands'], function () {
                 Route::post('create',           'Products\TradeMarksController@create');
                 Route::get('read',              'Products\TradeMarksController@select');
+                Route::get('read/all',           'Products\TradeMarksController@selectAll');
                 Route::put('update/{id}',       'Products\TradeMarksController@update');
                 Route::delete('delete/{id}',    'Products\TradeMarksController@delete');
+            });
+            Route::group(['prefix' => 'attributes'], function () {
+                Route::post('create',           'Products\AttributesController@create');
+                Route::get('read',              'Products\AttributesController@select');
+                Route::get('all',               'Products\AttributesController@selectAll');
+                Route::put('update/{id}',       'Products\AttributesController@update');
+                Route::delete('delete/{id}',    'Products\AttributesController@delete');
+            });
+            Route::group(['prefix' => 'terms'], function () {
+                Route::post('create',           'Products\TermsController@create');
+                Route::get('read',              'Products\TermsController@select');
+                Route::put('update/{id}',       'Products\TermsController@update');
+                Route::delete('delete/{id}',    'Products\TermsController@delete');
             });
         });
 

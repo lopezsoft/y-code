@@ -8,6 +8,15 @@ use Exception;
 
 class MasterController extends Controller
 {
+    public function getClasOfProducts(){
+        $where      = [
+            'active'    => 1
+        ];
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.product_class';
+        return $model->getTable($table, '', 0, 30, $where);
+    }
 
     public function getIpInfo(Request $request){
         try {
