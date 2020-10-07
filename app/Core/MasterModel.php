@@ -356,9 +356,10 @@ class MasterModel
         }
         if (strlen($query) > 0) {
             $queryField = '';
-            $w      = (strlen($where) > 0) ? " WHERE ".$where." AND " : " WHERE " ;
+            // $w      = (strlen($where) > 0) ? " WHERE ".$where." AND " : " WHERE " ;
+            $w      = (strlen($where) > 0) ? " AND ".$where." " : "" ;
             foreach ($searchFields as $field) {
-                $table  = DB::select($sqlStatement.$w.$field." LIKE ? LIMIT 1", ["%".$query."%"]);
+                $table  = DB::select($sqlStatement." WHERE ".$field." LIKE ? {$w} LIMIT 1", ["%".$query."%"]);
                 if (count($table) >0 ) {
                     $queryField   = $field;
                     break;
@@ -366,8 +367,8 @@ class MasterModel
             }
 
             if(strlen($queryField) > 0){
-                $total  = DB::select($sqlStatementCount.$w.$queryField." LIKE ? ", ["%".$query."%"]);
-                $table  = DB::select($sqlStatement.$w.$queryField." LIKE ? ".$order." LIMIT ?, ?", ["%".$query."%", $start, $limit]);
+                $total  = DB::select($sqlStatementCount." WHERE ".$queryField." LIKE ? {$w}", ["%".$query."%"]);
+                $table  = DB::select($sqlStatement." WHERE ".$queryField." LIKE ? {$w} {$order} LIMIT ?, ?", ["%".$query."%", $start, $limit]);
                 $result = $this->getReponseJson($table, $total[0]->total);
             }else {
                 $table      = null;

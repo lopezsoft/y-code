@@ -36,7 +36,7 @@
           {{ 'buttons.new' | translate }}
         </button>
       </div>
-      <div>
+      <div *ngIf="useImport">
         <button nbSuffix nbButton (click)="importData()" [disabled]="loading" status="info" class="radius-button">
           <nb-icon nbPrefix icon="upload" pack="fas" class="fas-fa-22"></nb-icon>
           {{ 'buttons.import' | translate }}

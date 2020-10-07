@@ -13,6 +13,10 @@ import {
   BrandsFormComponent,
   TermsComponent,
   TermsFormComponent,
+  MeasurementUnitsComponent,
+  MeasurementUnitsFormComponent,
+  GroupsComponent,
+  GroupsFormComponent,
  } from './index';
 
 const routes: Routes = [{
@@ -56,6 +60,18 @@ const routes: Routes = [{
       component: BrandsFormComponent
     },
     {
+      path: 'groups',
+      component: GroupsComponent
+    },
+    {
+      path: 'groups/create',
+      component: GroupsFormComponent
+    },
+    {
+      path: 'groups/edit/:id',
+      component: GroupsFormComponent
+    },
+    {
       path: 'attributes',
       component: AttributesComponent
     },
@@ -78,6 +94,18 @@ const routes: Routes = [{
     {
       path: 'terms/edit/:id',
       component: TermsFormComponent
+    },
+    {
+      path: 'units',
+      component: MeasurementUnitsComponent
+    },
+    {
+      path: 'units/create',
+      component: MeasurementUnitsFormComponent
+    },
+    {
+      path: 'units/edit/:id',
+      component: MeasurementUnitsFormComponent
     }
   ],
 }];

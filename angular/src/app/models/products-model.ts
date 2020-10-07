@@ -28,9 +28,33 @@ export interface Terms {
   state?: number;
 }
 
+export interface MeasurementUnits {
+  id: number;
+  base_unit_id: number;
+  unit_description: string;
+  unit_name?: string;
+  abbre_unit?: string;
+  factor: number;
+  state?: number;
+}
+
+export interface ProductsMeasurementUnits {
+  id: number;
+  unit_id: number;
+  base_unit_id: number;
+  unit_description: string;
+  unit_name?: string;
+  abbre_unit?: string;
+  factor: number;
+  purchase_cost: number;
+  sale_price: number;
+  state?: number;
+}
+
 export interface Items {
   product_class_name: string;
   sku?: string;
+  image?: string;
   qr_code: string;
   product_name: string;
   notes: string;
@@ -67,4 +91,29 @@ export interface Categories {
   imagen?: string;
   parent_name?: string;
   state?: number;
+}
+
+
+export interface ItemsType {
+  id: number;
+  product_class_id: number;
+  name_type: string;
+  state?: number;
+}
+
+export interface ItemsTypeAccounts {
+  id: number;
+  item_type_id?: number;
+  account_type_id: number;
+  account_id: number;
+  name_type: string;
+  account_number?: string;
+  account_name: string;
+  group_name?: string;
+  product_class_name?: string;
+}
+
+export interface AccountTypes {
+  id: number;
+  name_type: string;
 }

@@ -7,14 +7,36 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },
+  // {
+  //   title: 'IoT Dashboard',
+  //   icon: 'home-outline',
+  //   link: '/pages/iot-dashboard',
+  // },
+  // {
+  //   title: 'FACTURACIÓN',
+  //   group: true,
+  // },
   {
-    title: 'IoT Dashboard',
-    icon: 'home-outline',
-    link: '/pages/iot-dashboard',
+    title: 'Ventas',
+    icon: { icon: 'cash-register', pack: 'fas' },
+    children: [
+      {
+        title: 'Clientes',
+        icon: { icon: 'id-card', pack: 'far' },
+        link: '/pages/sales/customers',
+      },
+    ]
   },
   {
-    title: 'FACTURACIÓN',
-    group: true,
+    title: 'Compras',
+    icon: { icon: 'hand-holding-usd', pack: 'fas' },
+    children: [
+      {
+        title: 'Proveedores',
+        icon: { icon: 'id-card', pack: 'far' },
+        link: '/pages/shopping/providers',
+      },
+    ]
   },
   {
     title: 'Productos',
@@ -36,6 +58,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/products/brands',
       },
       {
+        title: 'Grupos contables',
+        icon: { icon: 'calculator', pack: 'fas' },
+        link: '/pages/products/groups',
+      },
+      {
         title: 'Atributos',
         icon: { icon: 'list-alt', pack: 'fas' },
         link: '/pages/products/attributes',
@@ -44,6 +71,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Terminos de atributos',
         icon: { icon: 'list-alt', pack: 'fas' },
         link: '/pages/products/terms',
+      },
+      {
+        title: 'Unidades de medida',
+        icon: { icon: 'list-alt', pack: 'fas' },
+        link: '/pages/products/units',
       },
     ],
   },
@@ -66,10 +98,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: { icon: 'calculator', pack: 'fas' },
         link: '/pages/accounting/class',
       },
-      // {
-      //   title: 'Tipos de cuenta',
-      //   link: '/pages/accounting/types',
-      // },
     ],
   },
   {

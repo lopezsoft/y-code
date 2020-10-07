@@ -36,7 +36,7 @@ ENGINE=InnoDB
 /********************************* 19-09-2020 ***************************/
 
 ALTER TABLE `categories`
-	ADD COLUMN `imagen` VARCHAR(120) NULL DEFAULT NULL AFTER `is_subcategory`;
+	ADD COLUMN `imagen` VARCHAR(120) NULL DEFAULT NULL AFTER `state`;
 
 ALTER TABLE `attributes`
 	CHANGE COLUMN `status` `state` SMALLINT(1) NOT NULL DEFAULT '1' AFTER `attribute_name`;
@@ -61,3 +61,9 @@ ALTER TABLE `products`
 
 ALTER TABLE `products`
 	ADD CONSTRAINT `FK_products_product_class` FOREIGN KEY (`class_id`) REFERENCES `product_class` (`id`) ON UPDATE CASCADE;
+
+
+
+/**************************************** 25-09-2020 ***************************/
+ALTER TABLE `products`
+	ADD COLUMN `image` VARCHAR(250) NULL DEFAULT NULL AFTER `shopping_description`;

@@ -172,16 +172,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/app/services/general/tax-rates.service.ts":
-/*!*******************************************************!*\
-  !*** ./src/app/services/general/tax-rates.service.ts ***!
-  \*******************************************************/
-/*! exports provided: TaxRatesService */
+/***/ "./src/app/services/general/currency-sys.service.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/services/general/currency-sys.service.ts ***!
+  \**********************************************************/
+/*! exports provided: CurrencySysService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaxRatesService", function() { return TaxRatesService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencySysService", function() { return CurrencySysService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/api-server.service */ "./src/app/utils/api-server.service.ts");
@@ -189,22 +189,301 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class TaxRatesService {
+class CurrencySysService {
     constructor(api) {
         this.api = api;
         this.data = [];
     }
     getData(params) {
         const ts = this;
-        return ts.api.get('/general/taxerates/read', params)
+        return ts.api.get('/general/currency/read', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+    getChangeLocal(params) {
+        const ts = this;
+        return ts.api.get('/general/currency/change/local', params)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
             return resp.records;
         }));
     }
 }
-TaxRatesService.ɵfac = function TaxRatesService_Factory(t) { return new (t || TaxRatesService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"])); };
-TaxRatesService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: TaxRatesService, factory: TaxRatesService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TaxRatesService, [{
+CurrencySysService.ɵfac = function CurrencySysService_Factory(t) { return new (t || CurrencySysService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"])); };
+CurrencySysService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: CurrencySysService, factory: CurrencySysService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CurrencySysService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/services/general/currency.service.ts":
+/*!******************************************************!*\
+  !*** ./src/app/services/general/currency.service.ts ***!
+  \******************************************************/
+/*! exports provided: CurrencyService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyService", function() { return CurrencyService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/api-server.service */ "./src/app/utils/api-server.service.ts");
+
+
+
+
+class CurrencyService {
+    constructor(api) {
+        this.api = api;
+        this.data = [];
+    }
+    getData(params) {
+        const ts = this;
+        return ts.api.get('/currency', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+}
+CurrencyService.ɵfac = function CurrencyService_Factory(t) { return new (t || CurrencyService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"])); };
+CurrencyService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: CurrencyService, factory: CurrencyService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CurrencyService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/services/general/index.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/general/index.ts ***!
+  \*******************************************/
+/*! exports provided: CurrencySysService, CurrencyService, TaxAccountingAccountService, TaxRatesService, TaxesService, PersonsService, ShippingFrequencyService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _currency_sys_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./currency-sys.service */ "./src/app/services/general/currency-sys.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencySysService", function() { return _currency_sys_service__WEBPACK_IMPORTED_MODULE_0__["CurrencySysService"]; });
+
+/* harmony import */ var _currency_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./currency.service */ "./src/app/services/general/currency.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencyService", function() { return _currency_service__WEBPACK_IMPORTED_MODULE_1__["CurrencyService"]; });
+
+/* harmony import */ var _tax_accounting_account_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tax-accounting-account.service */ "./src/app/services/general/tax-accounting-account.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TaxAccountingAccountService", function() { return _tax_accounting_account_service__WEBPACK_IMPORTED_MODULE_2__["TaxAccountingAccountService"]; });
+
+/* harmony import */ var _tax_rates_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tax-rates.service */ "./src/app/services/general/tax-rates.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TaxRatesService", function() { return _tax_rates_service__WEBPACK_IMPORTED_MODULE_3__["TaxRatesService"]; });
+
+/* harmony import */ var _taxes_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./taxes.service */ "./src/app/services/general/taxes.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TaxesService", function() { return _taxes_service__WEBPACK_IMPORTED_MODULE_4__["TaxesService"]; });
+
+/* harmony import */ var _persons_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./persons.service */ "./src/app/services/general/persons.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PersonsService", function() { return _persons_service__WEBPACK_IMPORTED_MODULE_5__["PersonsService"]; });
+
+/* harmony import */ var _shipping_frequency_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shipping-frequency.service */ "./src/app/services/general/shipping-frequency.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ShippingFrequencyService", function() { return _shipping_frequency_service__WEBPACK_IMPORTED_MODULE_6__["ShippingFrequencyService"]; });
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/general/persons.service.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/services/general/persons.service.ts ***!
+  \*****************************************************/
+/*! exports provided: PersonsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PersonsService", function() { return PersonsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/api-server.service */ "./src/app/utils/api-server.service.ts");
+
+
+
+
+class PersonsService {
+    constructor(api) {
+        this.api = api;
+        this.data = [];
+    }
+    getData(params) {
+        const ts = this;
+        return ts.api.get('/persons/read', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+    getCustomers(params) {
+        const ts = this;
+        return ts.api.get('/persons/customers', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+    getTypePersons(params) {
+        const ts = this;
+        return ts.api.get('/typepersons', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+    getProviders(params) {
+        const ts = this;
+        return ts.api.get('/persons/providers', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+}
+PersonsService.ɵfac = function PersonsService_Factory(t) { return new (t || PersonsService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"])); };
+PersonsService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: PersonsService, factory: PersonsService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PersonsService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/services/general/shipping-frequency.service.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/services/general/shipping-frequency.service.ts ***!
+  \****************************************************************/
+/*! exports provided: ShippingFrequencyService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShippingFrequencyService", function() { return ShippingFrequencyService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/api-server.service */ "./src/app/utils/api-server.service.ts");
+
+
+
+
+class ShippingFrequencyService {
+    constructor(api) {
+        this.api = api;
+        this.data = [];
+    }
+    getData(params) {
+        const ts = this;
+        return ts.api.get('/shippingfrequency', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+}
+ShippingFrequencyService.ɵfac = function ShippingFrequencyService_Factory(t) { return new (t || ShippingFrequencyService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"])); };
+ShippingFrequencyService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: ShippingFrequencyService, factory: ShippingFrequencyService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ShippingFrequencyService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/services/general/tax-accounting-account.service.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/services/general/tax-accounting-account.service.ts ***!
+  \********************************************************************/
+/*! exports provided: TaxAccountingAccountService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaxAccountingAccountService", function() { return TaxAccountingAccountService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/api-server.service */ "./src/app/utils/api-server.service.ts");
+
+
+
+
+class TaxAccountingAccountService {
+    constructor(api) {
+        this.api = api;
+        this.data = [];
+    }
+    getData(params) {
+        const ts = this;
+        return ts.api.get('/general/TaxAccountingAccount/read', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+}
+TaxAccountingAccountService.ɵfac = function TaxAccountingAccountService_Factory(t) { return new (t || TaxAccountingAccountService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"])); };
+TaxAccountingAccountService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: TaxAccountingAccountService, factory: TaxAccountingAccountService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TaxAccountingAccountService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/services/general/taxes.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/services/general/taxes.service.ts ***!
+  \***************************************************/
+/*! exports provided: TaxesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaxesService", function() { return TaxesService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/api-server.service */ "./src/app/utils/api-server.service.ts");
+
+
+
+
+class TaxesService {
+    constructor(api) {
+        this.api = api;
+        this.data = [];
+    }
+    getData(params) {
+        const ts = this;
+        return ts.api.get('/general/taxes/read', params)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((resp) => {
+            return resp.records;
+        }));
+    }
+}
+TaxesService.ɵfac = function TaxesService_Factory(t) { return new (t || TaxesService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_utils_api_server_service__WEBPACK_IMPORTED_MODULE_2__["ApiServerService"])); };
+TaxesService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: TaxesService, factory: TaxesService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TaxesService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
         args: [{
                 providedIn: 'root'

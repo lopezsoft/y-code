@@ -49,18 +49,49 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('paymentmethods', 'MasterController@getPaymentMethods');
         Route::get('meanspayment', 'MasterController@geMeansPayment');
         Route::get('shippingfrequency', 'MasterController@geShippingFrequency');
+        Route::get('measurementunits', 'MasterController@getMeasurementUnits');
+        Route::get('accounttypes', 'MasterController@getAccountTypes');
+        Route::get('typepersons', 'MasterController@getTypePersons');
         Route::get('ipinfo', 'MasterController@getIpInfo');
 
+        Route::group(['prefix' => 'persons'], function () {
+            Route::post('create',           'General\PersonsController@create');
+            Route::get('read',              'General\PersonsController@select');
+            Route::get('customers',         'General\PersonsController@selectCustomers');
+            Route::get('providers',         'General\PersonsController@selectProviders');
+            Route::put('update/{id}',       'General\PersonsController@update');
+            Route::delete('delete/{id}',    'General\PersonsController@delete');
+        });
 
         // Products
         Route::group(['prefix' => 'products'], function () {
             Route::get('class',                 'MasterController@getClasOfProducts');
+            Route::group(['prefix' => 'units'], function () {
+                Route::post('create',           'Products\MeasurementUnitsController@create');
+                Route::get('read',              'Products\MeasurementUnitsController@select');
+                Route::get('read/all',          'Products\MeasurementUnitsController@selectAll');
+                Route::get('read/product',      'Products\MeasurementUnitsController@selectProducts');
+                Route::put('update/{id}',       'Products\MeasurementUnitsController@update');
+                Route::delete('delete/{id}',    'Products\MeasurementUnitsController@delete');
+                Route::delete('delete/product/{id}',    'Products\MeasurementUnitsController@deleteProduct');
+            });
+
+            Route::group(['prefix' => 'groups'], function () {
+                Route::post('create',           'Products\ItemsTypeController@create');
+                Route::get('read',              'Products\ItemsTypeController@select');
+                Route::get('getItemTypeAccounts','Products\ItemsTypeController@selectItemTypeAccounts');
+                Route::put('update/{id}',       'Products\ItemsTypeController@update');
+                Route::delete('delete/{id}',    'Products\ItemsTypeController@delete');
+                Route::delete('delete/itemTypeAccounts/{id}',    'Products\ItemsTypeController@deleteItemTypeAccounts');
+            });
+
             Route::group(['prefix' => 'items'], function () {
                 Route::post('create',           'Products\ItemsController@create');
                 Route::get('read',              'Products\ItemsController@select');
                 Route::put('update/{id}',       'Products\ItemsController@update');
                 Route::delete('delete/{id}',    'Products\ItemsController@delete');
             });
+
             Route::group(['prefix' => 'categories'], function () {
                 Route::post('create',           'Products\CategoriesController@create');
                 Route::get('read',              'Products\CategoriesController@select');

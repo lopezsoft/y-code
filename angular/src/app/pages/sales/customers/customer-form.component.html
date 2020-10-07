@@ -1,0 +1,168 @@
+<nb-card>
+  <nb-card-header>
+    {{ 'general.createEdit' | translate | uppercase }} {{ title | uppercase}}
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="customForm">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink class="display-none">General</a>
+          <ng-template ngbNavContent>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Tipo</label>
+                  <ng-select formControlName="person_type_id" required [loading] ="typepersons.length === 0"
+                  [class.is-invalid]="invalidPersonType" [class.status-danger]="invalidPersonType">
+                    <ng-option *ngFor="let typeperson of typepersons" [value]="typeperson.id">
+                      {{ typeperson.description }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Mostrar nombre como</label>
+                  <input type="text" nbInput fullWidth formControlName="full_name" required autofocus #focusElement
+                  [class.is-invalid]="invalidFullName" [class.status-danger]="invalidFullName">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><span
+                      class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.currency' | translate}}</label>
+                  <ng-select fullWidth formControlName="currency_id" name="currency_id" required
+                    [class.is-invalid]="invalidCurrency" [class.status-danger]="invalidCurrency"
+                    [loading]="currency.length === 0">
+                    <ng-option *ngFor="let curre of currency" [value]="curre.id">
+                      <img height="15" width="15" [src]="'assets/flags/'+curre.image" /> {{ curre.CurrencyName }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label><span
+                      class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.country' | translate}}</label>
+                  <ng-select fullWidth formControlName="country_id" required [class.is-invalid]="invalidCountry"
+                    [class.status-danger]="invalidCountry" [loading]="countries.length === 0" [virtualScroll]="true">
+                    <ng-option *ngFor="let country of countries" [value]="country.id">
+                      <img height="15" width="15" [src]="'assets/flags/'+country.image" /> {{ country.country_name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Titulo</label>
+                  <input class="form-control" type="text" nbInput fullWidth formControlName="title"
+                    name="title">
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label>Nombres</label>
+                  <input class="form-control" type="text" nbInput fullWidth formControlName="names">
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label>Apellidos</label>
+                  <input class="form-control" type="text" nbInput fullWidth formControlName="last_name" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>DNI</label>
+                  <input type="text" nbInput fullWidth formControlName="dni">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nombre de la empresa</label>
+                  <input type="text" nbInput fullWidth formControlName="company_name">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Correo electrónico</label>
+                  <input type="text" nbInput fullWidth formControlName="email">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Web</label>
+                  <input type="text" nbInput fullWidth formControlName="web">
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink class="display-none">Ubicación</a>
+          <ng-template ngbNavContent>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Dirección principal</label>
+                  <textarea nbInput fullWidth formControlName="address" rows="2"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Dirección postal</label>
+                  <textarea nbInput fullWidth formControlName="location" rows="2"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Ciudad/Distrito</label>
+                  <input type="text" nbInput fullWidth formControlName="city_name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Estado/Provincia</label>
+                <input type="text" nbInput fullWidth formControlName="state_name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Código postal</label>
+                  <input type="text" nbInput fullWidth formControlName="postal_code">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Movil</label>
+                <input type="text" nbInput fullWidth formControlName="mobile">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Fijo</label>
+                  <input type="text" nbInput fullWidth formControlName="phone">
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <app-footer-form [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()"
+                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()"></app-footer-form>
+  </nb-card-footer>
+</nb-card>

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3"],{
 
 /***/ "./node_modules/jqwidgets-ng/__ivy_ngcc__/fesm2015/jqwidgets-ng-jqxmenu.js":
 /*!*********************************************************************************!*\
@@ -631,6 +631,7 @@ class JqxCustomGridComponent extends _components_base_base_component__WEBPACK_IM
         this.showRowNumber = false;
         this.searchString = '';
         this.title = 'Encabezado del grid';
+        this.useImport = false;
         this.source = {};
         this.columngroups = [];
         this.columns = [];
@@ -947,4 +948,4 @@ class JqxCustomGridComponent extends _components_base_base_component__WEBPACK_IM
 /***/ })
 
 }]);
-//# sourceMappingURL=default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c.js.map
+//# sourceMappingURL=default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3.js.map

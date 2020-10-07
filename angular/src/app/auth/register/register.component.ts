@@ -74,8 +74,6 @@ export class RegisterComponent extends FormComponent implements OnInit {
     return (passw2 === passw1) ? true : false;
   }
 
-
-
   onSave(): void {
     const me    = this.registerForm;
     const ts    = this;

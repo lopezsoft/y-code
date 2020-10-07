@@ -53,6 +53,7 @@ export class ItemsComponent extends JqxCustomGridComponent implements OnInit, Af
       { name: 'notes', type: 'string' },
       { name: 'description_sales', type: 'string' },
       { name: 'shopping_description', type: 'string' },
+      { name: 'product_class_name', type: 'string' },
       { name: 'barcode', type: 'string' },
       { name: 'description', type: 'string' },
       { name: 'rate_name', type: 'string' },

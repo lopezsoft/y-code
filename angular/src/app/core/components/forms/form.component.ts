@@ -15,6 +15,7 @@ declare var $:any;
 export class FormComponent extends BaseComponent implements OnInit, AfterViewInit {
   title = 'Titulo del formulario';
   customForm: FormGroup;
+  modalForm: FormGroup;
   focusElement: ElementRef;
   uploadFile: ElementRef;
   public saveAClose   = false;

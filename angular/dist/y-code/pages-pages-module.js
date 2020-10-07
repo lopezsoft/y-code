@@ -262,14 +262,36 @@ const MENU_ITEMS = [
         link: '/pages/dashboard',
         home: true,
     },
+    // {
+    //   title: 'IoT Dashboard',
+    //   icon: 'home-outline',
+    //   link: '/pages/iot-dashboard',
+    // },
+    // {
+    //   title: 'FACTURACIÓN',
+    //   group: true,
+    // },
     {
-        title: 'IoT Dashboard',
-        icon: 'home-outline',
-        link: '/pages/iot-dashboard',
+        title: 'Ventas',
+        icon: { icon: 'cash-register', pack: 'fas' },
+        children: [
+            {
+                title: 'Clientes',
+                icon: { icon: 'id-card', pack: 'far' },
+                link: '/pages/sales/customers',
+            },
+        ]
     },
     {
-        title: 'FACTURACIÓN',
-        group: true,
+        title: 'Compras',
+        icon: { icon: 'hand-holding-usd', pack: 'fas' },
+        children: [
+            {
+                title: 'Proveedores',
+                icon: { icon: 'id-card', pack: 'far' },
+                link: '/pages/shopping/providers',
+            },
+        ]
     },
     {
         title: 'Productos',
@@ -291,6 +313,11 @@ const MENU_ITEMS = [
                 link: '/pages/products/brands',
             },
             {
+                title: 'Grupos contables',
+                icon: { icon: 'calculator', pack: 'fas' },
+                link: '/pages/products/groups',
+            },
+            {
                 title: 'Atributos',
                 icon: { icon: 'list-alt', pack: 'fas' },
                 link: '/pages/products/attributes',
@@ -299,6 +326,11 @@ const MENU_ITEMS = [
                 title: 'Terminos de atributos',
                 icon: { icon: 'list-alt', pack: 'fas' },
                 link: '/pages/products/terms',
+            },
+            {
+                title: 'Unidades de medida',
+                icon: { icon: 'list-alt', pack: 'fas' },
+                link: '/pages/products/units',
             },
         ],
     },
@@ -423,23 +455,33 @@ const routes = [{
             //   // component: '',
             // },
             {
+                path: 'shopping',
+                loadChildren: () => Promise.all(/*! import() | shopping-shopping-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~sales-sales-m~d323536f"), __webpack_require__.e("default~products-products-module~sales-sales-module~shopping-shopping-module"), __webpack_require__.e("common"), __webpack_require__.e("shopping-shopping-module")]).then(__webpack_require__.bind(null, /*! ./shopping/shopping.module */ "./src/app/pages/shopping/shopping.module.ts"))
+                    .then(m => m.ShoppingModule),
+            },
+            {
+                path: 'sales',
+                loadChildren: () => Promise.all(/*! import() | sales-sales-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~sales-sales-m~d323536f"), __webpack_require__.e("default~products-products-module~sales-sales-module~shopping-shopping-module"), __webpack_require__.e("common"), __webpack_require__.e("sales-sales-module")]).then(__webpack_require__.bind(null, /*! ./sales/sales.module */ "./src/app/pages/sales/sales.module.ts"))
+                    .then(m => m.SalesModule),
+            },
+            {
                 path: 'products',
-                loadChildren: () => Promise.all(/*! import() | products-products-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c"), __webpack_require__.e("common"), __webpack_require__.e("products-products-module")]).then(__webpack_require__.bind(null, /*! ./products/products.module */ "./src/app/pages/products/products.module.ts"))
+                loadChildren: () => Promise.all(/*! import() | products-products-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3"), __webpack_require__.e("default~products-products-module~sales-sales-module~shopping-shopping-module"), __webpack_require__.e("common"), __webpack_require__.e("products-products-module")]).then(__webpack_require__.bind(null, /*! ./products/products.module */ "./src/app/pages/products/products.module.ts"))
                     .then(m => m.ProductsModule),
             },
             {
                 path: 'accounting',
-                loadChildren: () => Promise.all(/*! import() | accounting-accounting-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module"), __webpack_require__.e("common"), __webpack_require__.e("accounting-accounting-module")]).then(__webpack_require__.bind(null, /*! ./accounting/accounting.module */ "./src/app/pages/accounting/accounting.module.ts"))
+                loadChildren: () => Promise.all(/*! import() | accounting-accounting-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~sales-sales-m~d323536f"), __webpack_require__.e("common"), __webpack_require__.e("accounting-accounting-module")]).then(__webpack_require__.bind(null, /*! ./accounting/accounting.module */ "./src/app/pages/accounting/accounting.module.ts"))
                     .then(m => m.AccountingModule),
             },
             {
                 path: 'companies',
-                loadChildren: () => Promise.all(/*! import() | companies-companies-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module"), __webpack_require__.e("companies-companies-module")]).then(__webpack_require__.bind(null, /*! ./companies/companies.module */ "./src/app/pages/companies/companies.module.ts"))
+                loadChildren: () => Promise.all(/*! import() | companies-companies-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~sales-sales-m~d323536f"), __webpack_require__.e("companies-companies-module")]).then(__webpack_require__.bind(null, /*! ./companies/companies.module */ "./src/app/pages/companies/companies.module.ts"))
                     .then(m => m.CompaniesModule),
             },
             {
                 path: 'general',
-                loadChildren: () => Promise.all(/*! import() | general-general-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~a4a7109c"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module"), __webpack_require__.e("common"), __webpack_require__.e("general-general-module")]).then(__webpack_require__.bind(null, /*! ./general/general.module */ "./src/app/pages/general/general.module.ts"))
+                loadChildren: () => Promise.all(/*! import() | general-general-module */[__webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~products-prod~7e138de3"), __webpack_require__.e("default~accounting-accounting-module~companies-companies-module~general-general-module~sales-sales-m~d323536f"), __webpack_require__.e("common"), __webpack_require__.e("general-general-module")]).then(__webpack_require__.bind(null, /*! ./general/general.module */ "./src/app/pages/general/general.module.ts"))
                     .then(m => m.GeneralModule),
             },
             {
@@ -583,7 +625,7 @@ PagesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInject
                     _miscellaneous_miscellaneous_module__WEBPACK_IMPORTED_MODULE_7__["MiscellaneousModule"],
                 ],
                 declarations: [
-                    _pages_component__WEBPACK_IMPORTED_MODULE_5__["PagesComponent"]
+                    _pages_component__WEBPACK_IMPORTED_MODULE_5__["PagesComponent"],
                 ],
             }]
     }], null, null); })();

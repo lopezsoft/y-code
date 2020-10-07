@@ -32,6 +32,7 @@ export class JqxCustomGridComponent extends BaseComponent {
   public showRowNumber      = false;
   private searchString      = '';
   public title              = 'Encabezado del grid';
+  public useImport          = false;
 
   public crudApi: {
     create: string,

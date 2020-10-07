@@ -73,3 +73,34 @@ export interface TaxAccountingAccount {
   state?: number;
 }
 
+
+export interface Persons {
+  address: string;
+  city_name: string;
+  company_name: string;
+  country_id: number;
+  currency_id: number;
+  description: string;
+  dni: string;
+  email: string;
+  full_name: string;
+  id: number;
+  last_name: string;
+  location: string;
+  mobile: string;
+  names: string;
+  person_type_id: string;
+  phone: string;
+  postal_code: string;
+  state: string;
+  state_name: string;
+  timestamp: string;
+  title: string;
+  web: string;
+}
+
+export interface TypePersons {
+  id: number;
+  description: string;
+  active?: boolean;
+}

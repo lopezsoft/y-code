@@ -35,6 +35,37 @@ class MasterController extends Controller
         }
     }
 
+    public function getTypePersons(Request $request){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.type_persons';
+        $uid        = $request->uid;
+        $where      = [];
+        if(isset($uid)){
+            $where  = [ 'id' => $uid];
+        }
+        return $model->getTable($table, '', 0, 20, $where);
+    }
+
+    public function getAccountTypes(Request $request){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.account_types';
+        $uid        = $request->uid;
+        $where      = [];
+        if(isset($uid)){
+            $where  = [ 'id' => $uid];
+        }
+        return $model->getTable($table, '', 0, 20, $where);
+    }
+
+    public function getMeasurementUnits(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.standard_measurement_units';
+        return $model->getTable($table, '', 0, 20);
+    }
+
     public function geShippingFrequency(){
         $model      = new MasterModel();
         $company    = $model->getCompany();

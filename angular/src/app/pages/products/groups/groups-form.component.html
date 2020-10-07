@@ -1,0 +1,128 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>{{ 'general.createEdit' | translate | uppercase }} GRUPO CONTABLE</nb-card-header>
+      <nb-card-body>
+        <form  [formGroup]="customForm">
+          <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink class="display-none">General</a>
+              <ng-template ngbNavContent>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Nombre del grupo</label>
+                      <input #focusElement autofocus nbInput fullWidth
+                        class="form-control" type="text" name="name_type" formControlName="name_type" required
+                        [class.status-danger]="invalidName"  [class.is-invalid]="invalidName"
+                        >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Clase de producto</label>
+                      <ng-select name="product_class_id" formControlName="product_class_id" [loading]="classof.length === 0" required>
+                        <ng-option *ngFor="let class of classof" [value] ="class.id">
+                          {{ class.product_class_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink class="display-none">Cuentas contables</a>
+              <ng-template ngbNavContent>
+                <ng-template #content let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">{{ 'general.createEdit' | translate | uppercase }} CTA CONTABLE</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form [formGroup]="modalForm">
+                      <div class="form-group">
+                        <label>Cuenta contable</label>
+                        <ng-select formControlName="account_id" ngbAutofocus autofocus (change)="onChangeAccounts($event)" [virtualScroll]="true">
+                          <ng-option *ngFor="let account of accounts" [value]="account.id">
+                            {{ account.account_number }} - {{ account.account_name }}
+                          </ng-option>
+                        </ng-select>
+                      </div>
+                      <div class="form-group">
+                        <label>Tipo</label>
+                        <ng-select formControlName="account_type_id" (change)="onChangeTypes($event)" >
+                          <ng-option *ngFor="let accounttype of accounttypes" [value]="accounttype.id">
+                            {{ accounttype.name_type }}
+                          </ng-option>
+                        </ng-select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button nbSuffix nbButton status="primary" class="btn-sm radius-button space-right" type="button"  (click)="modal.close('Save')">
+                      <i class="fas fa-save fas-fa-22 space-right"></i>
+                      {{'buttons.saveAndClose' | translate }}
+                    </button>
+                    <button  (click)="modal.close('Cancel')" nbSuffix nbButton status="danger" class="radius-button">
+                      <i class="fas fa-undo fas-fa-22 space-right"></i>
+                      <strong>{{ 'buttons.cancel' | translate }} </strong>
+                    </button>
+                  </div>
+                </ng-template>
+                <div class="row">
+                  <div class="col">
+                    <table class="table table-hover table-sm table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nombre de la cuenta</th>
+                          <th scope="col">Tipo</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let typeT of itemTypeAccounts; let i = index">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td style="min-width: 200px">
+                            {{ typeT.account_number }} - {{ typeT.account_name }}
+                          </td>
+                          <td style="width: 150px; min-width: 75px">
+                            {{ typeT.name_type }}
+                          </td>
+                          <td style="width: 40px; min-width: 40px">
+                            <button (click)="EditMeasurementUnit(i,content)" type="button" class="btn btn-primary btn-sm">
+                              <i class="fas fa-pen"></i>
+                            </button>
+                          </td>
+                          <td style="width: 40px; min-width: 40px">
+                            <button (click)="delMeasurementUnit(i)" type="button" class="btn btn-danger btn-sm">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button (click)= "open(content,false)" type="button"  class="btn btn-primary btn-sm radius-button">
+                      <i class="fas fa-plus fas-fa-22"></i>
+                      Agregar cuenta
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <app-footer-form [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()"
+                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()"></app-footer-form>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
+

@@ -37,24 +37,35 @@ export const customCurrencyMaskConfig = {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ProductsRoutingModule } from './products-routing.module';
+import { CoreModule } from './../../core/core.module';
+
 import {
   CategoriesComponent,
   BrandsComponent,
   AttributesComponent,
-  ItemsComponent} from './index';
+  ItemsComponent
+} from './index';
+
 import { ProductsComponent } from './products.component';
-import { BrandsFormComponent } from './brands/brands-form.component';
-import { CategoriesFormComponent } from './categories/categories-form.component';
-import { AttributesFormComponent } from './attributes/attributes-form.component';
-import { TermsComponent } from './terms/terms.component';
-import { TermsFormComponent } from './terms/terms-form.component';
-import { ItemsFormComponent } from './items/items-form.component';
+import {
+  BrandsFormComponent,
+  CategoriesFormComponent,
+  AttributesFormComponent,
+  TermsComponent,
+  TermsFormComponent,
+  ItemsFormComponent,
+  MeasurementUnitsComponent,
+  MeasurementUnitsFormComponent
+ } from './index';
+import { GroupsComponent } from './groups/groups.component';
+import { GroupsFormComponent } from './groups/groups-form.component';
 
 @NgModule({
   imports: [
     ThemeModule,
     NbCardModule,
     NgbModule,
+    CoreModule,
     NgbPaginationModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     NbButtonModule,
@@ -87,6 +98,10 @@ import { ItemsFormComponent } from './items/items-form.component';
     TermsComponent,
     TermsFormComponent,
     ItemsFormComponent,
+    MeasurementUnitsComponent,
+    MeasurementUnitsFormComponent,
+    GroupsComponent,
+    GroupsFormComponent,
   ],
 })
 export class ProductsModule { }
