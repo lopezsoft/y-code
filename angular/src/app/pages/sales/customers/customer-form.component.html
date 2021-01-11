@@ -11,11 +11,10 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Tipo</label>
-                  <ng-select formControlName="person_type_id" required [loading] ="typepersons.length === 0"
-                  [class.is-invalid]="invalidPersonType" [class.status-danger]="invalidPersonType">
-                    <ng-option *ngFor="let typeperson of typepersons" [value]="typeperson.id">
-                      {{ typeperson.description }}
+                  <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.type_organization' | translate}}</label>
+                  <ng-select fullWidth formControlName="type_organization_id" required name="type_organization_id"
+                    [class.is-invalid]="invalidOrganization">
+                    <ng-option *ngFor="let typeOrg of typeOrg" [value]="typeOrg.id">{{ typeOrg.description }}
                     </ng-option>
                   </ng-select>
                 </div>
@@ -34,8 +33,7 @@
                   <label><span
                       class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.currency' | translate}}</label>
                   <ng-select fullWidth formControlName="currency_id" name="currency_id" required
-                    [class.is-invalid]="invalidCurrency" [class.status-danger]="invalidCurrency"
-                    [loading]="currency.length === 0">
+                    [class.is-invalid]="invalidCurrency" [class.status-danger]="invalidCurrency">
                     <ng-option *ngFor="let curre of currency" [value]="curre.id">
                       <img height="15" width="15" [src]="'assets/flags/'+curre.image" /> {{ curre.CurrencyName }}
                     </ng-option>
@@ -47,9 +45,34 @@
                   <label><span
                       class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.country' | translate}}</label>
                   <ng-select fullWidth formControlName="country_id" required [class.is-invalid]="invalidCountry"
-                    [class.status-danger]="invalidCountry" [loading]="countries.length === 0" [virtualScroll]="true">
+                    [class.status-danger]="invalidCountry" [virtualScroll]="true">
                     <ng-option *ngFor="let country of countries" [value]="country.id">
                       <img height="15" width="15" [src]="'assets/flags/'+country.image" /> {{ country.country_name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <br>
+                <br>
+                <div class="form-group">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" formControlName="is_secondary" (change)="onChageSeconday($event)">
+                      ¿Es un cliente secundario?
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="is_secondary">
+                <div class="form-group">
+                  <label>Cliente principal</label>
+                  <ng-select fullWidth formControlName="parent_id" [virtualScroll]="true">
+                    <ng-option value='0'>Ninguno</ng-option>
+                    <ng-option *ngFor="let person of persons" [value]="person.id">
+                      {{ person.full_name }}
                     </ng-option>
                   </ng-select>
                 </div>
@@ -107,7 +130,7 @@
           </ng-template>
         </li>
         <li [ngbNavItem]="2">
-          <a ngbNavLink class="display-none">Ubicación</a>
+          <a ngbNavLink class="display-none">Ubicación/Dirección</a>
           <ng-template ngbNavContent>
             <div class="row">
               <div class="col-md-6">
@@ -152,6 +175,73 @@
                 <div class="form-group">
                   <label>Fijo</label>
                   <input type="text" nbInput fullWidth formControlName="phone">
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+          <a ngbNavLink class="display-none">Pago y facturación</a>
+          <ng-template ngbNavContent>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>{{ 'general.tax' | translate }}</label>
+                  <ng-select fullWidth formControlName="tax_rate_id">
+                    <ng-option value='0'>Ninguno</ng-option>
+                    <ng-option *ngFor="let tax of tax" [value]="tax.id">
+                      {{ tax.name_taxe }} - {{ tax.rate_name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Cuenta contable</label>
+                  <ng-option value='0'>Ninguna</ng-option>
+                  <ng-select fullWidth formControlName="accounting_account_id" [virtualScroll]="true">
+                    <ng-option *ngFor="let account of accounts" [value]="account.id">
+                      {{ account.account_number }} - {{ account.account_name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Metodo de pago preferido</label>
+                  <ng-option value='0'>Ninguno</ng-option>
+                  <ng-select fullWidth formControlName="means_payment_id">
+                    <ng-option *ngFor="let payment of payments" [value]="payment.id">
+                     {{ payment.payment_method }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Condiciones de pago</label>
+                  <ng-option value='0'>Ninguna</ng-option>
+                  <ng-select fullWidth formControlName="sales_term" [virtualScroll]="true">
+                    <ng-option *ngFor="let timel of timelimits" [value]="timel.id">
+                      {{ timel.term_name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Saldo inicial</label>
+                  <input nbInput fullWidth class="form-control" currencyMask name="initial_balance" formControlName="initial_balance">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>A partir de la fecha</label>
+                  <input nbInput fullWidth type="date" class="form-control" name="initial_date" formControlName="initial_date">
                 </div>
               </div>
             </div>

@@ -47,16 +47,48 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('typeitemidentifications', 'MasterController@getTypeItemIdentifications');
         Route::get('referenceprice', 'MasterController@getReferencePrice');
         Route::get('paymentmethods', 'MasterController@getPaymentMethods');
-        Route::get('meanspayment', 'MasterController@geMeansPayment');
-        Route::get('shippingfrequency', 'MasterController@geShippingFrequency');
+        Route::get('meanspayment', 'MasterController@getMeansPayment');
+        Route::get('timelimit', 'MasterController@getTimeLimit');
+        Route::get('timelimits', 'MasterController@getTimeLimit');
+        Route::get('shippingfrequency', 'MasterController@getShippingFrequency');
         Route::get('measurementunits', 'MasterController@getMeasurementUnits');
         Route::get('accounttypes', 'MasterController@getAccountTypes');
         Route::get('typepersons', 'MasterController@getTypePersons');
+        Route::get('typepersons/customers', 'MasterController@getTypePersonsCustomers');
         Route::get('ipinfo', 'MasterController@getIpInfo');
+
+
+        Route::group(['prefix' => 'reports'], function () {
+            Route::get('sales',             'ReportController@getSales');
+            Route::get('notes',             'ReportController@getNotes');
+            Route::get('sales/detail/{id}', 'ReportController@getSalesDetail');
+            Route::post('invoice',          'ReportController@getInvoiceReport');
+            Route::post('note',             'ReportController@getNoteReport');
+        });
+
+
+        Route::group(['prefix' => 'sales'], function () {
+            Route::post('create',           'Sales\SalesController@create');
+        });
+
+
+        Route::group(['prefix' => 'shopping'], function () {
+            Route::post('create',           'Shopping\ShoppingController@create');
+            Route::post('create/detail',    'Shopping\ShoppingController@createDetail');
+            Route::get('read',              'Shopping\ShoppingController@select');
+            Route::get('read/detail/{id}',  'Shopping\ShoppingController@selectDetail');
+            Route::get('read/detailId/{id}','Shopping\ShoppingController@selectDetailId');
+            Route::put('update/{id}',       'Shopping\ShoppingController@update');
+            Route::put('update/detail/{id}','Shopping\ShoppingController@updateDetail');
+            Route::delete('delete/{id}',    'Shopping\ShoppingController@delete');
+            Route::delete('delete/detail/{id}',    'Shopping\ShoppingController@deleteDetail');
+        });
 
         Route::group(['prefix' => 'persons'], function () {
             Route::post('create',           'General\PersonsController@create');
+            Route::post('create/provider',  'General\PersonsController@createProvider');
             Route::get('read',              'General\PersonsController@select');
+            Route::get('customers/all',     'General\PersonsController@selectCustomersAll');
             Route::get('customers',         'General\PersonsController@selectCustomers');
             Route::get('providers',         'General\PersonsController@selectProviders');
             Route::put('update/{id}',       'General\PersonsController@update');
@@ -88,6 +120,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::group(['prefix' => 'items'], function () {
                 Route::post('create',           'Products\ItemsController@create');
                 Route::get('read',              'Products\ItemsController@select');
+                Route::get('read/all',          'Products\ItemsController@getAllProducts');
                 Route::put('update/{id}',       'Products\ItemsController@update');
                 Route::delete('delete/{id}',    'Products\ItemsController@delete');
             });
@@ -189,6 +222,21 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::group(['prefix' => 'general'], function () {
+
+            Route::group(['prefix' => 'resolutions'], function () {
+                Route::post('create',           'General\ResolutionsController@create');
+                Route::get('read',              'General\ResolutionsController@getResolutions');
+                Route::put('update/{id}',       'General\ResolutionsController@update');
+                Route::delete('delete/{id}',    'General\ResolutionsController@delete');
+            });
+
+            Route::group(['prefix' => 'reports'], function () {
+                Route::post('create',           'General\ReportsHeaderController@create');
+                Route::get('read',              'General\ReportsHeaderController@select');
+                Route::put('update/{id}',       'General\ReportsHeaderController@update');
+                Route::delete('delete/{id}',    'General\ReportsHeaderController@delete');
+            });
+
             Route::group(['prefix' => 'taxes'], function () {
                 Route::post('create',           'General\TaxesController@create');
                 Route::get('read',              'General\TaxesController@select');

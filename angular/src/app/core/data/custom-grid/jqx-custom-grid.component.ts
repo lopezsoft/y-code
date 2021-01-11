@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuComponent } from 'jqwidgets-ng/jqxmenu';
-import { Crud, ErrorResponse, JsonResponse } from 'src/app/interfaces/index';
+import { ErrorResponse, JsonResponse } from 'src/app/interfaces/index';
 
 import Swal from 'sweetalert2';
 
@@ -33,6 +33,7 @@ export class JqxCustomGridComponent extends BaseComponent {
   private searchString      = '';
   public title              = 'Encabezado del grid';
   public useImport          = false;
+  public theme              = "bootstrap";
 
   public crudApi: {
     create: string,
@@ -49,7 +50,7 @@ export class JqxCustomGridComponent extends BaseComponent {
   columns: any[]      = [];
   localizationobj: any = {};
   editable = false;
-  showfilterrow: false;
+  showfilterrow = false;
 
   constructor(public msg: MessagesService,
               public api: ApiServerService,
@@ -62,7 +63,6 @@ export class JqxCustomGridComponent extends BaseComponent {
 
   onLocalization(): void {
     const ts  = this;
-
     ts.localizationobj.percentsymbol = '%';
     ts.localizationobj.currencysymbol = '$';
     ts.localizationobj.currencysymbolposition = 'anterior';
@@ -228,7 +228,7 @@ export class JqxCustomGridComponent extends BaseComponent {
       pageable: true,
       pagesizeoptions: ['5', '10', '15', '20', '30', '50', '100'],
       selectionmode: 'multiplecellsadvanced',
-      theme: 'light',
+      theme: 'bootstrap',
       rendergridrows: ts.rendergridrows,
       columns:  aColumns
     };
@@ -266,8 +266,8 @@ export class JqxCustomGridComponent extends BaseComponent {
   Bindingcomplete(event: any): void
   {
     const ts  = this;
-    ts.onLocalization();
-    ts.customGrid.localizestrings(ts.localizationobj);
+    // ts.onLocalization();
+    // ts.customGrid.localizestrings(ts.localizationobj);
     ts.disabledLoading();
   }
 
@@ -281,7 +281,6 @@ export class JqxCustomGridComponent extends BaseComponent {
     const row  = this.customGrid.getrowdata(data.rowindex);
     if (data.datafield === '#edit_#'){
       this.editData(row);
-
     }else if (data.datafield === '#delete_#'){
       this.deleteData(row);
     }

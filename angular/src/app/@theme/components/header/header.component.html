@@ -22,7 +22,7 @@
                [onlyPicture]="userPictureOnly"
                [name]="user?.user"
                [picture]="user?.avatar"
-               [nbContextMenuTag]="onMenuItemClick">
+               [nbContextMenuTag]="onMenuItemClick" *ngIf="userMenu.length > 0">
       </nb-user>
     </nb-action>
   </nb-actions>

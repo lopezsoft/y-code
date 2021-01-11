@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card inline-form-card">
+      <div class="card-header">{{ title | uppercase}}</div>
+      <div class="card-body">
+        <form [formGroup]="customForm">
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{ 'identityDocuments.code' | translate }}</label>
+              <div class="form-group">
+                <input type="text" #focusElement fullWidth nbinput name="code" formControlName="code" required=""
+                  autofocus
+                  class="form-control">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>{{ 'identityDocuments.name' | translate }}</label>
+              <div class="form-group">
+                <input type="text" fullWidth nbinput name="document_name"
+                  formControlName="document_name" [class.status-danger]="invalidDocumentName" [class.is-invalid]="invalidDocumentName" required=""
+                  class="form-control">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>{{ 'identityDocuments.abbrev' | translate }}</label>
+              <div class="form-group">
+                <input type="text" step="any" fullWidth nbinput name="abbrev"
+                  formControlName="abbrev" [class.status-danger]="invalidAbbrev" [class.is-invalid]="invalidAbbrev"
+                  required=""
+                  class="form-control">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <br><br>
+              <div class="checkbox">
+                <input type="checkbox" class="form-control" formControlName="active" style="margin-right: 2%;" id='active'>
+                <label for="active">{{ 'identityDocuments.active' | translate }}</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()"
+                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()"></app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

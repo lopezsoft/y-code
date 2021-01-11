@@ -7,7 +7,8 @@ import { ApiServerService } from './../../../utils/api-server.service';
 @Injectable()
 export class BaseComponent implements OnInit {
   public loading: boolean;
-  public activeLang = 'es';
+  public activeLang   = 'es';
+  public maskSpinner  = '';
   constructor(public api: ApiServerService,
               public router: Router,
               public translate: TranslateService) {

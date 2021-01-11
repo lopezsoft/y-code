@@ -86,7 +86,9 @@ import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     NgFallimgModule.forRoot({
-      default : 'assets/avatars/no-image.png'
+      default : 'assets/avatars/no-image.png',
+      user    : 'assets/avatars/unknown_img.png',
+      product : 'assets/img/Product_32px.png',
     }),
     ThemeModule.forRoot(),
     NgbModule,

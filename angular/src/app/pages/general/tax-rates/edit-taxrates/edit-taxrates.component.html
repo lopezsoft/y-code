@@ -9,7 +9,7 @@
               <div class="form-group">
                 <label><span class="aterisk">{{ 'general.aterisk' | translate }}</span>{{ 'taxes.rate.group' | translate }}</label>
                 <ng-select fullWidth formControlName="tax_gruop_id" name="tax_gruop_id" required
-                  [class.is-invalid]="invalidTaxGroupId" [class.status-danger]="invalidTaxGroupId" [loading] = "(taxGroup.length === 0)" >
+                  [class.is-invalid]="invalidTaxGroupId" [class.status-danger]="invalidTaxGroupId">
                   <ng-option *ngFor="let tax of taxGroup" [value]="tax.id">
                     {{ tax.name_taxe }}
                   </ng-option>
@@ -54,7 +54,7 @@
               <div class="form-group">
                 <label><span class="aterisk">{{ 'general.aterisk' | translate }}</span>{{ 'taxes.rate.frecuency' | translate }}</label>
                 <ng-select fullWidth
-                formControlName="shipping_frequency_id" name="shipping_frequency_id" required  [loading]="(taxFrecuency.length === 0)"
+                formControlName="shipping_frequency_id" name="shipping_frequency_id" required
                   [class.is-invalid]="invalidShippingFrequencyId" [class.status-danger]="invalidShippingFrequencyId">
                   <ng-option *ngFor="let taxF of taxFrecuency" [value] ="taxF.id">
                     {{ taxF.name }}
@@ -67,7 +67,7 @@
             <div class="col">
               <div class="form-group">
                 <label>{{ 'taxes.rate.accountName' | translate }}</label>
-                <ng-select fullWidth formControlName="account_id" name="account_id" [loading]="(accounts.length === 0)">
+                <ng-select fullWidth formControlName="account_id" name="account_id" [virtualScroll]="true">
                   <ng-option *ngFor="let acco of accounts" [value] ="acco.id">
                     {{ acco.account_number }} {{ acco.account_name }}
                   </ng-option>

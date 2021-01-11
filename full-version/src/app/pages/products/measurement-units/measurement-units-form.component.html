@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit' | translate | uppercase }} UNIDAD DE MEDIDA</div>
+      <div class="card-body">
+        <form  [formGroup]="customForm">
+          <div class ="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Nombre de la unidad</label>
+                <input type="text" #focusElement class="form-control" name="unit_description"
+                  formControlName="unit_description"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required autofocus>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Unidad base</label>
+                <ng-select fullWidth name="base_unit_id" formControlName = "base_unit_id" [virtualScroll]="true"
+                [class.status-danger]="invalidAttributeId"  [class.is-invalid]="invalidAttributeId" required>
+                  <ng-option *ngFor="let un of units" [value] ="un.id">
+                    {{ un.abbre_unit }} -  {{ un.unit_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Factor de conversión</label>
+                <input type="number" class="form-control" name="factor"
+                  formControlName="factor"  [class.status-danger]="invalidFactor"  [class.is-invalid]="invalidFactor" required>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose"
+          (closeEvent)="cancel()" (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()">
+        </app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

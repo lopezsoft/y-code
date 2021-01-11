@@ -111,34 +111,23 @@ class CompanyController extends Controller
         $company    = $model->getCompany();
         $table      = $company->database_name.'.company';
         $records->id    = $id;
-        // if(isset($records->dataimg)){
-        //     //get the base-64 from data
-        //     $base64_str = substr($records->dataimg, strpos($records->dataimg, ",") + 1);
+        if(isset($records->imgdata)){
+            $occcurs    = strpos($records->imgdata, ",");
+            //get the base-64 from data
+            $base64_str = substr($records->imgdata, strpos($records->imgdata, ",") + 1);
 
-        //     if(strlen($base64_str)  > 0){
-        //         //decode base64 string
-        //         $image      = base64_decode($base64_str);
-        //         $imgname    = $records->imgname;
-        //         $path       =  $_SERVER['DOCUMENT_ROOT']."/storage/companies/{$company_id}/logo/";
-        //         if(!is_dir($path)){
-        //             mkdir($path, 0777, true);
-        //         }
-        //         $pathimg    = $path.$imgname;
-
-        //         $result     = json_decode($model->uploadFileData($image, $pathimg));
-        //         if($result->success){
-        //             $pathimg            = "storage/companies/{$company_id}/logo/".$imgname;
-        //             $records->image     = $pathimg;
-        //             $result = $model->updateData($records,$table, $ip);
-        //         }else{
-        //             $result = $model->getErrorResponse('Error al guardar la imagen.');
-        //         }
-        //     }else{
-        //         $result = $model->updateData($records,$table, $ip);
-        //     }
-        // }else{
+            if(strlen($base64_str)  > 0 &&  $occcurs > 0){
+                //decode base64 string
+                $image              = base64_decode($base64_str);
+                $imgname            = $records->imgname;
+                $records->image     = $this->putFile($company->id, $image, $imgname);
+                $result = $model->updateData($records,$table, $ip);
+            }else{
+                $result = $model->updateData($records,$table, $ip);
+            }
+        }else{
             $result =   $model->updateData($records,$table, $ip);
-        // }
+        }
         return $result;
     }
 
@@ -151,6 +140,12 @@ class CompanyController extends Controller
         $company    = $model->getCompany();
         $customerId = DB::table('business_users')->where(['customer_id' => $id, 'company_id' => $company->id])->first();
         $records->id= $customerId->id;
-        echo $model->deleteData($records,$table, $ip);
+        return $model->deleteData($records,$table, $ip);
+    }
+
+    private function putFile($company_id, $data, $imgname){
+        $path  = "companies/{$company_id}/logo/".$imgname;
+        Storage::disk('public')->put($path, $data);
+        return Storage::url($path);
     }
 }

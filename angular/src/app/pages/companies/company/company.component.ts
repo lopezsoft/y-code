@@ -24,6 +24,7 @@ import { CompanyService } from 'src/app/services/companies';
 export class CompanyComponent extends FormComponent implements OnInit, AfterViewInit {
 
   @ViewChild('companyName') companyName: ElementRef;
+  @ViewChild('imgUp') imgUp: ElementRef;
   typeOrg: TypeOrganization[] = [];
   identityDocs: IdentityDocuments[] = [];
   countries: Country[] = [];
@@ -61,8 +62,11 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
   }
 
   ngOnInit(): void{
+    const ts  = this;
     this.changeLanguage(this.activeLang);
     this.title  = 'Datos de la compañia';
+    ts.PutURL   = '/company/update/';
+    ts.PostURL  = '/company/create';
     this.loadData();
   }
 
@@ -90,22 +94,27 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
     const ts    = this;
     const frm   = ts.customForm;
     this.company.getData({}).subscribe((resp) => {
-      frm.setValue({
-        address               : resp[0].address               ,
-        company_name          : resp[0].company_name          ,
-        country_id            : resp[0].country_id            ,
-        currency_id           : resp[0].currency_id           ,
-        dni                   : resp[0].dni                   ,
-        email                 : resp[0].email                 ,
-        identity_document_id  : resp[0].identity_document_id  ,
-        location              : resp[0].location              ,
-        mobile                : resp[0].mobile                ,
-        phone                 : resp[0].phone                 ,
-        postal_code           : resp[0].postal_code           ,
-        number_employees      : resp[0].number_employees      ,
-        type_organization_id  : resp[0].type_organization_id  ,
-        web                   : resp[0].web
-      });
+      if(resp.length > 0){
+        ts.editing  = true;
+        ts.uid      = resp[0].id;
+        frm.setValue({
+          address               : resp[0].address               ,
+          company_name          : resp[0].company_name          ,
+          country_id            : resp[0].country_id            ,
+          currency_id           : resp[0].currency_id           ,
+          dni                   : resp[0].dni                   ,
+          email                 : resp[0].email                 ,
+          identity_document_id  : resp[0].identity_document_id  ,
+          location              : resp[0].location              ,
+          mobile                : resp[0].mobile                ,
+          phone                 : resp[0].phone                 ,
+          postal_code           : resp[0].postal_code           ,
+          number_employees      : resp[0].number_employees      ,
+          type_organization_id  : resp[0].type_organization_id  ,
+          web                   : resp[0].web
+        });
+        ts.imgData              = resp[0].image ? resp[0].image : '';
+      }
     });
 
   }
@@ -168,47 +177,6 @@ export class CompanyComponent extends FormComponent implements OnInit, AfterView
   }
   get placeholderWeb(): string {
     return this.translate.instant('companies.web');
-  }
-
-  saveAndClose(): void {
-    super.saveAndClose();
-    this.toClose  = true;
-    this.saveData();
-  }
-
-  saveData(): void {
-    const ts    = this;
-    const frm   = ts.customForm;
-    const lang  = ts.translate;
-    if (!frm.invalid) {
-      if(ts.editing){
-
-        const data  = {
-          records : JSON.stringify(frm.value)
-        };
-
-        ts.api.put(`/company/update/${ts.uid}`, data)
-          .subscribe((resp: JsonResponse) => {
-            ts.msg.toastMessage(lang.instant('general.savedSuccessfully'), resp.message, 0);
-            ts.editing  = false;
-            ts.close();
-            ts.disabledLoading();
-          }, (err: ErrorResponse) => {
-            ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-            ts.disabledLoading();
-          });
-      }else{
-        ts.api.post('/company/create', frm.value)
-          .subscribe((resp: JsonResponse) => {
-            ts.msg.toastMessage(lang.instant('general.successfullyCreated'), resp.message, 0);
-            ts.close();
-            ts.disabledLoading();
-          }, (err: ErrorResponse) => {
-            ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
-            ts.disabledLoading();
-          });
-      }
-    }
   }
 
   close(): void {

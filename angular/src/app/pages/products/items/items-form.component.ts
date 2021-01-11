@@ -50,6 +50,7 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
   taxBill     : TaxRates[] = [];
   mUnits      : MeasurementUnits[] = [];
   selectUnit  : MeasurementUnits;
+  units       : MeasurementUnits[] = [];
   selectEdit  : ProductsMeasurementUnits;
   active      = 1;
   disabled    = true;
@@ -83,33 +84,29 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
       shopping_description  : [''],
       description_sales     : [''],
       barcode               : [''],
-      // rate_name             : [''],
-      // internal_code         : [''],
-      // state                 : [''],
+      initial_stock         : [0],
+      stock                 : [0],
+      percentage_gain       : [25],
       sale_price            : [''],
       purchase_cost         : [''],
-      // tax_sales             : [''],
-      // tax_bill              : [''],
-      // stock_min             : [''],
-      // stock_max             : [''],
       tax_sales_id          : [''],
-      // percentage_gain       : [''],
       tax_bill_id           : [''],
-      // item_type_id          : [''],
-      class_id              : [''],
-      brand_id              : [''],
-      category_id           : [''],
-      sub_category_id       : [''],
-      // average_cost          : [''],
-      // recipe                : [''],
-      perishable            : [false]
+      class_id              : [1],
+      brand_id              : ['0'],
+      category_id           : ['0'],
+      sub_category_id       : ['0'],
+      perishable            : [false],
+      vat_included          : [true],
+      base_factor           : [1],
+      unit_id               : [1],
+      selling_out_of_inventory  : [true],
     });
 
     this.modalForm  = this.fb.group({
       unit_id         : [''],
-      unit_price      : new FormControl({value: '0', disabled: true}),
-      factor          : new FormControl({value: '0', disabled: true}),
-      purchase_cost   : new FormControl({value: '0', disabled: true}),
+      unit_name       : [''],
+      factor          : [0],
+      purchase_cost   : [0],
       sale_price      : [0],
     });
   }
@@ -142,15 +139,25 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
     });
     ts.taxSer.getData({isVat: 1}).subscribe((resp) => {
       ts.taxBill = resp;
+      if(resp.length > 0 && !ts.editing){
+        ts.customForm.get('tax_bill_id').setValue(resp[0].id);
+      }
     });
 
     ts.taxSer.getData({isVat: 1}).subscribe((resp) => {
       ts.taxSale = resp;
+      if(resp.length > 0  && !ts.editing){
+        ts.customForm.get('tax_sales_id').setValue(resp[0].id);
+      }
     });
 
     ts.measSer.getAll({}).subscribe((resp) => {
       ts.mUnits = resp;
       ts.hideSpinner();
+    });
+
+    ts.measSer.getBase().subscribe((resp) => {
+      ts.units = resp;
     });
 
   }
@@ -180,7 +187,7 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
             if (ts.toClose) {
               ts.close();
             } else {
-              ts.onResetForm(frm);
+              ts.onResetForm();
               ts.focusElement.nativeElement.focus();
             }
             ts.hideSpinner();
@@ -197,7 +204,7 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
             if (ts.toClose) {
               ts.close();
             } else {
-              ts.onResetForm(frm);
+              ts.onResetForm();
               ts.focusElement.nativeElement.focus();
             }
             ts.disabledLoading();
@@ -218,29 +225,29 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
     ts.itemsSer.getData({ uid: id}).
       subscribe((resp) => {
         frm.setValue({
-          sku                   : resp[0].sku,
-          qr_code               : resp[0].qr_code,
-          product_name          : resp[0].product_name,
-          notes                 : resp[0].notes,
-          shopping_description  : resp[0].shopping_description,
-          description_sales     : resp[0].description_sales,
-          barcode               : resp[0].barcode,
-          sale_price            : resp[0].sale_price,
-          purchase_cost         : resp[0].purchase_cost,
-          // tax_sales             : resp[0].tax_sales,
-          // tax_bill              : resp[0].tax_bill,
-          // stock_min             : resp[0].stock_min,
-          // stock_max             : resp[0].stock_max,
-          tax_sales_id          : resp[0].tax_sales_id,
-          // percentage_gain       : resp[0].percentage_gain,
-          tax_bill_id           : resp[0].tax_bill_id,
-          class_id              : resp[0].class_id,
-          brand_id              : resp[0].brand_id ? resp[0].brand_id : '',
-          sub_category_id       : resp[0].sub_category_id ? resp[0].sub_category_id : '',
-          category_id           : resp[0].category_id ? resp[0].category_id : '',
-          // average_cost          : resp[0].average_cost,
-          // recipe                : resp[0].recipe,
-          perishable            : resp[0].perishable,
+          sku                       : resp[0].sku,
+          qr_code                   : resp[0].qr_code,
+          product_name              : resp[0].product_name,
+          notes                     : resp[0].notes,
+          shopping_description      : resp[0].shopping_description,
+          description_sales         : resp[0].description_sales,
+          barcode                   : resp[0].barcode,
+          sale_price                : resp[0].sale_price,
+          purchase_cost             : resp[0].purchase_cost,
+          initial_stock             : resp[0].initial_stock,
+          stock                     : resp[0].stock,
+          percentage_gain           : resp[0].percentage_gain,
+          tax_sales_id              : resp[0].tax_sales_id,
+          tax_bill_id               : resp[0].tax_bill_id,
+          class_id                  : resp[0].class_id,
+          brand_id                  : resp[0].brand_id ? resp[0].brand_id : '0',
+          sub_category_id           : resp[0].sub_category_id ? resp[0].sub_category_id : '0',
+          category_id               : resp[0].category_id ? resp[0].category_id : '0',
+          vat_included              : resp[0].vat_included,
+          selling_out_of_inventory  : resp[0].selling_out_of_inventory,
+          perishable                : resp[0].perishable,
+          base_factor               : resp[0].base_factor,
+          unit_id                   : resp[0].unit_id,
         });
         ts.imgData          = resp[0].image ? resp[0].image : '';
         const id  = resp[0].category_id ? resp[0].category_id : 0;
@@ -282,8 +289,8 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
       ts.modalForm.setValue({
         unit_id       : item.unit_id,
         factor        : item.factor,
-        unit_price    : values.sale_price,
         purchase_cost : item.purchase_cost,
+        unit_name     : item.unit_name,
         sale_price    : item.sale_price,
       });
       ts.selectEdit = item;
@@ -297,10 +304,12 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
   }
 
   categoryChange(e: number): void {
-    const ts  = this;
+    const ts    = this;
     ts.subCateg = [];
     ts.showSpinner();
-    ts.customForm.get('sub_category_id').setValue('');
+    if(!ts.editing){
+      ts.customForm.get('sub_category_id').setValue('0');
+    }
     ts.cateSer.getChids({uid: e}).subscribe((resp) => {
       ts.hideSpinner();
       ts.subCateg = resp;
@@ -314,22 +323,21 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
     ts.selectUnit = null;
     if(!ts.editModal){
       ts.modalForm.setValue({
-        unit_id       : '',
+        unit_id       : ts.mUnits[0].id,
         factor        : 0,
-        unit_price    : values.sale_price,
         purchase_cost : 0,
+        unit_name     : '',
         sale_price    : 0,
       });
+      ts.onChangeUnits(ts.mUnits[0].id);
+    }else {
+      ts.onUnitCost();
     }
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       const ts      = this;
       const values  = ts.modalForm.getRawValue() as ProductsMeasurementUnits;
       if(result === 'Save'){
-        if(values.purchase_cost > values.sale_price){
-          ts.msg.toastMessage('Valor incorrecto.','El precio de venta es inferior al precio de compra.', 3);
-          return ;
-        }
         if(ts.editModal){ // Edition mode
           let item = ts.measurementUnits.find( unit => (unit.unit_id === ts.selectEdit.unit_id));
           if(ts.selectEdit.id >  0){
@@ -359,7 +367,7 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
               unit_id         : ts.selectUnit.id,
               unit_description: ts.selectUnit.unit_description,
               factor          : values.factor,
-              unit_name       : ts.selectUnit.unit_name,
+              unit_name       : values.unit_name,
               abbre_unit      : ts.selectUnit.abbre_unit,
               purchase_cost   : values.purchase_cost,
               sale_price      : values.sale_price,
@@ -375,24 +383,77 @@ export class ItemsFormComponent extends FormSpinnerComponent implements OnInit, 
   onChangeUnits(e: number): void {
     const ts  = this;
     const frm = ts.modalForm;
-    ts.showSpinner();
-    ts.measSer.getAll({uid: e}).subscribe((resp) => {
+    const lunit = ts.mUnits.find(item => item.id == e);
+    if( lunit ) {
 
-      const factor    = resp[0].factor;
-      const unitPrice = parseFloat(frm.get('unit_price').value);
-      let   cost      = unitPrice / factor;
+      const factor    = lunit.factor;
+      // const unitPrice = parseFloat(frm.get('unit_price').value);
+      // let   cost      = unitPrice / factor;
 
-      ts.selectUnit   = resp[0];
-
+      ts.selectUnit   = lunit;
       frm.get('factor').setValue(factor);
-      frm.get('purchase_cost').setValue(cost);
-      frm.get('sale_price').setValue(cost);
+      frm.get('unit_name').setValue(lunit.unit_description);
+      // frm.get('purchase_cost').setValue(cost);
+      // frm.get('sale_price').setValue(cost);
+      ts.onUnitCost();
+    }
+  }
 
-      ts.hideSpinner();
-    }, (err: any) => {
-      console.log(err);
-      ts.hideSpinner();
+  onUnitCost() {
+    const ts            = this;
+    const frm           = ts.modalForm;
+    const frmm          = ts.customForm;
+    const factor        = parseFloat(frm.get('factor').value);
+    const base_factor   = parseFloat(frmm.get('base_factor').value);
+    const purchase_cost = parseFloat(frmm.get('purchase_cost').value);
+    let ucost           = (purchase_cost / base_factor) * factor;
+
+    frm.get('purchase_cost').setValue(ucost);
+
+    if( parseFloat(frm.get('sale_price').value) < ucost) {
+      frm.get('sale_price').setValue(ucost);
+    }
+  }
+
+  onResetForm() {
+    const ts  = this;
+    super.onResetForm(ts.customForm);
+    this.customForm = this.fb.group({
+      sku                       : '',
+      qr_code                   : '',
+      product_name              : '',
+      notes                     : '',
+      shopping_description      : '',
+      description_sales         : '',
+      barcode                   : '',
+      sale_price                : 0,
+      purchase_cost             : 0,
+      tax_sales_id              : ts.taxSale[0].id,
+      tax_bill_id               : ts.taxBill[0].id,
+      initial_stock             : 0,
+      stock                     : 0,
+      percentage_gain           : 25,
+      class_id                  : 1,
+      brand_id                  : '0',
+      category_id               : '0',
+      sub_category_id           : '0',
+      perishable                : false,
+      vat_included              : true,
+      base_factor               : 1,
+      unit_id                   : 1,
+      selling_out_of_inventory  : true,
     });
   }
 
+  onPercentageGain() {
+    const ts    = this;
+    const frm   = ts.customForm;
+    const cost  = parseFloat(frm.get('purchase_cost').value);
+    const perc  = parseFloat(frm.get('percentage_gain').value);
+    let gain    = 0;
+    if(cost > 0 && perc > 0) {
+      gain  = cost + ( cost * (perc / 100));
+      frm.get('sale_price').setValue(gain);
+    }
+  }
 }

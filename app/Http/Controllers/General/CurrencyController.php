@@ -125,7 +125,8 @@ class CurrencyController extends Controller
                 $where  = "a.id={$uid}";
             }
             $sqlStatement =
-                "SELECT a.*, CONCAT(TRIM(b.CurrencyISO),' - ',TRIM(b.CurrencyName)) CurrencyName, b.CurrencyISO
+                "SELECT a.*, CONCAT(TRIM(b.CurrencyISO),' - ',TRIM(b.CurrencyName)) CurrencyName, b.CurrencyISO,
+                b.image, b.Symbol
                  FROM {$table}currency_sys a
                  LEFT JOIN {$table}currency b ON a.currency_id = b.id";
             $sqlStatementCount =

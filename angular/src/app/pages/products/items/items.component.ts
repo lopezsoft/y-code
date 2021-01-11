@@ -74,6 +74,8 @@ export class ItemsComponent extends JqxCustomGridComponent implements OnInit, Af
       { name: 'class_id', type: 'number' },
       { name: 'average_cost', type: 'float' },
       { name: 'recipe', type: 'bool' },
+      { name: 'selling_out_of_inventory', type: 'bool' },
+      { name: 'vat_included', type: 'bool' },
       { name: 'perishable', type: 'bool' },
       { name: 'id', type: 'number' }
     ];

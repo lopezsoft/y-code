@@ -1,0 +1,341 @@
+// @import 'themes';
+
+// @import '~@nebular/theme/styles/globals';
+
+// @include nb-install() {
+//   @include nb-theme-global();
+// };
+/* You can add global styles to this file, and also import other style files */
+
+.title-center-black {
+  color: #111e2c !important;
+}
+
+.center-column {
+  margin     : 0 auto;
+  padding-top: 50px;
+}
+
+.loginform {
+  max-width       : 450px;
+  background-color: #1e2833;
+  color           : white;
+  padding         : 25px 15px;
+  border-radius   : 6px;
+  // margin: auto;
+  box-shadow      : 3px 3px 4px rgba(0, 0, 0, 0.2);
+
+  .btn-info {
+    border-radius: 28px;
+    background   : #214a80;
+    border       : 1px solid #ffffff;
+
+    &:hover {
+      background: #3c587c;
+    }
+
+    &:active {
+      background: #214a80;
+    }
+  }
+
+  .illustration {
+    text-align: center;
+    padding   : 15px;
+    font-size : 96px;
+    color     : #2980ef;
+  }
+
+
+  input {
+    background-color: rgba(255, 255, 255, 0.274);
+    color           : white;
+    border-radius   : 4px;
+
+    &:focus {
+      background-color: rgba(255, 255, 255, 0.274);
+      color           : white;
+    }
+
+    &::placeholder {
+      color: white;
+    }
+  }
+
+}
+
+.fas-fa-ok-thumbs {
+  color: orangered;
+  padding  : 6px;
+  &:before {
+    // font-family: FontAwesome;
+    // content    : '\f164';
+    font-size  : 22px !important;
+    color      : green;
+  }
+}
+
+
+.fas-fa-ok {
+  color: green;
+  padding  : 6px;
+  &:before {
+    // font-family: FontAwesome;
+    // content    : '\f00c';
+    font-size  : 22px !important;
+    color      : green;
+  }
+}
+
+
+.fas-fa-warning {
+  color: orangered;
+  padding  : 6px;
+  &:before {
+    // font-family: FontAwesome;
+    // content    : '\f06a';
+    font-size  : 22px !important;
+    color      : orangered;
+  }
+}
+
+
+.fas-fa-error {
+  color: red;
+  padding  : 6px;
+  &:before {
+    // font-family: FontAwesome;
+    // content    : '\f188';
+    font-size  : 22px !important;
+    color      : red;
+  }
+}
+
+
+.fas-fa-pdf {
+  color: red;
+  padding  : 6px;
+  &:before {
+    // font-family: FontAwesome;
+    // content    : '\f1c1';
+    font-size  : 22px !important;
+    color      : red;
+  }
+}
+
+.fas-fa-xls {
+  color: green;
+  padding  : 6px;
+  &:before {
+    font-size: 22px !important;
+    color    : green;
+  }
+}
+
+.fas-fa-code {
+  color: orangered;
+  padding  : 6px;
+  &:before {
+    font-size: 22px !important;
+    color    : orangered;
+  }
+}
+
+
+
+.fas-fa-print {
+  color: blueviolet;
+  padding  : 6px;
+  &:before {
+    font-size: 22px !important;
+    color    : blueviolet;
+  }
+}
+
+
+.fas-fa-mail {
+  color: blueviolet;
+  padding  : 6px;
+  &:before {
+    // font-family: FontAwesome;
+    // content    : '\f658';
+    font-size  : 22px !important;
+    color      : blueviolet;
+  }
+}
+
+.fas-fa-edit {
+  color    : green;
+  font-size: 22px !important;
+  padding  : 6px;
+}
+
+.fas-fa-delete {
+  color    : red;
+  font-size: 22px !important;
+  padding  : 6px;
+}
+
+.fa-cursor {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.menuExport {
+  padding            : 6px;
+  // background-color: rgba(192, 192, 192, 0.192);
+  height             : 48px;
+  display            : flex;
+  margin-bottom      : 4px;
+}
+
+.radius-button {
+  border-radius: 25px !important;
+}
+
+.space-right {
+  margin-right: 10px
+}
+
+.fas-fa-22 {
+  &:before {
+    // font-family: FontAwesome;
+    font-size  : 22px !important;
+  }
+}
+
+.fas-fa-red {
+  color: red;
+}
+
+.clearColor {
+  background-color: transparent !important;
+  border          : 0px !important;
+}
+
+.myMenu {
+  width      : 44px !important;
+  // margin-left: auto !important;
+}
+
+.margin-left {
+  margin-left: auto !important;
+}
+
+
+.flex {
+  display: flex;
+  padding: 4px;
+}
+
+.float-right {
+  margin-left: auto;
+}
+
+.padding-top-bottom {
+  padding-top   : 4px;
+  padding-bottom: 4px;
+}
+
+.full-screen {
+  width           : 50%;
+  height          : 50%;
+  z-index         : 10000;
+  background-color: rgba(0, 255, 255, 0.151);
+  position        : fixed;
+  margin          : auto;
+}
+
+.aterisk {
+  color        : red;
+  font-weight  : bold;
+  padding-right: 5px;
+}
+
+.asterisk {
+  color        : red;
+  font-weight  : bold;
+  padding-right: 5px;
+}
+
+.select2 {
+  width           : 100% !important;
+  height          : 38px !important;
+
+  .select2-selection__rendered {
+    line-height: 36px !important;
+  }
+  .select2-selection__arrow {
+    height: 36px !important;
+  }
+}
+
+.select2-container {
+  height: 38px !important;
+
+  .select2-selection--single {
+    height: 38px !important;
+  }
+}
+
+.display-none {
+  text-decoration: none !important;
+}
+
+.active-green {
+  color: green;
+  font-weight: bold;
+  padding: 8px !important;
+}
+
+.active-red {
+  color: red;
+  font-weight: bold;
+  padding: 8px !important;
+}
+
+.active-orange {
+  color: orangered;
+  font-weight: bold;
+  padding: 8px !important;
+}
+
+/*
+Full screen Modal
+*/
+.fullscreen-modal {
+  .modal-dialog {
+    width: 100% !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width:none !important;
+  }
+}
+
+#email {
+  text-transform: lowercase;
+}
+
+@media (min-width: 768px) {
+  .fullscreen-modal {
+    .modal-dialog {
+      width: 750px;
+    }
+  }
+}
+@media (min-width: 992px) {
+  .fullscreen-modal {
+    .modal-dialog {
+      width: 970px;
+    }
+  }
+}
+@media (min-width: 1200px) {
+  .fullscreen-modal {
+    .modal-dialog {
+      width: 1170px;
+    }
+  }
+}

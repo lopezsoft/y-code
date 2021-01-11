@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit' | translate | uppercase }} TERMINO</div>
+      <div class="card-body">
+        <form  [formGroup]="customForm">
+          <div class ="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Nombre del termino</label>
+                <input type="text" #focusElement nbInput class="form-control"
+                  formControlName="term_name"  [class.status-danger]="invalidName"  [class.is-invalid]="invalidName" required autofocus>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Atributo</label>
+                <ng-select formControlName = "attribute_id" [virtualScroll] = "true"
+                [class.status-danger]="invalidAttributeId"  [class.is-invalid]="invalidAttributeId" required>
+                  <ng-option *ngFor="let attr of attributes" [value] ="attr.id">
+                    {{ attr.attribute_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div div class="col-md-6">
+              <label>Color</label>
+              <input type="color" formControlName="term_color" class="form-control">
+            </div>
+            <div div class="col-md-6">
+              <label>Descripción</label>
+              <textarea formControlName="term_description"
+                class="form-control">
+              </textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div div class="col-md-6">
+              <div class="form-group">
+                <label for="file">Seleccionar imagen</label>
+                <input type="file" id="file" #uploadFile
+                (change)="uploadImage($event)" class="form-control-file">
+              </div>
+            </div>
+            <div div class="col-md-6">
+              <img width="128px" [src]="imgData"  class="img-thumbnail" fallimg>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose"
+          (closeEvent)="cancel()" (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()">
+        </app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,7 @@ class ItemsController extends Controller
                 $data       = [
                     'class_id'              => $records->class_id,
                     'tax_sales_id'          => $records->tax_sales_id,
+                    'unit_id'               => $records->unit_id,
                     'tax_bill_id'           => $records->tax_bill_id,
                     'sku'                   => $records->sku ?? '',
                     'qr_code'               => $records->qr_code ?? '',
@@ -37,6 +38,7 @@ class ItemsController extends Controller
                     'barcode'               => $records->barcode ?? '',
                     'state'                 => $records->state ?? 1,
                     'sale_price'            => $records->sale_price ?? 0,
+                    'base_factor'           => $records->base_factor ?? 1,
                     'purchase_cost'         => $records->purchase_cost ?? 0,
                     'stock_min'             => $records->stock_min ?? 0,
                     'stock_max'             => $records->stock_max ?? 0,
@@ -124,6 +126,18 @@ class ItemsController extends Controller
         }
     }
 
+    public function getAllProducts(Request $request)
+    {
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $db         = $company->database_name.'.';
+        $point_of_sale_id   = $request->point_of_sale_id ?? 0;
+
+        $query      = DB::select("CALL {$db}sp_select_products_all(?)",[$point_of_sale_id]);
+
+        return $model->getReponseJson($query, count($query));
+    }
+
     public function select(Request $request)
     {
         $model  = new MasterModel();
@@ -204,7 +218,7 @@ class ItemsController extends Controller
                         $model->audit($user->id, $ip,  $table, 'INSERT', $data);
                     }
                 }else if($query){
-                    DB::delete("delete {$table} where id = ?", [$query->id]);
+                    DB::delete("delete from {$table} where id = ?", [$query->id]);
                     $model->audit($user->id, $ip,  $table, 'DELETE', $query);
                 }
 
@@ -232,7 +246,7 @@ class ItemsController extends Controller
                         $model->audit($user->id, $ip,  $table, 'INSERT', $data);
                     }
                 }else if($query){
-                    DB::delete("delete {$table} where id = ?", [$query->id]);
+                    DB::delete("delete from {$table} where id = ?", [$query->id]);
                     $model->audit($user->id, $ip,  $table, 'DELETE', $query);
                 }
 
@@ -260,7 +274,7 @@ class ItemsController extends Controller
                         $model->audit($user->id, $ip,  $table, 'INSERT', $data);
                     }
                 }else if($query){
-                    DB::delete("delete {$table} where id = ?", [$query->id]);
+                    DB::delete("delete from {$table} where id = ?", [$query->id]);
                     $model->audit($user->id, $ip,  $table, 'DELETE', $query);
                 }
 
@@ -271,6 +285,7 @@ class ItemsController extends Controller
                             'id'            => $unit->id,
                             'unit_id'       => $unit->unit_id,
                             'purchase_cost' => $unit->purchase_cost,
+                            'unit_name'     => $unit->unit_name,
                             'sale_price'    => $unit->sale_price,
                         ];
                         $model->updateData($data,$db.'product_units_measure', $ip);
@@ -278,6 +293,7 @@ class ItemsController extends Controller
                         $data   = [
                             'product_id'    => $id,
                             'unit_id'       => $unit->unit_id,
+                            'unit_name'     => $unit->unit_name,
                             'purchase_cost' => $unit->purchase_cost,
                             'sale_price'    => $unit->sale_price,
                             'state'         => 1,
@@ -286,7 +302,7 @@ class ItemsController extends Controller
                         $model->audit($user->id, $ip, $db.'product_units_measure', 'INSERT', $data);
                     }
                 }
-
+                $table          = $db.'products';
                 if(isset($records->imgdata)){
                     //get the base-64 from data
                     $base64_str = substr($records->imgdata, strpos($records->imgdata, ",") + 1);

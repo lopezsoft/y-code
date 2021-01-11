@@ -67,3 +67,20 @@ ALTER TABLE `products`
 /**************************************** 25-09-2020 ***************************/
 ALTER TABLE `products`
 	ADD COLUMN `image` VARCHAR(250) NULL DEFAULT NULL AFTER `shopping_description`;
+
+
+/*************************** 09-10-2020 *****************************************/
+
+ALTER TABLE `persons`
+	ADD COLUMN `type_organization_id` INT NOT NULL DEFAULT 1 AFTER `person_type_id`,
+	ADD INDEX `type_organization_id` (`type_organization_id`),
+	ADD CONSTRAINT `FK_persons_type_organization` FOREIGN KEY (`type_organization_id`) REFERENCES `type_organization` (`id`) ON UPDATE CASCADE;
+
+ALTER TABLE `tb_time_limit`
+	ADD COLUMN `state` SMALLINT(1) NOT NULL DEFAULT 1 AFTER `active`;
+
+ALTER TABLE `means_payment`
+	ADD COLUMN `state` SMALLINT(1) NOT NULL DEFAULT 1 AFTER `active`;
+
+ALTER TABLE `persons`
+	ADD COLUMN `is_secondary` TINYINT(1) NOT NULL DEFAULT 0 AFTER `state`;

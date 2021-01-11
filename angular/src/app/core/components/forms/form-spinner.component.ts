@@ -13,7 +13,6 @@ import { FormComponent } from './form.component';
 import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class FormSpinnerComponent extends FormComponent implements OnInit, AfterViewInit {
-
   constructor(public fb: FormBuilder,
               public msg: MessagesService,
               public api: ApiServerService,
@@ -25,7 +24,8 @@ export class FormSpinnerComponent extends FormComponent implements OnInit, After
     super(fb, msg, api, router, translate, aRouter);
   }
 
-  showSpinner(): void {
+  showSpinner(mask: string = ''): void {
+    this.maskSpinner = mask;
     this.spinner.show(undefined,
       {
         type: 'ball-triangle-path',

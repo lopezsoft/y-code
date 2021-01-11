@@ -55,7 +55,7 @@ class MeasurementUnitsController extends Controller
             $db     = $company->database_name.'.';
             $sqlStatement =
                 "SELECT a.*, b.base_unit_id, b.unit_description, b.factor,
-                c.unit_name, c.abbre_unit
+                c.unit_name AS unit_base_name, c.abbre_unit
                 FROM {$db}product_units_measure AS a
                 LEFT JOIN {$db}measurement_units AS b ON a.unit_id = b.id
                 LEFT JOIN {$db}standard_measurement_units AS c ON b.base_unit_id = c.id

@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ title | uppercase}}</div>
+      <div class="card-body">
+        <form [formGroup]="customForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}
+                  </span>{{ 'pointsofsale.name' | translate }}</label>
+                <input type="text" nbinput autofocus #focusElement required [class.is-invalid]="invalidBranchName"
+                  class="form-control" formControlName="branch_name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}
+                  </span>{{ 'pointsofsale.branch_name' | translate }}</label>
+                <ng-select fullWidth formControlName="branch_id" required
+                  [class.is-invalid]="invalidBranchId" [virtualScroll]="true">
+                  <ng-option *ngFor="let cur of branchs" [value]="cur.id">
+                    {{ cur.branch_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>{{ 'pointsofsale.address' | translate }}</label>
+                <textarea class="form-control"  formControlName="address"> </textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'pointsofsale.phone' | translate }}</label>
+                <input type="text" minlength="7" class="form-control" formControlName="mobile">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'pointsofsale.mobile' | translate }}</label>
+                <input type="text" class="form-control" formControlName="phone" name="phone">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose"
+          (closeEvent)="cancel()" (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()">
+        </app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

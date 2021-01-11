@@ -10,6 +10,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ThemeModule } from '../../@theme/theme.module';
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuModule } from 'jqwidgets-ng/jqxmenu';
+import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
+import{ jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
 
 
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -32,6 +34,8 @@ export const customCurrencyMaskConfig = {
   nullable      : true
 };
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 /*
 * Translation
 */
@@ -43,17 +47,27 @@ import { ShoppingComponent } from './../shopping/shopping.component';
 import {
   ProvidersComponent,
   ProviderFormComponent,
+  ShoppingCreateComponent,
+  InvoicesComponent,
+  DetailEditComponent,
 } from './index';
+import { InvoicesFormComponent } from './invoices/invoices-form.component';
 
 @NgModule({
   declarations: [
     ShoppingComponent,
     ProvidersComponent,
     ProviderFormComponent,
+    InvoicesComponent,
+    ShoppingCreateComponent,
+    InvoicesFormComponent,
+    DetailEditComponent,
   ],
   imports: [
     CommonModule,
+    NgxSpinnerModule,
     ThemeModule,
+    jqxDataTableModule,
     NbCardModule,
     NgbModule,
     CoreModule,
@@ -67,6 +81,7 @@ import {
     NgSelectModule,
     NbFormFieldModule,
     jqxGridModule,
+    jqxTabsModule,
     NbActionsModule,
     NbCheckboxModule,
     NbDatepickerModule,

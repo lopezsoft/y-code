@@ -45,11 +45,13 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
   ngOnInit(): void {
     const ts  = this;
     ts.currentTheme = ts.themeService.currentTheme;
-    const
-      closeApp    = ts.translate.instant('menu.user.closeApp');
-    const
-      profileApp  = ts.translate.instant('menu.user.profile');
-    ts.userMenu = [ { title: profileApp }, { title: closeApp} ];
+    ts.translate.onLangChange.subscribe(() => {
+      const
+        closeApp    = ts.translate.instant('menu.user.closeApp');
+      const
+        profileApp  = ts.translate.instant('menu.user.profile');
+      ts.userMenu = [ { title: profileApp }, { title: closeApp} ];
+    });
 
     const { xl } = ts.breakpointService.getBreakpointsMap();
     ts.themeService.onMediaQueryChange()

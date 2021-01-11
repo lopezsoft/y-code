@@ -34,7 +34,7 @@ export class ProvidersComponent  extends JqxCustomGridComponent implements OnIni
   ngAfterViewInit(): void {
     const ts  = this;
     ts.crudApi        = {
-      create  : '/persons/create',
+      create  : '/persons/create/provider',
       read    : '/persons/providers',
       update  : '/persons/update/',
       delete  : '/persons/delete/'
@@ -56,7 +56,6 @@ export class ProvidersComponent  extends JqxCustomGridComponent implements OnIni
       { text: 'Mostrar nombre como', datafield: 'full_name', align: 'center'},
       { text: 'DNI', datafield: 'dni', align: 'center', minWidth: 100, cellsalign: 'right'},
       { text: 'Empresa', datafield: 'company_name', align: 'center'},
-      { text: 'Tipo', datafield: 'description', align: 'center'},
     ];
 
     this.prepareGrid();

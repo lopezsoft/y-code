@@ -1,0 +1,69 @@
+<!--Login Page Starts-->
+<section id="login">
+  <div class="row auth-height full-height-vh m-0">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body auth-img">
+            <div class="row m-0">
+              <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center auth-img-bg p-3">
+                <img src="assets/img/gallery/login.png" alt="" class="img-fluid" width="300" height="230">
+              </div>
+              <div class="col-lg-6 col-12 px-4 py-3">
+                <h4 class="mb-2 card-title">{{ 'login.headerForm' | translate }}</h4>
+                <p>{{ 'login.welcome' | translate}}</p>
+                <form [formGroup]="loginForm">
+                  <div class="form-group">
+                    <input type="email" formControlName="email" class="form-control" [placeholder]="placeholderEmail"
+                    [class.is-invalid]="invalidEmail" autofocus required>
+                    <div *ngIf="invalidEmail && (lf.email.invalid || lf.email.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> {{ 'general.isRequired' | translate }}</div>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" formControlName="password" class="form-control" [placeholder]="placeholderPassw"
+                    [class.is-invalid]="invalidPassword" required>
+                    <div *ngIf="invalidPassword && (lf.password.invalid || lf.password.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> {{ 'general.isRequired' | translate }}
+                    </div>
+                  </div>
+                  <div class="d-sm-flex justify-content-between mb-3 font-small-2">
+                    <div class="remember-me mb-2 mb-sm-0">
+                      <div class="checkbox auth-checkbox">
+                        <input type="checkbox" formControlName="remember_me" class="form-control" id="rememberMe">
+                        <label for="rememberMe"><span class="font-small-2 mb-3 font-weight-normal">{{ 'login.rememberMe' | translate }}</span></label>
+                      </div>
+                    </div>
+                    <!-- <a [routerLink]="['/auth/forgotpassword']">Forgot Password?</a> -->
+                  </div>
+                  <button class="btn btn-info btn-block btn-lg" type="submit" (click) ="onSave()" [disabled]="loading">
+                    <strong *ngIf="!loading">{{ 'login.button.startNow' | translate }}</strong>
+                    <strong *ngIf="loading">{{ 'login.button.loggingIn' | translate }}</strong>
+                    <i [ngClass]="{'fa-sign-in-alt':!loading, 'fa-spinner fa-spin':loading }" class="fas" style="text-align: left;padding-left: 10px;">
+                    </i>
+                  </button>
+                  <label style="padding: 2px;font-size: 12px;">{{'login.label.youHaveNotRegistered' | translate}}
+                    <a [routerLink]="['/auth/register']"><strong>{{'login.label.createAccount' | translate}}</strong></a>
+                  </label>
+                  <br>
+                  <label style="padding: 2px;font-size: 12px;">{{'login.label.forgotYourPassword' | translate}}
+                    <a [routerLink]="['/auth/forgotpassword']"><strong>{{'login.label.recoverPassword' | translate}}</strong></a>
+                  </label>
+                </form>
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="text-primary m-0">Or Login With</h6>
+                  <ngx-spinner></ngx-spinner>
+                  <div class="login-options">
+                    <a class="btn btn-sm btn-social-icon btn-facebook mr-1"><span class="fa fa-facebook"></span></a>
+                    <a class="btn btn-sm btn-social-icon btn-twitter mr-1"><span class="fa fa-twitter"></span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Login Page Ends-->

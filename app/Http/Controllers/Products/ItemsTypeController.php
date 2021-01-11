@@ -225,10 +225,4 @@ class ItemsTypeController extends Controller
             return $model->getErrorResponse('Error en el servidor.');
         }
     }
-
-    private function putFile($company_id, $data, $imgname){
-        $path   = "{$company_id}/products/terms/".$imgname;
-        Storage::disk('company')->put($path, $data);
-        return Storage::url($path);
-    }
 }

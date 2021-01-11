@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header"><h4 class="card-title">{{ title | uppercase }}</h4></div>
+  <div class="card">
+    <div class="menuExport">
+      <div class="space-right">
+        <button  class="btn btn-danger round mr-1 mb-1" (click)="searchQuery()" [disabled]="loading">
+          <i class="fa fa-sync mr-1 fas-fa-22"></i>
+        </button>
+      </div>
+      <div class="myMenu space-right">
+        <jqxMenu #myMenu [height]="36" class="clearColor" (onItemclick)="itemclick($event)">
+            <ul>
+              <li id='Exports'>
+                <i class="fas fa-cog fas-fa-22 fas-fa-red"></i>
+                <a href="javascript:void(0)"></a>
+                <ul style="width: 200px;">
+                  <li><a href="javascript:void(0)"><i class="fas fa-file-excel fas-fa-xls"></i>{{ 'export.excel' | translate }}</a></li>
+                  <li><a href="javascript:void(0)"><i class="fas fa-file-csv fas-fa-xls"></i>{{ 'export.csv' | translate }}</a></li>
+                  <li><a href="javascript:void(0)"><i class="fas fa-file-excel fas-fa-xls"></i>{{ 'export.xml' | translate }}</a></li>
+                  <li type="separator"></li>
+                  <li><a href="javascript:void(0)"><i class="fas fa-file-pdf fas-fa-pdf"></i>{{ 'export.pdf' | translate }}</a></li>
+                  <li type="separator"></li>
+                  <li><a href="javascript:void(0)"><i class="fas fa-file-code fas-fa-code"></i>{{ 'export.html' | translate }}</a></li>
+                  <li><a href="javascript:void(0)"><i class="fas fa-file-code fas-fa-code"></i>{{ 'export.json' | translate }}</a></li>
+                  <li><a href="javascript:void(0)"><i class="fas fa-file-code fas-fa-code"></i>{{ 'export.tsv' | translate }}</a></li>
+                  <li type="separator"></li>
+                  <li><a href="javascript:void(0)"><i class="fas fa-print fas-fa-print"></i>{{ 'export.print' | translate }}</a></li>
+                </ul>
+              </li>
+            </ul>
+        </jqxMenu>
+      </div>
+      <div class="margin-left space-right">
+        <button class="btn btn-success round mr-1 mb-1" (click)="createData()" [disabled]="loading">
+          <i class="fa fa-plus mr-1 fas-fa-22"></i>
+          {{ 'buttons.new' | translate }}
+        </button>
+      </div>
+      <div *ngIf="useImport">
+        <button  class="btn btn-success round mr-1 mb-1" (click)="importData()" [disabled]="loading">
+          <i class="fa fa-upload mr-1 fas-fa-22"></i>
+          {{ 'buttons.import' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <fieldset>
+        <div class="input-group">
+          <input type="text" #searchField class="form-control" [placeholder]="placeholderSearch" (keyup)="inputKey($event)" autofocus>
+          <div class="input-group-append">
+            <button class="btn btn-primary" (click)="searchQuery()" [disabled]="loading">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </fieldset>
+      <jqxGrid #customGrid width="100%" [disabled]="loading" [auto-create]="false" (onCellselect)="cellClick($event)"
+        (onBindingcomplete)="Bindingcomplete($event)">
+      </jqxGrid>
+    </div>
+  </div>
+</div>

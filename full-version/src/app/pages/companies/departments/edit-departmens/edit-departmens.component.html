@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit' | translate | uppercase }} {{ 'departments.title' | translate | uppercase}}</div>
+      <div class="card-body">
+        <form [formGroup]="customForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{ 'departments.name' | translate }}</label>
+                <input type="text" #focusElement formControlName="department_name" [class.is-invalid]="invalidName"
+                  required autofocus
+                  class="form-control">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{ 'departments.branch' | translate }}</label>
+                <ng-select formControlName="branch_office_id" required
+                  [class.is-invalid]="invalidBranch" [virtualScroll]="true">
+                  <ng-option *ngFor="let branch of branch_office" [value]="branch.id">
+                    {{ branch.branch_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose"
+          (closeEvent)="cancel()" (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()">
+        </app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

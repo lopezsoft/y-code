@@ -21,6 +21,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: { icon: 'cash-register', pack: 'fas' },
     children: [
       {
+        title: 'Punto de venta',
+        icon: { icon: 'store', pack: 'fas' },
+        link: '/pages/sales/pos',
+      },
+      {
         title: 'Clientes',
         icon: { icon: 'id-card', pack: 'far' },
         link: '/pages/sales/customers',
@@ -28,9 +33,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ]
   },
   {
-    title: 'Compras',
+    title: 'Compras y gastos',
     icon: { icon: 'hand-holding-usd', pack: 'fas' },
     children: [
+      {
+        title: 'Compras',
+        icon: { icon: 'shopping-cart', pack: 'fas' },
+        link: '/pages/shopping/invoices',
+      },
       {
         title: 'Proveedores',
         icon: { icon: 'id-card', pack: 'far' },
@@ -58,7 +68,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/products/brands',
       },
       {
-        title: 'Grupos contables',
+        title: 'Tipos de items',
         icon: { icon: 'calculator', pack: 'fas' },
         link: '/pages/products/groups',
       },
@@ -80,7 +90,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Cuentas contables',
+    title: 'Contabilidad',
     icon: { icon: 'calculator', pack: 'fas' },
     children: [
       {

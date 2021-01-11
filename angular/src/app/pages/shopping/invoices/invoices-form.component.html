@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header>{{ 'general.createEdit'  | translate | uppercase }} FACTURA DE COMPRA  </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="customForm">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Nº. de la factura</label>
+                <input type="text" #focusElement nbinput fullWidth formControlName="invoice_nro"
+                [class.status-danger]="invalidName" [class.is-invalid]="invalidName" required autofocus
+                class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Proveedor</label>
+                <ng-select fullWidth formControlName="provider_id" required>
+                  <ng-option value='0'>Seleccionar proveedor</ng-option>
+                  <ng-option *ngFor="let provider of providers" [value]="provider.id">
+                    {{ provider.dni }} - {{ provider.full_name }} {{ provider.company_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Punto de venta</label>
+                <ng-select fullWidth formControlName="point_of_sale_id" required>
+                  <ng-option value='0'>Seleccionar punto de venta</ng-option>
+                  <ng-option *ngFor="let point_of_sale of points_of_sale" [value]="point_of_sale.id">
+                    {{ point_of_sale.branch_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Forma de pago</label>
+                <ng-select fullWidth formControlName="payment_id" required >
+                  <ng-option *ngFor="let payment of payments" [value]="payment.id">
+                    {{ payment.payment_method }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Fecha de emisión</label>
+                <input class="form-control" type="date" formControlName="admission_date" nbinput fullWidth required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Fecha de pago</label>
+                <input class="form-control" type="date" formControlName="pay_day" nbinput fullWidth required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Subtotal</label>
+                <input currencyMask class="form-control" formControlName="sub_total" nbinput fullWidth required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Descuento</label>
+                <input currencyMask class="form-control" formControlName="discount" nbinput fullWidth>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>IVA</label>
+                <input currencyMask class="form-control" formControlName="vat" nbinput fullWidth>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Cargo/Seguro/Flete</label>
+                <input currencyMask class="form-control" formControlName="freight" nbinput fullWidth>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Total</label>
+                <input currencyMask class="form-control" formControlName="total" ngbTooltip='Total' nbinput fullWidth required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Notas</label>
+                <textarea class="form-control" formControlName="notes" nbinput fullWidth></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <app-footer-form [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()" [showAaveACreate]="false"
+          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()"></app-footer-form>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

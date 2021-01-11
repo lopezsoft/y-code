@@ -19,7 +19,7 @@
             <label><span
                 class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.type_organization' | translate}}</label>
             <ng-select fullWidth formControlName="type_organization_id" required name="type_organization_id"
-              [class.is-invalid]="invalidOrganization" [loading]="typeOrg.length === 0">
+              [class.is-invalid]="invalidOrganization">
               <ng-option *ngFor="let typeOrg of typeOrg" [value]="typeOrg.id">{{ typeOrg.description }}
               </ng-option>
             </ng-select>
@@ -32,7 +32,7 @@
             <label><span
                 class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.identity_document' | translate}}</label>
             <ng-select fullWidth formControlName="identity_document_id" required [class.is-invalid]="invalidIdentity"
-              name="identity_document_id" [class.status-danger]="invalidIdentity" [loading]="identityDocs.length === 0">
+              name="identity_document_id" [class.status-danger]="invalidIdentity">
               <ng-option *ngFor="let docs of identityDocs" [value]="docs.id">
                 {{ docs.document_name }}
               </ng-option>
@@ -52,8 +52,7 @@
             <label><span
                 class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.currency' | translate}}</label>
             <ng-select fullWidth formControlName="currency_id" name="currency_id" required
-              [class.is-invalid]="invalidCurrency" [class.status-danger]="invalidCurrency"
-              [loading]="currency.length === 0">
+              [class.is-invalid]="invalidCurrency" [class.status-danger]="invalidCurrency">
               <ng-option *ngFor="let curre of currency" [value]="curre.id">
                 <img height="15" width="15" [src]="'assets/flags/'+curre.image" /> {{ curre.CurrencyName }}
               </ng-option>
@@ -65,7 +64,7 @@
             <label><span
                 class="asterisk">{{ 'general.asterisk' | translate }}</span>{{'companies.country' | translate}}</label>
             <ng-select fullWidth formControlName="country_id" required [class.is-invalid]="invalidCountry"
-              name="country_id" [class.status-danger]="invalidCountry" [loading]="countries.length === 0">
+              name="country_id" [class.status-danger]="invalidCountry">
               <ng-option *ngFor="let country of countries" [value]="country.id">
                 <img height="15" width="15" [src]="'assets/flags/'+country.image" /> {{ country.country_name }}
               </ng-option>
@@ -126,6 +125,18 @@
             <input type="number" min="0" [placeholder]="placeholderWeb" nbInput fullWidth
               formControlName="number_employees">
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div div class="col-md-6">
+          <div class="form-group">
+            <label for="file">Seleccionar imagen</label>
+            <input type="file" id="file" #uploadFile
+            (change)="uploadImage($event)" class="form-control-file">
+          </div>
+        </div>
+        <div div class="col-md-6">
+          <img width="128px" [src]="imgData"  class="img-thumbnail" fallimg>
         </div>
       </div>
     </form>

@@ -12,6 +12,41 @@ use PhpParser\Node\Stmt\TryCatch;
 
 class MasterModel
 {
+
+    /**
+     * Determina si el usuario conectado es amdinistrador
+     */
+    public function isAdministrator() {
+        $user       = auth()->user();
+        $company    = $this->getCompany();
+        $query  = DB::table('business_users')
+            ->where('company_id', $company->id)
+            ->where('user_id', $user->id)
+            ->first();
+        return ($query->type_id == 1) ? true : false;
+    }
+
+    /**
+     * Ajusta el inventario
+     */
+    function updateStock($sale_id = 0) {
+        DB::select('CALL sp_update_kardex (?)', [$sale_id]);
+    }
+
+    function totalDecimals(string $amount) {
+        $result = 0;
+        if(strlen($amount) > 0) {
+            $value = substr($amount, strpos($amount, ".") + 1);
+            for ($i=0; $i < strlen($value); $i++) {
+                $n  = substr($value,$i,1);
+                if(intval($n) > 0){
+                    $result += 1;
+                }
+            }
+        }
+        return $result;
+    }
+    
     /**
      * Re
      */
@@ -263,10 +298,10 @@ class MasterModel
                 $this->audit($user_id,$ip,$tb,'INSERT',$data);
                 DB::commit();
                 $data = DB::table($tb)
-                    ->get()
-                    ->where($this->primaryKey, $result);
+                    ->where($this->primaryKey, $result)
+                    ->first();
 
-                $result =  $this->getReponseJson($data, $result);
+                $result =  $this->getReponseJson($data, 1);
             } catch (Exception $e) {
                 DB::rollback();
                 $result = $this->getErrorResponse('Error en la base de datos: '. $e->getMessage());

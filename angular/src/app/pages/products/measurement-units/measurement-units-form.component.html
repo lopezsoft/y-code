@@ -15,7 +15,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label> <strong class="asterisk"> {{ 'general.asterisk' | translate }}</strong> Unidad base</label>
-                <ng-select fullWidth name="base_unit_id" formControlName = "base_unit_id" [loading] = "units.length === 0"
+                <ng-select fullWidth name="base_unit_id" formControlName = "base_unit_id"
                 [class.status-danger]="invalidAttributeId"  [class.is-invalid]="invalidAttributeId" required>
                   <ng-option *ngFor="let un of units" [value] ="un.id">
                     {{ un.abbre_unit }} -  {{ un.unit_name }}

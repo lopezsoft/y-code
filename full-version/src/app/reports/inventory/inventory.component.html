@@ -1,0 +1,40 @@
+<!-- Minimal statistics section start -->
+<section id="minimal-statistics">
+  <div class="row">
+    <div class="col-xl-3 col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content cursor" (click)="onInventoryReport(contentpdf)">
+          <div class="card-body">
+            <div class="media">
+              <div class="media-body text-left">
+                <h3 class="mb-2 danger">Inventario</h3>
+                <span>Generar informe</span>
+              </div>
+              <div class="media-right align-self-center">
+                <i class="fas fa-dolly-flatbed danger font-large-2 float-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="customForm">
+    <ng-template #contentpdf let-modal class="fullscreen-modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Visor de documentos</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <object><embed  width="100%" height="100%" [src]="pathfile"></object> -->
+        <ngx-doc-viewer [url]="pathfile" viewer="url" style="width:100%;height:100vh;"></ngx-doc-viewer>
+      </div>
+    </ng-template>
+  </form>
+  <ngx-spinner>
+    <p style="color: white"> {{ maskSpinner }} </p>
+  </ngx-spinner>
+</section>
+<!-- // Minimal statistics section end -->

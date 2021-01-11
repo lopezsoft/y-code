@@ -58,7 +58,6 @@ export class CustomersComponent extends JqxCustomGridComponent implements OnInit
       { text: 'Mostrar nombre como', datafield: 'full_name', align: 'center'},
       { text: 'DNI', datafield: 'dni', align: 'center', minWidth: 100, cellsalign: 'right'},
       { text: 'Empresa', datafield: 'company_name', align: 'center'},
-      { text: 'Tipo', datafield: 'description', align: 'center'},
     ];
 
     this.prepareGrid();

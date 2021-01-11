@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace App\core;
 
 use Exception;
 use Illuminate\Http\File;
@@ -123,45 +123,23 @@ class JReportModel {
 		$this->password_db		= env('DB_PASSWORD', '');
 		$this->host				= env('DB_HOST', '127.0.0.1');
 
-        $this->path_report  = $_SERVER['DOCUMENT_ROOT'].$delim.'reportsjr';
+        $this->path_report  = 'reportsjr';
 
-        if (!is_dir($this->path_report)) {
-            mkdir($this->path_report,0777,true);
-        }
+        Storage::disk('reports')->makeDirectory($this->path_report);
 
         $dir    = $this->path_report.$delim;
 
-        if (!is_dir($dir.$this->path_folder_pdf)) {
-            mkdir($dir.$this->path_folder_pdf,0777,true);
-        }
+        Storage::disk('reports')->makeDirectory($dir.$this->path_folder_pdf);
+        Storage::disk('reports')->makeDirectory($dir.$this->path_folder_doc);
+        Storage::disk('reports')->makeDirectory($dir.$this->path_folder_pptx);
+        Storage::disk('reports')->makeDirectory($dir.$this->path_folder_xls);
+        Storage::disk('reports')->makeDirectory($dir.$this->path_folder_html);
+        Storage::disk('reports')->makeDirectory($dir.$this->path_folder_rtf);
+        Storage::disk('reports')->makeDirectory($dir.$this->path_folder_csv);
 
-        if (!is_dir($dir.$this->path_folder_doc)) {
-            mkdir($dir.$this->path_folder_doc,0777,true);
-        }
 
-        if (!is_dir($dir.$this->path_folder_pptx)) {
-            mkdir($dir.$this->path_folder_pptx,0777,true);
-        }
+        Storage::disk('reports')->makeDirectory('reportsjr'.$delim.'subreports');
 
-        if (!is_dir($dir.$this->path_folder_xls)) {
-            mkdir($dir.$this->path_folder_xls,0777,true);
-		}
-
-        if (!is_dir($dir.$this->path_folder_xlsx)) {
-            mkdir($dir.$this->path_folder_xlsx,0777,true);
-        }
-
-        if (!is_dir($dir.$this->path_folder_html)) {
-            mkdir($dir.$this->path_folder_html,0777,true);
-        }
-
-        if (!is_dir($dir.$this->path_folder_rtf)) {
-            mkdir($dir.$this->path_folder_rtf,0777,true);
-        }
-
-        if (!is_dir($dir.$this->path_folder_csv)) {
-            mkdir($dir.$this->path_folder_csv,0777,true);
-        }
 
         $this->path_folder_pdf	= $dir.'pdf';
 		$this->path_folder_doc	= $dir.'doc';
@@ -172,11 +150,7 @@ class JReportModel {
 		$this->path_folder_rtf 	= $dir.'rtf';
         $this->path_folder_xls 	= $dir.'xls';
 
-        $this->subreport_dir    = $_SERVER['DOCUMENT_ROOT'].$delim.'reportsjr'.$delim.'subreports';
-
-        if (!is_dir($this->subreport_dir)) {
-            mkdir($this->subreport_dir,0777,true);
-        }
+        $this->subreport_dir    = 'reportsjr'.$delim.'subreports';
     }
 
 	/**
@@ -192,27 +166,28 @@ class JReportModel {
 	*/
 	public function getReportExport ($reportName, $outputName, $format, $query, $outputFolder = '', $param = []) {
 
-        $outputFolder   = strtolower($outputFolder);
-        $outputName     = strtolower($outputName);
+        $outputFolder   = $outputFolder;
+        $outputName     = $outputName;
         $format         = strtolower($format);
-		//Reporte a Procesar : Este nombre es del reporte creado en JasReport
-		$reportName			= $this->path_report.$this->path_delim.$reportName;
+        //Reporte a Procesar : Este nombre es del reporte creado en JasReport
+        $path_root          =  public_path().$this->path_delim;
+		$reportName			=  $path_root.$this->path_report.$this->path_delim.$reportName;
 
 		//Parametro en caso de que el reporte no este parametrizado
 
 		if(count($param) == 0){
 			$paramreport	= array(
                 'SQL_PARAM' 	=> $query,
-                'HOME_DIR' 	    => $_SERVER['DOCUMENT_ROOT'].$this->path_delim,
-                'R_MARKETING'   => 'Matias App',
-				'SUBREPORT_DIR' => $this->subreport_dir.$this->path_delim
+                'HOME_DIR' 	    => $path_root,
+                'R_MARKETING'   => 'Y-Code App',
+				'SUBREPORT_DIR' => $path_root.$this->subreport_dir.$this->path_delim
 			);
 		}else{
 			$paramreport	= array(
                 'SQL_PARAM' 	=> $query,
-                'R_MARKETING'   => 'Matias App',
-				'HOME_DIR' 	    => $_SERVER['DOCUMENT_ROOT'].$this->path_delim,
-				'SUBREPORT_DIR' => $this->subreport_dir.$this->path_delim
+                'R_MARKETING'   => 'Y-Code App',
+				'HOME_DIR' 	    => $path_root,
+				'SUBREPORT_DIR' => $path_root.$this->subreport_dir.$this->path_delim
             );
 
 			foreach($param as $key => $value){
@@ -259,18 +234,12 @@ class JReportModel {
             if(strlen($outputFolder) > 0){
                 $output_report  = $output.$outputFolder.$this->path_delim;
             }
-			if(!is_dir($output_report)){
-				mkdir($output_report,0777,true);
-			}
-
+            Storage::disk('reports')->makeDirectory($output_report);
 			$jasper = new JasperPHP;
 			// Compile a JRXML to Jasper
 			$jasper->compile($reportName.'.jrxml')->execute();
 
-            // print_r($paramreport);
-            // print_r($reportName);
-            // print_r($output_report.$outputName);
-
+            $output_report  = public_path('storage/').$output_report;
 			$jasper->process(
 				$reportName.'.jasper',
 				$output_report.$outputName,
@@ -281,11 +250,12 @@ class JReportModel {
 					'username' 	=> $this->username_db,
 					'host' 		=> $this->host,
 					'database' 	=> $this->database_name,
+					'password' 	=> $this->password_db,
 					'port' 		=> $this->port
 				)
             )->execute();
 
-            $output     = substr($output_report, strpos($output_report,'reportsjr'));
+            $output     = Storage::url(substr($output_report, strpos($output_report,'reportsjr')));
 
             return response()->json([
                 'success'   => true,
@@ -295,10 +265,10 @@ class JReportModel {
 		} catch (Exception $e) {
 			// Depuración de errores
             exec($jasper->output().' 2>&1', $output_error);
-
+            $msg    = $output_error[0];
             return response()->json([
                 'success'   => false,
-                'message'   => $e->getMessage(),
+                'message'   => $output_error[0],
             ], 500);
 		}
 	}

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { JsonResponse } from 'src/app/interfaces';
 
 import { ApiServerService } from '../../utils/api-server.service';
-import { Persons, TypePersons} from '../../models/general-model';
+import { TimeLimit, MeansPayment, Persons, TypePersons} from '../../models/general-model';
 
 
 @Injectable({
@@ -25,6 +25,14 @@ export class PersonsService {
 
   }
 
+  getCustomersAll(): Observable<Persons[]> {
+    const ts  = this;
+    return ts.api.get('/persons/customers/all')
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
+
+  }
 
   getCustomers(params: any): Observable<Persons[]> {
     const ts  = this;
@@ -43,6 +51,29 @@ export class PersonsService {
       }));
   }
 
+  getTimeLimit(params: any): Observable<TimeLimit[]> {
+    const ts  = this;
+    return ts.api.get('/timelimit', params)
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
+  }
+
+  getMeansPayment(params: any): Observable<MeansPayment[]> {
+    const ts  = this;
+    return ts.api.get('/meanspayment', params)
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
+  }
+
+  getTypePersonsCustomers(params: any): Observable<TypePersons[]> {
+    const ts  = this;
+    return ts.api.get('/typepersons/customers', params)
+      .pipe( map ( (resp: JsonResponse ) => {
+        return resp.records;
+      }));
+  }
 
   getProviders(params: any): Observable<Persons[]> {
     const ts  = this;
