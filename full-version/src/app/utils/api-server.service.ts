@@ -20,7 +20,7 @@ export class ApiServerService {
   private getHeaders(): HttpHeaders{
     const
       headers = new HttpHeaders()
-        // .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Accept', 'application/json')
         .set('Access-Control-Allow-Origin', '*')
         .set('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
     return  headers;

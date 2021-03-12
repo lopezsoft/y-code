@@ -5,9 +5,7 @@
 
 export const environment = {
   production: false,
-  // APIURL    : 'http://y-code/api/v1',
-  // APPURL    : 'http://y-code/',
-  APIURL    : 'https://y-code.lopezsoft.net.co/api/v1',
-  APPURL    : 'https://y-code.lopezsoft.net.co',
+  APIURL    : 'http://y-code/api/v1',
+  APPURL    : 'http://y-code/',
   APIJWT    : 'y-code-jwt'
 };

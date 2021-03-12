@@ -90,7 +90,7 @@ export class LoginComponent extends FormComponent implements OnInit {
           ts.hideSpinner();
           ts.msg.toastMessage(lang.instant('general.error'), err.error.message, 4);
           setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
           }, 2000);
           ts.onValidateForm(me);
         });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\shopping;
+namespace App\Http\Controllers\Shopping;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -77,7 +77,7 @@ class ShoppingController extends Controller
                 ];
 
                 $db     =  $company->database_name.".";
-                
+
                 if($request->warehouse_id > 0) {
                     $table      = "{$db}invoices";
                     $id         = DB::table($table)->insertGetId($data);
