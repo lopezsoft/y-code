@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class MasterController extends Controller
 {
+    public function getUserTypes(){
+			$where      = [
+					'active'    => 1
+			];
+			$model      = new MasterModel();
+			$table      = 'user_types';
+			return $model->getTable($table, '', 0, 30, $where);
+    }
+
     public function getClasOfProducts(){
         $where      = [
             'active'    => 1

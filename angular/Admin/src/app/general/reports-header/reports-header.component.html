@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit' | translate | uppercase }} {{ 'Encabezado de informes' | uppercase  }}</div>
+      <div class="card-body">
+        <form  [formGroup]="customForm">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Sede/Sucursal</label>
+                <ng-select formControlName="branch_office_id" [virtualScroll]="true">
+                  <ng-option *ngFor="let branch of branchs" [value]="branch.id">
+                    {{ branch.branch_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <quill-editor  formControlName="line1" ></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <quill-editor  formControlName="line2" ></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <quill-editor  formControlName="foot" ></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div div class="col-md-6">
+              <div class="form-group">
+                <label for="file">Seleccionar imagen</label>
+                <input type="file" id="file" #uploadFile
+                (change)="uploadImage($event)" class="form-control-file">
+              </div>
+            </div>
+            <div div class="col-md-6">
+              <img width="128px" [src]="imgData"  class="img-thumbnail" fallimg>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()"
+                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()" [maskSpinner]="maskSpinner"></app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

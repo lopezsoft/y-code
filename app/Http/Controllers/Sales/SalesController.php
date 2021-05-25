@@ -6,11 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ReportSales;
 use App\Core\MasterModel;
+use App\Models\Sales\Sales;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
+
+		public function getCheckin(Request $request)
+		{
+			$model	= new Sales();
+			
+			return $model->getCheckin($request);
+		}
     /**
      * Guarda las facturas o documentos electronicos
      */
@@ -60,11 +68,13 @@ class SalesController extends Controller
                 }
 
                 // Resolución de facturación
-                $resolution     = DB::select("select * from {$db}resolutions
-                where active = ? and type_document_id = ? and point_of_sale_id = ? limit 1", [1, $records->invoice_type_id, $records->point_of_sale_id]);
+                $resolution     = DB::table("{$db}resolutions")
+																	->where("id",  $records->invoice_type_id)
+																	->where("active",  1)
+																	->first();
                 if($resolution){
-                    DB::beginTransaction();
-                    $resolution = $resolution[0];
+										DB::beginTransaction();
+										$records->invoice_type_id	= $resolution->type_document_id;
                     $ip         = $request->ip();
 
                     $sale_master    = DB::table($db.'sales_master')

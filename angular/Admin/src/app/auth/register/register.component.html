@@ -1,0 +1,66 @@
+<!--Registration Page Starts-->
+<section id="regestration">
+  <div class="row account-pages mt-5 mb-5">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body auth-img">
+            <div class="row m-0">
+              <div
+                class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center text-center auth-img-bg py-2">
+                <img src="assets/img/gallery/register.png" alt="" class="img-fluid" width="350" height="230">
+              </div>
+              <div class="col-lg-6 col-md-12 px-4 py-3">
+								<div class="text-center mt-2">
+									<h4 class="card-title mb-2 text-primary">{{ 'register.title' | translate }}</h4>
+									<p class="text-muted">{{ 'register.description' | translate }}</p>
+								</div>
+                <form [formGroup]="customForm">
+                  <h1 class="text-break text-center" style="font-size: 24px;"><strong>{{ 'register.headerForm' | translate }}</strong><br></h1>
+                  <!-- <div class="illustration"><i class="fa fa-user-plus"></i></div> -->
+                  <div class="form-group">
+                    <input class="form-control" type="text"  [placeholder]="placeholderFirstName"
+                      required formControlName="first_name" [class.is-invalid]="invalidFirstName" autofocus>
+											<small class="text-danger" *ngIf="invalidFirstName">{{ 'general.isRequired' | translate }}</small>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="text"  [placeholder]="placeholderLastName"
+                      required="" formControlName="last_name" [class.is-invalid]="invalidLastName">
+											<small class="text-danger" *ngIf="invalidLastName">{{ 'general.isRequired' | translate }}</small>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="email" name="email" [placeholder]="placeholderEmail" required=""
+                      inputmode="email" formControlName="email" [class.is-invalid]="invalidEmail">
+											<small class="text-danger" *ngIf="invalidEmail">{{ 'general.isRequired' | translate }}</small>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="password" name="password" [placeholder]="placeholderPassw" required=""
+                      formControlName="password" [class.is-invalid]="invalidPassword">
+											<small class="text-danger" *ngIf="invalidPassword">{{ 'general.isRequired' | translate }}</small>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="password" name="password_confirmation" [placeholder]="placeholderConfirmPassw" required=""
+                      formControlName="password_confirmation" [class.is-invalid]="invalidConfirmPassword">
+											<small class="text-danger" *ngIf="invalidConfirmPassword">{{ 'general.isRequired' | translate }}</small>
+                  </div>
+                  <button class="btn btn-primary btn-block btn-lg" type="submit" (click) ="onSave()" [disabled]="loading">
+                    <strong *ngIf="!loading">{{ 'register.button.registerNow' | translate }}</strong>
+                    <strong *ngIf="loading">{{ 'register.button.creatingAccount' | translate }}</strong>
+                    <i [ngClass]="{'fa-id-card':!loading, 'fa-spinner fa-spin':loading }" class="fas"
+                    style="text-align: left;padding-left: 10px;">
+                    </i>
+                  </button>
+                  <label style="padding: 2px;font-size: 12px;">{{ 'register.label.youRegistered' | translate }}
+                    <a [routerLink]="['/auth/login']"><strong>{{ 'register.label.login' | translate }}</strong></a>
+                  </label>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	<ngx-spinner> <p style="color: white" > {{ maskSpinner }} </p></ngx-spinner>
+</section>
+<!--Registration Page Ends-->

@@ -1,134 +1,220 @@
 {
-  "Dashboard": "Instrumententafel",
-  "Dashboard 1": "Instrumententafel 1",
-  "Dashboard 2": "Instrumententafel 2",
-  "Color Palette": "Farbpalette",
-  "Inbox": "Posteingang",
-  "Chat": "Chat",
-  "Task Board": "Task Board",
-  "Player": "Spielerin",
-  "Media Player": "Media Player",
-  "Bootstrap Table": "Bootstrap-Tabelle",
-  "Angular": "Angular",
-  "UI Kit": "UI-Kit",
-  "Grid": "Gitter",
-  "Typography": "Typografie",
-  "Syntax Highlighter": "Syntax Textmarker",
-  "Helper Classes": "Helferklassen",
-  "Text Utilities": "Text-Dienstprogramme",
-  "Icons": "Icons",
-  "Feather Icon": "Feder-Symbol",
-  "Font Awesome Icon": "Schriftart-Symbol",
-  "Simple Line Icon": "Einfaches Liniensymbol",
-  "Components": "Komponenten",
-  "Bootstrap": "Bootstrap",
-  "List": "Liste",
-  "Buttons": "Tasten",
-  "NG Buttons": "NG Schaltflächen",
-  "Alerts": "Benachrichtigungen",
-  "Badges": "Abzeichen",
-  "Dropdowns": "Dropdowns",
-  "Input Groups": "Eingangsgruppen",
-  "Media Objects": "Medienobjekte",
-  "Pagination": "Seitennummerierung",
-  "Progress Bars": "Statusbalken",
-  "Modals": "Modale",
-  "Collapse": "Zusammenbruch",
-  "Accordion": "Akkordeon",
-  "Carousel": "Karussell",
-  "Datepicker": "Datumsauswahl",
-  "Popover": "Popover",
-  "Rating": "Bewertung",
-  "Navs": "Navs",
-  "Timepicker": "Zeitmesser",
-  "Tooltip": "Kurzinfo",
-  "Typeahead": "Schreibkopf",
-  "Extra": "Extra",
-  "Sweet Alert": "Süßer Alarm",
-  "Toastr": "Toast",
-  "NoUI Slider": "NoUI-Schieberegler",
-  "Upload": "Hochladen",
-  "Editor": "Herausgeber",
-  "Drag and Drop": "Drag & Drop",
-  "Tour": "Tour",
-  "Forms": "Formen",
-  "Elements": "Elemente",
-  "Inputs": "Eingänge",
-  "Input Group": "Eingangsgruppe",
-  "Input Grid": "Eingabegitter",
-  "Layouts": "Layouts",
-  "Basic Forms": "Grundformen",
-  "Horizontal Forms": "Horizontale Formulare",
-  "Hidden Labels": "Versteckte Etiketten",
-  "Form Actions": "Formularaktionen",
-  "Bordered Forms": "Umrandete Formulare",
-  "Striped Rows": "Gestreifte Zeilen",
-  "Validation": "Validierung",
-  "Wizard": "Magier",
-  "NGX Wizard": "NGX-Assistent",
-  "Tables": "Tabellen",
-  "Regular": "Regulär",
-  "Extended": "Verlängert",
-  "Smart Tables": "Intelligente Tabellen",
-  "Data Tables": "Datentabellen",
-  "Basic": "Basic",
-  "Editing": "Bearbeitung",
-  "Filter": "Filter",
-  "Fullscreen": "Vollbild",
-  "Paging": "Paging",
-  "Pinning": "Pinning",
-  "Selection": "Auswahl",
-  "Sorting": "Sortierung",
-  "Cards": "Karten",
-  "Basic Cards": "Grundkarten",
-  "Advanced Cards": "Erweiterte Karten",
-  "Maps": "Karten",
-  "Google Map": "Google Karte",
-  "Full Screen Map": "Vollbildkarte",
-  "Charts": "Diagramme",
-  "ChartJs": "ChartJs",
-  "Chartist": "Chartist",
-  "NGX Chart": "NGX-Diagramm",
-  "Pages": "Seiten",
-  "Forgot Password": "Passwort vergessen",
-  "Horizontal Timeline": "Horizontale Zeitachse",
-  "Vertical Timeline": "Vertikale Zeitleiste",
-  "Login": "Anmeldung",
-  "Register": "Registrieren",
-  "User Profile": "Benutzerprofil",
-  "Lock Screen": "Sperrbildschirm",
-  "Invoice": "Rechnung",
-  "Error": "Fehler",
-  "Coming Soon": "Demnächst",
-  "Maintenance": "Instandhaltung",
-  "Gallery": "Galerie",
-  "Documentation": "Dokumentation",
-  "Support": "Unterstützung",
-  "Chat NgRx": "Chat NgRx",
-  "Task Board NgRx": "Task Board NgRx",
-  "Calendar": "Kalender",
-  "Select": "Wählen",
-  "Image Cropper": "Bild Cropper",
-  "Input Tags": "Tags eingeben",
-  "Switch": "Schalter",
-  "Avatar": "Benutzerbild",
-  "Swiper": "Swiper",
-  "Radio": "Radio",
-  "Checkbox": "Kontrollkästchen",
-  "Apex": "Apex",
-  "NGX": "NGX",
-  "Authentication": "Authentifizierung",
-  "Center": "Center",
-  "Left": "Links",
-  "Right": "Recht",
-  "Account Settings": "Account Einstellungen",
-  "Search": "Suche",
-  "FAQ": "FAQ",
-  "Knowledge Base": "Wissensbasis",
-  "Charts & Maps": "Diagramme & Karten",
-  "Menu Levels": "Menüebenen",
-  "Second Level": "Zweites Level",
-  "Second Level Child": "Kind der zweiten Stufe",
-  "Third Level 1.1": "Dritte Stufe 1.1",
-  "Third Level 1.2": "Dritte Stufe 1.2"
+  "HEADER": {
+    "SEARCH": "Suche...",
+    "MEGA_MENU": "Mega Menu",
+    "NOTIFICATIONS": {
+      "TITLE": "Benachrichtigungen",
+      "VIEW_ALL": "Alle anzeigen",
+      "LOAD_MORE": "Mehr laden..",
+      "FIRST": {
+        "TITLE": "Ihre Bestellung wird aufgegeben",
+        "TEXT": "Wenn mehrere Sprachen die Grammatik verschmelzen",
+        "TIME": "Vor 3 Minuten"
+      },
+      "SECOND": {
+        "TITLE": "James Lemire",
+        "TEXT": "Es wird wie vereinfachtes Englisch erscheinen.",
+        "TIME": "Vor 1 Stunde"
+      },
+      "THIRD": {
+        "TITLE": "Ihr Artikel wird versendet",
+        "TEXT": "Wenn mehrere Sprachen die Grammatik verschmelzen",
+        "TIME": "Vor 3 Minuten"
+      },
+      "FOUR": {
+        "TITLE": "Salena Layfield",
+        "TEXT": "Als skeptischer Cambridge-Freund von mir Occidental.",
+        "TIME": "Vor 1 Stunde"
+      }
+    },
+    "LOGIN": {
+      "PROFILE": "Profil",
+      "MY_WALLET": "My Wallet",
+      "SETTINGS": "Einstellungen",
+      "LOCK_SCREEN": "Bildschirm sperren",
+      "LOGOUT": "Abmelden"
+    }
+  },
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "Speisekarte"
+    },
+    "DASHBOARDS": {
+      "TEXT": "Dashboards"
+    },
+    "LAYOUTS": {
+      "TEXT": "Layouts",
+      "LIST": {
+        "HORIZONTAL": "Horizontal",
+        "LIGHTSIDEBAR": "Leichte Seitenleiste",
+        "COMPACTSIDEBAR": "Kompakte Seitenleiste",
+        "ICONSIDEBAR": "Symbole Seitenleiste",
+        "BOXED": "Boxed Layout",
+        "COLOREDSIDEBAR": "Farbige Seitenleiste",
+        "VERTICAL": "Vertikale",
+        "LIGHTTOPBAR": "Leichte Oberleiste",
+        "COLOREDHEADER": "Farbiger Header",
+        "DARKSIDEBAR": "Dunkle Seitenleiste",
+        "BOXEDWITH": "Boxed With",
+        "PRELOADER": "Preloader"
+      }
+    },
+    "APPS": {
+      "TEXT": "Apps"
+    },
+    "CALENDAR": {
+      "TEXT": "Kalender"
+    },
+    "CHAT": {
+      "TEXT": "Plaudern",
+      "BADGE": "Neu"
+    },
+    "ECOMMERCE": {
+      "TEXT": "E-Commerce",
+      "LIST": {
+        "PRODUCTS": "Produkte",
+        "PRODUCTDETAIL": "Produktdetail",
+        "ORDERS": "Aufträge",
+        "CUSTOMERS": "Kunden",
+        "CART": "Wagen",
+        "CHECKOUT": "Auschecken",
+        "SHOPS": "Geschäfte",
+        "ADDPRODUCT": "Produkt hinzufügen"
+      }
+    },
+    "EMAIL": {
+      "TEXT": "Email",
+      "LIST": {
+        "INBOX": "Posteingang",
+        "READEMAIL": "E-Mail lesen"
+      }
+    },
+    "INVOICES": {
+      "TEXT": "Rechnungen",
+      "LIST": {
+        "INVOICELIST": "Rechnungsliste",
+        "INVOICEDETAIL": "Rechnungsdetail"
+      }
+    },
+    "CONTACTS": {
+      "TEXT": "Kontakte",
+      "LIST": {
+        "USERGRID": "User Grid",
+        "USERLIST": "Benutzerliste",
+        "PROFILE": "Profil"
+      }
+    },
+    "PAGES": {
+      "TEXT": "Seiten"
+    },
+    "AUTHENTICATION": {
+      "TEXT": "Authentifizierung",
+      "LIST": {
+        "LOGIN": "Anmeldung",
+        "REGISTER": "Registrieren",
+        "RECOVERPWD": "Passwort wiederherstellen",
+        "LOCKSCREEN": "Bildschirm sperren"
+      }
+    },
+    "UTILITY": {
+      "TEXT": "Nützlichkeit",
+      "LIST": {
+        "STARTER": "Startseite",
+        "MAINTENANCE": "Instandhaltung",
+        "COMINGSOON": "Kommt bald",
+        "TIMELINE": "Zeitleiste",
+        "FAQS": "FAQs",
+        "PRICING": "Preisgestaltung",
+        "ERROR404": "Fehler 404",
+        "ERROR500": "Fehler 500"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "Komponenten"
+    },
+    "UIELEMENTS": {
+      "TEXT": "UI-Elemente",
+      "LIST": {
+        "ALERTS": "Warnungen",
+        "BUTTONS": "Tasten",
+        "CARDS": "Karten",
+        "CAROUSEL": "Karussell",
+        "DROPDOWNS": "Dropdowns",
+        "GRID": "Gitter",
+        "IMAGES": "Bilder",
+        "LIGHTBOX": "Leuchtkasten",
+        "MODALS": "Modale",
+        "RANGESLIDER": "Range Slider",
+        "SESSIONTIMEOUT": "Session-Timeout",
+        "PROGRESSBAR": "Fortschrittsbalken",
+        "SWEETALERT": "Süßer Alarm",
+        "TABS": "Tabs & Akkordeons",
+        "TYPOGRAPHY": "Typografie",
+        "VIDEO": "Video",
+        "GENERAL": "Allgemeines",
+        "COLORS": "Farben",
+        "CROPPER": "Bild Cropper",
+        "RATING": "Bewertung"
+      }
+    },
+    "FORMS": {
+      "TEXT": "Formen",
+      "BADGE": "8",
+      "LIST": {
+        "ELEMENTS": "Formularelemente",
+        "VALIDATION": "Formularvalidierung",
+        "ADVANCED": "Formular erweitert",
+        "EDITOR": "Formulareditor",
+        "FILEUPLOAD": "Hochladen von Formulardateien",
+        "REPEATER": "Form Repeater",
+        "WIZARD": "Formzauberer",
+        "MASK": "Formularmaske"
+      }
+    },
+    "TABLES": {
+      "TEXT": "Tabellen",
+      "LIST": {
+        "BASIC": "Grundtabellen",
+        "ADVANCED": "Erweiterte Tabelle"
+      }
+    },
+    "CHARTS": {
+      "TEXT": "Diagramme",
+      "LIST": {
+        "APEX": "Apex-Diagramm",
+        "CHARTJS": "Chartjs Chart",
+        "CHARTIST": "Chartist Chart",
+        "ECHART": "E Diagramm"
+      }
+    },
+    "ICONS": {
+      "TEXT": "Symbole",
+      "LIST": {
+        "UNICONS": "Unicons",
+        "BOXICONS": "Boxicons",
+        "MATERIALDESIGN": "Material Design",
+        "DRIPICONS": "Dripicons",
+        "FONTAWESOME": "Schriftart fantastisch"
+      }
+    },
+    "MAPS": {
+      "TEXT": "Karten",
+      "LIST": {
+        "GOOGLEMAP": "Google Maps"
+      }
+    },
+    "MULTILEVEL": {
+      "TEXT": "Multi Level",
+      "LIST": {
+        "LEVEL1": {
+          "1": "Stufe 1.1",
+          "2": "Stufe 1.2",
+          "LEVEL2": {
+            "1": "Stufe 2.1",
+            "2": "Stufe 2.2"
+          }
+        }
+      }
+    }
+  }
 }

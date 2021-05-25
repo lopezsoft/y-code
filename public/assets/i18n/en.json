@@ -1,134 +1,222 @@
 {
-  "Dashboard": "Dashboard",
-  "Dashboard 1": "Dashboard 1",
-  "Dashboard 2": "Dashboard 2",
-  "Color Palette": "Color Palette",
-  "Inbox": "Inbox",
-  "Chat": "Chat",
-  "Chat NgRx": "Chat NgRx",
-  "Task Board": "Task Board",
-  "Task Board NgRx": "Task Board NgRx",
-  "Calendar": "Calendar",
-  "Player": "Player",
-  "Media Player": "Media Player",
-  "Bootstrap Table": "Bootstrap Table",
-  "Angular": "Angular",
-  "UI Kit": "UI Kit",
-  "Grid": "Grid",
-  "Typography": "Typography",
-  "Syntax Highlighter": "Syntax Highlighter",
-  "Helper Classes": "Helper Classes",
-  "Text Utilities": "Text Utilities",
-  "Icons": "Icons",
-  "Feather Icon": "Feather Icon",
-  "Font Awesome Icon": "Font Awesome Icon",
-  "Simple Line Icon": "Simple Line Icon",
-  "Components": "Components",
-  "Bootstrap": "Bootstrap",
-  "List": "List",
-  "Buttons": "Buttons",
-  "NG Buttons": "NG Buttons",
-  "Alerts": "Alerts",
-  "Badges": "Badges",
-  "Dropdowns": "Dropdowns",
-  "Media Objects": "Media Objects",
-  "Pagination": "Pagination",
-  "Progress Bars": "Progress Bars",
-  "Input Groups": "Input Groups",
-  "Modals": "Modals",
-  "Collapse": "Collapse",
-  "Accordion": "Accordion",
-  "Carousel": "Carousel",
-  "Datepicker": "Datepicker",
-  "Popover": "Popover",
-  "Rating": "Rating",
-  "Navs": "Navs",
-  "Timepicker": "Timepicker",
-  "Tooltip": "Tooltip",
-  "Typeahead": "Typeahead",
-  "Extra": "Extra",
-  "Sweet Alert": "Sweet Alert",
-  "Toastr": "Toastr",
-  "Select": "Select",
-  "NoUI Slider": "NoUI Slider",
-  "Upload": "Upload",
-  "Editor": "Editor",
-  "Drag and Drop": "Drag and Drop",
-  "Tour": "Tour",
-  "Image Cropper": "Image Cropper",
-  "Input Tags": "Input Tags",
-  "Switch": "Switch",
-  "Avatar": "Avatar",
-  "Swiper": "Swiper",
-  "Forms": "Forms",
-  "Elements": "Elements",
-  "Inputs": "Inputs",
-  "Input Group": "Input Groups",
-  "Input Grid": "Input Grid",
-  "Radio": "Radio",
-  "Checkbox": "Checkbox",
-  "Layouts": "Layouts",
-  "Basic Forms": "Basic Forms",
-  "Horizontal Forms": "Horizontal Forms",
-  "Hidden Labels": "Hidden Labels",
-  "Form Actions": "Form Actions",
-  "Bordered Forms": "Bordered Forms",
-  "Striped Rows": "Striped Rows",
-  "Validation": "Validation",
-  "Wizard": "Wizard",
-  "NGX Wizard": "NGX Wizard",
-  "Tables": "Tables",
-  "Regular": "Regular",
-  "Extended": "Extended",
-  "Smart Tables": "Smart Tables",
-  "Data Tables": "Data Tables",
-  "Basic": "Basic",
-  "Editing": "Editing",
-  "Filter": "Filter",
-  "Fullscreen": "Fullscreen",
-  "Paging": "Paging",
-  "Pinning": "Pinning",
-  "Selection": "Selection",
-  "Sorting": "Sorting",
-  "Cards": "Cards",
-  "Basic Cards": "Basic Cards",
-  "Advanced Cards": "Advanced Cards",
-  "Maps": "Maps",
-  "Google Map": "Google Map",
-  "Full Screen Map": "Full Screen Map",
-  "Charts": "Charts",
-  "ChartJs": "ChartJs",
-  "Chartist": "Chartist",
-  "NGX Chart": "NGX Chart",
-  "Apex": "Apex",
-  "NGX": "NGX",
-  "Authentication": "Authentication",
-  "Pages": "Pages",
-  "Forgot Password": "Forgot Password",
-  "Center": "Center",
-  "Left": "Left",
-  "Right": "Right",
-  "Account Settings": "Account Settings",
-  "Search": "Search",
-  "FAQ": "FAQ",
-  "Knowledge Base": "Knowledge Base",
-  "Horizontal Timeline": "Horizontal Timeline",
-  "Vertical Timeline": "Vertical Timeline",
-  "Login": "Login",
-  "Register": "Register",
-  "User Profile": "User Profile",
-  "Lock Screen": "Lock Screen",
-  "Invoice": "Invoice",
-  "Error": "Error",
-  "Coming Soon": "Coming Soon",
-  "Maintenance": "Maintenance",
-  "Gallery": "Gallery",
-  "Documentation": "Documentation",
-  "Support": "Support",
-  "Charts & Maps": "Charts & Map",
-  "Menu Levels": "Menu Levels",
-  "Second Level": "Second Level",
-  "Second Level Child": "Second Level Child",
-  "Third Level 1.1": "Third Level 1.1",
-  "Third Level 1.2": "Third Level 1.2"
+  "HEADER": {
+    "SEARCH": "Search...",
+    "MEGA_MENU": "Mega Menu",
+    "NOTIFICATIONS": {
+      "TITLE": "Notifications",
+      "VIEW_ALL": "Mark all as read",
+      "LOAD_MORE": "View More..",
+      "FIRST": {
+        "TITLE": "Your order is placed",
+        "TEXT": "If several languages coalesce the grammar",
+        "TIME": "3 min ago"
+      },
+      "SECOND": {
+        "TITLE": "James Lemire",
+        "TEXT": "It will seem like simplified English.",
+        "TIME": "1 hours ago"
+      },
+      "THIRD": {
+        "TITLE": "Your item is shipped",
+        "TEXT": "If several languages coalesce the grammar",
+        "TIME": "3 min ago"
+      },
+      "FOUR": {
+        "TITLE": "Salena Layfield",
+        "TEXT": "As a skeptical Cambridge friend of mine occidental.",
+        "TIME": "1 hours ago"
+      }
+    },
+    "LOGIN": {
+      "PROFILE": "Profile",
+      "MY_WALLET": "My Wallet",
+      "SETTINGS": "Settings",
+      "LOCK_SCREEN": "Lock screen",
+      "LOGOUT": "Logout"
+    }
+  },
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "Menu"
+    },
+    "DASHBOARDS": {
+      "TEXT": "Dashboard"
+    },
+    "LAYOUTS": {
+      "TEXT": "Layouts",
+      "LIST": {
+        "HORIZONTAL": "Horizontal",
+        "LIGHTSIDEBAR": "Light Sidebar",
+        "COMPACTSIDEBAR": "Compact Sidebar",
+        "ICONSIDEBAR": "Icons Sidebar",
+        "BOXED": "Boxed Layout",
+        "COLOREDSIDEBAR": "Colored Sidebar",
+        "VERTICAL": "Vertical",
+        "LIGHTTOPBAR": "Light Topbar",
+        "COLOREDHEADER": "Colored Header",
+        "DARKSIDEBAR": "Dark Sidebar",
+        "BOXEDWITH": "Boxed With",
+        "PRELOADER": "Preloader"
+      }
+    },
+    "APPS": {
+      "TEXT": "Apps"
+    },
+    "CALENDAR": { 
+      "TEXT": "Calendar"
+    },
+    "CHAT": {
+      "TEXT": "Chat",
+      "BADGE": "New"
+    },
+    "ECOMMERCE": {
+      "TEXT": "Ecommerce",
+      "LIST": {
+        "PRODUCTS": "Products",
+        "PRODUCTDETAIL": "Product Detail",
+        "ORDERS": "Orders",
+        "CUSTOMERS": "Customers",
+        "CART": "Cart",
+        "CHECKOUT": "Checkout",
+        "SHOPS": "Shops",
+        "ADDPRODUCT": "Add Product"
+      }
+    },
+    "EMAIL": {
+      "TEXT": "Email",
+      "LIST": {
+        "INBOX": "Inbox",
+        "READEMAIL": "Read Email"
+      }
+    },
+    "INVOICES": {
+      "TEXT": "Invoices",
+      "LIST": {
+        "INVOICELIST": "Invoice List",
+        "INVOICEDETAIL": "Invoice Detail"
+      }
+    },
+    "CONTACTS": {
+      "TEXT": "Contacts",
+      "LIST": {
+        "USERGRID": "User Grid",
+        "USERLIST": "User List",
+        "PROFILE": "Profile"
+      }
+    },
+    "PAGES": {
+      "TEXT": "Pages"
+    },
+    "AUTHENTICATION": {
+      "TEXT": "Authentication",
+      "LIST": {
+        "LOGIN": "Login",
+        "REGISTER": "Register",
+        "RECOVERPWD": "Recover Password",
+        "LOCKSCREEN": "Lock screen"
+      }
+    },
+    "EXTRAS": {
+      "TEXT": "Extra Pages"
+    },
+    "UTILITY": {
+      "TEXT": "Utility",
+      "LIST": {
+        "STARTER": "Starter Page",
+        "MAINTENANCE": "Maintenance",
+        "COMINGSOON": "Coming Soon",
+        "TIMELINE": "Timeline",
+        "FAQS": "FAQs",
+        "PRICING": "Pricing",
+        "ERROR404": "Error 404",
+        "ERROR500": "Error 500"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "Components"
+    },
+    "UIELEMENTS": {
+      "TEXT": "UI Elements",
+      "LIST": {
+        "ALERTS": "Alerts",
+        "BUTTONS": "Buttons",
+        "CARDS": "Cards",
+        "CAROUSEL": "Carousel",
+        "DROPDOWNS": "Dropdowns",
+        "GRID": "Grid",
+        "IMAGES": "Images",
+        "MODALS": "Modals",
+        "RANGESLIDER": "Range Slider",
+        "SESSIONTIMEOUT": "Session Timeout",
+        "PROGRESSBAR": "Progress Bars",
+        "SWEETALERT": "Sweet Alert",
+        "TABS": "Tabs & Accordions",
+        "TYPOGRAPHY": "Typography",
+        "VIDEO": "Video",
+        "GENERAL": "General",
+        "COLORS": "Colors",
+        "CROPPER": "Image Cropper",
+        "RATING": "Rating"
+      }
+    },
+    "FORMS": {
+      "TEXT": "Forms",
+      "BADGE": "8",
+      "LIST": {
+        "ELEMENTS": "Basic Elements",
+        "VALIDATION": "Validation",
+        "ADVANCED": "Advanced",
+        "EDITOR": "Editor",
+        "FILEUPLOAD": "File Upload",
+        "REPEATER": "Repeater",
+        "WIZARD": "Wizard",
+        "MASK": "Mask"
+      }
+    },
+    "TABLES": {
+      "TEXT": "Tables",
+      "LIST": {
+        "BASIC": "Basic Tables",
+        "ADVANCED": "Advanced Table"
+      }
+    },
+    "CHARTS": {
+      "TEXT": "Charts",
+      "LIST": {
+        "APEX": "Apex",
+        "CHARTJS": "Chartjs",
+        "CHARTIST": "Chartist",
+        "ECHART": "E Chart"
+      }
+    },
+    "ICONS": {
+      "TEXT": "Icons",
+      "LIST": {
+        "UNICONS": "Unicons",
+        "BOXICONS": "Boxicons",
+        "MATERIALDESIGN": "Material Design",
+        "DRIPICONS": "Dripicons",
+        "FONTAWESOME": "Font Awesome"
+      }
+    },
+    "MAPS": {
+      "TEXT": "Maps",
+      "LIST": {
+        "GOOGLEMAP": "Google Maps"
+      }
+    },
+    "MULTILEVEL": {
+      "TEXT": "Multi Level",
+      "LIST": {
+        "LEVEL1": {
+          "1": "Level 1.1",
+          "2": "Level 1.2",
+          "LEVEL2": {
+            "1": "Level 2.1",
+            "2": "Level 2.2"
+          }
+        }
+      }
+    }
+  }
 }

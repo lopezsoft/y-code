@@ -84,3 +84,23 @@ ALTER TABLE `means_payment`
 
 ALTER TABLE `persons`
 	ADD COLUMN `is_secondary` TINYINT(1) NOT NULL DEFAULT 0 AFTER `state`;
+
+
+/************************13-03-2021 ***************************************/
+ALTER TABLE `resolutions`
+	DROP INDEX `company_id_type_document_id`;
+
+ALTER TABLE `resolutions`
+	CHANGE COLUMN `prefix` `prefix` VARCHAR(20) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `mime`;
+
+
+/***************** 24-04-2021 *****************/
+ALTER TABLE `users`
+	CHANGE COLUMN `name` `first_name` VARCHAR(255) NULL COLLATE 'utf8mb4_unicode_ci' AFTER `type_id`,
+	ADD COLUMN `last_name` VARCHAR(255) NULL AFTER `first_name`,
+	ADD COLUMN `avatar` VARCHAR(255) NULL DEFAULT '/assets/avatars/unknown_img.png' AFTER `last_name`;
+
+
+/************************** 22-05-2021 ***********************/
+ALTER TABLE `invoice_detail`
+	ADD COLUMN `discount` DECIMAL(30,4) NOT NULL DEFAULT '0.0000' AFTER `unit_cost`;

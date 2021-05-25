@@ -8,10 +8,13 @@ use Exception;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\MessagesTrait;
 use PhpParser\Node\Stmt\TryCatch;
 
 class MasterModel
 {
+
+	use MessagesTrait;
 
     /**
      * Determina si el usuario conectado es amdinistrador

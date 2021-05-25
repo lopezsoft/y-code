@@ -1,0 +1,301 @@
+<form [formGroup]="customForm">
+  <jqxTabs #myTabs class="search-custom" [width]='"100%"' [height]='"100%"' [position]='"top"' [animationType]='"fade"' [selectionTracker]='false' [theme]="theme">
+         <ul>
+          <li style="margin-left: 30px;">FACTURACIÓN</li>
+          <li>DOCUMENTOS GENERADOS</li>
+        </ul>
+        <div class="container-fluid padding-top-bottom">
+          <div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Tipo de documento</label>
+								<ng-select formControlName="invoice_type_id" required>
+									<ng-option *ngFor="let doc of resolution" [value]="doc.id">
+										{{ doc.prefix }} - {{ doc.voucher_name }} - {{ doc.resolution_number }} - {{ 'PUNTO DE VENTA: ' + doc.branch_name}}
+									</ng-option>
+								</ng-select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label><span class="asterisk">{{ 'general.asterisk' | translate}}</span>{{ 'general.currency'  | translate }}</label>
+								<ng-select formControlName="currency_id"  required>
+									<ng-option *ngFor="let cur of currency" [value]="cur.id">
+										<img height="15" width="15" [src]="'assets/flags/'+cur.image" /> {{ cur.CurrencyName }}
+									</ng-option>
+								</ng-select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Cliente</label>
+								<ng-select formControlName="customer_id" required [virtualScroll]="true" (change)="onChanegCustomer($event)">
+									<!-- <ng-option value='-1' class="create-customer">Crear cliente</ng-option> -->
+									<ng-option value='0'>Cliente final</ng-option>
+									<ng-option *ngFor="let customer of customers" [value]="customer.id">
+										{{ customer.dni }} - {{ customer.full_name }} - {{ customer.company_name }}
+									</ng-option>
+								</ng-select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+								<div class="page-search-input form-group">
+									<fieldset>
+										<div class="input-group">
+											<input type="search" class="form-control rounded-right form-control-lg shadow pl-2 space-right" id="searchbar"
+													placeholder="Nombre o referencia" (keyup.enter)="onSearchProducts(searchbar.value, 1)" #searchbar>
+											<input type="search" class="form-control rounded-right form-control-lg shadow pl-2 search-sku"
+													placeholder="SKU" (keyup.enter)="onSearchProducts(searchbar2.value, 2)" #searchbar2>
+											<input type="search" class="form-control rounded-right form-control-lg shadow pl-2 search-barcode"
+													placeholder="Código de barras" (keyup.enter)="onSearchProducts(searchbar3.value, 3)" #searchbar3>
+											<div class="input-group-append">
+												<!-- <button class="btn btn-primary search-btn rounded space-right" type="button" (click)="onSearchProducts(searchbar.value)" >
+													<span class="d-none d-sm-block"></span>
+													<i class="fas fa-search"></i>
+												</button> -->
+												<button class="btn btn-success space-right radius-button" type="button" (click)="onCreateProduct()" ngbTooltip="Crear nuevo producto"><i class="fas fa-plus fas-fa-22"></i></button>
+												<button class="btn btn-info  space-right radius-button" (click)="onRefresh()" type="button" ngbTooltip="Refrescar"><i class="fas fa-sync fas-fa-22"></i></button>
+												<button class="btn btn-danger radius-button" (click)="onClearFilter()" type="button" ngbTooltip="Limpiar"><i class="fas fa-broom fas-fa-22"></i></button>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+							</div>
+					</div>
+          <div class="row">
+            <div class="col-md-5">
+              <div class="row">
+                <div class="col card-col">
+                  <div class="card-columns">
+                    <div class="card card-sales"  *ngFor="let itemres of itemsResult" (click)="onClickItem(itemres)">
+                      <div class="card-body">
+                        <div class="stock">
+                          <span class="span"><strong>{{ itemres.stock }}</strong></span>
+                        </div>
+                        <div class="img-top">
+                          <img class="img-product card-img-top" [src]="itemres.image" fallimg="product">
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <h6 class="price"> {{ itemres.sale_price | currency}}</h6>
+                        <p class="product-name">{{ itemres.product_name }} - {{ itemres.abbre_unit }}</p>
+                        <p class="unit-name" *ngIf="itemres.unit_name.length > 0">{{ itemres.unit_name }} - {{ itemres.abbre_unit }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7 card-col">
+              <div class="row">
+                <div class="col-sm-12 col-md-12 padding-top-bottom">
+                  <button class="btn radius-button btn-primary space-right radius-button" (click)="onDelete()" type="button" [disabled]="!selectedRow"><i class="fas fa-trash-alt fas-fa-22"></i></button>
+                  <button class="btn radius-button btn-success space-right radius-button" (click)="onAdd()" type="button" [disabled]="!selectedRow"><i class="fas fa-plus fas-fa-22"></i></button>
+                  <button class="btn radius-button btn-danger space-right" (click)="onMinus()" type="button" [disabled]="!selectedRow"><i class="fas fa-minus fas-fa-22"></i></button>
+                  <button class="btn radius-button btn-info space-right radius-button" (click)="onCash(content)" type="button" [disabled]="!selectedRow"><i class="fas fa-money-bill fas-fa-22 space-right"></i>Cobrar</button>
+                  <button class="btn radius-button btn-danger radius-button" (click)="onCancel()" type="button" [disabled]="!selectedRow"><i class="fas fa-broom fas-fa-22 space-right"></i>Cancelar</button>
+                </div>
+                <div class="col-sm-12 col-md-12 padding-top-bottom">
+                  <input currencyMask formControlName="total" class="form-control radius-button small total-bg" aria-describedby="helpId" readonly>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <jqxGrid #myDataTable [auto-create]="false"  [height]="300" [width]="getWidth()" 
+									(onRowselect)="onRowSelect($event)"  (Rowunselect)="onRowUnselect($event)" (onCellEndEdit)="onCellEndEdit($event)">
+                  </jqxGrid>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Subtotal</label>
+                    <input currencyMask formControlName="subtotal" class="form-control radius-button small total" aria-describedby="helpId" readonly>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Descuento</label>
+                    <input currencyMask formControlName="discount" class="form-control radius-button small discounts" aria-describedby="helpId" readonly>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> IVA</label>
+                    <input currencyMask formControlName="vat" class="form-control radius-button small vat" aria-describedby="helpId" readonly>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Total</label>
+                    <input currencyMask formControlName="total" class="form-control radius-button small total" aria-describedby="helpId" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid padding-top-bottom">
+          <form [formGroup]="modalForm">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="">Fecha desde</label>
+                  <input type="date" class="form-control"  formControlName="date_from" aria-describedby="helpId">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="">Fecha hasta</label>
+                  <input type="date" class="form-control"  formControlName="date_up" aria-describedby="helpId">
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Tipo de documento</label>
+                  <ng-select formControlName="invoice_type_id" required>
+                    <ng-option *ngFor="let doc of aDocuments" [value]="doc.id">
+                      {{ doc.code }} - {{ doc.voucher_name }}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-3 padding-top-bottom">
+                <div class="btn-group btn-group-md" role="group">
+                  <button type="button" class="btn btn-info mb-2 mb-md-0" (click)="onSearch()">
+                    <i class="fas fa-search fas-fa-22 space-right"></i> {{ 'buttons.search' | translate }}
+                  </button>
+                  <button type="button" class="btn btn-success mb-2 mb-md-0" (click)="onReport(contentpdf)">
+                    <i class="fas fa-newspaper fas-fa-22 space-right"></i> {{ 'buttons.report' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <jqxGrid #customGrid [width]="getWidth()" [height]="550" [source]="dataAdapter2" [columns]="columns2"
+                    [theme]="theme" (onCellselect)="cellClick($event, contentpdf)" [selectionmode]="'singlecell'" [columnsresize]="true"
+                    [sortable] ="true"  [filterable] ="true">
+                </jqxGrid>
+              </div>
+            </div>
+            </form>
+        </div>
+  </jqxTabs>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Guardar documento</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group row align-items-center">
+        <div class="col-lg-5 col-6">
+          <label>Forma de pago</label>
+        </div>
+        <div class="col-lg-7 col-6">
+          <ng-select formControlName="payment_method_id" (change)="onPaymenMethods($event)" ngbAutofocus autofocus>
+            <ng-option *ngFor="let payment of paymentMethods" [value]="payment.id">
+              {{ payment.code }} - {{ payment.payment_method }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="form-group row align-items-center">
+        <div class="col-lg-5 col-6">
+          <label>Medio de pago</label>
+        </div>
+        <div class="col-lg-7 col-6">
+          <ng-select formControlName="means_payment_id">
+            <ng-option  *ngFor="let mean of meansPayment" [value]="mean.id">
+              {{ mean.code }} - {{ mean.payment_method }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="form-group row align-items-center">
+        <div class="col-lg-5 col-6">
+          <label>Fecha de emisión</label>
+        </div>
+        <div class="col-lg-7 col-6">
+          <input class="form-control" type="date" formControlName='invoice_date' (change)="onDate(invoicedate.value)" #invoicedate>
+        </div>
+      </div>
+      <div class="form-group  row align-items-center">
+        <div class="col-lg-5 col-3">
+          <label>Plazo</label>
+        </div>
+        <div class="col-lg-7 col-9">
+          <ng-select formControlName="time_limit_id" [readonly]="isCounted" (change)="onTimeLimits($event)">
+            <ng-option *ngFor="let timel of timeLimits" [value] ="timel.id">
+              {{ timel.term_name }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="form-group  row align-items-center">
+        <div class="col-lg-5 col-6">
+          <label>Fecha de vencimiento</label>
+        </div>
+        <div class="col-lg-7 col-6">
+          <input class="form-control" type="date" formControlName='expiration_date' (change)="onExpirationDate(expirationdate.value)" #expirationdate readonly>
+        </div>
+      </div>
+      <div class="form-group  row align-items-center">
+        <div class="col-lg-2 col-3">
+          <label>Total</label>
+        </div>
+        <div class="col-lg-10 col-9">
+          <input currencyMask formControlName="total" class="form-control total-bg" aria-describedby="helpId" readonly>
+        </div>
+      </div>
+      <div class="form-group row align-items-center">
+        <div class="col-lg-2 col-3">
+          <label>Efectivo</label>
+        </div>
+        <div class="col-lg-10 col-9">
+          <input currencyMask type="text" #cashele formControlName="cash" (keyup)="onChaneCash(cashele.value)"
+          class="form-control total-bg" aria-describedby="helpId" ngbAutofocus autofocus>
+        </div>
+      </div>
+      <div class="form-group  row align-items-center">
+        <div class="col-lg-2 col-3">
+          <label>Cambio</label>
+        </div>
+        <div class="col-lg-10 col-9">
+          <input currencyMask formControlName="payment_change" class="form-control total-bg" aria-describedby="helpId" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn radius-button btn-sm btn-primary space-right" type="button"  (click)="onSave(contentpdf)" [disabled]="customForm.invalid">
+        <i class="fas fa-save fas-fa-22 space-right"></i>
+        {{'buttons.save' | translate }}
+      </button>
+      <button  (click)="modal.close('Cancel')" class="btn radius-button btn-danger btn-sm">
+        <i class="fas fa-undo fas-fa-22 space-right"></i>
+        <strong>{{ 'buttons.cancel' | translate }} </strong>
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #contentpdf let-modal class="fullscreen-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Visor de documentos</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- <object><embed  width="100%" height="100%" [src]="pathfile"></object> -->
+      <ngx-doc-viewer [url]="pathfile" viewer="url" style="width:100%;height:100vh;"></ngx-doc-viewer>
+    </div>
+  </ng-template>
+</form>
+<ngx-spinner><p style="color: white;" > {{ maskSpinner }} </p></ngx-spinner>

@@ -51,6 +51,8 @@ class ResolutionsController extends Controller
         $start      = $request->start;
         $limit      = $request->limit;
         $uid        = $request->uid;
+        $category_id= $request->category_id;
+        $pos				= $request->pos;
         $query      = $request->input('query');
         $db         = $company->database_name.".";
         if($company){
@@ -59,6 +61,12 @@ class ResolutionsController extends Controller
             $where  = "a.state = 1";
             if(isset($uid)){
                 $where  = "a.id={$uid}";
+            }
+            if(isset($category_id)){
+                $where  = "{$where} AND b.category_id={$category_id}";
+            }
+            if(isset($pos)){
+                $where  = "{$where} AND b.pos=1";
             }
             $sqlStatement =
                 "SELECT a.*, b.voucher_name, c.branch_name

@@ -129,7 +129,7 @@ class ReportSales extends MasterModel
 
             if (!is_null($file)) {
                 $path       = public_path('storage/').$path;
-                $this->putFile($file, $path);
+                // $this->putFile($file, $path);
             }
         }
     }
@@ -151,16 +151,9 @@ class ReportSales extends MasterModel
             return          $ticket->setTicketPOS($id);
         }else{
             $reportName     = 'invoice_fe_01';
-            if($sale->invoice_type_id   == 8){ // Invoice Exportation
-                // $reportName     = 'invoice_fe_02';
-            }
-            $query          = DB::select("CALL {$db}`sp_select_sales_master`('{$company->id}', '{$id}', '1', NULL, NULL, '0')");
-            $select         = $query[0];
-            $dni            = str_pad($company->dni,10,'0', STR_PAD_LEFT);
-            $year           = date('y');
-            $ppp            = '000';
+            $select          = DB::select("CALL {$db}`sp_select_sales_master`('{$company->id}', '{$id}', '1', NULL, NULL, '0')")[0];
             $invoiceNro     = str_pad($select->invoice_nro,8,'0', STR_PAD_LEFT);
-            $invoiceNro     = "{$select->prefix_doc}{$dni}{$ppp}{$year}{$select->prefix}{$invoiceNro}";
+            $invoiceNro     = "{$select->prefix_doc}{$select->prefix}{$invoiceNro}";
             $routputName    = "{$invoiceNro}";
 
             $query          = "CALL {$db}sp_select_sales_master('".$company->id."','".$id."',1,NULL,NULL,0)";
@@ -197,7 +190,7 @@ class ReportSales extends MasterModel
 
             $response   = $report->getReportExport($reportName,$routputName,$format,$query, $outputFolder, $params);
             $resp       = $response->original;
-            // DB::update("update sales_master set path_report = '{$resp['pathFile']}'  where id = ? limit 1", [$id]);
+            DB::update("update {$db}sales_master set path_report = '{$resp['pathFile']}'  where id = ? limit 1", [$id]);
 
             return $response;
         }

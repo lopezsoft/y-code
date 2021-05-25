@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Core\MasterModel;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
@@ -126,14 +126,30 @@ class ItemsController extends Controller
         }
     }
 
+    public function getSalesProducts(Request $request)
+    {
+        $model      				= new MasterModel();
+        $company    				= $model->getCompany();
+        $db         				= $company->database_name.'.';
+        $point_of_sale_id   = $request->point_of_sale_id ?? 0; 
+        $type   						= $request->type ?? 0;
+        $querySearch				= $request->query_search ?? "";
+        $start   						= $request->start ?? 0;
+        $limit   						= $request->limit ?? 60;
+
+        $query      				= DB::select("CALL {$db}sp_select_sales_products(?, ?, ?, ?, ?)",[$point_of_sale_id, $querySearch, $type, $start, $limit]);
+
+        return $model->getReponseJson($query, count($query));
+    }
+
     public function getAllProducts(Request $request)
     {
-        $model      = new MasterModel();
-        $company    = $model->getCompany();
-        $db         = $company->database_name.'.';
+        $model      				= new MasterModel();
+        $company    				= $model->getCompany();
+        $db         				= $company->database_name.'.';
         $point_of_sale_id   = $request->point_of_sale_id ?? 0;
 
-        $query      = DB::select("CALL {$db}sp_select_products_all(?)",[$point_of_sale_id]);
+        $query      				= DB::select("CALL {$db}sp_select_products_all(?)",[$point_of_sale_id]);
 
         return $model->getReponseJson($query, count($query));
     }

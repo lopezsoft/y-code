@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('login', 'AuthController@login');
         Route::post('signup', 'AuthController@signup');
         Route::get('signup/activate/{token}', 'AuthController@signupActivate');
+        Route::post('recover', 'AuthController@recover');
+        Route::get('recover/activate/{token}', 'AuthController@recoverActivate');
 
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('logout', 'AuthController@logout');
@@ -67,21 +70,34 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
 
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('read',           	'AuthController@getUsers');
+						Route::get('profile',        	'AuthController@getUser');
+            Route::get('types',          	'MasterController@getUserTypes');
+						Route::put('update/{id}',   	'AuthController@updateUser');
+            Route::delete('delete/{id}',	'AuthController@deleteData');
+        });
+
         Route::group(['prefix' => 'sales'], function () {
             Route::post('create',           'Sales\SalesController@create');
+            Route::get('checkin',          	'Sales\SalesController@getCheckin');
         });
 
 
         Route::group(['prefix' => 'shopping'], function () {
             Route::post('create',           'Shopping\ShoppingController@create');
-            Route::post('create/detail',    'Shopping\ShoppingController@createDetail');
             Route::get('read',              'Shopping\ShoppingController@select');
-            Route::get('read/detail/{id}',  'Shopping\ShoppingController@selectDetail');
-            Route::get('read/detailId/{id}','Shopping\ShoppingController@selectDetailId');
             Route::put('update/{id}',       'Shopping\ShoppingController@update');
-            Route::put('update/detail/{id}','Shopping\ShoppingController@updateDetail');
             Route::delete('delete/{id}',    'Shopping\ShoppingController@delete');
-            Route::delete('delete/detail/{id}',    'Shopping\ShoppingController@deleteDetail');
+
+						Route::prefix('detail')->group(function () {
+							Route::post('create',    'Shopping\ShoppingController@createDetail');
+							Route::get('detailId/{id}','Shopping\ShoppingController@selectDetailId');
+							Route::get('read/{id}',  'Shopping\ShoppingController@selectDetail');
+							Route::put('update/{id}','Shopping\ShoppingController@updateDetail');
+							Route::delete('delete/{id}',    'Shopping\ShoppingController@deleteDetail');
+							
+						});
         });
 
         Route::group(['prefix' => 'persons'], function () {
@@ -121,6 +137,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::post('create',           'Products\ItemsController@create');
                 Route::get('read',              'Products\ItemsController@select');
                 Route::get('read/all',          'Products\ItemsController@getAllProducts');
+                Route::get('read/sales',        'Products\ItemsController@getSalesProducts');
                 Route::put('update/{id}',       'Products\ItemsController@update');
                 Route::delete('delete/{id}',    'Products\ItemsController@delete');
             });
@@ -191,12 +208,14 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::group(['prefix' => 'branchoffice'], function () {
                 Route::post('create',                   'Companies\BranchOfficeController@create');
-                Route::post('create/pointofsale',       'Companies\BranchOfficeController@createPointOfSale');
                 Route::get('read',                      'Companies\BranchOfficeController@select');
-                Route::get('read/pointofsale',          'Companies\BranchOfficeController@selectPointOfSale');
                 Route::put('update/{id}',               'Companies\BranchOfficeController@update');
-                Route::put('update/pointofsale/{id}',   'Companies\BranchOfficeController@updatePointOfSale');
                 Route::delete('delete/{id}',            'Companies\BranchOfficeController@delete');
+								Route::prefix('pointofsale')->group(function () {
+									Route::get('read',          'Companies\BranchOfficeController@selectPointOfSale');
+									Route::put('update/{id}',   'Companies\BranchOfficeController@updatePointOfSale');
+									Route::post('create',       'Companies\BranchOfficeController@createPointOfSale');
+								});
             });
 
             Route::group(['prefix' => 'departments'], function () {
