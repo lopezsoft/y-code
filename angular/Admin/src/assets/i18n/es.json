@@ -357,7 +357,7 @@
       "title"       : "Rango de impuestos",
       "group"       : "Grupo",
       "name"        : "Nombre de la tarifa",
-      "is_exempt"   : "¿Es Exlucido?",
+      "is_exempt"   : "¿Es Exonerado?",
       "abbre"       : "Abreviatura",
       "decimal"     : "Tasa decimal",
       "frecuency"   : "Frecuencia de envío",

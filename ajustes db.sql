@@ -104,3 +104,10 @@ ALTER TABLE `users`
 /************************** 22-05-2021 ***********************/
 ALTER TABLE `invoice_detail`
 	ADD COLUMN `discount` DECIMAL(30,4) NOT NULL DEFAULT '0.0000' AFTER `unit_cost`;
+
+
+/********************* 28-05-2021 ************************/
+
+ALTER TABLE `tax_rates`
+	ADD COLUMN `description_in_sales` VARCHAR(60) NULL DEFAULT NULL AFTER `rate_name`;
+

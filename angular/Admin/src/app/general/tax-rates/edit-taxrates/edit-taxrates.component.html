@@ -78,8 +78,8 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <div class="checkbox">
-                <input type="checkbox" class="form-control" formControlName="is_exempt" style="margin-right: 2%;" id="is_exempt">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" formControlName="is_exempt" style="margin-right: 2%;" id="is_exempt">
                 <label for="is_exempt">{{ 'taxes.rate.is_exempt' | translate }}</label>
               </div>
             </div>
@@ -88,7 +88,8 @@
       </div>
       <div class="card-footer">
         <app-footer-form [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()"
-                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()"></app-footer-form>
+                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()" [maskSpinner]="maskSpinner">
+				</app-footer-form>
       </div>
     </div>
   </div>

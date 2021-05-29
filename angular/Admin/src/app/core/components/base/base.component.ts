@@ -17,7 +17,7 @@ export class BaseComponent implements OnInit {
   }
   // tslint:disable-next-line: contextual-lifecycle
   ngOnInit(): void {
-    // this.changeLanguage(this.activeLang);
+    this.changeLanguage(this.activeLang);
   }
 
   public changeLanguage(lang: string): void {

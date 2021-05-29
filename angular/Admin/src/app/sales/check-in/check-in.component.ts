@@ -1,10 +1,7 @@
-import { ErrorResponse } from './../../interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-
-import Swal from 'sweetalert2';
 
 import { Component, ViewChild, AfterViewInit, ElementRef, OnInit } from '@angular/core';
 
@@ -15,7 +12,6 @@ import { AccountingDocuments } from './../../models/accounting-model';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { JsonResponse } from './../../interfaces/json-response.interface';
 // Services
 import { ReportsService } from './../../services/global/reports.service';
 import { DocumentsService } from './../../services/global/documents.service';
@@ -178,7 +174,18 @@ export class CheckInComponent extends InvoiceBillComponent implements OnInit, Af
       groupable: false, draggable: false, resizable: false,
       datafield: '#pdf_#', columntype: 'text', width: 32,
       cellsrenderer: (row: number, column: any, value: number): string => {
-          return '<span><i class="fas fa-file-pdf fa-cursor fas-fa-pdf"></i></span>';
+          return '<span><i class="fas fa-file-invoice fa-cursor fas-fa-pdf"></i></span>';
+					
+      },
+    },
+    {
+      columngroup: 'Actions',
+      text: '', sortable: false, filterable: false, editable: false, align: 'center',
+      groupable: false, draggable: false, resizable: false,
+      datafield: '#pdf2_#', columntype: 'text', width: 32,
+      cellsrenderer: (row: number, column: any, value: number): string => {
+          return '<span><i class="fas fa-receipt fa-cursor fas-fa-pdf"></i></span>';
+					
       },
     },
     {
@@ -196,7 +203,7 @@ export class CheckInComponent extends InvoiceBillComponent implements OnInit, Af
       },
     },
     { text: 'Factura Nº.', dataField: 'invoice_nro', width: 80, cellsalign: 'right' },
-    { text: 'Pref', dataField: 'prefix', width: 50 },
+    { text: 'Pref', dataField: 'prefix', minwidth: 80 },
     { text: 'Adquiriente', dataField: 'company_name', minwidth: 350 },
     { text: 'Documento', dataField: 'dni', width: 90, cellsalign: 'right' },
     { text: 'Total', dataField: 'total', cellsalign: 'right', width: 120, cellsformat: 'c2' },
@@ -495,22 +502,6 @@ export class CheckInComponent extends InvoiceBillComponent implements OnInit, Af
   onCancel(){
     this.myDataTable.clear();
     this.onSum();
-  }
-
-  onCash(content: any){
-    const ts      = this;
-    const frm     = ts.customForm;
-    // const values  = frm.getRawValue();
-    // if( parseFloat(values.customer_id) <= 0 && parseFloat(values.invoice_type_id) != 13 ){
-    //   ts.msg.toastMessage('','Debe seleccionar un cliente',3);
-    //   return;
-    // }
-    this.modal = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
-    this.modal.result.then((result) => {
-      // console.log(result);
-    }, (reason) => {
-      console.log(reason);
-    })
   }
 
 }

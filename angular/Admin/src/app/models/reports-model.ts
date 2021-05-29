@@ -38,6 +38,7 @@ export interface Sales {
   name_department: string;
   notes: string;
   path_report: string;
+  path_ticket: string;
   payment_change: string;
   payment_method: string;
   payment_method_id: number;

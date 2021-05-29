@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Core\MasterModel;;
 use Illuminate\Http\Request;
 use App\Models\Report;
@@ -44,9 +44,9 @@ class ReportController extends Controller
     public function getInvoiceReport(Request $request)
     {
         $id             = $request->input('pdbId');
-        $invoiceNro     = $request->input('invoiceNro');
+        $type     			= $request->input('type');
         $report = new ReportSales();
-        return $report->getInvoiceReport($id, 'pdf');
+        return $report->getInvoiceReport($id, $type);
     }
 
     public function getSales(Request $request)

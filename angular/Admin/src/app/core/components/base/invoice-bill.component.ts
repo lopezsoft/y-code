@@ -508,26 +508,52 @@ export class InvoiceBillComponent extends FormComponent implements OnInit, After
     const data  = event.args;
     const row: Sales  = this.customGrid.getrowdata(data.rowindex);
     if (data.datafield === '#pdf_#'){
-      if( ( row.path_report  && row.status == 1 ) || ( row.path_report && !row.electronic ) ) {
+      if( row.path_report ) {
         let path    = `${ts.api.getAppUrl()}${row.path_report}`;
         ts.pathfile = path;
         ts.onViewDocs(content);
       }else{
         ts.showSpinner('Generando archivo...');
-        ts.reporstSer.onInvoice(row)
-          .subscribe({
-						next: ( resp ) => {
-							let path    = `${ts.api.getAppUrl()}${resp.pathFile}`;
-							ts.pathfile = path;
-							ts.hideSpinner();
-							ts.onSearch();
-							ts.onViewDocs(content);
-						},
-						error:  (err: string) =>{ 
-							ts.hideSpinner();
-							ts.msg.errorMessage('', err);
-						}
-					});
+        ts.reporstSer.onInvoice({
+					pdbId	: row.id,
+					type	: 1 // Letter
+				}).subscribe({
+					next: ( resp ) => {
+						let path    = `${ts.api.getAppUrl()}${resp.pathFile}`;
+						ts.pathfile = path;
+						ts.hideSpinner();
+						ts.onSearch();
+						ts.onViewDocs(content);
+					},
+					error:  (err: string) =>{ 
+						ts.hideSpinner();
+						ts.msg.errorMessage('', err);
+					}
+				});
+      }
+		}else if(data.datafield === '#pdf2_#') {
+			if( row.path_ticket ) {
+        let path    = `${ts.api.getAppUrl()}${row.path_ticket}`;
+        ts.pathfile = path;
+        ts.onViewDocs(content);
+      }else{
+        ts.showSpinner('Generando archivo...');
+        ts.reporstSer.onInvoice({
+					pdbId	: row.id,
+					type	: 2 // Ticket
+				}).subscribe({
+					next: ( resp ) => {
+						let path    = `${ts.api.getAppUrl()}${resp.pathFile}`;
+						ts.pathfile = path;
+						ts.hideSpinner();
+						ts.onSearch();
+						ts.onViewDocs(content);
+					},
+					error:  (err: string) =>{ 
+						ts.hideSpinner();
+						ts.msg.errorMessage('', err);
+					}
+				});
       }
     }else if (data.datafield === '#send_#'){
       // ts.sendDocument(row);
@@ -607,4 +633,15 @@ export class InvoiceBillComponent extends FormComponent implements OnInit, After
 				}
 			});
   }
+
+	onCash(content: any){
+    const ts      = this;
+    const frm     = ts.customForm;
+    this.modal = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    this.modal.result.then((result) => {
+    }, (reason) => {
+      console.log(reason);
+    })
+  }
+
 }

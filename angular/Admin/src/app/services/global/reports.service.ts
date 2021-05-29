@@ -80,12 +80,10 @@ export class ReportsService {
     }));
   }
 
-  onInvoice(ele: Sales)  {
+  onInvoice(ele: any)  {
     const ts = this;
-    return ts.api.post(`/reports/invoice`, {
-        pdbId       : ele.id,
-        invoiceNro  : ele.invoice_nro,
-    }).pipe( map ( (resp: JsonResponse) => {
+    return ts.api.post(`/reports/invoice`, ele)
+		.pipe( map ( (resp: JsonResponse) => {
       if(resp.success){
         ts.msg.toastMessage('Generado correctamente', resp.message);
       }else{
