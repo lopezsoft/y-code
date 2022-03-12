@@ -28,7 +28,7 @@ class ClassOfAccountsController extends Controller
                 $table      = $company->database_name.".class_of_accounts";
 
                 DB::table($table)->insertGetId($data);
-                $model->audit($user->id, $ip, $table , 'UPDATE', $data);
+                $model->audit($user->id, $ip, $table , 'INSERT', $data);
             }
             DB::commit();
             return $model->getReponseMessage('Registro creado con exito');
@@ -57,7 +57,7 @@ class ClassOfAccountsController extends Controller
                 $where  = ['id' => $uid];
             }
             $table  = $company->database_name.'.class_of_accounts';
-            $limit  = isset($limit) ? $limit : 1;
+            $limit  = isset($limit) ? $limit : 10;
             $start  = isset($start) ? $start : 0;
             return $model->getTable($table, $query, $start, $limit, $where);
         }else{

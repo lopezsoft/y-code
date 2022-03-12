@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit'  | translate | uppercase }} FACTURA DE COMPRA  </div>
+      <div class="card-body">
+        <form [formGroup]="customForm">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Nº. de la factura</label>
+                <input type="text" #focusElement nbinput  formControlName="invoice_nro"
+                [class.status-danger]="invalidName" [class.is-invalid]="invalidName" required autofocus
+                class="form-control">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Proveedor</label>
+                <ng-select  formControlName="provider_id" required>
+                  <ng-option value='0'>Seleccionar proveedor</ng-option>
+                  <ng-option *ngFor="let provider of providers" [value]="provider.id">
+                    {{ provider.dni }} - {{ provider.company_name }} {{ provider.full_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Punto de venta</label>
+                <ng-select  formControlName="point_of_sale_id" required>
+                  <ng-option value='0'>Seleccionar punto de venta</ng-option>
+                  <ng-option *ngFor="let point of pointsOfSale" [value]="point.id">
+                    {{ point.branch_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Bodega</label>
+                <ng-select  formControlName="warehouse_id">
+                  <ng-option value='0'>Seleccionar bopdega</ng-option>
+                  <ng-option *ngFor="let wa_house of ware_house" [value]="wa_house.id">
+                    {{ wa_house.winery_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Forma de pago</label>
+                <ng-select  formControlName="payment_method_id" required >
+                  <ng-option *ngFor="let payment of payments" [value]="payment.id">
+                    {{ payment.payment_method }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Fecha de emisión</label>
+                <input class="form-control" type="date" formControlName="admission_date" nbinput  required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Fecha de pago</label>
+                <input class="form-control" type="date" formControlName="pay_day" nbinput  required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Subtotal</label>
+                <input currencyMask class="form-control" formControlName="sub_total" nbinput  required>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Descuento</label>
+                <input currencyMask class="form-control" formControlName="discount" nbinput >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>IVA</label>
+                <input currencyMask class="form-control" formControlName="vat" nbinput >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Cargo/Seguro/Flete</label>
+                <input currencyMask class="form-control" formControlName="freight" nbinput >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Retefuente</label>
+                <input currencyMask class="form-control" formControlName="rfte" nbinput >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }}</span>Total</label>
+                <input currencyMask class="form-control" formControlName="total" ngbTooltip='Total' nbinput  required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Notas</label>
+                <textarea class="form-control" formControlName="notes" nbinput ></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- <nb-card-footer>
+        <app-footer-form [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()" [showAaveACreate]="false"
+          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()"></app-footer-form>
+      </nb-card-footer> -->
+      <div class="card-footer">
+        <app-footer-form [showAaveACreate]="false" [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()"
+                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()" [maskSpinner]="maskSpinner">
+				</app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

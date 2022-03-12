@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reaport_header" pageWidth="556" pageHeight="842" columnWidth="556" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5cdba6aa-d21f-4273-81be-aa654a7b64a4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="y-code"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<parameter name="IMAGE" class="java.lang.String"/>
+	<parameter name="HOME_DIR" class="java.lang.String"/>
+	<parameter name="POINT_OF_SALE" class="java.lang.String"/>
+	<parameter name="COMPANY_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM report_header
+WHERE branch_office_id =  $P{POINT_OF_SALE} 
+LIMIT 1]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="branch_office_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="branch_office_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="branch_office_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="line1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="line1"/>
+		<property name="com.jaspersoft.studio.field.label" value="line1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="line2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="line2"/>
+		<property name="com.jaspersoft.studio.field.label" value="line2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="foot" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="foot"/>
+		<property name="com.jaspersoft.studio.field.label" value="foot"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="image" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="image"/>
+		<property name="com.jaspersoft.studio.field.label" value="image"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="mime" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mime"/>
+		<property name="com.jaspersoft.studio.field.label" value="mime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="state" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="state"/>
+		<property name="com.jaspersoft.studio.field.label" value="state"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<field name="timestamp" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="timestamp"/>
+		<property name="com.jaspersoft.studio.field.label" value="timestamp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report_header"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="72" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="151" y="0" width="405" height="41" isRemoveLineWhenBlank="true" uuid="89af2aab-0779-4803-886b-6efcfa56344c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="12" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{line1}.trim()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="151" y="41" width="405" height="31" isRemoveLineWhenBlank="true" backcolor="#A17978" uuid="a53f29ab-3575-4753-bbc3-bb20e74e094d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{line2}.trim()]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+				<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="151" height="72" isRemoveLineWhenBlank="true" uuid="5146fa1a-c82c-47be-b241-c2ef9062fae3"/>
+				<imageExpression><![CDATA[$P{HOME_DIR} + $P{IMAGE}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

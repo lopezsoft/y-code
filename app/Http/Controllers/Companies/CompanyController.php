@@ -5,9 +5,26 @@ namespace App\Http\Controllers\companies;
 use App\Http\Controllers\Controller;
 use App\Core\MasterModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
+		public function testCompany()
+    {
+        $model  	= new MasterModel();
+        $company	= $model->getCompany();
+        if($company){
+            $table      = $company->database_name.'.company';
+            $data				= DB::table($table)->first();
+						if($data)	{
+							return $model->getReponseJson($data,1);
+						}else{
+							return $model->getReponseJson($company,0);
+						}
+        }else{
+            return $model->getErrorResponse('Error en el servidor.');
+        }
+    }
     public function select(Request $request)
     {
         $model  = new MasterModel();

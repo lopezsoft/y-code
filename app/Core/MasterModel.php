@@ -8,10 +8,58 @@ use Exception;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\MessagesTrait;
 use PhpParser\Node\Stmt\TryCatch;
 
 class MasterModel
 {
+
+	use MessagesTrait;
+
+    /**
+     * Determina si el usuario conectado es amdinistrador
+     */
+    public function isAdministrator() {
+        $user       = auth()->user();
+        $company    = $this->getCompany();
+        $query  = DB::table('business_users')
+            ->where('company_id', $company->id)
+            ->where('user_id', $user->id)
+            ->first();
+        return ($query->type_id == 1) ? true : false;
+    }
+
+    /**
+     * Ajusta el inventario
+     */
+    static function updateStock($sale_id = 0, Company $company) {
+        $db = $company->database_name.".";
+        try {
+            DB::select("CALL {$db}sp_update_kardex (?)", [$sale_id]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    function totalDecimals(string $amount, $add = 0) {
+        $result = 0;
+        if(strlen($amount) > 0) {
+            $value = substr($amount, strpos($amount, ".") + 1);
+            for ($i=0; $i < strlen($value); $i++) {
+                $n  = substr($value,$i,1);
+                if(intval($n) > 0){
+                    $result += 1;
+                }
+            }
+            if($result == 0) {
+                $result = $add;
+            }
+        }else {
+            $result	= 2;
+        }
+        return $result;
+    }
+
     /**
      * Re
      */
@@ -263,10 +311,10 @@ class MasterModel
                 $this->audit($user_id,$ip,$tb,'INSERT',$data);
                 DB::commit();
                 $data = DB::table($tb)
-                    ->get()
-                    ->where($this->primaryKey, $result);
+                    ->where($this->primaryKey, $result)
+                    ->first();
 
-                $result =  $this->getReponseJson($data, $result);
+                $result =  $this->getReponseJson($data, 1);
             } catch (Exception $e) {
                 DB::rollback();
                 $result = $this->getErrorResponse('Error en la base de datos: '. $e->getMessage());
@@ -356,9 +404,10 @@ class MasterModel
         }
         if (strlen($query) > 0) {
             $queryField = '';
-            $w      = (strlen($where) > 0) ? " WHERE ".$where." AND " : " WHERE " ;
+            // $w      = (strlen($where) > 0) ? " WHERE ".$where." AND " : " WHERE " ;
+            $w      = (strlen($where) > 0) ? " AND ".$where." " : "" ;
             foreach ($searchFields as $field) {
-                $table  = DB::select($sqlStatement.$w.$field." LIKE ? LIMIT 1", ["%".$query."%"]);
+                $table  = DB::select($sqlStatement." WHERE ".$field." LIKE ? {$w} LIMIT 1", ["%".$query."%"]);
                 if (count($table) >0 ) {
                     $queryField   = $field;
                     break;
@@ -366,8 +415,8 @@ class MasterModel
             }
 
             if(strlen($queryField) > 0){
-                $total  = DB::select($sqlStatementCount.$w.$queryField." LIKE ? ", ["%".$query."%"]);
-                $table  = DB::select($sqlStatement.$w.$queryField." LIKE ? ".$order." LIMIT ?, ?", ["%".$query."%", $start, $limit]);
+                $total  = DB::select($sqlStatementCount." WHERE ".$queryField." LIKE ? {$w}", ["%".$query."%"]);
+                $table  = DB::select($sqlStatement." WHERE ".$queryField." LIKE ? {$w} {$order} LIMIT ?, ?", ["%".$query."%", $start, $limit]);
                 $result = $this->getReponseJson($table, $total[0]->total);
             }else {
                 $table      = null;
@@ -411,11 +460,16 @@ class MasterModel
                     $total  = DB::table($tb)
                                 ->where($queryField, 'like', '%'. $query .'%')
                                 ->count();
+
                     $table  = DB::table($tb)->orderBy($primaryKey, 'DESC')
-                                ->where($queryField, 'like', '%'. $query .'%')
-                                ->offset($start)
-                                ->limit($limit)
-                                ->get();
+                                ->where($queryField, 'like', '%'. $query .'%');
+
+                    if($limit > 0){
+                        $table->offset($start)->limit($limit);
+                    }
+
+                    $table  = $table->get();
+
                 }else {
                     $total  = 0;
                     $table  = [];
@@ -463,7 +517,8 @@ class MasterModel
     {
         return response()->json([
             'success' => false,
-            'error' => $msg
+            'message' => $msg,
+            'payload' => "Error en el servidor",
         ],500);
     }
 

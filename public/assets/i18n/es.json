@@ -1,5 +1,223 @@
 {
-  "export": {
+  "HEADER": {
+    "SEARCH": "Buscar...",
+    "MEGA_MENU": "Mega Menú",
+    "NOTIFICATIONS": {
+      "TITLE": "Notificaciones",
+      "VIEW_ALL": "Ver todo",
+      "LOAD_MORE": "Cargar más..",
+      "FIRST": {
+        "TITLE": "Su pedido se ha realizado",
+        "TEXT": "Si varios idiomas fusionan la gramática",
+        "TIME": "hace 3 minutos"
+      },
+      "SECOND": {
+        "TITLE": "James Lemire",
+        "TEXT": "Parecerá un inglés simplificado",
+        "TIME": "hace 1 hora"
+      },
+      "THIRD": {
+        "TITLE": "Su artículo ha sido enviado",
+        "TEXT": "Si varios idiomas fusionan la gramática",
+        "TIME": "hace 3 minutos"
+      },
+      "FOUR": {
+        "TITLE": "Salena Layfield",
+        "TEXT": "Como un escéptico amigo de Cambridge occidental",
+        "TIME": "hace 1 hora"
+      }
+    },
+    "LOGIN": {
+      "PROFILE": "Perfil",
+      "MY_WALLET": "Mi billetera",
+      "SETTINGS": "Configuración",
+      "LOCK_SCREEN": "Pantalla de bloqueo",
+      "LOGOUT": "Cerrar sesión"
+    }
+  },
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "Menú"
+    },
+    "DASHBOARDS": {
+      "TEXT": "Tableros"
+    },
+    "LAYOUTS": {
+      "TEXT": "Diseños",
+      "LIST": {
+        "HORIZONTAL": "Horizontal",
+        "LIGHTSIDEBAR": "Barra lateral ligera",
+        "COMPACTSIDEBAR": "Barra lateral compacta",
+        "ICONSIDEBAR": "Barra lateral de iconos",
+        "BOXED": "Diseño en caja",
+        "COLOREDSIDEBAR": "Barra lateral de color",
+        "VERTICAL": "Vertical",
+        "LIGHTTOPBAR": "Barra superior ligera",
+        "COLOREDHEADER": "Encabezado de color",
+        "DARKSIDEBAR": "Barra lateral oscura",
+        "BOXEDWITH": "En caja con",
+        "PRELOADER": "Precargador"
+      }
+    },
+    "APPS": {
+      "TEXT": "Aplicaciones"
+    },
+    "CALENDAR": {
+      "TEXT": "Calendario"
+    },
+    "CHAT": {
+      "TEXT": "Charla",
+      "BADGE": "Nueva"
+    },
+    "ECOMMERCE": {
+      "TEXT": "Comercio electrónico",
+      "LIST": {
+        "PRODUCTS": "Productos",
+        "PRODUCTDETAIL": "Detalle del producto",
+        "ORDERS": "Pedidos",
+        "CUSTOMERS": "Clientes",
+        "CART": "Carro",
+        "CHECKOUT": "Revisa",
+        "SHOPS": "Tiendas",
+        "ADDPRODUCT": "Añadir Producto"
+      }
+    },
+    "EMAIL": {
+      "TEXT": "Email",
+      "LIST": {
+        "INBOX": "Bandeja de entrada",
+        "READEMAIL": "Leer el correo electrónico"
+      }
+    },
+    "INVOICES": {
+      "TEXT": "Facturas",
+      "LIST": {
+        "INVOICELIST": "Lista de facturas",
+        "INVOICEDETAIL": "Detalle de factura"
+      }
+    },
+    "CONTACTS": {
+      "TEXT": "Contactos",
+      "LIST": {
+        "USERGRID": "Cuadrícula de usuario",
+        "USERLIST": "Lista de usuarios",
+        "PROFILE": "Perfil"
+      }
+    },
+    "PAGES": {
+      "TEXT": "Páginas"
+    },
+    "AUTHENTICATION": {
+      "TEXT": "Autenticación",
+      "LIST": {
+        "LOGIN": "Iniciar sesión",
+        "REGISTER": "Registrarse",
+        "RECOVERPWD": "Recuperar contraseña",
+        "LOCKSCREEN": "Bloquear pantalla"
+      }
+    },
+    "UTILITY": {
+      "TEXT": "Utilidad",
+      "LIST": {
+        "STARTER": "Página de inicio",
+        "MAINTENANCE": "Mantenimiento",
+        "COMINGSOON": "Próximamente",
+        "TIMELINE": "Cronograma",
+        "FAQS": "Preguntas frecuentes",
+        "PRICING": "Precios",
+        "ERROR404": "error 404",
+        "ERROR500": "Error 500"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "Componentes"
+    },
+    "UIELEMENTS": {
+      "TEXT": "Elementos de la IU",
+      "LIST": {
+        "ALERTS": "Alertas",
+        "BUTTONS": "Botones",
+        "CARDS": "Tarjetas",
+        "CAROUSEL": "Carrusel",
+        "DROPDOWNS": "Listas deplegables",
+        "GRID": "Cuadrícula",
+        "IMAGES": "Imágenes",
+        "LIGHTBOX": "Caja ligera",
+        "MODALS": "Modalidades",
+        "RANGESLIDER": "Control deslizante de rango",
+        "SESSIONTIMEOUT": "Hora de término de la sesión",
+        "PROGRESSBAR": "Barras de progreso",
+        "SWEETALERT": "Alerta dulce",
+        "TABS": "Pestañas y acordeones",
+        "TYPOGRAPHY": "Tipografía",
+        "VIDEO": "Vídeo",
+        "GENERAL": "General",
+        "COLORS": "Colores",
+        "CROPPER": "Recortador de imagen",
+        "RATING": "Clasificación"
+      }
+    },
+    "FORMS": {
+      "TEXT": "Formas",
+      "BADGE": "8",
+      "LIST": {
+        "ELEMENTS": "Elementos de formulario",
+        "VALIDATION": "Validación de formulario",
+        "ADVANCED": "Formulario avanzado",
+        "EDITOR": "Editora de formularios",
+        "FILEUPLOAD": "Subir archivo de formulario",
+        "REPEATER": "Repetidor de forma",
+        "WIZARD": "Asistente de formulario",
+        "MASK": "Máscara de forma"
+      }
+    },
+    "TABLES": {
+      "TEXT": "Mesas",
+      "LIST": {
+        "BASIC": "Tablas Básicas",
+        "ADVANCED": "Mesa avanzada"
+      }
+    },
+    "CHARTS": {
+      "TEXT": "Gráficos",
+      "LIST": {
+        "APEX": "Gráfico de Apex",
+        "CHARTJS": "Chartjs Chart",
+        "CHARTIST": "Chartist Chart",
+        "ECHART": "Gráfico E"
+      }
+    },
+    "ICONS": {
+      "TEXT": "Íconos",
+      "LIST": {
+        "UNICONS": "Unicons",
+        "BOXICONS": "Boxicones",
+        "MATERIALDESIGN": "Diseño de materiales",
+        "DRIPICONS": "Dripicons",
+        "FONTAWESOME": "Fuente impresionante"
+      }
+    },
+    "MAPS": {
+      "TEXT": "Mapas",
+      "LIST": {
+        "GOOGLEMAP": "mapas de Google"
+      }
+    },
+    "MULTILEVEL": {
+      "TEXT": "Multi nivel",
+      "LIST": {
+        "LEVEL1": {
+          "1": "Nivel 1.1",
+          "2": "Nivel 1.2",
+          "LEVEL2": {
+            "1": "Nivel 2.1",
+            "2": "Nivel 2.2"
+          }
+        }
+      }
+    }
+  },
+	"export": {
     "excel" : " - Exportar a Excel",
     "csv"   : " - Exportar a CSV",
     "pdf"   : " - Exportar a PDF",
@@ -15,9 +233,18 @@
     "search"          : "Búsqueda...",
     "email"           : "Correo electrónico"
   },
+  "recoverPassword": {
+    "header"      : "Recuperar contraseña",
+    "description" : "Ingrese su dirección de correo electrónico y le enviaremos su nueva contraseña.",
+    "button"      : {
+      "recover"     : "Recuperar",
+      "recovering"  : "Recuperando..."
+    }
+  },
   "login" : {
     "rememberMe"  : "Recuérdame",
     "headerForm"  : "Inicio de sesión",
+    "welcome"     : "Bienvenid@, inicie sesión en su cuenta.",
     "button"      : {
       "startNow"  : "Iniciar ahora",
       "loggingIn" : "Iniciando sesión"
@@ -30,6 +257,8 @@
     }
   },
   "register" : {
+    "title"       : "Crear cuenta",
+    "description" : "Complete el siguiente formulario para crear una nueva cuenta.",
     "headerForm"  : "Formulario de Registro",
     "button"      : {
       "registerNow"       : "Registrar ahora",
@@ -40,7 +269,9 @@
       "login"         : "Iniciar sesión"
     },
     "placeholder" : {
-      "nameAndSurname" : "Ingrese su nombre y apellidos"
+      "nameAndSurname" 	: "Ingrese su nombre y apellidos",
+      "firstName" 			: "Ingrese su nombre",
+      "lastName" 				: "Ingrese sus apellidos"
     },
     "messages" : {
       "successfulRegistration"  : "Registro exitoso.",
@@ -64,38 +295,151 @@
     }
   },
   "buttons" : {
+    "goToStart" : "Ir al inicio",
+    "recover"   : "Recuperar",
     "yes"     : "Si",
     "not"     : "No",
     "cancel"  : "Cancelar",
+    "close"   : "Cancelar",
     "save"    : "Guardar",
     "new"     : "Nuevo",
     "import"  : "Importar",
+    "search"  : "Buscar",
+    "report"  : "Informe",
     "saveAndClose"  : "Guardar y cerrar",
     "saveAndCreate" : "Guardar y crear nuevo",
     "acept"   : "Aceptar"
   },
   "general" : {
     "error"               : "Error",
+    "isRequired"          : "Es requerido",
     "pleaseWait"          : "Espere por favor",
     "savedSuccessfully"   : "Guardado exitosamente",
     "successfullyCreated" : "Creado exitosamente",
-    "loading"             : "Cargando"
+    "loading"             : "Cargando",
+    "createEdit"          : "Crear/Editar",
+    "currency"            : "Moneda",
+    "tax"                 : "Impuesto",
+    "country"             : "País",
+    "aterisk"             : "*",
+    "404"                 : "404 La página no existe",
+    "asterisk"            : "*"
   },
   "companies": {
-    "company_name"      : "Nombre de la compañia *",
-    "type_organization" : "Tipo de organización *",
-    "identity_document" : "Identificación tributaria *",
+    "company_name"      : "Nombre o razón social",
+    "trade_name"        : "Nombre comercial",
+    "reference"         : "Referencia",
+    "type_organization" : "Tipo de contribuyente",
+    "tax_level"         : "Tipo de responsabilidad",
+    "tax_regime"        : "Regimen contable",
+    "identity_document" : "Tipo de documento",
+    "type_person_id"    : "Tipo de cliente",
     "number_employees"  : "Número de empleados",
-    "currency"          : "Moneda *",
-    "country"           : "País *",
-    "dni"               : "Número de identificación tributaria",
+    "currency"          : "Moneda",
+    "country"           : "País",
+    "city"              : "Ciudad/Municipio",
+    "dni"               : "Número del documento",
     "dv"                : "Digite DV",
     "address"           : "Dirección principal",
-    "location"          : "Dirección",
+    "location"          : "Dirección postal",
     "postal_code"       : "Código postal",
     "mobile"            : "Número de celular",
     "phone"             : "Número de télefono fijo",
     "email"             : "Correo electronico",
-    "web"               : "Dirección de sitio web"
+    "web"               : "Sitio web"
+  },
+  "taxes": {
+    "title"       : "Grupo de impuestos",
+    "name"        : "Nombre del grupo",
+    "is_vat"      : "¿Es IVA?",
+    "description" : "Descripción",
+    "rate"       : {
+      "title"       : "Rango de impuestos",
+      "group"       : "Grupo",
+      "name"        : "Nombre de la tarifa",
+      "is_exempt"   : "¿Es Exlucido?",
+      "abbre"       : "Abreviatura",
+      "decimal"     : "Tasa decimal",
+      "frecuency"   : "Frecuencia de envío",
+      "accountName" : "Cuenta contable",
+      "value"       : "Tasa"
+    }
+  },
+  "currency": {
+    "title"                 : "Monedas",
+    "ISO"                   : "ISO",
+    "name"                  : "Nombre de la moneda",
+    "singularName"          : "Nombre singular",
+    "pluralName"            : "Nombre plural",
+    "symbol"                : "Simbolo",
+    "exchangeRateValue"     : "Tasa de cambio",
+    "denomination"          : "Denominación",
+    "nationalCurrency"      : "¿Moneda nacional?"
+  },
+  "identityDocuments": {
+    "title"           : "Documentos de identidad",
+    "name"            : "Nombre del documento",
+    "abbrev"          : "Abreviatura",
+    "active"          : "Activo",
+    "code"            : "Código"
+  },
+  "branchs" : {
+    "title"         : "Sucursales",
+    "name"          : "Nombre de la sucursal",
+    "address"       : "Dirección principal",
+    "address2"      : "Dirección de la sucursal",
+    "location"      : "Ubicación geografica",
+    "email"         : "Correo electrónico",
+    "phone"         : "Teléfono",
+    "web"           : "Sitio web",
+    "postalCode"    : "Código postal",
+    "isPointOfSale" : "¿Es un punto de venta?",
+    "mobile"        : "Celular"
+  },
+  "pointsofsale" : {
+    "title"         : "Puntos de venta",
+    "name"          : "Nombre del punto de venta",
+    "branch_name"   : "Sucursal",
+    "address"       : "Dirección",
+    "phone"         : "Teléfono",
+    "mobile"        : "Celular"
+  },
+  "departments" : {
+    "title"         : "Departamentos",
+    "name"          : "Nombre del departamento",
+    "branch"        : "Sucursal"
+  },
+  "wineries" : {
+    "title"         : "Bodegas",
+    "name"          : "Nombre de la bodega",
+    "branch"        : "Sucursal",
+    "department"    : "Departamento"
+  },
+  "typeOrganization" : {
+    "title"         : "Tipos de empresa",
+    "name"          : "Nombre del tipo de empresa"
+  },
+  "accounting"  : {
+    "title"         : "Catalógo de cuentas",
+    "account"       : "Cuenta",
+    "name"          : "Nombre de la cuenta",
+    "description"   : "Descripción",
+    "number"        : "Número",
+    "group"         : "Grupo contable",
+    "master"        : "Cuenta maestra",
+    "isSubAccount"  : "¿Subcuenta?",
+    "groups"        : {
+      "title"         : "Grupos contables",
+      "group"         : "Grupo contable",
+      "name"          : "Nombre del grupo",
+      "classOfAccount": "Close de cuenta",
+      "number"        : "Número"
+    },
+    "class"        : {
+      "title"         : "Clases de cuentas",
+      "class"         : "Clase de cuenta",
+      "name"          : "Nombre de la clase de cuenta",
+      "number"        : "Número"
+    }
   }
 }

@@ -1,0 +1,133 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit' | translate | uppercase}} {{  'branchs.title' | translate | uppercase }}</div>
+      <div class="card-body">
+        <form [formGroup]="customForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }} </span>{{ 'branchs.name' | translate }}</label>
+                <input type="text" nbinput autofocus #focusElement required
+                  [class.is-invalid]="invalidBranchName" [class.status-danger]="invalidBranchName"
+                  class="form-control form-control"
+                  formControlName="branch_name" name="branch_name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }} </span>{{ 'general.currency' | translate }}</label>
+                <ng-select fullWidth formControlName="currency_id" name="currency_id" required
+                  [class.is-invalid]="invalidCurrency" [class.status-danger]="invalidCurrency"
+                  [virtualScroll]="true">
+                  <ng-option *ngFor="let cur of currency" [value]="cur.id">
+                    <img height="15" width="15" [src]="'assets/flags/'+cur.image" /> {{ cur.CurrencyName }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label><span class="asterisk"> {{ 'general.asterisk' | translate }} </span>{{ 'general.country' | translate }}</label>
+                <ng-select fullWidth formControlName="country_id" name="country_id" required
+                  [class.is-invalid]="invalidCountry" [class.status-danger]="invalidCountry"
+                  [virtualScroll]="true">
+                  <ng-option *ngFor="let coun of countries" [value]="coun.id">
+                    <img height="15" width="15" [src]="'assets/flags/'+coun.image" /> {{ coun.country_name }}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.postalCode' | translate }}</label>
+                <input type="text" nbinput
+                  class="form-control"
+                  formControlName="postal_code" name="postal_code">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.address' | translate }}</label>
+                <textarea nbinput class="form-control"
+                  formControlName="address" name="address">
+                </textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.address2' | translate }}</label>
+                <textarea nbinput class="form-control"
+                  formControlName="address2" name="address2">
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.location' | translate }}</label>
+                <input type="text" nbinput
+                  class="form-control"
+                  formControlName="location" name="location">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.email' | translate }}</label>
+                <input type="email" nbinput
+                  class="form-control"
+                  formControlName="email" name="email">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.mobile' | translate }}</label>
+                <input type="text" maxlength="12" nbinput
+                  class="form-control"
+                  formControlName="mobile" name="mobile">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.phone' | translate }}</label>
+                <input type="text" nbinput
+                  class="form-control"
+                  formControlName="phone" name="phone">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{ 'branchs.web' | translate }}</label>
+                <input type="text" maxlength="12" nbinput
+                  class="form-control"
+                  formControlName="web" name="web">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <br>
+                <input type="checkbox" class="checkbox"
+                  formControlName="is_point_of_sale" id="is_point_of_sale" name="is_point_of_sale" style="margin-right: 2%;">
+                <label for="is_point_of_sale">{{ 'branchs.isPointOfSale' | translate }}</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose"
+          (closeEvent)="cancel()" (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()">
+        </app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-header">
+        <span>{{ 'Crear compañía y base de datos' | uppercase }}</span>
+    </div>
+    <div class="card-body">
+        <button type="button" class="btn btn-primary btn-lg btn-block" (click)="onCreateData()">
+            <i class="fas " [ngClass]="{'fas fa-spinner fa-spin': creating, 'far fa-building': !creating}" ></i>
+            <span *ngIf="!creating"> Iniciar</span>
+            <span *ngIf="creating"> Creando compañia</span>
+        </button>
+    </div>
+</div>
+<ngx-spinner><p style="color: #fff">Creado compañía</p></ngx-spinner>

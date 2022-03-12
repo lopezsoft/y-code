@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
 
 class NumbersToLetters
 {
@@ -28,15 +28,15 @@ class NumbersToLetters
         13            => 'TRECE',
         14            => 'CATORCE',
         15            => 'quince',
-        16            => 'diecisÉis',
+        16            => 'diecisEis',
         17            => 'diecisiete',
         18            => 'dieciocho',
         19            => 'diecinueve',
         20            => 'veinte',
-        21            => 'veintiuno',
+        21            => 'veintiun',
         212           => 'veintiun',
-        22            => 'veintidÓs',
-        23            => 'veintitrÉs',
+        22            => 'veintidOs',
+        23            => 'veintitrEs',
         24            => 'veinticuatro',
         25            => 'veinticinco',
         26            => 'veintisÉis',
@@ -59,8 +59,8 @@ class NumbersToLetters
     ];
 
     public $ThousANDString      = 'MIL';
-    public $MillionString       = 'MILLÓN';
-    public $MillionsString      = 'MILLÓNES';
+    public $MillionString       = 'MILLON';
+    public $MillionsString      = 'MILLONES';
     public $NumberAND           = ' Y ';
     public $NumberSPACE         = ' ';
     public $NumberWITH          = ', CON ';
@@ -81,7 +81,7 @@ class NumbersToLetters
         if($decimal){
             $decVal     = substr($value,$decimal + 1);
             $realNumber = str_pad(substr($value,0,$decimal), 12, '0',STR_PAD_LEFT);
-            $B0         = $this->NumberWITH.$this->readValues($decVal).$this->NumberSPACE.$money2;
+            $B0         = $this->NumberWITH.$this->readValues($decVal).$this->NumberSPACE.$money2.$this->NumberSPACE;
         }else{
             $realNumber = str_pad($value, 12, '0',STR_PAD_LEFT);
         }
@@ -102,13 +102,13 @@ class NumbersToLetters
         if($A2 > 0){
             switch ($A2) {
                 case 1:
-                    $B2     = $this->ThousANDString.$this->NumberSPACE.$money;
+                    $B2     = $this->ThousANDString.$this->NumberSPACE;
                     break;
                 case 21:
-                    $B2     = $this->TENDS[212].$this->NumberSPACE.$this->ThousANDString.$this->NumberSPACE.$money;
+                    $B2     = $this->TENDS[212].$this->NumberSPACE.$this->ThousANDString.$this->NumberSPACE;
                     break;
                 default:
-                    $B2     = $this->readValues($A2).$this->NumberSPACE.$this->ThousANDString.$this->NumberSPACE.$money;
+                    $B2     = $this->readValues($A2).$this->NumberSPACE.$this->ThousANDString.$this->NumberSPACE;
                     break;
             }
         }
@@ -127,7 +127,7 @@ class NumbersToLetters
             }
 
             if($A2 == 0 && $A1 == 0){
-                $B3 = $B3.$this->NumberFrom.$money;
+                $B3 = $B3.$this->NumberFrom;
             }else{
                 $B3 = $B3.$this->NumberSPACE;
             }
@@ -146,13 +146,14 @@ class NumbersToLetters
                     break;
             }
             if($A2 == 0 && $A1 == 0 && $A3 == 0){
-                $B4 = $B4.$this->NumberFrom.$money;
+                $B4 = $B4.$this->NumberFrom;
             }else{
                 $B4 = $B4.$this->NumberSPACE;
             }
         }
-
-        return strtoupper($B4.$B3.$B2.$B1.$B0);
+        $r      = (strlen($B0) > 0) ? $B0 : $this->NumberSPACE;
+        $Result = $B4.$B3.$B2.$B1.$this->NumberSPACE.$money.$r;
+        return strtoupper($Result);
     }
 
     private function readValues(int $number) {
@@ -222,7 +223,7 @@ class NumbersToLetters
         $NUnit = intval(substr(strval($NValue),2,1)); // Unidad
         switch($NCent) {
             case 1 :
-                if ($NValue = 100){
+                if ($NValue == 100){
                     $Result = $this->HUNDREDS[100];
                 }else{
                     $Result = $this->HUNDREDS[1002];

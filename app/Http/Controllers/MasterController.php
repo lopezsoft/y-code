@@ -4,17 +4,121 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Core\MasterModel;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class MasterController extends Controller
 {
-    public function geMeansPayment(){
+
+		public function getPublicCountries(){
+			$model      = new MasterModel();;
+			$table      = 'countries';
+			return $model->getTable($table, '', 0, 300, ['active' => 1], ['country_name' => 'asc']);
+		}
+
+    public function getUserTypes(){
+			$where      = [
+					'active'    => 1
+			];
+			$model      = new MasterModel();
+			$table      = 'user_types';
+			return $model->getTable($table, '', 0, 30, $where);
+    }
+
+    public function getClasOfProducts(){
+        $where      = [
+            'active'    => 1
+        ];
         $model      = new MasterModel();
-        return $model->getTable('means_payment', '', 0, 100);
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.product_class';
+        return $model->getTable($table, '', 0, 30, $where);
+    }
+
+    public function getIpInfo(Request $request){
+        try {
+            $url        = "http://ipinfo.io/json";
+            $data       = json_decode( file_get_contents($url));
+            return response()->json([
+                'success'       => true,
+                'info'          => $data,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message'   => 'Internal Server Error',
+                'success'   => false,
+                'payload'   => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getTypePersonsCustomers(Request $request){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.type_persons';
+        $query      = DB::table($table)
+                    ->whereIn('id', [1, 3, 6])
+                    ->get();
+        return $model->getReponseJson($query, count($query));
+    }
+
+    public function getTypePersons(Request $request){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.type_persons';
+        $uid        = $request->uid;
+        $where      = [];
+        if(isset($uid)){
+            $where  = [ 'id' => $uid];
+        }
+        return $model->getTable($table, '', 0, 20, $where);
+    }
+
+    public function getAccountTypes(Request $request){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.account_types';
+        $uid        = $request->uid;
+        $where      = [];
+        if(isset($uid)){
+            $where  = [ 'id' => $uid];
+        }
+        return $model->getTable($table, '', 0, 20, $where);
+    }
+
+    public function getMeasurementUnits(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.standard_measurement_units';
+        return $model->getTable($table, '', 0, 20);
+    }
+
+    public function getTimeLimit(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.tb_time_limit';
+        return $model->getTable($table, '', 0, 10);
+    }
+
+    public function getShippingFrequency(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.shipping_frequency';
+        return $model->getTable($table, '', 0, 10);
+    }
+
+    public function getMeansPayment(){
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.means_payment';
+        return $model->getTable($table, '', 0, 100);
     }
 
     public function getPaymentMethods(){
         $model      = new MasterModel();
-        return $model->getTable('payment_methods', '', 0, 10);
+        $company    = $model->getCompany();
+        $db         = $company->database_name.'.';
+        return $model->getTable($db.'payment_methods', '', 0, 10);
     }
 
     public function getReferencePrice(){
@@ -73,9 +177,20 @@ class MasterController extends Controller
         return $model->getTable('operation_types', '', 0, 20);
     }
 
-    public function getDocumentType(){
+    public function getDocumentType(Request $request){
         $model      = new MasterModel();
-        return $model->getTable('accounting_documents', '', 0, 10);
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.accounting_documents';
+        $where      = $request->input('where');
+        $whereSend  = [];
+        if(isset($where)){
+            $where  = json_decode($where);
+            foreach ($where as $key => $modelue) {
+                $whereSend[$key] = $modelue;
+            }
+        }
+        $model      = new MasterModel();
+        return $model->getTable( $table, '', 0, 10, $whereSend);
     }
 
     public function getDestinationEnvironme(){
@@ -93,7 +208,9 @@ class MasterController extends Controller
             'active'    => 1
         ];
         $model      = new MasterModel();
-        return $model->getTable('currency', '', 0, 30, $where);
+        $company    = $model->getCompany();
+        $table      = $company->database_name.'.currency';
+        return $model->getTable($table, '', 0, 30, $where);
     }
 
     public function getCurrencySys(){
@@ -101,7 +218,7 @@ class MasterController extends Controller
         $company    = $model->getCompany();
         $table      = $company->database_name.'.';
 
-        $sqlSelect  = "SELECT a.*, CONCAT(TRIM(b.CurrencyISO),' ',TRIM(b.CurrencyName)) AS currency_name
+        $sqlSelect  = "SELECT a.*, CONCAT(TRIM(b.CurrencyISO),' - ',TRIM(b.CurrencyName)) AS CurrencyName, b.image, b.Symbol, b.CurrencyISO
                             FROM {$table}currency_sys AS a
                             LEFT JOIN {$table}currency AS b ON a.currency_id = b.id";
         $sqlCount   = "SELECT COUNT(id) as total FROM {$table}currency_sys";

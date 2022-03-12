@@ -1,0 +1,136 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit' | translate | uppercase }} {{ 'Resolución de facturación' | uppercase  }}</div>
+      <div class="card-body">
+        <form  [formGroup]="customForm">
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                    <jqxEditor #editorHeader></jqxEditor>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                    <jqxEditor #editorHeader2></jqxEditor>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Punto de venta</label>
+                    <ng-select formControlName="point_of_sale_id" required>
+                    <ng-option *ngFor="let point of pointsOfSale" [value]="point.id">
+                        {{ point.branch_name }}
+                    </ng-option>
+                    </ng-select>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Tipo de documento</label>
+                    <ng-select formControlName="type_document_id" required>
+                    <ng-option *ngFor="let doc of aDocuments" [value]="doc.id">
+                        {{ doc.code }} - {{ doc.voucher_name }}
+                    </ng-option>
+                    </ng-select>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Nombre del documento</label>
+                    <input class="form-control" type="text" formControlName="invoice_name" required  #focusElement autofocus>
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nº. Resolución</label>
+                    <input class="form-control" type="text" formControlName="resolution_number">
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label>Prefijo</label>
+                    <input class="form-control" type="text" formControlName="prefix">
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Número inicial de folio</label>
+                    <input class="form-control" type="text" formControlName="initial_number">
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Numeración desde</label>
+                    <input class="form-control" type="text" formControlName="range_from">
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Numeración hasta</label>
+                    <input class="form-control" type="text" formControlName="range_up">
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Fecha desde</label>
+                    <input class="form-control" type="date" formControlName="date_from" >
+                </div>
+                </div>
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>Fecha hasta</label>
+                    <input class="form-control" type="date" formControlName="date_up" >
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                    <jqxEditor #footline1></jqxEditor>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                    <jqxEditor #footline2></jqxEditor>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                    <jqxEditor #footline3></jqxEditor>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <div class="form-group">
+                    <jqxEditor #footline4></jqxEditor>
+                </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose" (closeEvent)="cancel()"
+                          (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()" [maskSpinner]="maskSpinner"></app-footer-form>
+      </div>
+    </div>
+  </div>
+</div>
+

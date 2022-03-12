@@ -6,94 +6,104 @@ use App\Core\NumbersToLetters;
 use Illuminate\Support\Facades\DB;
 use App\Core\MasterModel;
 use App\Core\JReportModel;
+use App\models\dashboard\Company;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
+use CodeItNow\BarcodeBundle\Utils\QrCode;
+use App\Models\Report;
 
 class ReportSales extends MasterModel
 {
 
-    public function saveInvoiceAttachments($id = 0, $file = null, $format = 'pdf')
+    public function getClosingSalesReport($initDate, $initDateR, $finalDate,  $finalDateR, $typeId, $typeReport,  $uid, $format = 'pdf')
     {
-        if($id > 0 && !is_null($file)){
-            $report         =  new JReportModel();
-            $company        = $this->getCompany();
-            $query          = DB::select("CALL `sp_select_sales_master`('{$company->id}', '{$id}', '1', NULL, NULL, '0')");
-            $select         = $query[0];
-            $dni            = str_pad($company->dni,10,'0', STR_PAD_LEFT);
-            $year           = date('y');
-            $ppp            = '000';
-            $invoiceNro     = str_pad($select->invoice_nro,8,'0', STR_PAD_LEFT);
-            $invoiceNro     = "{$select->prefix_doc}{$dni}{$ppp}{$year}{$select->prefix}{$invoiceNro}";
-
-            $outputFolder   = "{$company->dni}/invoices/{$invoiceNro}";
-            if(!file_exists($report->path_report."/{$format}/".$outputFolder)){
-                mkdir($report->path_report."/{$format}/".$outputFolder, 0777,true);
-            }
-
-            if (!is_null($file)) {
-                //obtenemos el nombre del archivo
-                $fielName   = $file->getClientOriginalName();
-                $path       = "reportsjr/{$format}/".$outputFolder;
-                Storage::putFileAs($path, new File($file), $fielName);
-            }
+        $user           = auth()->user();
+        $report         = new JReportModel();
+        $reportName     = 'closing_sales_01';
+        $company        = $this->getCompany();
+        if($typeReport   !== '1'){ // Invoice POS
+            $reportName     = 'closing_sales_pos_80';
         }
+        $outputFolder   = "{$company->dni}/reports/users/{$user->id}/{$reportName}/".date('dmY');
+        $path           = "{$report->path_report}/{$format}/{$outputFolder}";
+        $routputName    = $reportName;
+
+        Storage::disk('reports')->makeDirectory($path);
+        $params = [
+            'USER_ID'       => $uid,
+            'COMPANY_ID'    => $company->id,
+            'INIT_DATE'     => $initDate,
+            'INIT_DATER'    => $initDateR,
+            'FINAL_DATE'    => $finalDate,
+            'FINAL_DATER'   => $finalDateR,
+            'TYPE_ID'       => $typeId,
+            "PSymbol"       => '$ ',
+        ];
+
+        return $report->getReportExport($reportName,$routputName,$format,'', $outputFolder, $params);
     }
 
-    public function getInvoiceReport($id, $format = 'pdf')
+    public function getInventoryReport($typeReport, $point_of_sale, $format = 'pdf')
     {
-        $report         =  new JReportModel();
+        $user           = auth()->user();
+        $report         = new JReportModel();
+        $reportName     = 'stock';
+        // $reportName     = 'hello_world';
         $company        = $this->getCompany();
-        $reportName     = 'invoice_fe_01';
-        $query          = DB::select("CALL `sp_select_sales_master`('{$company->id}', '{$id}', '1', NULL, NULL, '0')");
-        $select         = $query[0];
-        $dni            = str_pad($company->dni,10,'0', STR_PAD_LEFT);
-        $year           = date('y');
-        $ppp            = '000';
-        $invoiceNro     = str_pad($select->invoice_nro,8,'0', STR_PAD_LEFT);
-        $invoiceNro     = "{$select->prefix_doc}{$dni}{$ppp}{$year}{$select->prefix}{$invoiceNro}";
-        $routputName    = "{$invoiceNro}";
+        $db             = $company->database_name;
+        $outputFolder   = "{$company->dni}/reports/users/{$user->id}/{$reportName}/".date('dmY');
+        $path           = "{$report->path_report}/{$format}/{$outputFolder}";
+        $routputName    = $reportName;
 
-        $query          = "CALL `sp_select_sales_master`('{$company->id}', '{$id}', '1', NULL, NULL, '0')";
-        $outputFolder   = "{$company->dni}/invoices/{$invoiceNro}/".date('dmY');
-        if(!file_exists($report->path_report."/{$format}/".$outputFolder)){
-            mkdir($report->path_report."/{$format}/".$outputFolder, 0777,true);
+        Storage::disk('reports')->makeDirectory($path);
+        $params = [
+            'COMPANY_ID'    => $company->id,
+            'POINT_OF_SALE' => $point_of_sale,
+            'SQL_PARAM'     => "CALL {$db}.`sp_select_sales_products`({$company->id} , '', '0', '0', '0')"
+        ];
+
+        return $report->getReportExport($reportName,$routputName,$format,'', $outputFolder, $params, $point_of_sale);
+    }
+
+    public function gerSalesReport($initDate, $finalDate, $typeId, $typeReport,  $uid, $format = 'pdf')
+    {
+        $user           = auth()->user();
+        $report         = new JReportModel();
+        $reportName     = 'invoice_report';
+        $company        = $this->getCompany();
+        if($typeReport   !== '1'){ // Invoice POS
+            $reportName     = 'invoice_report';
         }
+        $outputFolder   = "{$company->dni}/reports/users/{$user->id}/{$reportName}/".date('dmY');
+        $path           = "{$report->path_report}/{$format}/{$outputFolder}";
+        $routputName    = $reportName;
 
-        // if($select->electronic == 1){ // Electronic document
-        //     if($select->invoice_type_id == 9 && strlen($select->cufe) < 10){ // Document type 03
-        //         $adocuments = DB::table('accounting_documents')->where('id', $select->invoice_type_id)->first();
-        //         $software   = DB::table('software_information')->where('company_id', $company->id)->first();
-        //         $CUFE       = "{$select->invoice_nro}{$select->invoice_date}{$select->invoice_time}-05:00{($select->total - $select->tax_value)}01
-        //                        {$select->tax_value}040.00030.00{$select->total}{$company->dni}{$select->dni}{$software->pin}{$software->environme_id}";
-        //         $CUFE       = hash('sha384',$CUFE);
-        //         DB::update("update sales_master set cufe = '{$CUFE}'  where id = ?", [$id]);
-        //     }
-        // }
+        Storage::disk('reports')->makeDirectory($path);
+        $params = [
+            'USER_ID'       => $uid,
+            'COMPANY_ID'    => $company->id,
+            'INIT_DATE'     => $initDate,
+            'FINAL_DATE'    => $finalDate,
+            'TYPE_ID'       => $typeId,
+        ];
 
-        // $qrCode = new QrCode();
-        // $img    = strtolower("{$report->path_report}/{$format}/{$outputFolder}/QR_{$invoiceNro}.png");
-        // $qrCode
-        //     ->setText($select->qrcode.$select->cufe)
-        //     ->setSize(128)
-        //     ->setPadding(2)
-        //     ->setErrorCorrection('high')
-        //     ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
-        //     ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
-        //     ->setLabelFontSize(16)
-        //     ->setImageType(QrCode::IMAGE_TYPE_PNG)
-        //     ->save($img);
-        // $model      = new NumbersToLetters();
-        // $letters    = $model->getNumbersToLetters($select->total, $select->plural_name).$select->denomination;
+        return $report->getReportExport($reportName,$routputName,$format,'', $outputFolder, $params);
+    }
 
-        // $params = [
-        //     'QRIMAGE'   => $img,
-        //     'PLETTERS'  => $letters
-        // ];
 
-        // $response   = $report->getReportExport($reportName,$routputName,$format,$query, $outputFolder, $params);
-        // $resp       = $response->original;
-        // DB::update("update sales_master set path_report = '{$resp['pathFile']}'  where id = ? limit 1", [$id]);
+    public function getInvoiceReport($id, $type	= 1)
+    {
 
-        return $response;
+        // $report         = new JReportModel();
+        $company        = $this->getCompany();
+        $db             = $company->database_name.".";
+        $sale           = DB::table($db.'sales_master')
+                            ->where('id', $id)
+                            ->first();
+        if(!$sale){
+            return $this->getErrorResponse("El documento al que desea generar la representación gráfica, no pertenece a la empresa {$company->company_name} o no existe.");
+        }
+        $ticket         = new Report();
+        return          $ticket->setInvoice($id, $type);
     }
 }

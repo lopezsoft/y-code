@@ -1,0 +1,359 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ 'general.createEdit' | translate | uppercase }} ITEM</div>
+      <div class="card-body">
+        <form  [formGroup]="customForm">
+          <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink class="display-none">General</a>
+              <ng-template ngbNavContent>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Nombre del item</label>
+                      <input #focusElement autofocus nbInput fullWidth class="form-control" type="text" name="product_name" formControlName="product_name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Clase</label>
+                      <ng-select name="class_id" formControlName="class_id" (change)="classChange($event)" [readonly]="editing">
+                        <ng-option *ngFor="let class of classof" [value] ="class.id">
+                          {{ class.product_class_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Impuesto en compras</label>
+                      <ng-select name="tax_bill_id" formControlName="tax_bill_id">
+                        <ng-option *ngFor="let taxb of taxBill" [value] ="taxb.id">
+                          {{ taxb.name_taxe }} - {{  taxb.rate_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span> Impuesto en ventas</label>
+                      <ng-select name="tax_sales_id" formControlName="tax_sales_id" >
+                        <ng-option *ngFor="let taxs of taxSale" [value] ="taxs.id">
+                          {{ taxs.name_taxe }} - {{  taxs.rate_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Descripción para compras</label>
+                      <input nbInput fullWidth class="form-control" type="text" name="shopping_description" formControlName="shopping_description">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Descripción para ventas</label>
+                      <input nbInput fullWidth class="form-control" type="text" name="description_sales" formControlName="description_sales">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Marca</label>
+                      <ng-select name="brand_id" formControlName="brand_id" [virtualScroll]="true">
+                        <ng-option value='0'>Sin marca</ng-option>
+                        <ng-option *ngFor="let brand of brands" [value] ="brand.id">
+                          {{ brand.brand_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Categoria</label>
+                      <ng-select name="category_id" formControlName="category_id" (change) = "categoryChange($event)" [virtualScroll]="true">
+                        <ng-option value="0">Sin categoria</ng-option>
+                        <ng-option *ngFor="let category of categories" [value] ="category.id">
+                          {{ category.category_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Sub categoria</label>
+                      <ng-select #subCatElement name="sub_category_id" formControlName="sub_category_id" [virtualScroll]="true">
+                        <ng-option value="0">Sin subcategoria</ng-option>
+                        <ng-option *ngFor="let subcateg of subCateg" [value] ="subcateg.id">
+                          {{ subcateg.category_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Costo unitario</label>
+                      <input nbInput fullWidth class="form-control" currencyMask name="purchase_cost" formControlName="purchase_cost">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Porcentaje de ganancia</label>
+                      <input type="number" nbInput fullWidth class="form-control" currencyMask formControlName="percentage_gain" (keyup)="onPercentageGain()" (change)="onPercentageGain()">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Precio de venta</label>
+                      <input nbInput fullWidth class="form-control" currencyMask formControlName="sale_price">
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink  class="display-none">Adicionales</a>
+              <ng-template ngbNavContent>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>SKU</label>
+                      <input nbInput fullWidth class="form-control" type="text" name="sku" formControlName="sku">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Código de barras</label>
+                      <input nbInput fullWidth class="form-control" type="text" name="barcode" formControlName="barcode">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Código QR</label>
+                      <input nbInput fullWidth class="form-control" type="text" name="qr_code" formControlName="qr_code">
+                    </div>
+                  </div>
+                  <div *ngIf="!disabled" class="col-md-6">
+                    <div class="form-group">
+                      <br><br>
+                      <input type="checkbox" class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+                        formControlName="perishable" id="perishable" name="perishable" style="margin-right: 2%;">
+                      <label for="perishable">Producto perecedero (Se aplica control de caducidad)</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <br><br>
+                      <input type="checkbox" class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+                        formControlName="vat_included" id="vat_included" name="vat_included" style="margin-right: 2%;">
+                      <label for="vat_included">Iva incluido</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <br><br>
+                      <input type="checkbox" class="input-full-width size-medium status-basic shape-rectangle nb-transition"
+                        formControlName="selling_out_of_inventory" id="selling_out_of_inventory" name="selling_out_of_inventory" style="margin-right: 2%;">
+                      <label for="selling_out_of_inventory">Verder sin inventario</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="notes">Información adicional</label>
+                      <textarea class="form-control" name="notes" id="notes" rows="4"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+              <a ngbNavLink class="display-none">Imagen</a>
+              <ng-template ngbNavContent>
+                <div class="row">
+                  <div div class="col-md-6">
+                    <div class="form-group">
+                      <label for="file">Seleccionar imagen</label>
+                      <input type="file" id="file" #uploadFile
+                      (change)="uploadImage($event)" class="form-control-file">
+                    </div>
+                  </div>
+                  <div div class="col-md-6">
+                    <img width="128px" [src]="imgData"  class="img-thumbnail" fallimg>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="4">
+              <a ngbNavLink class="display-none">Stock</a>
+              <ng-template ngbNavContent>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="initStock">Inventario inicial</label>
+                      <input id="initStock" class="form-control" type="number" formControlName="initial_stock" [readonly]="editing">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="stock">Inventario actual</label>
+                      <input id="stock" class="form-control" type="number" formControlName="stock" readonly>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="5">
+              <a ngbNavLink class="display-none">U. de medida</a>
+              <ng-template ngbNavContent>
+                <div class ="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Unidad base o principal</label>
+                      <ng-select fullWidth formControlName = "unit_id">
+                        <ng-option *ngFor="let un of units" [value] ="un.id">
+                          {{ un.abbre_unit }} -  {{ un.unit_name }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Factor base de conversión</label>
+                      <input type="number" class="form-control" formControlName="base_factor">
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="!disabled">
+                  <div class="col">
+                    <table class="table table-hover table-sm table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Unidade de medida</th>
+                          <th scope="col">Nombre de la unidad</th>
+                          <th scope="col">Factor</th>
+                          <th scope="col">Costo</th>
+                          <th scope="col">Precio</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let unit of measurementUnits; let i = index">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td style="min-width: 200px">
+                            {{ unit.abbre_unit }} - {{ unit.unit_description }}
+                          </td>
+                          <td style="min-width: 200px">
+                             {{ unit.unit_name }}
+                          </td>
+                          <td class = "text-right" style="width: 75px; min-width: 75px">
+                            {{ unit.factor | number }}
+                          </td>
+                          <td class = "text-right" style="width: 125px; min-width: 150px">
+                            {{ unit.purchase_cost | currency }}
+                          </td>
+                          <td class = "text-right" style="width: 125px; min-width: 150px">
+                            {{ unit.sale_price | currency }}
+                          </td>
+                          <td style="width: 40px; min-width: 40px">
+                            <button (click)="EditMeasurementUnit(i,content)" type="button" class="btn btn-primary btn-sm">
+                              <i class="fas fa-pen"></i>
+                            </button>
+                          </td>
+                          <td style="width: 40px; min-width: 40px">
+                            <button (click)="delMeasurementUnit(i)" type="button" class="btn btn-danger btn-sm">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button (click)= "open(content,false)" type="button"  class="btn btn-primary btn-sm radius-button" *ngIf="!disabled">
+                      <i class="fas fa-plus fas-fa-22"></i>
+                      Agregar unidad
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <!-- <li [ngbNavItem]="6" [disabled]="disabled">
+              <a ngbNavLink class="display-none">Atributos</a>
+              <ng-template ngbNavContent>
+              </ng-template>
+            </li> -->
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <app-footer-form [loading]="loading" [showAaveACreate]="true" [saveAClose]="saveAClose" [saveAClose]="saveAClose"
+          (closeEvent)="cancel()" (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()">
+        </app-footer-form>
+      </div>
+    </div>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{ 'general.createEdit' | translate | uppercase }} UNDS. DE MEDIDA</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="modalForm">
+          <div class="form-group">
+            <label>Unida de medida</label>
+            <ng-select formControlName="unit_id" ngbAutofocus autofocus (change)="onChangeUnits($event)">
+              <ng-option *ngFor="let unit of mUnits" [value]="unit.id">
+                {{ unit.abbre_unit }} - {{ unit.unit_description }}
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="form-group">
+            <label>Factor de conversión</label>
+            <input nbInput fullWidth class="form-control" name="factor" formControlName="factor" readonly>
+          </div>
+          <div class="form-group">
+            <label>Nombre</label>
+            <input nbInput fullWidth class="form-control" formControlName="unit_name">
+          </div>
+          <div class="form-group">
+            <label>Costo de compra</label>
+            <input nbInput fullWidth class="form-control" currencyMask name="purchase_cost" readonly formControlName="purchase_cost">
+          </div>
+          <div class="form-group">
+            <label>Precio de venta</label>
+            <input nbInput fullWidth class="form-control" currencyMask name="sale_price" formControlName="sale_price">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button nbSuffix nbButton status="primary" class="btn-sm radius-button space-right" type="button"  (click)="modal.close('Save')">
+          <i class="fas fa-save fas-fa-22 space-right"></i>
+          {{'buttons.saveAndClose' | translate }}
+        </button>
+        <button  (click)="modal.close('Cancel')" nbSuffix nbButton status="danger" class="radius-button">
+          <i class="fas fa-undo fas-fa-22 space-right"></i>
+          <strong>{{ 'buttons.cancel' | translate }} </strong>
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>
+

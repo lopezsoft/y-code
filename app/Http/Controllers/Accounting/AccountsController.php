@@ -17,79 +17,103 @@ class AccountsController extends Controller
     {
         DB::beginTransaction();
         try {
-            $records    = $request;
-            $NotAssig   = "Sin asignar";
-
             $user       = auth()->user();
             $ip         = $request->ip();
             $model      = new MasterModel();
             $company    = $model->getCompany();
-            if(!$company){
-                //TODO: Esta linea se habilitrá en producción. $database_name  = 'ycode_'.Str::random(5).'_'.$records->country_id ?? 113;
+            if($company){
+                $is_subaccount  = $request->is_subaccount;
+                $account_id     = $request->account_id;
+                $db             =  $company->database_name.".";
+                if($is_subaccount && !is_null($account_id)){
+                    $data       = [
+                        'account_id'          => $request->account_id,
+                        'accounting_group_id' => $request->accounting_group_id,
+                        'currency_id'         => $request->currency_id        ,
+                        'tax_rate_id'         => $request->tax_rate_id        ,
+                        'account_name'        => $request->account_name       ,
+                        'description'         => $request->description        ,
+                        'account_number'      => $request->account_number     ,
+                        'is_subaccount'       => $request->is_subaccount      ,
+                        'state'               => 1,
+                    ];
+                    $table      = $db."accounting_accounts";
+                    $id         = DB::table($table)->insertGetId($data);
+                    $model->audit($user->id, $ip, $table, 'INSERT', $data);
 
-                $database_name  = 'y_code';
+                    $data       = [
+                        'account_id'        => $request->account_id,
+                        'subaccount_id'     => $id,
+                        'state'             => 1,
+                    ];
+                    $table      = $db."accounting_subaccounts";
 
-                $data       = [
-                    'country_id'            => $records->country_id ?? 113,
-                    'database_name'         => $database_name,
-                    'folder_name'           => '',
-                    'dni'                   => $records->dni ?? null,
-                    'company_name'          => $records->company_name ?? $NotAssig
-                ];
+                    $result     = $model->insertData($data, $table, $ip);
 
-                $company_id = DB::table('companies')->insertGetId($data);
+                }else{
+                    $data       = [
+                        'account_id'          => $request->account_id,
+                        'accounting_group_id' => $request->accounting_group_id,
+                        'currency_id'         => $request->currency_id        ,
+                        'tax_rate_id'         => $request->tax_rate_id        ,
+                        'account_name'        => $request->account_name       ,
+                        'description'         => $request->description        ,
+                        'account_number'      => $request->account_number     ,
+                        'is_subaccount'       => $request->is_subaccount      ,
+                        'state'               => 1,
+                    ];
+                    $table      = $db."accounting_accounts";
 
-                DB::insert('insert into business_users (user_id, company_id) values (?, ?)', [$user->id, $company_id]);
-                $data   = [$user->id, $company_id];
-                $model->audit($user->id,$ip,'business_users','INSERT',$data);
-
-                $data       = [
-                    'country_id'            => $records->country_id ?? 113,
-                    'currency_id'           => $records->currency_id    ?? 1,
-                    'identity_document_id'  => $records->identity_document_id ?? 3,
-                    'type_organization_id'  => $records->type_organization_id ?? 1,
-                    'company_name'          => $records->company_name ?? $NotAssig,
-                    'dni'                   => $records->dni,
-                    'dv'                    => $records->dv ?? 0,
-                    'address'               => $records->address ?? $NotAssig,
-                    'location'              => $records->location ?? $NotAssig,
-                    'postal_code'           => $records->postal_code ?? '',
-                    'mobile'                => $records->mobile ?? '',
-                    'phone'                 => $records->phone  ?? '',
-                    'email'                 => $records->email ?? '',
-                    'web'                   => $records->web ?? ''
-                ];
-
-                $company    = $model->getCompany();
-                $table      = $company->database_name.".company";
-
-                DB::table($table)->insertGetId($data);
-                $model->audit($user->id, $ip, $table , 'UPDATE', $data);
-
-                $data       = [
-                    'folder_name'           => $company->id
-                ];
-
-                DB::table('companies')->where('id', $company->id)->update($data);
-
-                $model->audit($user->id, $ip, 'companies', 'UPDATE', $data);
-
-                Storage::disk('company')->makeDirectory($company->id);
+                    $result     = $model->insertData($data, $table, $ip);
+                }
+                DB::commit();
+                return $result;
+            }else{
+                return $model->getErrorResponse('Error en el servidor.');
             }
-            DB::commit();
-            return $model->getReponseMessage('Empresa creado con exito');
         } catch (Exception $e) {
             DB::rollBack();
-
-            return response()->json([
-                'message'   => 'Internal Server Error',
-                'success'   => false,
-                'payload'   => $e->getMessage()
-            ], 500);
+            return $model->getErrorResponse($e->getMessage());
         }
     }
 
-    public function select(Request $request)
+    public function selectMasterAccounts(Request $request)
+    {
+        $model  = new MasterModel();
+        $company= $model->getCompany();
+        $start  = $request->start;
+        $limit  = $request->limit;
+        $query  = $request->input('query');
+        if($company){
+            $table  = $company->database_name.'.';
+            $sqlStatement    = DB::select("SELECT a.id, a.account_name, a.account_number
+            FROM {$table}accounting_accounts a WHERE a.is_subaccount = ? ORDER BY a.account_number", [0]);
+
+            return $model->getReponseJson($sqlStatement, count($sqlStatement));
+        }else{
+            return $model->getErrorResponse('Error en el servidor.');
+        }
+    }
+
+    public function selectSubAccounts(Request $request)
+    {
+        $model  = new MasterModel();
+        $company= $model->getCompany();
+        $start  = $request->start;
+        $limit  = $request->limit;
+        $query  = $request->input('query');
+        if($company){
+            $table  = $company->database_name.'.';
+            $sqlStatement    = DB::select("SELECT a.id, a.account_name, a.account_number
+            FROM {$table}accounting_accounts a WHERE a.is_subaccount = ? ORDER BY a.account_number", [1]);
+
+            return $model->getReponseJson($sqlStatement, count($sqlStatement));
+        }else{
+            return $model->getErrorResponse('Error en el servidor.');
+        }
+    }
+
+    public function selectAll(Request $request)
     {
         $model  = new MasterModel();
         $company= $model->getCompany();
@@ -100,8 +124,34 @@ class AccountsController extends Controller
             $table  = $company->database_name.'.';
             $limit  = isset($limit) ? $limit : 20;
             $start  = isset($start) ? $start : 0;
+            $sqlStatement    = DB::select("SELECT a.id, a.account_name, a.account_number
+            FROM {$table}accounting_accounts a WHERE a.is_subaccount = ? ORDER BY a.account_number", [1]);
+
+            return $model->getReponseJson($sqlStatement, count($sqlStatement));
+        }else{
+            return $model->getErrorResponse('Error en el servidor.');
+        }
+    }
+
+    public function select(Request $request)
+    {
+        $model  = new MasterModel();
+        $company= $model->getCompany();
+        $start  = $request->start;
+        $limit  = $request->limit;
+        $uid    = $request->uid;
+        $query  = $request->input('query');
+        if($company){
+            $table  = $company->database_name.'.';
+            $limit  = isset($limit) ? $limit : 20;
+            $start  = isset($start) ? $start : 0;
+            $where  = "a.state = 1";
+            if(isset($uid)){
+                $where  = "a.id={$uid}";
+            }
             $sqlStatement       = "SELECT a.*, b.accounting_group_name, c.name AS classofaccount,
-                d.rate_name, concat(trim(f.CurrencyISO),' ',TRIM(f.CurrencyName)) AS currencyname
+                d.rate_name, concat(trim(f.CurrencyISO),' ',TRIM(f.CurrencyName)) AS currencyname,
+                (SELECT sa.account_id FROM {$table}accounting_subaccounts AS sa WHERE sa.subaccount_id = a.id LIMIT 1) AS account_id
                 FROM {$table}accounting_accounts AS a
                 LEFT JOIN {$table}accounting_groups AS b ON a.accounting_group_id = b.id
                 LEFT JOIN {$table}class_of_accounts AS c ON b.class_account_id = c.id
@@ -112,10 +162,10 @@ class AccountsController extends Controller
                 LEFT JOIN {$table}accounting_groups AS b ON a.accounting_group_id = b.id
                 LEFT JOIN {$table}class_of_accounts AS c ON b.class_account_id = c.id
                 LEFT JOIN {$table}tax_rates AS d ON a.tax_rate_id = d.id
-                LEFT JOIN {$table}currency_sys AS e ON a.currency_id = e.id
+                LEFT JOIN {$table}accounting_accounts AS e ON a.currency_id = e.id
                 LEFT JOIN {$table}currency AS f ON e.currency_id = f.id ";
             $searchFields   = ['a.account_name','a.account_number','b.accounting_group_name', 'c.name'];
-            return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields, $query, $start, $limit,'', 'a.account_number');
+            return $model->sqlQuery($sqlStatement, $sqlStatementCount, $searchFields, $query, $start, $limit, $where, 'a.account_number');
         }else{
             return $model->getErrorResponse('Error en el servidor.');
         }
@@ -123,52 +173,56 @@ class AccountsController extends Controller
 
     public function update($id, Request $request)
     {
-        $user       = auth()->user();
-        $table      = 'companies';
-        $records    = json_decode($request->input('records'));
-        $ip         = $request->ip();
-        $model      = new MasterModel();
-        $company_id = $model->getCompanyId();
-        if(isset($records->dataimg)){
-            //get the base-64 from data
-            $base64_str = substr($records->dataimg, strpos($records->dataimg, ",") + 1);
-
-            if(strlen($base64_str)  > 0){
-                //decode base64 string
-                $image      = base64_decode($base64_str);
-                $imgname    = $records->imgname;
-                $path       =  $_SERVER['DOCUMENT_ROOT']."/storage/companies/{$company_id}/logo/";
-                if(!is_dir($path)){
-                    mkdir($path, 0777, true);
-                }
-                $pathimg    = $path.$imgname;
-
-                $result     = json_decode($model->uploadFileData($image, $pathimg));
-                if($result->success){
-                    $pathimg            = "storage/companies/{$company_id}/logo/".$imgname;
-                    $records->image     = $pathimg;
-                    $result = $model->updateData($records,$table, $ip);
-                }else{
-                    $result = $model->getErrorResponse('Error al guardar la imagen.');
-                }
-            }else{
-                $result = $model->updateData($records,$table, $ip);
-            }
-        }else{
-            $result =   $model->updateData($records,$table, $ip);
-        }
-        echo $result;
-    }
-
-    public function delete($id, Request $request)
-    {
-        $table      = 'business_users';
         $records    = json_decode($request->input('records'));
         $ip         = $request->ip();
         $model      = new MasterModel();
         $company    = $model->getCompany();
-        $customerId = DB::table('business_users')->where(['customer_id' => $id, 'company_id' => $company->id])->first();
-        $records->id= $customerId->id;
-        echo $model->deleteData($records,$table, $ip);
+        if($company){
+            $is_subaccount  = $records->is_subaccount;
+            $account_id     = $records->account_id;
+            $db             = $company->database_name.".";
+
+            $table  = $db.'accounting_subaccounts';
+            $query  = DB::table($table)
+                            ->where(['subaccount_id'    => $id])
+                            ->first();
+            $data   = [
+                'account_id'    => $account_id,
+                'subaccount_id' => $id
+            ];
+            if($query){
+                $data   = (Object) [
+                    'account_id'    => $account_id,
+                    'subaccount_id' => $id,
+                    'id'            => $query->id
+                ];
+                $model->updateData($data,$table, $ip);
+            }else if ($is_subaccount){
+                $model->insertData($data,$table, $ip);
+            }
+
+            $table          = $db.'accounting_accounts';
+            $records->id    = $id;
+            return   $model->updateData($records,$table, $ip);
+        }else{
+            return $model->getErrorResponse('Error en el servidor.');
+        }
+    }
+
+    public function delete($id, Request $request)
+    {
+        $ip         = $request->ip();
+        $model      = new MasterModel();
+        $company    = $model->getCompany();
+        if($company){
+            $table          = $company->database_name.'.accounting_accounts';
+            $records = (object)[
+                'id'    => $id,
+                'state' => 2
+            ];
+            return   $model->updateData($records,$table, $ip);
+        }else{
+            return $model->getErrorResponse('Error en el servidor.');
+        }
     }
 }
