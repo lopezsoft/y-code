@@ -3,6 +3,7 @@
 /angular/Admin/node_modules/*.*
 /angular/Admin/dist
 /angular/Admin/.vscode
+/angular/Admin/.idea
 /angular/Admin/.angular/*
 /angular/Admin/.angular
 /angular/Admin/.angular/*.*
@@ -10,6 +11,7 @@
 /backend/public/storage
 /backend/storage/*.key
 /backend/vendor
+/backend/*.idea
 /backend/*.zip
 /backend/.env
 /backend/.env.backup
