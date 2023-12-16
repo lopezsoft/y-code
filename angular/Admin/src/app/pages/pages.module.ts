@@ -9,11 +9,6 @@ import { NgbNavModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule } fro
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import bootstrapPlugin from '@fullcalendar/bootstrap';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
 
 
 import { UIModule } from '../shared/ui/ui.module';
@@ -24,19 +19,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LoaderService } from '../core/services/loader.service';
 
-import { CalendarComponent } from './calendar/calendar.component';
-
-
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  interactionPlugin,
-  bootstrapPlugin,
-  timeGridPlugin,
-  listPlugin
-]);
 
 @NgModule({
-  declarations: [CalendarComponent],
+  declarations: [],
   imports: [
     CommonModule,
     NgSelectModule,

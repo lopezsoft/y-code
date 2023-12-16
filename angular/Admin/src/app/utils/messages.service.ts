@@ -8,11 +8,8 @@ import Swal from 'sweetalert2';
 })
 
 export class MessagesService {
-
   constructor(private toastr: ToastrService) {
-
   }
-
   toastMessage(title: string, msg: string, type: number = 0){
     switch (type) {
       case 2:
@@ -28,13 +25,11 @@ export class MessagesService {
         this.toastr.success(msg, title, {positionClass: 'toast-top-full-width'});
         break;
     }
-  } 
-
+  }
   onMessage(title: string, msg: string) {
     Swal.fire((title.length > 1) ? title :  "Y-Code APP", msg, "info");
   }
   errorMessage(title: string, msg: string) {
     Swal.fire((title.length > 1) ? title :  "Error Y-Code APP", msg, "error"); 
   }
-
 }

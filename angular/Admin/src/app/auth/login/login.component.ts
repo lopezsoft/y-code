@@ -3,17 +3,18 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
-import { ApiServerService, MessagesService } from './../../utils/index';
+import { ApiServerService, MessagesService } from '../../utils';
 
 import {TranslateService} from '@ngx-translate/core';
 
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 // Base component
-import { FormComponent } from './../../core/components/forms/form.component';
+import { FormComponent } from '../../core/components/forms';
 
 // Interfaces
 import { ViewChild } from '@angular/core';
+import {GlobalSettingsService} from '../../services/global-settings.service';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent extends FormComponent implements OnInit {
               public translate: TranslateService,
               public aRouter: ActivatedRoute,
               public spinner: NgxSpinnerService,
+              public settings: GlobalSettingsService
   ) {
     super(fb, msg, api, router, translate, aRouter, spinner);
     this.customForm = this.fb.group({
@@ -74,12 +76,12 @@ export class LoginComponent extends FormComponent implements OnInit {
       ts.msg.toastMessage(lang.instant('titleMessages.emptyFields'), lang.instant('bodyMessages.emptyFields'), 4);
       ts.disabledLoading();
     } else {
-      ts.showSpinner();
+      this.settings.showBlockUI();
       ts.api.post('/auth/login', me.value)
         .subscribe({
 					next: (resp) => {
 						ts.disabledLoading();
-						ts.hideSpinner();
+						this.settings.hideBlockUI();
 						ts.msg.toastMessage(lang.instant('login.button.loggingIn'), resp.message, 0);
 						localStorage.setItem(ts.api.getApiJwt(), JSON.stringify(resp));
 						ts.api.addUser(resp);
@@ -87,7 +89,7 @@ export class LoginComponent extends FormComponent implements OnInit {
 						window.location.reload();
 					}, 
 					error: (err: string) => {
-						ts.hideSpinner();
+						this.settings.hideBlockUI();
 						ts.msg.toastMessage(lang.instant('general.error'), err, 4);
 						ts.disabledLoading();
 						ts.onValidateForm(me);

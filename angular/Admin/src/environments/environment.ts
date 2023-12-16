@@ -5,8 +5,8 @@
 export const environment = {
     production		: false,
     defaultauth		: 'fackbackend',
-	APIURL    		: 'http://ycode/api/v1',
-    APPURL    		: 'http://ycode/',
+	  APIURL    		: 'http://ycode.test/api/v1',
+    APPURL    		: 'http://ycode.test/',
     APIJWT    		: 'y-code-jwt',
     SOCKET_URL		: 'http://localhost:3001',
     indexedDBName	: 'ycodeDB',

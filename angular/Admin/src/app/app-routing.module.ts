@@ -1,76 +1,76 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 // import { AuthGuard } from "./core/guards/auth.guard";
 import { AuthGuard } from './services/auth-guard.service';
-import { LayoutComponent } from "./layouts/layout.component";
+import { LayoutComponent } from './layouts/layout.component';
 const routes: Routes = [
     {
-        path: "auth",
+        path: 'auth',
         loadChildren: () =>
-            import("./auth/auth.module").then((m) => m.AuthModule),
+            import('./auth/auth.module').then((m) => m.AuthModule),
     },
     {
-        path		: "",
+        path		: '',
         component	: LayoutComponent,
         loadChildren: () =>
-        import("./pages/pages.module").then((m) => m.PagesModule),
+        import('./pages/pages.module').then((m) => m.PagesModule),
         canActivate: [AuthGuard],
     },
     {
-        path			: "sales",
+        path			: 'sales',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./sales/sales.module").then((m) => m.SalesModule),
+            import('./sales/sales.module').then((m) => m.SalesModule),
         canActivate: [AuthGuard],
     },
     {
-        path			: "shopping",
+        path			: 'shopping',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./shopping/shopping.module").then((m) => m.ShoppingModule),
+            import('./shopping/shopping.module').then((m) => m.ShoppingModule),
         canActivate: [AuthGuard],
     },
     {
-        path			: "products",
+        path			: 'products',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./products/products.module").then((m) => m.ProductsModule),
+            import('./products/products.module').then((m) => m.ProductsModule),
         canActivate: [AuthGuard],
     },
     {
-        path		: "reports",
+        path		: 'reports',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./reports/reports.module").then((m) => m.ReportsModule),
+            import('./reports/reports.module').then((m) => m.ReportsModule),
         canActivate: [AuthGuard],
     },
     {
-        path			: "accounting",
+        path			: 'accounting',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./accounting/accounting.module").then((m) => m.AccountingModule),
+            import('./accounting/accounting.module').then((m) => m.AccountingModule),
         canActivate: [AuthGuard],
     },
     {
-        path			: "companies",
+        path			: 'companies',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./companies/companies.module").then((m) => m.CompaniesModule),
+            import('./companies/companies.module').then((m) => m.CompaniesModule),
         canActivate: [AuthGuard],
     },
     {
-        path			: "users",
+        path			: 'users',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./users/users.module").then((m) => m.UsersModule),
+            import('./users/users.module').then((m) => m.UsersModule),
         canActivate: [AuthGuard],
     },
     {
-        path			: "general",
+        path			: 'general',
         component	: LayoutComponent,
         loadChildren: () =>
-            import("./general/general.module").then((m) => m.GeneralModule),
+            import('./general/general.module').then((m) => m.GeneralModule),
         canActivate: [AuthGuard],
     },
 ];
@@ -78,8 +78,7 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, {
-            scrollPositionRestoration: "top",
-            relativeLinkResolution: "legacy",
+            scrollPositionRestoration: 'top',
 						useHash: true,
         }),
     ],

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DomPDF;
+namespace App\DomPdf;
 
 use Dompdf\Dompdf;
 // use Dompdf\Options;
@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
 Class DPdf extends Dompdf {
-	
+
 	public function __construct($options = null)
 	{
 		$options	= [
-			'chroot'									=> realpath(base_path()),
-			'isPhpEnabled'						=> true,
-			'isRemoteEnabled'					=> true,
+			'chroot'				    => realpath(base_path()),
+			'isPhpEnabled'			    => true,
+			'isRemoteEnabled'		    => true,
 			'isHtml5ParserEnabled'		=> true,
 		];
 		parent::__construct($options);
 	}
-	
+
 
 	public function save($path)
 	{
@@ -31,7 +31,7 @@ Class DPdf extends Dompdf {
 		$paper_size = array(0,0,226,2500);
 		$this->setPaper($paper_size);
 	}
-    
+
     /**
      * Load a View and convert to HTML
      *

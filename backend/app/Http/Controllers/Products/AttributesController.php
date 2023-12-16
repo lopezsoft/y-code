@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\products;
+namespace App\Http\Controllers\Products;
 
 use App\Core\MasterModel;
-use DB;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

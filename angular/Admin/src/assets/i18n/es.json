@@ -244,7 +244,7 @@
   "login" : {
     "rememberMe"  : "Recuérdame",
     "headerForm"  : "Inicio de sesión",
-    "welcome"     : "Bienvenid@, inicie sesión en su cuenta.",
+    "welcome"     : "Bienvenido, inicie sesión en su cuenta.",
     "button"      : {
       "startNow"  : "Iniciar ahora",
       "loggingIn" : "Iniciando sesión"

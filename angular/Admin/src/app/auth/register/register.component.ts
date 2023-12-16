@@ -3,14 +3,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
-import { MessagesService, ApiServerService } from './../../utils/index';
+import { MessagesService, ApiServerService } from '../../utils';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 // Base component
-import { FormComponent } from './../../core/components/forms/form.component';
+import { FormComponent } from '../../core/components/forms';
 
 // Interfaces
 import { CountriesService, Country, IdentityDocuments } from 'src/app/services/global';
@@ -20,6 +20,7 @@ import { CurrencySys } from 'src/app/models/general-model';
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent extends FormComponent implements OnInit, AfterViewInit {
     @ViewChild('focusElement') focusElement: ElementRef;
@@ -28,13 +29,13 @@ export class RegisterComponent extends FormComponent implements OnInit, AfterVie
     countries: Country[] = [];
     currency: CurrencySys[] = [];
     constructor(public fb: FormBuilder,
-        public api: ApiServerService,
-        public msg: MessagesService,
-        public router: Router,
-        public translate: TranslateService,
-        public aRouter: ActivatedRoute,
-        private cnt: CountriesService,
-        public spinner: NgxSpinnerService,
+                public api: ApiServerService,
+                public msg: MessagesService,
+                public router: Router,
+                public translate: TranslateService,
+                public aRouter: ActivatedRoute,
+                private cnt: CountriesService,
+                public spinner: NgxSpinnerService,
     ) {
         super(fb, msg, api, router, translate, aRouter, spinner);
         this.customForm = this.fb.group({

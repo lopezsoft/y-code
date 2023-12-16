@@ -1,23 +1,22 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { NgSelectConfig } from "@ng-select/ng-select";
-import { CompanyService } from "./services/companies";
-import { ApiServerService } from "./utils/api-server.service";
-
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { CompanyService } from './services/companies';
+import { ApiServerService } from './utils';
 @Component({
-    selector: "app-root",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.scss"],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-    interval: number = 60000;
+    interval = 60000;
     constructor(
         private config: NgSelectConfig,
         private authService: ApiServerService,
         private company: CompanyService,
         private router: Router
     ) {
-        this.config.appendTo = "body";
+        this.config.appendTo = 'body';
     }
     ngAfterViewInit(): void {
         const ts = this;
@@ -28,7 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (token.companyCreated) {
             this.company.getData({}).subscribe((resp) => {
                 if (!(resp.length > 0)) {
-                    this.router.navigate(["/companies/company"]);
+                    this.router.navigate(['/companies/company']);
                     this.startTimer();
                 }
             });
@@ -52,7 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                     if (resp.length > 0) {
                         ts.interval = 0;
                     } else {
-                        ts.router.navigate(["/companies/company"]);
+                        ts.router.navigate(['/companies/company']);
                     }
                 });
             }

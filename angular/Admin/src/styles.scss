@@ -1,19 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "assets/scss/bootstrap/scss/bootstrap.scss";
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap';
 
 
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
 
-@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
-@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
-@import '~quill/dist/quill.core.css';
-@import '~quill/dist/quill.bubble.css';
-@import '~quill/dist/quill.snow.css';
+@import 'quill/dist/quill.core.css';
+@import 'quill/dist/quill.bubble.css';
+@import 'quill/dist/quill.snow.css';
 
 .title-center-black {
   color: #111e2c !important;
@@ -22,54 +22,6 @@
 .center-column {
   margin     : 0 auto;
   padding-top: 50px;
-}
-
-.loginform {
-  max-width       : 450px;
-  background-color: #1e2833;
-  color           : white;
-  padding         : 25px 15px;
-  border-radius   : 6px;
-  // margin: auto;
-  box-shadow      : 3px 3px 4px rgba(0, 0, 0, 0.2);
-
-  .btn-info {
-    border-radius: 28px;
-    background   : #214a80;
-    border       : 1px solid #ffffff;
-
-    &:hover {
-      background: #3c587c;
-    }
-
-    &:active {
-      background: #214a80;
-    }
-  }
-
-  .illustration {
-    text-align: center;
-    padding   : 15px;
-    font-size : 96px;
-    color     : #2980ef;
-  }
-
-
-  input {
-    background-color: rgba(255, 255, 255, 0.274);
-    color           : white;
-    border-radius   : 4px;
-
-    &:focus {
-      background-color: rgba(255, 255, 255, 0.274);
-      color           : white;
-    }
-
-    &::placeholder {
-      color: white;
-    }
-  }
-
 }
 
 .fas-fa-ok-thumbs {
@@ -349,4 +301,3 @@ Full screen Modal
 }
 
 
-  

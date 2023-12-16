@@ -1,0 +1,95 @@
+$original-color: #a3c7e0;
+$strong-color: darken($original-color, 35%);
+
+.custom-form {
+  .nav-tabs {
+    padding-bottom: .5rem !important;
+  }
+  .card-header {
+    padding: .5rem 1rem !important;
+    color: $strong-color;
+    font-weight: 600;
+  }
+  .card-body {
+    padding-bottom: .25rem !important;
+  }
+  .card-footer {
+    padding: 0.5rem 1rem !important;
+  }
+  .form-group {
+    margin-bottom: .15rem !important;
+    label {
+      margin-bottom: .15rem !important;
+      color: $strong-color;
+    }
+  }
+  .custom-control {
+    label {
+      color: $strong-color;
+    }
+  }
+  h1, h2, h3, h4, h5, h6, p, span, label {
+    color: $strong-color;
+  }
+  .ng-option-label {
+    color: inherit;
+  }
+  hr {
+    margin-top: .25rem;
+    margin-bottom: .25rem;
+    border: 0;
+    border-top: 1px solid rgba(35, 45, 52, 0.44);
+  }
+  input, textarea, select {
+    border: 1px solid #a3c7e0 !important;
+    transition: border-color 0.5s ease;
+    border-radius: .15rem;
+    color: $strong-color;
+    padding: .15rem .35rem !important;
+    &:focus {
+      border-color: $strong-color !important;
+      color: $strong-color;
+      box-shadow: none !important;
+    }
+    &:disabled {
+      color: $strong-color;
+      border-color: lighten($original-color, 10%);
+      box-shadow: none !important;
+      &:focus {
+        box-shadow: none !important;
+      }
+    }
+  }
+  input {
+    height: 32px !important;
+  }
+  .form-check {
+    input {
+      height: 1em !important;
+    }
+  }
+  .ng-select .ng-select-container {
+      min-height: 32px !important;
+  }
+  .ng-select-container {
+    border: 1px solid #a3c7e0 !important;
+    border-radius: .25rem;
+    height: 32px !important;
+    input {
+      border-width: 0 !important;
+      height: inherit !important;
+      padding: 0 !important;
+    }
+    .ng-value-container {
+      color: $strong-color;
+    }
+  }
+  .ng-dropdown-panel {
+    border: 1px solid #a3c7e0 !important;
+  }
+
+  ng-clear-wrapper {
+    color: #a3c7e0 !important;
+  }
+}
+

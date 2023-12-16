@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
 
 use Exception;
 use JasperPHP\JasperPHP;
