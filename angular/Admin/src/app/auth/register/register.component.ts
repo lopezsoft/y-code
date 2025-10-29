@@ -7,27 +7,22 @@ import { MessagesService, ApiServerService } from '../../utils';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { NgxSpinnerService } from 'ngx-spinner';
-
-// Base component
-import { FormComponent } from '../../core/components/forms';
-
 // Interfaces
-import { CountriesService, Country, IdentityDocuments } from 'src/app/services/global';
-import { TypeOrganization } from 'src/app/models/companies-model';
+import { CountriesService, Country } from 'src/app/services/global';
 import { CurrencySys } from 'src/app/models/general-model';
+import {AuthMasterComponent} from '../auth-master/auth-master.component';
+import {GlobalSettingsService} from '../../services/global-settings.service';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends FormComponent implements OnInit, AfterViewInit {
+export class RegisterComponent extends AuthMasterComponent implements OnInit, AfterViewInit {
     @ViewChild('focusElement') focusElement: ElementRef;
-    typeOrg: TypeOrganization[] = [];
-    identityDocs: IdentityDocuments[] = [];
     countries: Country[] = [];
     currency: CurrencySys[] = [];
+    submitted = false;
     constructor(public fb: FormBuilder,
                 public api: ApiServerService,
                 public msg: MessagesService,
@@ -35,9 +30,9 @@ export class RegisterComponent extends FormComponent implements OnInit, AfterVie
                 public translate: TranslateService,
                 public aRouter: ActivatedRoute,
                 private cnt: CountriesService,
-                public spinner: NgxSpinnerService,
+                public settings: GlobalSettingsService
     ) {
-        super(fb, msg, api, router, translate, aRouter, spinner);
+        super(translate, api, router);
         this.customForm = this.fb.group({
             first_name: ['', [Validators.required, Validators.minLength(3)]],
             last_name: ['', [Validators.required, Validators.minLength(3)]],
@@ -51,10 +46,8 @@ export class RegisterComponent extends FormComponent implements OnInit, AfterVie
         });
     }
     ngOnInit(): void {
+        super.ngOnInit();
         const ts = this;
-        this.removeLoading();
-        this.goHome();
-
         ts.cnt.getPublicCountries().subscribe((resp) => {
             ts.countries = resp;
         });
@@ -119,7 +112,7 @@ export class RegisterComponent extends FormComponent implements OnInit, AfterVie
 
     get invalidCountry(): boolean {
 
-        return (this.customForm.get('country_id').value <= 0) ? true : false;
+        return (this.customForm.get('country_id').value <= 0);
     }
 
     // GET PLACEHOLDERS
@@ -138,7 +131,7 @@ export class RegisterComponent extends FormComponent implements OnInit, AfterVie
     onValidPassword(): boolean {
         const passw1 = this.customForm.get('password').value;
         const passw2 = this.customForm.get('password_confirmation').value;
-        return (passw2 === passw1) ? true : false;
+        return (passw2 === passw1);
     }
 
     onSave(): void {
@@ -152,19 +145,19 @@ export class RegisterComponent extends FormComponent implements OnInit, AfterVie
             ts.disabledLoading();
         } else {
             if (ts.onValidPassword()) {
-                ts.showSpinner(lang.instant('register.button.creatingAccount'));
-                ts.api.post('/auth/signup', me.value)
+                ts.settings.showBlockUI(lang.instant('register.button.creatingAccount'));
+                ts.api.post('/auth/register', me.value)
                     .subscribe({
-                        next: (resp) => {
-                            ts.hideSpinner();
-                            ts.onResetForm(me);
-                            ts.msg.toastMessage(lang.instant('register.messages.successfulRegistration'), resp.message, 0);
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 5000);
+                        next: () => {
+                            ts.settings.hideBlockUI();
+                            ts.disabledLoading();
+                            this.submitted = true;
+                            ts.customForm.reset();
+                            ts.msg.toastMessage(lang.instant('register.messages.successfulRegistration'),
+                              'Se ha enviado un correo de confirmación a su correo electrónico', 0);
                         },
                         error: (err: string) => {
-                            ts.hideSpinner();
+                            ts.settings.hideBlockUI();
                             ts.disabledLoading();
                             ts.msg.errorMessage(lang.instant('general.error'), err);
                             ts.onValidateForm(me);

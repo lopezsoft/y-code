@@ -57,7 +57,7 @@ export class DepartmentsComponent extends JqxCustomGridComponent implements Afte
         { text:  lang.instant('departments.branch') || 'Sucursal', align: 'center', datafield: 'branch_name' },
       ];
 
-    this.prepareGrid();
+    
     ts.title  = lang.instant('departments.title');
   }
 

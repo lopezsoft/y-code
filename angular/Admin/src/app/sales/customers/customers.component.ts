@@ -60,7 +60,7 @@ export class CustomersComponent extends JqxCustomGridComponent implements OnInit
       { text: 'Empresa', datafield: 'company_name', align: 'center'},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

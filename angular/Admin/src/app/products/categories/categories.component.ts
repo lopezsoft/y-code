@@ -58,7 +58,7 @@ export class CategoriesComponent extends JqxCustomGridComponent implements OnIni
       { text: 'Categoria padre', datafield: 'parent_name', align: 'center'},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

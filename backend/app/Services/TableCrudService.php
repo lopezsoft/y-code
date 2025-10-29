@@ -7,6 +7,7 @@ use App\Queries\InsertTable;
 use App\Queries\QueryTable;
 use App\Queries\TableList;
 use App\Queries\UpdateTable;
+use App\Services\Company\CompanyService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,8 +39,7 @@ class TableCrudService
     {
         $request->uuid  = $id;
         $params         = self::extractParams($request);
-        $records        = $params->records;
-        return UpdateTable::update($request, $records, $params->table);
+        return UpdateTable::update($request, $params);
     }
 
     /**
@@ -48,18 +48,18 @@ class TableCrudService
     public static function delete(Request $request, $id): JsonResponse
     {
         $params = self::extractParams($request);
-        return DeleteTable::delete($request, $id, $params->table);
+        return DeleteTable::delete($request, $id, $params);
     }
 
     protected static function extractParams(Request $request): object
     {
         try {
             $tbPrefix           = $request->input('tbPrefix') ?? null;
-            $company            = null;
             $records            = json_decode($request->records) ?? null;
             $where              = json_decode($request->where, true) ?? [];
             $order              = json_decode($request->order, true) ?? [];
             $table              = TableList::getTable($tbPrefix);
+            $company            = CompanyService::getCompany();
             if ($records) {
                 $records->company_id= $company->id;
             }

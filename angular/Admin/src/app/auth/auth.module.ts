@@ -6,23 +6,24 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { AuthRoutingModule } from "./auth-routing.module";
+import { AuthRoutingModule } from './auth-routing.module';
 
 import {
   AuthComponent,
   LoginComponent,
   RegisterComponent,
   ForgotPasswordPageComponent,
-  ErrorPageComponent,
+  ErrorPageComponent, ResetPasswordComponent, EmailResendComponent, NotAuthorizedComponent,
 } from './index';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {BlockUIModule} from 'ng-block-ui';
+import {AuthMasterComponent} from './auth-master/auth-master.component';
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -49,7 +50,11 @@ export function createTranslateLoader(http: HttpClient) {
     ForgotPasswordPageComponent,
     ErrorPageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AuthMasterComponent,
+    ResetPasswordComponent,
+    EmailResendComponent,
+    NotAuthorizedComponent
   ]
 })
 export class AuthModule { }

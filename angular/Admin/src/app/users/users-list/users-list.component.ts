@@ -64,7 +64,7 @@ export class UsersListComponent extends JqxCustomGridComponent implements OnInit
       { text: 'Activo', align: 'center', datafield: 'active', minWidth: 50, width: 90, columntype: 'checkbox', threestatecheckbox: true},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

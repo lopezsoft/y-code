@@ -1,15 +1,15 @@
 <div class="card">
   <div class="card-header">
-    {{ title | uppercase }}
+      {{ title | uppercase }}
   </div>
   <div class="card-body">
-    <form [formGroup]="customForm">
+    <form [formGroup]="customForm" class="custom-form">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{ 'companies.company_name' |
               translate }}</label>
-            <input class="form-control" #companyName type="text" class="form-control" formControlName="company_name"
+            <input class="form-control" #companyName type="text" formControlName="company_name"
               [class.status-danger]="invalidCompanyName" [class.is-invalid]="invalidCompanyName" required autofocus
               name="company_name">
           </div>
@@ -18,7 +18,7 @@
           <div class="form-group">
             <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{ 'companies.type_organization' |
               translate }}</label>
-            <ng-select fullWidth formControlName="type_organization_id" required name="type_organization_id"
+            <ng-select fullWidth formControlName="type_organization_id" required
               [class.is-invalid]="invalidOrganization">
               <ng-option *ngFor="let typeOrg of typeOrg" [value]="typeOrg.id">{{ typeOrg.description }}
               </ng-option>
@@ -32,7 +32,7 @@
             <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{ 'companies.identity_document' |
               translate }}</label>
             <ng-select fullWidth formControlName="identity_document_id" required [class.is-invalid]="invalidIdentity"
-              name="identity_document_id" [class.status-danger]="invalidIdentity">
+              [class.status-danger]="invalidIdentity">
               <ng-option *ngFor="let docs of identityDocs" [value]="docs.id">
                 {{ docs.document_name }}
               </ng-option>
@@ -42,7 +42,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>{{ 'companies.dni' | translate }}</label>
-            <input type="text" name="dni" class="form-control" formControlName="dni">
+            <input type="text" class="form-control" formControlName="dni">
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
             <label><span class="asterisk">{{ 'general.asterisk' | translate }}</span>{{ 'companies.country' | translate
               }}</label>
             <ng-select fullWidth formControlName="country_id" required [class.is-invalid]="invalidCountry"
-              name="country_id" [class.status-danger]="invalidCountry">
+              [class.status-danger]="invalidCountry">
               <ng-option *ngFor="let country of countries" [value]="country.id">
                 <img height="15" width="15" [src]="'assets/flags/'+country.image" /> {{ country.country_name }}
               </ng-option>
@@ -141,7 +141,7 @@
     </form>
   </div>
   <div class="card-footer">
-    <app-footer-form [loading]="loading" [showAaveACreate]="false" [saveAClose]="saveAClose" [saveAClose]="saveAClose"
+    <app-footer-form [loading]="loading" [showAaveACreate]="false" [saveAClose]="saveAClose"
       (closeEvent)="cancel()" (saveAndCreateEvent)="saveAndCreate()" (saveAndCloseEvent)="saveAndClose()">
     </app-footer-form>
   </div>

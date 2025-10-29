@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
-import { JqxCustomGridComponent } from './../../core/data/custom-grid/jqx-custom-grid.component';
-import { MessagesService, ApiServerService } from './../../utils';
+import { JqxCustomGridComponent } from '../../core/data/custom-grid/jqx-custom-grid.component';
+import { MessagesService, ApiServerService } from '../../utils';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {ExodoGridComponent} from 'exodolibs';
 
 @Component({
   selector: 'app-taxes',
   templateUrl: './../../global/global-grid.component.html'
 })
-export class TaxesComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit{
-  @ViewChild('customGrid', { static: false }) customGrid: jqxGridComponent;
+export class TaxesComponent extends JqxCustomGridComponent implements OnInit, AfterViewInit {
+  @ViewChild('exodoGrid') exodoGrid: ExodoGridComponent;
   @ViewChild('searchField') searchField: ElementRef;
 
   constructor(public msg: MessagesService,
@@ -24,41 +24,40 @@ export class TaxesComponent extends JqxCustomGridComponent implements OnInit, Af
 
   ngOnInit(): void {
     this.changeLanguage(this.activeLang);
+    const ts  = this;
+    ts.crudApi = {
+      create: '/crud',
+      read  : '/crud',
+      update: '/crud/',
+      delete: '/crud/',
+      params: {
+        tbPrefix: 'T001',
+      }
+    };
+    ts.columns = [
+      {
+        text:  'Nombre',
+        dataIndex: 'name_taxe',
+        width: '120px',
+      },
+      {
+        text:  'Descripción',
+        dataIndex: 'description',
+        width: '100%',
+      },
+      {
+        text:  '¿Es IVA?',
+        dataIndex: 'is_vat',
+        width: '80px',
+        align: 'center',
+        type: 'boolean',
+      },
+    ];
+    super.ngOnInit();
   }
 
   ngAfterViewInit(): void {
-    this.changeLanguage(this.activeLang);
-    const ts  = this;
-    const lang = ts.translate;
-    setTimeout(() => {
-      ts.title  = lang.instant('taxes.title');
-      ts.crudApi = {
-        create: '/general/taxes/create',
-        read  : '/general/taxes/read',
-        update: '/general/taxes/update/',
-        delete: '/general/taxes/delete/'
-      };
-      ts.showActions = true;
-      ts.showRowNumber = true;
-      ts.pagesize = 10;
-
-      ts.datafields = [
-        { name: 'id', type: 'number' },
-        { name: 'name_taxe', type: 'number' },
-        { name: 'description', type: 'string' },
-        { name: 'state', type: 'number' },
-        { name: 'is_vat', type: 'bool' },
-      ];
-
-      ts.sourceColumns =
-        [
-          { text: lang.instant('taxes.name'), align: 'center', datafield: 'name_taxe', minWidth: 120 },
-          { text: lang.instant('taxes.description'), align: 'center', datafield: 'description', minWidth: 150 },
-          { text: lang.instant('taxes.is_vat'), align: 'center', datafield: 'is_vat', columntype: 'checkbox', threestatecheckbox: true, width: 80 },
-        ];
-
-      ts.prepareGrid();
-    }, 100);
+    super.ngAfterViewInit();
   }
 
   createData(): void {

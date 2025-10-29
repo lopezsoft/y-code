@@ -79,7 +79,7 @@ export class AccountsComponent extends JqxCustomGridComponent implements AfterVi
       { text: 'Moneda', align: 'center', datafield: 'currencyname',  minWidth: 50, width: 180 },
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

@@ -2,95 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Auth\AuthAccessService;
 use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Mail\SignupActivate;
-use App\Mail\RecoverMessage;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Core\MasterModel;
-use App\Models\users\PasswordReset;
 use App\Traits\MessagesTrait;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Company;
 
 class AuthController extends Controller
 {
     use MessagesTrait;
-    public function recoverActivate($token)
-    {
-        $passwordReset = PasswordReset::where('activation_token', $token)
-            ->where('activated', 0)
-            ->first();
-        if (!$passwordReset) {
-            return redirect('/');
-        }
-        /**
-         * Se activa el usuario
-         */
-        $passwordReset->activated        = true;
-        $passwordReset->save();
-
-        $user       = User::where('email', $passwordReset->email)
-            ->where('active', 1)
-            ->first();
-
-        /**
-         * Se cambia el password del usuario
-         */
-        if ($user) {
-            $user->password = $passwordReset->password;
-            $user->save();
-        }
-
-        return redirect('/');
-    }
-
-    public function recover(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            $password   = bin2hex(random_bytes(12));
-            $token      = Str::random(80);
-            $user       = DB::table('users')
-                ->where('email', $request->email)
-                ->where('active', 1)
-                ->first();
-
-            if (!$user) {
-                return  $this->getErrorResponse("El correo {$request->email} no está registrado en nuestra base de datos.");
-            }
-
-            $passwordReset = PasswordReset::forceCreate([
-                'email'             => $request->email,
-                'activated'         => 0,
-                'password'          => bcrypt($password),
-                'activation_token'  => $token,
-            ]);
-            $passwordReset->save();
-
-            $message    = [
-                'company_name'          => "{$user->first_name} {$user->last_name}",
-                'dni'                   => $password,
-                'url'                   => url('/api/v1/auth/recover/activate/' . $token),
-                'email'                 => $request->email
-            ];
-            Mail::to($request->email)->queue(new RecoverMessage($message));
-            Mail::to('registro@ycodeaccounting.com')->queue(new RecoverMessage($message));
-            DB::commit();
-
-            return $this->getResponseMessage("Por favor revise su correo electrónico({$request->email}) y confirme el cambio de la contraseña.");
-        } catch (Exception $e) {
-            DB::rollBack();
-
-            return $this->getErrorResponse($e->getMessage());
-        }
-    }
-
     public function createUser(Request $request)
     {
         $userExist  = DB::table('users')->where('email', $request->email)->first();
@@ -198,141 +125,14 @@ class AuthController extends Controller
         }
     }
 
-    public function signupActivate($token)
+    public function login(Request $request): JsonResponse
     {
-        $user = User::where('activation_token', $token)->first();
-        if (!$user) {
-            return redirect('/');
-        }
-        $user->active           = true;
-        $user->activation_token = '';
-        $user->email_verified_at = date('Y-m-d H:i:s');
-        $user->save();
-        return redirect('/');
+        return AuthAccessService::login($request);
     }
 
-    public function signup(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        $company      = DB::table('companies')->where('dni', $request->dni)->first();
-        $credentials  = DB::table('users')->where('email', $request->email)->first();
-
-        if ($company) {
-            return response()->json([
-                'message' => "Ya existe una empresa con el DNI: ({$request->dni})",
-                'success' => false,
-            ], 500);
-        }
-
-        if ($credentials) {
-            return response()->json([
-                'message' => "Ya existe un usuario con el correo: ({$request->email})",
-                'success' => false,
-            ], 500);
-        }
-
-        $request->validate([
-            'first_name'    => 'required|string',
-            'last_name'     => 'required|string',
-            'email'         => 'required|string|email|unique:users',
-            'password'      => 'required|string|confirmed',
-        ]);
-
-        try {
-
-            DB::beginTransaction();
-            $activation_token       = Str::random(80);
-            $user = new User([
-                'first_name'        => $request->first_name,
-                'last_name'         => $request->last_name,
-                'email'             => $request->email,
-                'type_id'           => 1,
-                'activation_token'  => $activation_token,
-                'password'          => bcrypt($request->password),
-            ]);
-            $user->save();
-
-            $database_name  = strtolower('ycode_' . Str::random(5));
-
-            $data       = [
-                'country_id'            => $request->country_id,
-                'database_name'         => $database_name,
-                'folder_name'           => '',
-                'dni'                   => $request->dni,
-                'company_name'          => $request->company_name,
-                'address'               => $request->address,
-            ];
-
-
-            $company_id = DB::table('companies')->insertGetId($data);
-
-            DB::insert('insert into business_users (user_id, company_id) values (?, ?)', [$user->id, $company_id]);
-
-            $message    = [
-                'name'                  => "{$request->first_name} {$request->last_name}",
-                'url'                   => url('/api/v1/auth/signup/activate/' . $activation_token)
-            ];
-            Mail::to($request->email)->queue(new SignupActivate($message));
-            Mail::to("registro@ycodeaccounting.com")->queue(new SignupActivate($message));
-
-            DB::commit();
-
-            return response()->json([
-                'message' => 'Usuario creado con exito!. Debe ingresar a su correo y confirmar la cuenta.'
-            ], 201);
-        } catch (Exception $e) {
-            DB::rollBack();
-            return $this->getErrorResponse($e->getMessage());
-        }
-    }
-
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email'       => 'required|string|email',
-            'password'    => 'required|string',
-            'remember_me' => 'boolean',
-        ]);
-        $credentials = request(['email', 'password']);
-        $credentials['active'] = 1;
-        $credentials['deleted_at'] = null;
-
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'No puede acceder al sistema, verifique que su cuenta esté activa.'], 401);
-        }
-        $user           = $request->user();
-        $tokenResult    = $user->createToken($user->email);
-        $token          = $tokenResult->token;
-        if ($request->remember_me) {
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        }
-        $token->save();
-        $buser      = DB::table('business_users')->where('user_id', $user->id)->first();
-        $company    = Company::where('id', $buser->company_id)->first();
-        $data       = DB::select("SHOW DATABASES LIKE  '{$company->database_name}'");
-        if (COUNT($data) > 0) {
-            $companyCreated    = 1;
-        } else {
-            $companyCreated    = 0;
-        }
-        return response()->json([
-            'message'       => 'Hola Bienvenid@...',
-            'success'       => true,
-            'mail'          => $user->email,
-            'firstName'     => $user->first_name,
-            'lastName'      => $user->last_name,
-            'avatar'        => $user->avatar,
-            'access_token'  => $tokenResult->accessToken,
-            'token_type'    => 'Bearer',
-            'companyCreated' => $companyCreated,
-            'expires_at'    => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
-        ]);
-    }
-
-    public function logout(Request $request)
-    {
-        $request->user()->token()->revoke();
-        return response()->json(['message' =>
-        'Successfully logged out']);
+        return AuthAccessService::logout($request);
     }
 
 

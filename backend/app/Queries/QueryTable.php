@@ -3,12 +3,11 @@
 namespace App\Queries;
 
 use App\Common\HttpResponseMessages;
+use App\Common\MessageExceptionResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use function PHPUnit\Framework\isNull;
-
 class QueryTable
 {
     public static function query(Request $request, Object $params): JsonResponse
@@ -17,10 +16,11 @@ class QueryTable
             $primaryKey = 'id';
             $query      = $request->input('query') ?? '';
             $limit      = $request->input('limit') ?? 15;
-            $table      = $params->table;
             $where      = $params->where;
             $order      = $params->order;
             $company    = $params->company;
+            $db         = $company->database_name.".";
+            $table      = "{$db}$params->table";
             $company_id = 'company_id';
             $tableQuery = DB::table($table);
             if (strlen($query) > 0) {
@@ -63,9 +63,7 @@ class QueryTable
                 'dataRecords' => $tableQuery->paginate($limit)
             ]);
         } catch (Exception $e) {
-            return HttpResponseMessages::getResponse500([
-                'message'   => $e->getMessage()
-            ]);
+            return MessageExceptionResponse::response($e);
         }
     }
 
@@ -81,9 +79,7 @@ class QueryTable
             ]);
 
         } catch (Exception $e) {
-            return HttpResponseMessages::getResponse500([
-                'message'   => $e->getMessage()
-            ]);
+            return MessageExceptionResponse::response($e);
         }
     }
 }

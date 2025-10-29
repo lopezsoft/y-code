@@ -21,17 +21,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function () {
-
     Route::prefix('public')->group(function () {
         Route::get('countries',     'MasterController@getPublicCountries');
     });
 
     Route::group(['prefix' => 'auth'], function () {
+        require_once __DIR__ . '/auth-api.php';
         Route::post('login', 'AuthController@login');
-        Route::post('signup', 'AuthController@signup');
-        Route::get('signup/activate/{token}', 'AuthController@signupActivate');
-        Route::post('recover', 'AuthController@recover');
-        Route::get('recover/activate/{token}', 'AuthController@recoverActivate');
 
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('logout', 'AuthController@logout');
@@ -41,33 +37,8 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::group(['middleware' => 'auth:api'], function () {
-        Route::get('countries', 'MasterController@getCountries');
-        Route::get('currency', 'MasterController@getCurrency');
-        Route::get('currencysys', 'MasterController@getCurrencySys');
-        Route::get('cities', 'MasterController@getCities');
-        Route::get('destenvironme', 'MasterController@getDestinationEnvironme');
-        Route::get('documenttype', 'MasterController@getDocumentType');
-        Route::get('operationtype', 'MasterController@getOperationType');
-        Route::get('identitydocuments', 'MasterController@getIdentityDocuments');
-        Route::get('taxes', 'MasterController@getTaxes');
-        Route::get('typeorganization', 'MasterController@getTypeOrganization');
-        Route::get('taxlevel', 'MasterController@getTaxLevel');
-        Route::get('taxregime', 'MasterController@getTaxRegime');
-        Route::get('quantityunits', 'MasterController@getQuantityUnits');
-        Route::get('typeitemidentifications', 'MasterController@getTypeItemIdentifications');
-        Route::get('referenceprice', 'MasterController@getReferencePrice');
-        Route::get('paymentmethods', 'MasterController@getPaymentMethods');
-        Route::get('meanspayment', 'MasterController@getMeansPayment');
-        Route::get('timelimit', 'MasterController@getTimeLimit');
-        Route::get('timelimits', 'MasterController@getTimeLimit');
-        Route::get('shippingfrequency', 'MasterController@getShippingFrequency');
-        Route::get('measurementunits', 'MasterController@getMeasurementUnits');
-        Route::get('accounttypes', 'MasterController@getAccountTypes');
-        Route::get('typepersons', 'MasterController@getTypePersons');
-        Route::get('typepersons/customers', 'MasterController@getTypePersonsCustomers');
-        Route::get('ipinfo', 'MasterController@getIpInfo');
-
-
+        require_once __DIR__ . '/commons.php';
+        Route::apiResource('crud', 'TableCrudController');
         Route::group(['prefix' => 'reports'], function () {
             Route::get('sales',             'ReportController@getSales');
             Route::get('notes',             'ReportController@getNotes');
@@ -259,54 +230,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::delete('delete/{id}',    'Companies\CompanyTypeController@delete');
             });
         });
-
-        Route::group(['prefix' => 'general'], function () {
-
-            Route::group(['prefix' => 'resolutions'], function () {
-                Route::post('create',           'General\ResolutionsController@create');
-                Route::get('read',              'General\ResolutionsController@getResolutions');
-                Route::put('update/{id}',       'General\ResolutionsController@update');
-                Route::delete('delete/{id}',    'General\ResolutionsController@delete');
-            });
-
-            Route::group(['prefix' => 'reports'], function () {
-                Route::post('create',           'General\ReportsHeaderController@create');
-                Route::get('read',              'General\ReportsHeaderController@select');
-                Route::put('update/{id}',       'General\ReportsHeaderController@update');
-                Route::delete('delete/{id}',    'General\ReportsHeaderController@delete');
-            });
-
-            Route::group(['prefix' => 'taxes'], function () {
-                Route::post('create',           'General\TaxesController@create');
-                Route::get('read',              'General\TaxesController@select');
-                Route::put('update/{id}',       'General\TaxesController@update');
-                Route::delete('delete/{id}',    'General\TaxesController@delete');
-            });
-
-            Route::group(['prefix' => 'currency'], function () {
-                Route::post('create',           'General\CurrencyController@create');
-                Route::get('change',            'General\CurrencyController@getChange');
-                Route::get('change/local',      'General\CurrencyController@getChangeLocal');
-                Route::get('read',              'General\CurrencyController@select');
-                Route::put('update/{id}',       'General\CurrencyController@update');
-                Route::delete('delete/{id}',    'General\CurrencyController@delete');
-            });
-
-            Route::group(['prefix' => 'taxerates'], function () {
-                Route::post('create',           'General\TaxRatesController@create');
-                Route::get('read',              'General\TaxRatesController@select');
-                Route::put('update/{id}',       'General\TaxRatesController@update');
-                Route::delete('delete/{id}',    'General\TaxRatesController@delete');
-            });
-
-            Route::group(['prefix' => 'identitydocs'], function () {
-                Route::post('create',           'General\IdentityDocumentsController@create');
-                Route::get('read',              'General\IdentityDocumentsController@select');
-                Route::put('update/{id}',       'General\IdentityDocumentsController@update');
-                Route::delete('delete/{id}',    'General\IdentityDocumentsController@delete');
-            });
-        });
-
+        require_once __DIR__ . '/general.php';
         Route::group(['prefix' => 'company'], function () {
             Route::post('create',           'CompanyController@createCompany');
             Route::post('createDb',         'CompanyController@createDb');

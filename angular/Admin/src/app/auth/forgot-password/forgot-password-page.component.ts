@@ -16,6 +16,7 @@ import { FormComponent } from '../../core/components/forms';
 // Interfaces
 import { JsonResponse } from '../../interfaces';
 import { ViewChild } from '@angular/core';
+import {GlobalSettingsService} from '../../services/global-settings.service';
 
 @Component({
     selector: 'app-forgot-password-page',
@@ -32,7 +33,9 @@ export class ForgotPasswordPageComponent extends FormComponent implements OnInit
                 public router: Router,
                 public translate: TranslateService,
                 public aRouter: ActivatedRoute,
-                public spinner: NgxSpinnerService) {
+                public spinner: NgxSpinnerService,
+                public settings: GlobalSettingsService,
+                ) {
         super(fb, msg, api, router, translate, aRouter, spinner);
         this.customForm = this.fb.group({
           email: ['', Validators.required]
@@ -42,22 +45,25 @@ export class ForgotPasswordPageComponent extends FormComponent implements OnInit
     // On submit click, reset form fields
     onSubmit(): void {
       const ts  = this;
-      ts.showSpinner('Realizando petición, espere por favor...');
+      ts.settings.showBlockUI();
       ts.loading  = true;
-      ts.api.post('/auth/recover', {email: ts.customForm.get('email').value}).
-        subscribe((resp: JsonResponse) => {
-          ts.disabledLoading();
-          ts.hideSpinner();
-          if (!resp.success){
-            ts.msg.errorMessage('', resp.message);
-            return;
-          }
-          ts.msg.onMessage('', resp.message);
-        }, (err: string) => {
-          ts.hideSpinner();
-          ts.disabledLoading();
-          ts.msg.errorMessage('Error', err);
-        });
+      ts.api.post('/auth/forgot-password', {email: ts.customForm.get('email').value}).
+        subscribe({
+      next: (resp: JsonResponse) => {
+        ts.disabledLoading();
+        ts.settings.hideBlockUI();
+        if (!resp.success){
+          ts.msg.errorMessage('', resp.message);
+          return;
+        }
+        ts.msg.onMessage('', resp.message);
+      },
+      error: (err: string) => {
+        ts.settings.hideBlockUI();
+        ts.disabledLoading();
+        ts.msg.errorMessage('Error', err);
+      }
+      });
     }
 
     get invalidEmail(): boolean {

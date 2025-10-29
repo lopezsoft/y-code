@@ -17,7 +17,9 @@ class InsertTable
     {
         try {
             $fields     = $params->records;
-            $tb         = $params->table;
+            $company    = $params->company;
+            $db         = $company->database_name.".";
+            $tb         = "{$db}$params->table";
             $ip         = $request->ip();
             // Validar los campos
             if(!is_array($fields) && $canValidator){

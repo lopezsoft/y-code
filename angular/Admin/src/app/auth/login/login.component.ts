@@ -79,22 +79,21 @@ export class LoginComponent extends FormComponent implements OnInit {
       this.settings.showBlockUI();
       ts.api.post('/auth/login', me.value)
         .subscribe({
-					next: (resp) => {
-						ts.disabledLoading();
-						this.settings.hideBlockUI();
-						ts.msg.toastMessage(lang.instant('login.button.loggingIn'), resp.message, 0);
-						localStorage.setItem(ts.api.getApiJwt(), JSON.stringify(resp));
-						ts.api.addUser(resp);
-						ts.onResetForm(me);
-						window.location.reload();
-					}, 
-					error: (err: string) => {
-						this.settings.hideBlockUI();
-						ts.msg.toastMessage(lang.instant('general.error'), err, 4);
-						ts.disabledLoading();
-						ts.onValidateForm(me);
-					}
-				});
+          next: (resp) => {
+            ts.disabledLoading();
+            this.settings.hideBlockUI();
+            ts.msg.toastMessage(lang.instant('login.button.loggingIn'), resp.message, 0);
+            ts.api.setToken(JSON.stringify(resp));
+            ts.onResetForm(me);
+            window.location.reload();
+          },
+          error: (err: string) => {
+            this.settings.hideBlockUI();
+            ts.msg.toastMessage(lang.instant('general.error'), err, 4);
+            ts.disabledLoading();
+            ts.onValidateForm(me);
+          }
+        });
     }
   }
 

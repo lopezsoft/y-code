@@ -14,7 +14,8 @@
 @import 'quill/dist/quill.core.css';
 @import 'quill/dist/quill.bubble.css';
 @import 'quill/dist/quill.snow.css';
-
+@import './../node_modules/exodolibs/assets/style.scss';
+@import './../node_modules/exodolibs/assets/exodogrid-style.scss';
 .title-center-black {
   color: #111e2c !important;
 }
@@ -24,6 +25,45 @@
   padding-top: 50px;
 }
 
+.span-button-lg {
+  width: auto !important;
+  padding: 4px;
+  border: rgba(37, 86, 163, 0.5) 1px solid;
+  border-radius: .15rem;
+}
+
+.span-button {
+  width: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  cursor: pointer;
+  height: 2rem;
+  &:hover {
+    border-radius: .15rem;
+    background-color: rgba(37, 86, 163, 0.37);
+    border: rgba(37, 86, 163, 0.93) 1px solid;
+  }
+  &:active {
+    background-color: rgba(253, 206, 58, 0.82) !important;
+  }
+  i {
+    font-size: 1.5rem;
+  }
+}
+
+.fas-fa-qr, .fas-fa-save {
+  color: #2556a3!important;
+  padding  : 6px;
+  &:before {
+    font-size  : 22px !important;
+    color: #2556a3!important;
+  }
+  &:hover {
+    color: #2556a3!important;
+  }
+}
 .fas-fa-ok-thumbs {
   color: orangered;
   padding  : 6px;
@@ -60,14 +100,16 @@
 }
 
 
-.fas-fa-error {
+.fas-fa-error, .fas-fa-close {
   color: red;
   padding  : 6px;
   &:before {
     // font-family: FontAwesome;
     // content    : '\f188';
-    font-size  : 22px !important;
-    color      : red;
+    color      : red !important;
+  }
+  &:hover {
+    color: red !important;
   }
 }
 

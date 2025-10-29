@@ -8,7 +8,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+/**
+ * @method static create(array $array)
+ * @method static findOrFail(\Illuminate\Routing\Route|object|string|null $route)
+ */
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, Notifiable, SoftDeletes;
 
@@ -18,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'email', 'password', 'active', 'activation_token','type_id', 'last_name', 'avatar',
+        'first_name', 'email', 'password', 'active','type_id', 'last_name', 'avatar',
     ];
 
     /**
@@ -27,7 +31,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'activation_token',
+        'password', 'remember_token', 'activation_token', 'created_at', 'updated_at', 'deleted_at',
+        'two_factor_confirmed_at', 'two_factor_secret', 'two_factor_recovery_codes'
     ];
 
     /**

@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\DB;
 class DeleteTable
 {
     use MessagesTrait;
-    public static function delete(Request $request, int $id, string $tb): JsonResponse
+    public static function delete(Request $request, int $id, Object $params): JsonResponse
     {
         try {
             $ip         = $request->ip();
+            $company    = $params->company;
+            $db         = $company->database_name.".";
+            $tb         = "{$db}$params->table";
             DB::beginTransaction();
             $delete  = DB::table($tb)->where('id', $id)->get();
 

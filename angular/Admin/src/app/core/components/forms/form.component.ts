@@ -4,13 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Services
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ApiServerService, MessagesService } from './../../../utils/index';
+import { ApiServerService, MessagesService } from '../../../utils';
 
 // Base component
 
-import { BaseComponent } from './../../../core/components/base/base.component';
+import { BaseComponent } from '../base/base.component';
 import { TranslateService } from '@ngx-translate/core';
-import { JsonResponse } from './../../../interfaces';
+import { JsonResponse } from '../../../interfaces';
 
 @Injectable()
 export class FormComponent extends BaseComponent implements OnInit, AfterViewInit {
@@ -27,12 +27,11 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
   public uid: any     = 0;
   public PostURL      = '';
   public PutURL       = '';
-  public imgData     : any = '';
+  public imgData: any = '';
   public imgname     = '';
-  public customFormSubmitted = false;
-  public isLoginFailed = false;
   public active = 1;
   public activeLang = 'es';
+  public queryParams: any = {};
   constructor(public fb: FormBuilder,
               public msg: MessagesService,
               public api: ApiServerService,
@@ -44,7 +43,6 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
     super(api, router, translate);
   }
 
-  // tslint:disable-next-line: contextual-lifecycle
   ngOnInit(): void {
     super.ngOnInit();
     const ts    = this;
@@ -54,7 +52,6 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
     }
   }
 
-  // tslint:disable-next-line: contextual-lifecycle
   ngAfterViewInit(): void {
     if (this.focusElement){
       this.focusElement.nativeElement.focus();
@@ -63,18 +60,11 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
 
   showSpinner(mask: string = ''): void {
     this.maskSpinner  = mask;
-    this.spinner.show(undefined,
-      {
-        type: 'ball-triangle-path',
-        size: 'medium',
-        bdColor: 'rgba(0, 0, 0, 0.8)',
-        color: '#fff',
-        fullScreen: true
-      });
+    this.msg.settings.showBlockUI(mask);
   }
 
   hideSpinner(): void {
-    this.spinner.hide();
+    this.msg.settings.hideBlockUI();
   }
 
 
@@ -88,7 +78,7 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
   }
 
   /**
-   * Valida los controles de un formulario
+   * Válida los controles de un formulario
    */
   onValidateForm(form: FormGroup): void {
     Object.values(form.controls).forEach(ele => {
@@ -100,7 +90,7 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
    * Limpia los objetos de un formulario
    */
   onResetForm(form: FormGroup): void {
-    if(form){
+    if (form){
       form.reset();
     }
   }
@@ -160,19 +150,20 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
     const ts    = this;
     const frm   = ts.customForm;
     const lang  = ts.translate;
-    let values	: any = {};
+    let values: any = {};
     ts.onBeforeSave(frm);
     if (!frm.invalid) {
       ts.showSpinner();
       values  = frm.value;
-      if(ts.changeImage) {
+      if (ts.changeImage) {
         values.imgdata = ts.imgData;
         values.imgname = ts.imgname;
       }
       if (ts.editing) {
         values.id = ts.uid;
         const data = {
-          records: JSON.stringify(values)
+          records: JSON.stringify(values),
+          ...this.queryParams
         };
 
         ts.api.put(`${ts.PutURL}${ts.uid}`, data)
@@ -185,7 +176,7 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
                     ts.close();
                 } else {
                     ts.onResetForm(frm);
-                    if(ts.focusElement){
+                    if (ts.focusElement){
                         ts.focusElement.nativeElement.focus();
                     }
                 }
@@ -200,6 +191,10 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
         });
       } else {
         values.records = JSON.stringify(values);
+        values = {
+          ...values,
+          ...this.queryParams
+        };
         ts.api.post(ts.PostURL, values)
           .subscribe({
             next: (resp: JsonResponse) => {
@@ -209,7 +204,7 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
                     ts.close();
                 } else {
                     ts.onResetForm(frm);
-                    if(ts.focusElement){
+                    if (ts.focusElement){
                         ts.focusElement.nativeElement.focus();
                     }
                 }
@@ -231,57 +226,57 @@ export class FormComponent extends BaseComponent implements OnInit, AfterViewIni
     const file  = e.target.files[0];
     let size    = 0;
     if (file){
-      size        = (parseInt(file.size)/1024);
+      size        = (parseInt(file.size) / 1024);
       ts.imgData  = 'assets/avatars/no-image.png';
-      if(parseInt(file.size) > 512000){
-        ts.msg.toastMessage('Archivo muy grande.',`El tamaño del archivo no debe ser mayor a 512 kb. Peso del archivo actual: ${size.toFixed(3)}`, 3);
+      if (parseInt(file.size) > 512000){
+        ts.msg.toastMessage('Archivo muy grande.', `El tamaño del archivo no debe ser mayor a 512 kb. Peso del archivo actual: ${size.toFixed(3)}`, 3);
         ts.uploadFile.nativeElement.value = '';
         return;
       }
-      if(file.type == "image/jpeg" || file.type == "image/png"){
-        var reader = new FileReader();
+      if (file.type == 'image/jpeg' || file.type == 'image/png'){
+        let reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = function () {
+        reader.onload = function() {
           ts.imgData      = reader.result;
           ts.changeImage  = true;
           ts.imgname      = file.name;
         };
-        reader.onerror = function (error: any) {
+        reader.onerror = function(error: any) {
             console.log('Error: ', error);
             ts.msg.toastMessage('Error', error, 4);
         };
       }else{
         ts.uploadFile.nativeElement.value = '';
-        ts.msg.toastMessage('Formato no soportado.','Solo se permiten archivos en formato PNG/JPG', 4);
+        ts.msg.toastMessage('Formato no soportado.', 'Solo se permiten archivos en formato PNG/JPG', 4);
       }
     }
   }
 
-	/**
-	 * Valida si el contenido del campo de un objeto del formulario es invalido o incorrecto
+  /**
+	 * Válida si el contenido del campo de un objeto del formulario es inválido o incorrecto
 	 * @param controlName Nombre del campo o control del formulario
 	 * @returns Boolean
  */
-	isInvalid (controlName: string): boolean {
-		const ts  = this;
-		if(!ts.customForm) {
-			return false;
-		}
-		return ts.customForm.get(controlName).invalid && ts.customForm.get(controlName).touched;
-	}
+  isInvalid(controlName: string): boolean {
+    const ts  = this;
+    if (!ts.customForm) {
+      return false;
+    }
+    return ts.customForm.get(controlName).invalid && ts.customForm.get(controlName).touched;
+  }
 
-	isInvalidNumber (controlName: string): boolean {
-		const ts  = this;
-		if(!ts.customForm) {
-			return false;
-		}
-		return (this.customForm.get(controlName).value <= 0) ? true : false;
-	}
+  isInvalidNumber(controlName: string): boolean {
+    const ts  = this;
+    if (!ts.customForm) {
+      return false;
+    }
+    return (this.customForm.get(controlName).value <= 0);
+  }
 
-	onAfterSave(resp: JsonResponse) {
-		// Implements
-	}
-    onBeforeSave(frm: FormGroup) : void {
+  onAfterSave(resp: JsonResponse) {
+    // Implements
+  }
+    onBeforeSave(frm: FormGroup): void {
         // Implements
     }
 }

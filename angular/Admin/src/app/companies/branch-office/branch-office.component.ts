@@ -75,7 +75,7 @@ export class BranchOfficeComponent extends JqxCustomGridComponent implements OnI
         threestatecheckbox: true, width: 110 }
       ];
 
-    this.prepareGrid();
+    
     ts.title  = lang.instant('branchs.title');
   }
 

@@ -1,9 +1,9 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { ApiServerService } from '../utils/api-server.service';
 
 @Injectable()
-export class CompanyGuard implements CanActivate {
+export class CompanyGuard  {
 
     constructor(private authService: ApiServerService, private router: Router) { }
 

@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { User } from '../models/auth.models';
 import { ApiServerService } from 'src/app/utils';
+import {UserCompany} from '../../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class AuthfakeauthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    private currentUserSubject: BehaviorSubject<UserCompany>;
+    public currentUser: Observable<UserCompany>;
 
     constructor(
-			private http: HttpClient,
-			private api: ApiServerService,
-			) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+      private api: ApiServerService,
+      ) {
+        this.currentUserSubject = new BehaviorSubject<UserCompany>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public get currentUserValue(): User {
+    public get currentUserValue(): UserCompany {
         return this.api.getCurrentUser();
     }
 

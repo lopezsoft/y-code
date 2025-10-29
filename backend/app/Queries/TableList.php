@@ -12,8 +12,8 @@ class TableList
             throw new Exception('No se ha especificado el prefijo de la tabla');
         }
         $tableList = [
-            'T001' => 'price_list',
-            'T002' => 'product_price_list',
+            'T001' => 'tax_group',
+            'T002' => 'tax_rates',
         ];
         return $tableList[$prefix];
     }

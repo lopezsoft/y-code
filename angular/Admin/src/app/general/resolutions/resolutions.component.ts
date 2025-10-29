@@ -67,7 +67,7 @@ export class ResolutionsComponent extends JqxCustomGridComponent implements OnIn
         { text:  'Rango hasta', align: 'center', datafield: 'range_up', width: 110, cellsalign: 'right'},
       ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

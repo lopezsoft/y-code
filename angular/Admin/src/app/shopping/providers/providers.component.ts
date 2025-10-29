@@ -58,7 +58,7 @@ export class ProvidersComponent  extends JqxCustomGridComponent implements OnIni
       { text: 'Empresa', datafield: 'company_name', align: 'center'},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

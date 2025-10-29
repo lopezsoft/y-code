@@ -64,7 +64,7 @@ export class WineriesComponent extends JqxCustomGridComponent implements OnInit,
         { text: lang.instant('wineries.department') || 'Departamento', align: 'center', datafield: 'department_name' },
       ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

@@ -51,7 +51,7 @@ export class ClassOfAccountingComponent extends JqxCustomGridComponent implement
       { text: 'Número', datafield: 'number', align: 'center', cellsalign: 'right', width: 65 },
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

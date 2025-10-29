@@ -1,4 +1,4 @@
-import { ShoppingDetail } from './../../models/shopping-model';
+import { ShoppingDetail } from '../../models/shopping-model';
 import { Component, ViewChild, AfterViewInit, ElementRef, OnInit } from '@angular/core';
 
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
@@ -7,12 +7,12 @@ import { jqxTabsComponent } from 'jqwidgets-ng/jqxtabs';
 import Swal from 'sweetalert2';
 
 // Services
-import { ApiServerService, MessagesService } from './../../utils';
+import { ApiServerService, MessagesService } from '../../utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ShoppingService } from './../../services/global';
+import { ShoppingService } from '../../services/global';
 
-import { JqxCustomGridComponent } from './../../core/data/custom-grid/jqx-custom-grid.component';
+import { JqxCustomGridComponent } from '../../core/data/custom-grid/jqx-custom-grid.component';
 
 @Component({
     selector: 'app-invoices',
@@ -121,7 +121,7 @@ export class InvoicesComponent extends JqxCustomGridComponent implements OnInit,
                 { text: 'Bodega', datafield: 'branch_name', align: 'center', minwidth: 100 },
                 { text: 'Total', datafield: 'total', align: 'center', cellsalign: 'right', cellsformat: 'c2', minwidth: 100 },
             ];
-        this.prepareGrid();
+        
     }
     /**
      * Click en una celda del detalle de la factura

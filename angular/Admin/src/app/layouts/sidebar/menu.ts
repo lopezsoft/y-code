@@ -22,99 +22,99 @@ export const MENU: MenuItem[] = [
     //     isTitle: true
     // },
     {
-			id				: 3,
-			label			: 'Ventas',
-			icon			: 'uil-calender',
-			subItems: [
-				{
-					id				: 30,
-					label			: 'Facturar',
-					link			: '/sales/check-in',
-					parentId	: 3
-				},
-				{
-					id				: 31,
-					label			: 'Punto de venta',
-					link			: '/sales/pos',
-					parentId	: 3
-				},
-				{
-					id				: 32,
-					label			: 'Clientes',
-					link			: '/sales/customers',
-					parentId	: 3
-				},
-			]
+      id				: 3,
+      label			: 'Ventas',
+      icon			: 'uil-calender',
+      subItems: [
+        {
+          id				: 30,
+          label			: 'Facturar',
+          link			: '/sales/check-in',
+          parentId	: 3
+        },
+        {
+          id				: 31,
+          label			: 'Punto de venta',
+          link			: '/sales/pos',
+          parentId	: 3
+        },
+        {
+          id				: 32,
+          label			: 'Clientes',
+          link			: '/sales/customers',
+          parentId	: 3
+        },
+      ]
     },
     {
-			id				: 4,
-			label			: 'Compras y gastos',
-			icon			: 'uil-calender',
-			subItems: [
-				{
-					id				: 41,
-					label			: 'Compras',
-					icon			: 'uil-calender',
-					link			: '/shopping/invoices',
-					parentId	: 4
-				},
-				{
-					id				: 42,
-					label			: 'Proveedores',
-					link			: '/shopping/providers',
-					parentId	: 4
-				},
-			]
+      id				: 4,
+      label			: 'Compras y gastos',
+      icon			: 'uil-calender',
+      subItems: [
+        {
+          id				: 41,
+          label			: 'Compras',
+          icon			: 'uil-calender',
+          link			: '/shopping/invoices',
+          parentId	: 4
+        },
+        {
+          id				: 42,
+          label			: 'Proveedores',
+          link			: '/shopping/providers',
+          parentId	: 4
+        },
+      ]
     },
     {
-			id				: 5,
-			label			: 'Productos',
-			icon			: 'uil-calender',
-			subItems: [
-				{
-					id				: 51,
-					label			: 'Items',
-					icon			: 'uil-calender',
-					link			: '/products/items',
-					parentId	: 5
-				},
-				{
-					id				: 52,
-					label			: 'Categorias',
-					link			: '/products/categories',
-					parentId	: 5
-				},
-				{
-					id				: 53,
-					label			: 'Marcas',
-					link			: '/products/brands',
-					parentId	: 5
-				},
-				{
-					id				: 54,
-					label			: 'Tipos de items',
-					link			: '/products/groups',
-					parentId	: 5
-				},
-				{
-					id				: 55,
-					label			: 'Atributos',
-					link			: '/products/attributes',
-					parentId	: 5
-				},
-				{
-					id				: 56,
-					label			: 'Terminos de atributos',
-					link			: '/products/terms',
-					parentId	: 5
-				},
-				{
-					id				: 57,
-					label			: 'Unidades de medida',
-					link			: '/products/units',
-					parentId	: 5
-				},
-			]
+      id				: 5,
+      label			: 'Productos',
+      icon			: 'uil-calender',
+      subItems: [
+        {
+          id				: 51,
+          label			: 'Items',
+          icon			: 'uil-calender',
+          link			: '/products/items',
+          parentId	: 5
+        },
+        {
+          id				: 52,
+          label			: 'Categorias',
+          link			: '/products/categories',
+          parentId	: 5
+        },
+        {
+          id				: 53,
+          label			: 'Marcas',
+          link			: '/products/brands',
+          parentId	: 5
+        },
+        {
+          id				: 54,
+          label			: 'Tipos de items',
+          link			: '/products/groups',
+          parentId	: 5
+        },
+        {
+          id				: 55,
+          label			: 'Atributos',
+          link			: '/products/attributes',
+          parentId	: 5
+        },
+        {
+          id				: 56,
+          label			: 'Terminos de atributos',
+          link			: '/products/terms',
+          parentId	: 5
+        },
+        {
+          id				: 57,
+          label			: 'Unidades de medida',
+          link			: '/products/units',
+          parentId	: 5
+        },
+      ]
     },
     {
         id				: 10,

@@ -62,7 +62,7 @@ export class CurrencyComponent extends JqxCustomGridComponent implements OnInit,
         { text: lang.instant('currency.denomination') || 'Denominación', align: 'center', datafield: 'denomination' },
       ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

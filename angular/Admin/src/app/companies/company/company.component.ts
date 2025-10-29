@@ -4,20 +4,20 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TypeOrganizationService } from './../../services/companies/type-organization.service';
+import { TypeOrganizationService } from '../../services/companies';
 import {
     IdentityDocuments, IdentityDocumentsService,
     Country, CountriesService,
     CurrencySysService
-} from './../../services/global/index';
+} from '../../services/global';
 
-import { ApiServerService, MessagesService } from './../../utils';
+import { ApiServerService, MessagesService } from '../../utils';
 
-import { FormComponent } from './../../core/components/forms/form.component';
+import { FormComponent } from '../../core/components/forms';
 
-import { TypeOrganization } from './../../models/companies-model';
-import { CurrencySys } from './../../models/general-model';
-import { CompanyService } from './../../services/companies';
+import { TypeOrganization } from '../../models/companies-model';
+import { CurrencySys } from '../../models/general-model';
+import { CompanyService } from '../../services/companies';
 import { JsonResponse } from 'src/app/interfaces';
 
 @Component({

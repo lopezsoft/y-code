@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Core\MasterModel;
 use Illuminate\Support\Facades\DB;
 use Exception;
-use Illuminate\Support\Facades\Storage;
 
 class CreateDB
 {

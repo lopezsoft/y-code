@@ -74,7 +74,7 @@ export class PointsOfSaleComponent  extends JqxCustomGridComponent implements On
 					{ text: lang.instant('pointsofsale.address'), align: 'center', datafield: 'address', minWidth: 100 },
 				];
 
-			this.prepareGrid();
+			
 			ts.title  = lang.instant('pointsofsale.title');
 		}, 200);
   }

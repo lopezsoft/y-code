@@ -90,7 +90,7 @@ export class ItemsComponent extends JqxCustomGridComponent implements OnInit, Af
       // { text: 'Descripción', align: 'center', datafield: 'product_description',  minWidth: 100, width: 250 },
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

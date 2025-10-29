@@ -1,11 +1,12 @@
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormComponent } from './../../../core/components/forms/form.component';
+import { FormComponent } from '../../../core/components/forms';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessagesService, ApiServerService } from './../../../utils';
+import { MessagesService, ApiServerService } from '../../../utils';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { TaxesService } from './../../../services/general/taxes.service';
+import { TaxesService } from '../../../services/general';
+import {CrudTableService} from '../../../services/crud-table.service';
 
 @Component({
   selector: 'app-edit-taxes',
@@ -21,7 +22,8 @@ export class EditTaxesComponent extends FormComponent implements OnInit{
               public translate: TranslateService,
               public aRouter: ActivatedRoute,
               public spinner: NgxSpinnerService,
-              private types: TaxesService
+              private types: TaxesService,
+              public table: CrudTableService,
   ){
     super(fb, msg, api, router, translate, aRouter, spinner);
     this.translate.setDefaultLang(this.activeLang);
@@ -45,22 +47,25 @@ export class EditTaxesComponent extends FormComponent implements OnInit{
     const ts    = this;
     const lang  = ts.translate;
     ts.title    = `${lang.instant('general.createEdit')} ${lang.instant('taxes.title')}`;
-    ts.PutURL   = '/general/taxes/update/';
-    ts.PostURL  = '/general/taxes/create';
+    ts.PutURL   = '/crud/';
+    ts.PostURL  = '/crud';
+    ts.queryParams = {tbPrefix: 'T001'};
   }
 
   loadData(id: any = 0): void {
     const ts    = this;
     ts.editing  = true;
 
-    ts.types.getData({uid: id}).subscribe((resp) => {
+    ts.table.getData({
+      uid: id,
+      tbPrefix: 'T001',
+    }).subscribe((resp: any) => {
+      const data = resp.data[0];
       this.customForm.setValue({
-        name_taxe   : resp[0].name_taxe,
-        description : resp[0].description,
-        is_vat      : resp[0].is_vat,
+        name_taxe   : data.name_taxe,
+        description : data.description,
+        is_vat      : data.is_vat,
       });
     });
-
   }
-
 }

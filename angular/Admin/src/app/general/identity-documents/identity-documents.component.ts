@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { JqxCustomGridComponent } from './../../core/data/custom-grid/jqx-custom-grid.component';
+import { JqxCustomGridComponent } from '../../core/data/custom-grid/jqx-custom-grid.component';
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
-import { MessagesService, ApiServerService } from './../../utils';
+import { MessagesService, ApiServerService } from '../../utils';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -58,7 +58,7 @@ export class IdentityDocumentsComponent extends JqxCustomGridComponent implement
 
         ];
 
-      this.prepareGrid();
+      
     }, 100);
   }
 

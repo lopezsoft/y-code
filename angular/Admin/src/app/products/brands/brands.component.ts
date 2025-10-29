@@ -54,7 +54,7 @@ export class BrandsComponent extends JqxCustomGridComponent implements OnInit, A
       { text: 'Nombre de la marca', datafield: 'brand_name', align: 'center'},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

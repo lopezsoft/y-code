@@ -4,6 +4,7 @@ namespace App\Queries;
 
 use App\Classes\CrudClass;
 use App\Common\HttpResponseMessages;
+use App\Common\MessageExceptionResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,10 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateTable
 {
-    public static function update(Request $request, mixed $fields, string $tb): JsonResponse
+    public static function update(Request $request, Object $params): JsonResponse
     {
         $ip     = $request->ip();
         try {
+            $fields     = $params->records;
+            $company    = $params->company;
+            $db         = $company->database_name.".";
+            $tb         = "{$db}$params->table";
             DB::beginTransaction();
             $fieldsTb   = ShowColumns::getColumns($tb); // Listado de las columnas de la tabla
             if (is_array($fields)) {
@@ -30,9 +35,7 @@ class UpdateTable
             ]);
         } catch (Exception $e) {
             DB::rollback();
-            return HttpResponseMessages::getResponse500([
-                'message' => $e->getMessage(),
-            ]);
+            return MessageExceptionResponse::response($e);
         }
     }
 
@@ -66,8 +69,9 @@ class UpdateTable
                     ->first();
         $dataUpdate = [];
         if ($query) {
-            foreach ($query as $key => $value) {
-                $changeValue = $data[$key];
+            $query = (array) $query;
+            foreach ($data as $key => $value) {
+                $changeValue = $query[$key];
                 if ($value != $changeValue) {
                     $dataUpdate[$key] = $changeValue;
                 }

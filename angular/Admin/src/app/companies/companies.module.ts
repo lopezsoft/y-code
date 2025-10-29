@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { jqxGridModule } from 'jqwidgets-ng/jqxgrid';
 import { jqxMenuModule } from 'jqwidgets-ng/jqxmenu';
-import { CoreModule } from './../core/core.module';
+import { CoreModule } from '../core/core.module';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 

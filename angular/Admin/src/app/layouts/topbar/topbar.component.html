@@ -153,8 +153,8 @@
 
       <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item waves-effect" ngbDropdownToggle id="page-header-user-dropdown">
-          <img class="rounded-circle header-profile-user" [src]="currentUser.avatar" alt="Header Avatar">
-          <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">{{ currentUser.firstName }}</span>
+          <img class="rounded-circle header-profile-user" [src]="api.getUrl() + currentUser.avatar" fallimg alt="Header Avatar">
+          <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">{{ currentUser.first_name }}</span>
           <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>

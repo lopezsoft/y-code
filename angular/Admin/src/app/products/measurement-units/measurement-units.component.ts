@@ -62,7 +62,7 @@ export class MeasurementUnitsComponent extends JqxCustomGridComponent implements
       { text: 'Factor', datafield: 'factor', align: 'center'},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

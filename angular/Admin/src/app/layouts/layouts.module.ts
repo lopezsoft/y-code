@@ -18,10 +18,19 @@ import { HorizontalComponent } from './horizontal/horizontal.component';
 import { VerticalComponent } from './vertical/vertical.component';
 import { HorizontaltopbarComponent } from './horizontaltopbar/horizontaltopbar.component';
 import { TranslateModule } from '@ngx-translate/core';
+import {CoreModule} from '../core/core.module';
 
 @NgModule({
-  // tslint:disable-next-line: max-line-length
-  declarations: [LayoutComponent, SidebarComponent, TopbarComponent, FooterComponent, RightsidebarComponent, HorizontalComponent, VerticalComponent, HorizontaltopbarComponent],
+  declarations: [
+    LayoutComponent,
+    SidebarComponent,
+    TopbarComponent,
+    FooterComponent,
+    RightsidebarComponent,
+    HorizontalComponent,
+    VerticalComponent,
+    HorizontaltopbarComponent
+  ],
   imports: [
     CommonModule,
     TranslateModule,
@@ -29,7 +38,8 @@ import { TranslateModule } from '@ngx-translate/core';
     NgbDropdownModule,
     ClickOutsideModule,
     SimplebarAngularModule,
-    UiSwitchModule
+    UiSwitchModule,
+    CoreModule
   ]
 })
 export class LayoutsModule { }

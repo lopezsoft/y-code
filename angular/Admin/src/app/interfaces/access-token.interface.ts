@@ -1,30 +1,20 @@
-export interface  UserType {
-  active: number;
-  id: number;
-  type: number;
-  user_type_name: string;
-}
+import {Users} from '../models/users-model';
 export interface  Company {
+  dni: string;
+  address: string;
   company_name: string;
   email: string;
-  id: number;
-  image: string;
-  trade_name: string;
 }
-
-
+export interface UserCompany extends Users {
+  company: Company;
+}
 export interface AccessToken {
-  access_token  : string;
-  expires_at    : string;
-  mail          : string;
-  firstName     : string;
-  lastName      : string;
-  avatar        : string;
-  message       : string;
-  token_type    : string;
-  user          : string;
-  success       : boolean;
+  access_token: string;
+  expires_at: string;
+  message: string;
+  token_type: string;
+  user: UserCompany;
+  success: boolean;
   companyCreated: boolean;
-  userType      : UserType;
-  company       : Company[];
+  company: Company;
 }

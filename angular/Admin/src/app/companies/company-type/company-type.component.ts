@@ -56,7 +56,7 @@ export class CompanyTypeComponent extends JqxCustomGridComponent implements OnIn
       { text: lang.instant('typeOrganization.name') , align: 'center', datafield: 'description'}
     ];
 
-    ts.prepareGrid();
+    
     ts.title  = lang.instant('typeOrganization.title');
   }
 

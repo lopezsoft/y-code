@@ -62,7 +62,7 @@ export class TermsComponent extends JqxCustomGridComponent implements OnInit, Af
       { text: 'Descripción', datafield: 'term_description', align: 'center'},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

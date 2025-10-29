@@ -7,7 +7,10 @@ import {
   AuthComponent,
   ForgotPasswordPageComponent,
   ErrorPageComponent,
- } from "./index";
+  NotAuthorizedComponent,
+  ResetPasswordComponent,
+  EmailResendComponent,
+} from './index';
 
 const routes: Routes = [
   {
@@ -15,10 +18,24 @@ const routes: Routes = [
     component : AuthComponent,
     children  : [
       {
+        path: 'error',
+        component: ErrorPageComponent,
+        data: {
+          title: 'Error Page'
+        }
+      },
+      {
         path: 'login',
         component: LoginComponent,
         data: {
           title: 'Login Page'
+        }
+      },
+      {
+        path: 'not-authorized',
+        component: NotAuthorizedComponent,
+        data: {
+          title: 'Not authorized page'
         }
       },
       {
@@ -29,10 +46,24 @@ const routes: Routes = [
         }
       },
       {
+        path: 'password-reset/:token',
+        component: ResetPasswordComponent,
+        data: {
+          title: 'Reset Password Page'
+        }
+      },
+      {
         path: 'register',
         component: RegisterComponent,
         data: {
           title: 'Register Page'
+        }
+      },
+      {
+        path: 'email-resend',
+        component: EmailResendComponent,
+        data: {
+          title: 'Email Resend Page'
         }
       }
     ]

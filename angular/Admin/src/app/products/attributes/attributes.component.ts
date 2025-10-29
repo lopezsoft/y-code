@@ -55,7 +55,7 @@ export class AttributesComponent extends JqxCustomGridComponent implements OnIni
       { text: 'Nombre', datafield: 'attribute_name', align: 'center'},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

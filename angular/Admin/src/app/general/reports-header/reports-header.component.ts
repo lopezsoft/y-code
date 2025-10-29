@@ -58,7 +58,7 @@ export class ReportsHeaderComponent extends JqxCustomGridComponent implements On
         { text: 'Sede/Sucursal', align: 'center', datafield: 'branch_name' },
       ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

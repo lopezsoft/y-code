@@ -58,7 +58,7 @@ export class GroupsComponent extends JqxCustomGridComponent implements OnInit, A
       { text: 'Clase de producto', align: 'center', datafield: 'product_class_name', minWidth: 80},
     ];
 
-    this.prepareGrid();
+    
   }
 
   createData(): void {

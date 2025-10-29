@@ -5,12 +5,17 @@ import { BlockUIModule } from 'ng-block-ui';
 
 import { FooterFormComponent } from './components/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import {NgFallimgModule} from 'ng-fallimg';
+import {ExodolibsModule} from 'exodolibs';
 
 @NgModule({
     exports: [
       FooterFormComponent,
       NgxSpinnerModule,
-      BlockUIModule
+      BlockUIModule,
+      TranslateModule,
+      NgFallimgModule,
+      ExodolibsModule
     ],
     declarations: [
       FooterFormComponent
@@ -18,9 +23,17 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [
         CommonModule,
         NgxSpinnerModule,
-        TranslateModule,
+        TranslateModule.forRoot({
+          defaultLanguage: 'es',
+        }),
+        ExodolibsModule,
         BlockUIModule.forRoot({
             message: 'Procesando...',
+        }),
+        NgFallimgModule.forRoot({
+          default: 'assets/avatars/no-image.png',
+          user: 'assets/avatars/unknown_img.png',
+          product: 'assets/img/Product_32px.png',
         }),
     ]
 })

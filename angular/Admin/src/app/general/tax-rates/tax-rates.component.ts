@@ -2,10 +2,10 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { JqxCustomGridComponent } from './../../core/data/custom-grid/jqx-custom-grid.component';
+import { JqxCustomGridComponent } from '../../core/data/custom-grid/jqx-custom-grid.component';
 import { jqxGridComponent } from 'jqwidgets-ng/jqxgrid';
 
-import { MessagesService, ApiServerService } from './../../utils';
+import { MessagesService, ApiServerService } from '../../utils';
 
 @Component({
   selector: 'app-taxrates',
@@ -69,8 +69,7 @@ export class TaxRatesComponent extends JqxCustomGridComponent implements OnInit,
 					{ text: lang.instant('taxes.rate.frecuency'), align: 'center', datafield: 'fecuency_name', minWidth: 80 },
 					{ text: lang.instant('taxes.rate.accountName'), align: 'center', datafield: 'account_name', minWidth: 120 },
 				];
-	
-			this.prepareGrid();
+			
 		}, 1000);
   }
 
