@@ -1,0 +1,174 @@
+{
+  "analysis": {
+    "total_tables": 79,
+    "created_at": "2025-10-29",
+    "levels": {
+      "critical": {
+        "name": "CRÍTICO - Master/Reference Data",
+        "priority": "🔴 INMEDIATO",
+        "action": "✅ REQUERIDO",
+        "description": "Datos imprescindibles para funcionamiento base. Sin ellos, hay errores en validaciones, FK constraints y cálculos.",
+        "count": 25,
+        "tables": [
+          "countries",
+          "currency_sys",
+          "tax_rates",
+          "accounting_groups",
+          "currency",
+          "departments",
+          "cities",
+          "account_types",
+          "class_of_accounts",
+          "accounting_documents_category",
+          "identity_documents",
+          "type_persons",
+          "type_users",
+          "type_organization",
+          "languajes",
+          "payment_methods",
+          "means_payment",
+          "product_class",
+          "work_shifts",
+          "shipping_frequency",
+          "standard_measurement_units",
+          "tax_group",
+          "fe_tax_level",
+          "fe_tax_regime",
+          "items_types"
+        ]
+      },
+      "important": {
+        "name": "IMPORTANTE - Configuration/Reference Data",
+        "priority": "🟡 PRÓXIMO",
+        "action": "⚠️ RECOMENDADO",
+        "description": "Datos de configuración y referencia. Facilitan operación normal pero no rompen la app si faltan.",
+        "count": 26,
+        "tables": [
+          "company",
+          "branch_offices",
+          "warehouse",
+          "cash_registers",
+          "points_of_sale",
+          "company_departments",
+          "accounting_accounts",
+          "accounting_subaccounts",
+          "accounting_documents",
+          "accounts_base",
+          "tax_accounting_account",
+          "item_type_accounts",
+          "categories",
+          "subcategories",
+          "attributes",
+          "attribute_terms",
+          "sizes",
+          "trademarks",
+          "measurement_units",
+          "report_header",
+          "general_settings",
+          "menus",
+          "menus_items",
+          "tb_time_limit",
+          "fe_party_tax",
+          "fe_reference_price_codes"
+        ]
+      },
+      "transactional": {
+        "name": "TRANSACCIONAL - Datos de Ejemplo/Operación",
+        "priority": "🟢 OPCIONAL",
+        "action": "❌ OPCIONAL",
+        "description": "Datos específicos de operación que varían según instancia. Útiles para testing/desarrollo, NO recomendado en producción.",
+        "count": 28,
+        "tables": [
+          "users",
+          "persons",
+          "secondary_persons",
+          "customers_sale",
+          "products",
+          "product_branch",
+          "product_brands",
+          "product_categories",
+          "product_subcategories",
+          "product_units_measure",
+          "product_code_control",
+          "stock_control",
+          "stock_outings",
+          "sales_master",
+          "sales_detail",
+          "sales_currency",
+          "sales_detail_taxes",
+          "means_payment_sale",
+          "resolution_sale",
+          "resolutions",
+          "invoices",
+          "invoice_detail",
+          "billing_payment",
+          "user_sales",
+          "sales_items",
+          "expenses",
+          "payments",
+          "warehouse_inventory",
+          "assigned_cash_register",
+          "assigned_work_shifts"
+        ]
+      }
+    },
+    "execution_plan": {
+      "phase_1": {
+        "name": "CRÍTICO",
+        "seeder": "CriticalDataSeeder",
+        "tables": 25,
+        "path": "database/seeders/CriticalDataSeeder.php",
+        "command": "php artisan db:seed --class=CriticalDataSeeder",
+        "validation": [
+          "Verificar que no hay FK errors",
+          "Verificar que datos se insertaron correctamente",
+          "Confirmar que app funciona sin errores"
+        ]
+      },
+      "phase_2": {
+        "name": "IMPORTANTE",
+        "seeder": "ConfigurationDataSeeder",
+        "tables": 26,
+        "path": "database/seeders/ConfigurationDataSeeder.php",
+        "command": "php artisan db:seed --class=ConfigurationDataSeeder",
+        "validation": [
+          "Verificar que empresa existe",
+          "Verificar que configuración está lista",
+          "Confirmar que puntos de venta están configurados"
+        ]
+      },
+      "phase_3": {
+        "name": "TRANSACCIONAL (OPCIONAL)",
+        "seeder": "TransactionalDataSeeder",
+        "tables": 28,
+        "path": "database/seeders/TransactionalDataSeeder.php",
+        "command": "php artisan db:seed --class=TransactionalDataSeeder",
+        "validation": [
+          "Verificar que datos de prueba se insertaron",
+          "Confirmar que transacciones están completas"
+        ],
+        "note": "Solo para desarrollo/testing"
+      }
+    },
+    "summary": {
+      "critical": {
+        "level": 1,
+        "count": 25,
+        "action": "REQUERIDO",
+        "priority": "🔴 INMEDIATO"
+      },
+      "important": {
+        "level": 2,
+        "count": 26,
+        "action": "RECOMENDADO",
+        "priority": "🟡 PRÓXIMO"
+      },
+      "transactional": {
+        "level": 3,
+        "count": 28,
+        "action": "OPCIONAL",
+        "priority": "🟢 OPCIONAL"
+      }
+    }
+  }
+}
