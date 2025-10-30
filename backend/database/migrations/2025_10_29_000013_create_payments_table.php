@@ -9,20 +9,32 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('sale_id');
-            $table->unsignedBigInteger('currency_id');
+            $table->id()
+                ->comment('ID único del pago');
+            $table->unsignedBigInteger('company_id')
+                ->comment('FK a companies. Empresa que registra el pago');
+            $table->unsignedBigInteger('sale_id')
+                ->comment('FK a sales. Venta a la que se aplica el pago');
+            $table->unsignedBigInteger('currency_id')
+                ->comment('FK a currency_sys. Moneda del pago');
 
-            $table->string('payment_number', 50);
-            $table->date('payment_date');
-            $table->decimal('amount', 15, 2);
-            $table->string('payment_method', 50);
-            $table->string('reference', 100)->nullable();
-            $table->string('status', 50)->default('pending');
-            $table->text('notes')->nullable();
+            $table->string('payment_number', 50)
+                ->comment('Número único del recibo de pago. Ej: REC-2024-001');
+            $table->date('payment_date')
+                ->comment('Fecha de recepción del pago');
+            $table->decimal('amount', 15, 2)
+                ->comment('Monto del pago recibido');
+            $table->string('payment_method', 50)
+                ->comment('Método de pago: cash, card, transfer, check, credit');
+            $table->string('reference', 100)->nullable()
+                ->comment('Referencia de pago: número de cheque, voucher tarjeta, referencia transferencia. NULL = efectivo sin referencia');
+            $table->string('status', 50)->default('pending')
+                ->comment('Estado del pago: pending, confirmed, rejected, cancelled');
+            $table->text('notes')->nullable()
+                ->comment('Observaciones adicionales del pago');
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()
+                ->comment('Fecha de eliminación lógica. NULL = pago activo');
 
             $table->unique(['company_id', 'payment_number']);
             $table->index('company_id');

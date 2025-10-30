@@ -11,8 +11,11 @@ use Illuminate\Database\Seeder;
  * Orden de ejecución:
  * 1. CountrySeeder (datos globales)
  * 2. CurrencySeeder (datos globales)
- * 3. TaxRateSeeder (datos globales)
- * 4. AccountingGroupSeeder (datos globales)
+ * 3. TributesSeeder (tributos maestros Honduras)
+ * 4. TaxRatesSeeder (tasas de impuestos Honduras)
+ * 5. WithholdingTypesSeeder (tipos de retención Honduras)
+ * 6. TaxRateSeeder (legacy - puede eliminarse si no se usa)
+ * 7. AccountingGroupSeeder (datos globales)
  * 
  * Ejecución:
  * php artisan db:seed
@@ -28,7 +31,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CountrySeeder::class,
             CurrencySeeder::class,
-            TaxRateSeeder::class,
+            TributesSeeder::class,        // NUEVO: Tributos Honduras
+            TaxRatesSeeder::class,        // NUEVO: Tasas impuestos Honduras
+            WithholdingTypesSeeder::class, // NUEVO: Tipos retención Honduras
+            TaxRateSeeder::class,          // Legacy (revisar si se usa)
             AccountingGroupSeeder::class,
         ]);
 

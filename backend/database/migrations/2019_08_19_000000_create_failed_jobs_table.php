@@ -14,12 +14,18 @@ class CreateFailedJobsTable extends Migration
     public function up()
     {
         Schema::create('failed_jobs', function (Blueprint $table) {
-            $table->id();
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->id()
+                ->comment('ID único del trabajo fallido en la cola');
+            $table->text('connection')
+                ->comment('Conexión de cola usada. Ej: "database", "redis", "sync"');
+            $table->text('queue')
+                ->comment('Nombre de la cola. Ej: "default", "emails", "notifications"');
+            $table->longText('payload')
+                ->comment('Datos serializados del trabajo (clase, método, parámetros)');
+            $table->longText('exception')
+                ->comment('Mensaje completo de la excepción que causó el fallo (stack trace)');
+            $table->timestamp('failed_at')->useCurrent()
+                ->comment('Fecha y hora en que el trabajo falló');
         });
     }
 

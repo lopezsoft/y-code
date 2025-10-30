@@ -18,18 +18,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('currency_sys', function (Blueprint $table) {
-            $table->id();
+            $table->id()
+                ->comment('ID único de la moneda');
             
             // Datos de moneda
-            $table->string('currency_code', 3)->unique();  // ej: 'HNL'
-            $table->string('currency_name', 100);
-            $table->char('currency_symbol', 1);
-            $table->decimal('exchange_rate', 10, 4)->default(1);
-            $table->boolean('active')->default(true);
+            $table->string('currency_code', 3)->unique()
+                ->comment('Código ISO 4217 de la moneda. Ej: HNL=Lempira, USD=Dólar, MXN=Peso Mexicano');
+            $table->string('currency_name', 100)
+                ->comment('Nombre completo de la moneda. Ej: "Lempira Hondureño", "Dólar Estadounidense"');
+            $table->char('currency_symbol', 1)
+                ->comment('Símbolo de la moneda. Ej: L (Lempira), $ (Dólar), Q (Quetzal)');
+            $table->decimal('exchange_rate', 10, 4)->default(1)
+                ->comment('Tipo de cambio respecto a moneda base (USD). Ej: 24.7500 HNL = 1 USD. 1.0000 = moneda base');
+            $table->boolean('active')->default(true)
+                ->comment('true = moneda activa y disponible. false = deshabilitada');
             
             // Auditoría
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()
+                ->comment('Fecha de eliminación lógica. NULL = moneda activa');
             
             // Índices
             $table->index('currency_code');

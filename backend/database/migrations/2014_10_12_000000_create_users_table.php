@@ -14,17 +14,27 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->integer('type_id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->boolean('active')->default(false);
-            $table->string('activation_token');
-            $table->rememberToken();
+            $table->id()
+                ->comment('ID único del usuario');
+            $table->integer('type_id')
+                ->comment('FK a type_users. Tipo de usuario: Admin, Contador, Vendedor, etc.');
+            $table->string('name')
+                ->comment('Nombre completo del usuario');
+            $table->string('email')->unique()
+                ->comment('Email único para login. Validado por Laravel');
+            $table->timestamp('email_verified_at')->nullable()
+                ->comment('Fecha de verificación del email. NULL = no verificado');
+            $table->string('password')
+                ->comment('Contraseña hasheada con bcrypt');
+            $table->boolean('active')->default(false)
+                ->comment('true = usuario activo puede acceder. false = bloqueado');
+            $table->string('activation_token')
+                ->comment('Token único para activación inicial de cuenta');
+            $table->rememberToken()
+                ->comment('Token "Remember Me" de Laravel para sesiones persistentes');
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()
+                ->comment('Fecha de eliminación lógica. NULL = usuario activo');
         });
     }
 
